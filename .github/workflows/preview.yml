@@ -1,0 +1,30 @@
+---
+name: Deploy PR previews
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+    branches-ignore:
+      - "**"
+
+concurrency: preview-${{ github.ref }}
+
+jobs:
+  deploy-pr-previews:
+    name: Deploy PR previews
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/actions/build
+
+      - name: Deploy PR previews
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./dist/

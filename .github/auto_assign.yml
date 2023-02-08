@@ -1,0 +1,12 @@
+addReviewers: true
+
+addAssignees: author
+
+reviewers:
+  - chvmvd
+  - kokhayas
+
+numberOfReviewers: 0
+
+skipKeywords:
+  - WIP

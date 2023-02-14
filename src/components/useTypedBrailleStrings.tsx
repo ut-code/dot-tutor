@@ -1,29 +1,29 @@
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 
 interface KeyboardState {
-  KeyS: boolean;
-  KeyD: boolean;
   KeyF: boolean;
+  KeyD: boolean;
+  KeyS: boolean;
   KeyJ: boolean;
   KeyK: boolean;
   KeyL: boolean;
 }
 
 const defaultKeyboardValues = {
-  KeyS: false,
-  KeyD: false,
   KeyF: false,
+  KeyD: false,
+  KeyS: false,
   KeyJ: false,
   KeyK: false,
   KeyL: false,
 };
 
-const availableKeys = ["KeyS", "KeyD", "KeyF", "KeyJ", "KeyK", "KeyL"];
-type AvailableKeys = "KeyS" | "KeyD" | "KeyF" | "KeyJ" | "KeyK" | "KeyL";
+const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyJ", "KeyK", "KeyL"];
+type AvailableKeys = "KeyF" | "KeyD" | "KeyS" | "KeyJ" | "KeyK" | "KeyL";
 
 /**
- * Store the state of S,D,F,J,K,L keys
- * @returns the state of S,D,F,J,K,L keys
+ * Store the state of F,D,S,J,K,L keys
+ * @returns the state of F,D,S,J,K,L keys
  */
 function useKeyboardState(): KeyboardState {
   const keyboardState: KeyboardState = { ...defaultKeyboardValues };
@@ -107,9 +107,9 @@ export function useTypedBraille(): string {
   useEffect(() => {
     // See https://www.unicode.org/charts/PDF/U2800.pdf
     let codePoint = 0x2800;
-    if (typedKey.KeyS) codePoint += 2 ** 0;
+    if (typedKey.KeyF) codePoint += 2 ** 0;
     if (typedKey.KeyD) codePoint += 2 ** 1;
-    if (typedKey.KeyF) codePoint += 2 ** 2;
+    if (typedKey.KeyS) codePoint += 2 ** 2;
     if (typedKey.KeyJ) codePoint += 2 ** 3;
     if (typedKey.KeyK) codePoint += 2 ** 4;
     if (typedKey.KeyL) codePoint += 2 ** 5;

@@ -1,7 +1,7 @@
 import React from "react";
-import useTypedBraille from "../../components/useTypedBraille";
+import useTypedBrailleStrings from "../../components/useTypedBrailleStrings";
 
 export default function Keyboard(): JSX.Element {
-  const typedBraille = useTypedBraille();
-  return <>{typedBraille}</>;
+  const typedBrailleStrings = useTypedBrailleStrings();
+  return <>{typedBrailleStrings}</>;
 }

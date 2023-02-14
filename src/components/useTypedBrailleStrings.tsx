@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 
 interface KeyboardState {
   KeyS: boolean;
@@ -100,7 +100,7 @@ function useTypedKey(): KeyboardState {
  * Store the state of typed braille
  * @returns the state of typed braille
  */
-export default function useTypedBraille(): string {
+export function useTypedBraille(): string {
   const typedKey = useTypedKey();
   const [typedBraille, setTypedBraille] = useState<string>("");
 
@@ -116,4 +116,20 @@ export default function useTypedBraille(): string {
     setTypedBraille(String.fromCodePoint(codePoint));
   }, [typedKey]);
   return typedBraille;
+}
+
+/**
+ * Store braille strings
+ * @returns braille strings
+ */
+export default function useTypedBrailleStrings(): [
+  string,
+  Dispatch<SetStateAction<string>>
+] {
+  const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
+  const typedBraille = useTypedBraille();
+  useEffect(() => {
+    setTypedBrailleStrings(`${typedBrailleStrings}${typedBraille}`);
+  }, [typedBraille]);
+  return [typedBrailleStrings, setTypedBrailleStrings];
 }

@@ -6,5 +6,5 @@ runs:
       uses: ./.github/actions/install-modules
 
     - name: Build
-      run: npm run build
+      run: npm run build && cp dist/index.html dist/404.html
       shell: bash

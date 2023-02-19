@@ -1,4 +1,4 @@
-# Learn Braille
+# 点字学習ソフトウェア
 
 [![React](https://img.shields.io/badge/React-555.svg?logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -6,47 +6,47 @@
 ![LICENSE](https://img.shields.io/badge/license-MIT-informational.svg)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-[日本語版 README はこちら](README-ja.md)
+[English README is here.](README-en.md)
 
-This is software for learning Braille.
+これは、点字学習ソフトウェアです。
 
-## Table of Contents
+## 目次
 
-- [Usage](#usage)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Local Development](#local-development)
-- [License](#license)
-- [Contributing](#contributing)
+- [使い方](#使い方)
+- [要件](#要件)
+- [環境構築](#環境構築)
+- [開発](#開発)
+- [ライセンス](#ライセンス)
+- [貢献](#貢献)
 
-## Usage
+## 使い方
 
-Visit [https://ut-code.github.io/learn-braille/](https://ut-code.github.io/learn-braille/).
+[https://ut-code.github.io/learn-braille/](https://ut-code.github.io/learn-braille/) にアクセスしてください。
 
-## Requirements
+## 要件
 
-- [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/ja/)
 - [npm](https://www.npmjs.com/)
 
-## Installation
+## 環境構築
 
 ```shell
 npm ci
 ```
 
-## Local Development
+## 開発
 
 ```shell
 npm run dev
 ```
 
-After running the command above, visit [http://localhost:5173/](http://localhost:5173/).
+上記のコマンドを実行した後、[http://localhost:5173/](http://localhost:5173/) にアクセスしてください。
 
-## License
+## ライセンス
 
-Learn Braille is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
+点字学習ソフトウェアは [MIT](https://opensource.org/licenses/MIT) ライセンスのもとで公開されています。
 Copyright © 2023 ut.code();.
 
-## Contributing
+## 貢献
 
-Issue or PR is always welcome.
+Issue や PR などはいつでも歓迎します。

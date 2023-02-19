@@ -1,0 +1,19 @@
+---
+name: ESLint
+
+on:
+  pull_request:
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install npm Modules
+        uses: ./.github/actions/install-modules
+
+      - name: Run ESLint
+        run: npx eslint

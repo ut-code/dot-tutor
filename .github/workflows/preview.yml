@@ -1,5 +1,5 @@
 ---
-name: Deploy PR previews
+name: Deploy PR Previews
 
 on:
   pull_request:
@@ -8,23 +8,34 @@ on:
       - reopened
       - synchronize
       - closed
-    branches-ignore:
-      - "**"
 
 concurrency: preview-${{ github.ref }}
 
 jobs:
-  deploy-pr-previews:
-    name: Deploy PR previews
+  deploy-preview:
+    name: Deploy PR Previews
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Make BASE_URL
+        uses: actions/github-script@v6
+        id: base-url
+        with:
+          script: |
+            const refName = "${{ github.ref_name }}"; // PR_NUMBER/merge
+            const prNumber = refName.slice(0, refName.length - 6);
+            const baseUrl = `/learn-braille/pr-preview/pr-${prNumber}/`;
+            return baseUrl;
+          result-encoding: string
+
       - name: Build
         uses: ./.github/actions/build
+        with:
+          base-url: ${{ steps.base-url.outputs.result }}
 
-      - name: Deploy PR previews
+      - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: ./dist/
+          source-dir: dist

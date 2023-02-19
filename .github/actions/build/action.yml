@@ -1,5 +1,8 @@
 ---
 name: Build
+inputs:
+  base-url:
+    required: true
 
 runs:
   using: Composite
@@ -9,4 +12,6 @@ runs:
 
     - name: Build
       run: npm run build && cp dist/index.html dist/404.html
+      env:
+        BASE_URL: ${{ inputs.base-url }}
       shell: bash

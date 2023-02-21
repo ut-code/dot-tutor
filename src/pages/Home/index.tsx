@@ -6,6 +6,8 @@ export default function Home(): JSX.Element {
     <>
       <h1>ホーム</h1>
       <Link to={"/keyboard"}>点字キーボード</Link>
+      <br />
+      <Link to={"/touch"}>Web 点字器</Link>
     </>
   );
 }

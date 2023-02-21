@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Keyboard from "./pages/Keyboard";
+import Touch from "./pages/Touch";
 
 function App(): JSX.Element {
   return (
@@ -11,6 +12,7 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/keyboard" element={<Keyboard />}></Route>
+          <Route path="/touch" element={<Touch />}></Route>
           <Route path="/*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

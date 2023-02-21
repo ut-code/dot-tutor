@@ -81,3 +81,13 @@ export const defaultBrailleStateValue = {
   Dot5: false,
   Dot6: false,
 };
+
+export type AvailableDot = "Dot1" | "Dot2" | "Dot3" | "Dot4" | "Dot5" | "Dot6";
+export const availableDots: AvailableDot[] = [
+  "Dot1",
+  "Dot2",
+  "Dot3",
+  "Dot4",
+  "Dot5",
+  "Dot6",
+];

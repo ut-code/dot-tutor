@@ -71,3 +71,12 @@ export interface BrailleState {
   Dot5: boolean;
   Dot6: boolean;
 }
+
+export const defaultBrailleStateValue = {
+  Dot1: false,
+  Dot2: false,
+  Dot3: false,
+  Dot4: false,
+  Dot5: false,
+  Dot6: false,
+};

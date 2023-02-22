@@ -16,7 +16,10 @@ function App() {
   return (
     <div className="App">
       {/* <p className="text-sky-400/100">The quick brown fox...</p> */}
-            <form method="get">
+
+      <button>文章を入力する</button>
+      <button>ファイルを入力する</button>
+      <form method="get">
         <label htmlFor="text">Text to translate:</label>
         <input onChange={(e) => {setSource(e.target.value)}} value={source} type="text" id="text" name="text" />
       </form>

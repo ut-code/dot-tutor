@@ -2,6 +2,7 @@
 
 [![React](https://img.shields.io/badge/React-555.svg?logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-1e1e20.svg?logo=vite)](https://vitejs.dev/)
 [![Build and Deploy](https://github.com/ut-code/learn-braille/actions/workflows/deploy.yml/badge.svg)](https://github.com/ut-code/learn-braille/actions/workflows/deploy.yml)
 ![LICENSE](https://img.shields.io/badge/license-MIT-informational.svg)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)

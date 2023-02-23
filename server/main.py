@@ -1,6 +1,9 @@
 from urllib import request
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import MeCab 
+import unidic
+import mapping
 
 app = FastAPI()
 
@@ -23,22 +26,35 @@ app.add_middleware(
 async def root():
     return {"message": "Hello World"}
 
+tagger = MeCab.Tagger("-Owakati")
+
 def wakati_func(source):
-    target = source + source
+    target = tagger.parse(source)
     return target
 
 def tenji_func(source):
-    target = source + source
-    return target
+    letter = [_ for _ in source]
+    target = []
+    for char in letter:
+        if char in mapping.mapping:
+            target.append(mapping.mapping[char])
+        elif char == " ": 
+            # print 
+            target.append("　")
+        else:
+            # print 
+            target.append(char)
+    return "".join(target)
 
 def translate_func(text):
     wakati = wakati_func(text)
     tenji = tenji_func(wakati)
-    return tenji
+    return tenji, wakati
 
 
 # translate text to braille
 @app.get("/translate/")
 async def translate(text: str):
-    return {"source": text, "target": translate_func(text)}
+    tenji, wakati = translate_func(text)
+    return {"source": text, "target": tenji, "wakati": wakati}
 

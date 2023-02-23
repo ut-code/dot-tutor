@@ -4,13 +4,14 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [source, setSource] = useState('sample text')
+  const [source, setSource] = useState('今日の天気は晴天ですね。')
   const [target, setTarget] = useState('')
+  const [wakati, setWakati] = useState('')
 
   useEffect(() => {
     fetch('http://localhost:8000/translate/?text=' + source)
       .then(response => response.json())
-      .then(data => setTarget(data.target))
+      .then(data => {setTarget(data.target); setWakati(data.wakati);})
   }, [source, target])
 
   return (
@@ -24,6 +25,7 @@ function App() {
         <input onChange={(e) => {setSource(e.target.value)}} value={source} type="text" id="text" name="text" />
       </form>
       <div>
+        <p>Wakati text: {wakati}</p>
         <p>Translated text: {target}</p>
       </div>
 

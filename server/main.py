@@ -41,22 +41,37 @@ def wakati_tenji_func(source):
     hinshi = ""
     prehinshi = ""
     while node:
-        kana = node.feature.split(",")[9]
         hinshi = node.feature.split(",")[0]
-    
+        if hinshi == "補助記号":
+            kana = node.feature.split(",")[7]
+        else:
+            kana = node.feature.split(",")[9]
+        kana_normal = node.feature.split(",")[6]
+        sign = node.feature.split(",")[7]
+        if hinshi == "名詞" or hinshi == "代名詞":
+            letter = [_ for _ in kana]
+            letter_normal = [_ for _ in kana_normal]
+            for num in range(len(letter)):
+                if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
+                    letter[num] = letter_normal[num]
+            kana = "".join(letter)
         if hinshi == "助動詞" or hinshi == "助詞" or hinshi == "接尾辞":
             target.append(kana)
         elif prehinshi == "接頭辞":
             target.append(kana)
         elif kana == "*":
             pass
-        elif target == "":
+        elif hinshi == "補助記号":
+            target.append(kana)
+        elif target == []:
             target.append(kana)
         else:
             target.append(" " + kana)
         prehinshi = hinshi
         node = node.next
     return "".join(target)
+    
+            
 
 
 '''

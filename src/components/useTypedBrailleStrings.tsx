@@ -7,6 +7,7 @@ interface KeyboardState {
   KeyJ: boolean;
   KeyK: boolean;
   KeyL: boolean;
+  Space: boolean;
 }
 
 const defaultKeyboardValues = {
@@ -16,14 +17,22 @@ const defaultKeyboardValues = {
   KeyJ: false,
   KeyK: false,
   KeyL: false,
+  Space: false,
 };
 
-const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyJ", "KeyK", "KeyL"];
-type AvailableKeys = "KeyF" | "KeyD" | "KeyS" | "KeyJ" | "KeyK" | "KeyL";
+const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyJ", "KeyK", "KeyL", "Space"];
+type AvailableKeys =
+  | "KeyF"
+  | "KeyD"
+  | "KeyS"
+  | "KeyJ"
+  | "KeyK"
+  | "KeyL"
+  | "Space";
 
 /**
- * Store the state of F,D,S,J,K,L keys
- * @returns the state of F,D,S,J,K,L keys
+ * Store the state of F,D,S,J,K,L,Space keys
+ * @returns the state of F,D,S,J,K,L,Space keys
  */
 function useKeyboardState(): KeyboardState {
   const keyboardState: KeyboardState = { ...defaultKeyboardValues };

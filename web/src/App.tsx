@@ -21,10 +21,16 @@ function App() {
   const [wakati, setWakati] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:8000/translate/?text=' + source)
+    fetch('http://localhost:8000/translate/source/?text=' + source)
       .then(response => response.json())
       .then(data => {setTarget(data.target); setWakati(data.wakati);})
-  }, [source, target])
+  }, [source])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/translate/wakati/?text=' + wakati)
+      .then(response => response.json())
+      .then(data => {setTarget(data.target); setSource(data.source);})
+  }, [wakati])
 
   return (
     <div className="App">

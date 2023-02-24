@@ -1,6 +1,18 @@
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import React from 'react'
+
+const TextAreaEditable = () => {
+  const [content, setContent] = React.useState("")
+  
+  return (
+    <textarea className="bg-gray-200 h-60 mx-2"
+      value={content} 
+      onChange={e => setContent(e.currentTarget.value)} 
+    />  
+  )
+}
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,18 +28,24 @@ function App() {
 
   return (
     <div className="App">
-      {/* <p className="text-sky-400/100">The quick brown fox...</p> */}
+    <div className="px-2">
+    <div className="flex mx-2 px-5">
+    <textarea className="bg-gray-100 h-60 mx-2"
+      value={source} 
+      onChange={e => setSource(e.currentTarget.value)} 
+    />  
+        <textarea className="bg-gray-100 h-60 mx-2"
+      value={wakati} 
+      onChange={e => setWakati(e.currentTarget.value)} 
+    />  
+        <textarea className="bg-gray-100 h-60 mx-2"
+      value={target} 
+      onChange={e => setTarget(e.currentTarget.value)} 
+    />  
+    </div>
+  </div>
 
-      <button>文章を入力する</button>
-      <button>ファイルを入力する</button>
-      <form method="get">
-        <label htmlFor="text">Text to translate:</label>
-        <input onChange={(e) => {setSource(e.target.value)}} value={source} type="text" id="text" name="text" />
-      </form>
-      <div>
-        <p>Wakati text: {wakati}</p>
-        <p>Translated text: {target}</p>
-      </div>
+
 
     </div>
   )

@@ -48,16 +48,16 @@ function EdittableBraille({
     Dot1: "40",
     Dot2: "40",
     Dot3: "40",
-    Dot4: "80",
-    Dot5: "80",
-    Dot6: "80",
+    Dot4: "90",
+    Dot5: "90",
+    Dot6: "90",
   };
   const yCoordinateList = {
-    Dot1: "40",
-    Dot2: "80",
+    Dot1: "30",
+    Dot2: "75",
     Dot3: "120",
-    Dot4: "40",
-    Dot5: "80",
+    Dot4: "30",
+    Dot5: "75",
     Dot6: "120",
   };
   return (

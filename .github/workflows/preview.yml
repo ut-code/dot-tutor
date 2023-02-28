@@ -26,7 +26,7 @@ jobs:
           script: |
             const refName = "${{ github.ref_name }}"; // PR_NUMBER/merge
             const prNumber = refName.slice(0, refName.length - 6);
-            const baseUrl = `/learn-braille/pr-preview/pr-${prNumber}/`;
+            const baseUrl = `/learn-braille/pr-preview/pr-${prNumber}`;
             return baseUrl;
           result-encoding: string
 
@@ -38,4 +38,4 @@ jobs:
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: dist
+          source-dir: out

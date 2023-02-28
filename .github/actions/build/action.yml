@@ -11,7 +11,11 @@ runs:
       uses: ./.github/actions/install-modules
 
     - name: Build
-      run: npm run build && cp dist/index.html dist/404.html
+      run: npm run build
       env:
         BASE_URL: ${{ inputs.base-url }}
+      shell: bash
+
+    - name: Export
+      run: npm run export
       shell: bash

@@ -20,10 +20,10 @@ jobs:
       - name: Build
         uses: ./.github/actions/build
         with:
-          base-url: "/learn-braille/"
+          base-url: "/learn-braille"
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           clean-exclude: pr-preview/
-          folder: dist
+          folder: out

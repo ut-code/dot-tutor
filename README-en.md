@@ -41,7 +41,7 @@ npm ci
 npm run dev
 ```
 
-After running the command above, visit [http://localhost:5173/](http://localhost:5173/).
+After running the command above, visit [http://localhost:3000/](http://localhost:3000/).
 
 ## License
 

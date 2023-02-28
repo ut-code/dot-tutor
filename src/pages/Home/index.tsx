@@ -1,13 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export default function Home(): JSX.Element {
   return (
     <>
       <h1>ホーム</h1>
-      <Link to={"/keyboard"}>点字キーボード</Link>
+      <Link href="/Keyboard">点字キーボード</Link>
       <br />
-      <Link to={"/touch"}>Web 点字器</Link>
+      <Link href="/Touch">Web 点字器</Link>
     </>
   );
 }

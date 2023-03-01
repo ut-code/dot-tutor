@@ -15,7 +15,3 @@ runs:
       env:
         BASE_URL: ${{ inputs.base-url }}
       shell: bash
-
-    - name: Export
-      run: npm run export
-      shell: bash

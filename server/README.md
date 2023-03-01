@@ -20,6 +20,10 @@ pip install unidic
 python -m unidic download
 ```
 
+```shell
+pip install uvicorn fastapi
+```
+
 二回目以降
 
 ```shell

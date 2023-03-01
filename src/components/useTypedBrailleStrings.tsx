@@ -60,6 +60,7 @@ function useKeyboardState(): KeyboardState {
       document.removeEventListener("keydown", pressed);
       document.removeEventListener("keyup", released);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return keyboardState;
 }
@@ -90,6 +91,7 @@ function useTypedKey(): KeyboardState {
         // If all values of `keyboardState` are true, store the state.
         if (Object.values(keyboardState).every((value: boolean) => !value)) {
           setTypedKey({ ...pressedKeys });
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           pressedKeys = { ...defaultKeyboardValues };
         }
       }
@@ -139,6 +141,7 @@ export default function useTypedBrailleStrings(): [
   const typedBraille = useTypedBraille();
   useEffect(() => {
     setTypedBrailleStrings(`${typedBrailleStrings}${typedBraille}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedBraille]);
   return [typedBrailleStrings, setTypedBrailleStrings];
 }

@@ -15,3 +15,7 @@ runs:
       env:
         BASE_URL: ${{ inputs.base-url }}
       shell: bash
+
+    - name: Add nojekill
+      run: touch out/.nojekyll
+      shell: bash

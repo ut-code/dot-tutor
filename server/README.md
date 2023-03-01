@@ -5,6 +5,10 @@ python -m venv env
 ```
 
 ```shell
+source ./env/bin/activate
+```
+
+```shell
 pip install mecab-python3
 ```
 

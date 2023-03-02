@@ -16,4 +16,4 @@ jobs:
         uses: ./.github/actions/install-modules
 
       - name: Run ESLint
-        run: npx eslint
+        run: npx eslint .

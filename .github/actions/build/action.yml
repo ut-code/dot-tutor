@@ -16,6 +16,10 @@ runs:
         BASE_URL: ${{ inputs.base-url }}
       shell: bash
 
+    - name: Export
+      run: npm run export
+      shell: bash
+
     - name: Add nojekill
       run: touch out/.nojekyll
       shell: bash

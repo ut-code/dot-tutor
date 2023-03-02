@@ -43,6 +43,7 @@ function EdittableBraille({
         i === index ? toBrailleChar(brailleState) : brailleChar
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
   const xCoordinateList = {
     Dot1: "40",
@@ -99,7 +100,9 @@ export default function Touch(): JSX.Element {
 
   const [hiraganaStrings, setHiraganaStrings] = useState<string>();
 
-  const translateBrailleToHiragana = (brailleStrings: BrailleChar[]) => {
+  const translateBrailleToHiragana: (brailleStrings: BrailleChar[]) => void = (
+    brailleStrings: BrailleChar[]
+  ) => {
     let hiraganaStrings: string = "";
     let dakuten: boolean = false;
     let handakuten: boolean = false;
@@ -107,20 +110,20 @@ export default function Touch(): JSX.Element {
     let dakutenContraction: boolean = false;
     let handakutenContraction: boolean = false;
 
-    brailleStrings.map((brailleChar, i) => {
+    for (let i = 0; i < brailleStrings.length; i++) {
       let hiragana: string = "";
-      //日本語凸面点字の対応
-      if (brailleStrings[i] == "⠁") {
+      // 日本語凸面点字の対応
+      if (brailleStrings[i] === "⠁") {
         hiragana = "あ";
-      } else if (brailleStrings[i] == "⠃") {
+      } else if (brailleStrings[i] === "⠃") {
         hiragana = "い";
-      } else if (brailleStrings[i] == "⠉") {
+      } else if (brailleStrings[i] === "⠉") {
         hiragana = "う";
-      } else if (brailleStrings[i] == "⠋") {
+      } else if (brailleStrings[i] === "⠋") {
         hiragana = "え";
-      } else if (brailleStrings[i] == "⠊") {
+      } else if (brailleStrings[i] === "⠊") {
         hiragana = "お";
-      } else if (brailleStrings[i] == "⠡") {
+      } else if (brailleStrings[i] === "⠡") {
         if (dakuten) {
           hiragana = "が";
           dakuten = false;
@@ -133,14 +136,14 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "か";
         }
-      } else if (brailleStrings[i] == "⠣") {
+      } else if (brailleStrings[i] === "⠣") {
         if (dakuten) {
           hiragana = "ぎ";
           dakuten = false;
         } else {
           hiragana = "き";
         }
-      } else if (brailleStrings[i] == "⠩") {
+      } else if (brailleStrings[i] === "⠩") {
         if (dakuten) {
           hiragana = "ぐ";
           dakuten = false;
@@ -153,14 +156,14 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "く";
         }
-      } else if (brailleStrings[i] == "⠫") {
+      } else if (brailleStrings[i] === "⠫") {
         if (dakuten) {
           hiragana = "げ";
           dakuten = false;
         } else {
           hiragana = "け";
         }
-      } else if (brailleStrings[i] == "⠪") {
+      } else if (brailleStrings[i] === "⠪") {
         if (dakuten) {
           hiragana = "ご";
           dakuten = false;
@@ -173,7 +176,7 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "こ";
         }
-      } else if (brailleStrings[i] == "⠱") {
+      } else if (brailleStrings[i] === "⠱") {
         if (dakuten) {
           hiragana = "ざ";
           dakuten = false;
@@ -186,14 +189,14 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "さ";
         }
-      } else if (brailleStrings[i] == "⠳") {
+      } else if (brailleStrings[i] === "⠳") {
         if (dakuten) {
           hiragana = "じ";
           dakuten = false;
         } else {
           hiragana = "し";
         }
-      } else if (brailleStrings[i] == "⠹") {
+      } else if (brailleStrings[i] === "⠹") {
         if (dakuten) {
           hiragana = "ず";
           dakuten = false;
@@ -206,14 +209,14 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "す";
         }
-      } else if (brailleStrings[i] == "⠻") {
+      } else if (brailleStrings[i] === "⠻") {
         if (dakuten) {
           hiragana = "ぜ";
           dakuten = false;
         } else {
           hiragana = "せ";
         }
-      } else if (brailleStrings[i] == "⠺") {
+      } else if (brailleStrings[i] === "⠺") {
         if (dakuten) {
           hiragana = "ぞ";
           dakuten = false;
@@ -226,7 +229,7 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "そ";
         }
-      } else if (brailleStrings[i] == "⠕") {
+      } else if (brailleStrings[i] === "⠕") {
         if (dakuten) {
           hiragana = "だ";
           dakuten = false;
@@ -239,14 +242,14 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "た";
         }
-      } else if (brailleStrings[i] == "⠗") {
+      } else if (brailleStrings[i] === "⠗") {
         if (dakuten) {
           hiragana = "ぢ";
           dakuten = false;
         } else {
           hiragana = "ち";
         }
-      } else if (brailleStrings[i] == "⠝") {
+      } else if (brailleStrings[i] === "⠝") {
         if (dakuten) {
           hiragana = "づ";
           dakuten = false;
@@ -259,14 +262,14 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "つ";
         }
-      } else if (brailleStrings[i] == "⠟") {
+      } else if (brailleStrings[i] === "⠟") {
         if (dakuten) {
           hiragana = "で";
           dakuten = false;
         } else {
           hiragana = "て";
         }
-      } else if (brailleStrings[i] == "⠞") {
+      } else if (brailleStrings[i] === "⠞") {
         if (dakuten) {
           hiragana = "ど";
           dakuten = false;
@@ -279,32 +282,32 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "と";
         }
-      } else if (brailleStrings[i] == "⠅") {
+      } else if (brailleStrings[i] === "⠅") {
         if (contraction) {
           hiragana = "にゃ";
           contraction = false;
         } else {
           hiragana = "な";
         }
-      } else if (brailleStrings[i] == "⠇") {
+      } else if (brailleStrings[i] === "⠇") {
         hiragana = "に";
-      } else if (brailleStrings[i] == "⠍") {
+      } else if (brailleStrings[i] === "⠍") {
         if (contraction) {
           hiragana = "にゅ";
           contraction = false;
         } else {
           hiragana = "ぬ";
         }
-      } else if (brailleStrings[i] == "⠏") {
+      } else if (brailleStrings[i] === "⠏") {
         hiragana = "ね";
-      } else if (brailleStrings[i] == "⠎") {
+      } else if (brailleStrings[i] === "⠎") {
         if (contraction) {
           hiragana = "にょ";
           contraction = false;
         } else {
           hiragana = "の";
         }
-      } else if (brailleStrings[i] == "⠥") {
+      } else if (brailleStrings[i] === "⠥") {
         if (dakuten) {
           hiragana = "ば";
           dakuten = false;
@@ -320,7 +323,7 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "は";
         }
-      } else if (brailleStrings[i] == "⠧") {
+      } else if (brailleStrings[i] === "⠧") {
         if (dakuten) {
           hiragana = "び";
           dakuten = false;
@@ -330,7 +333,7 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "ひ";
         }
-      } else if (brailleStrings[i] == "⠭") {
+      } else if (brailleStrings[i] === "⠭") {
         if (dakuten) {
           hiragana = "ぶ";
           dakuten = false;
@@ -349,7 +352,7 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "ふ";
         }
-      } else if (brailleStrings[i] == "⠯") {
+      } else if (brailleStrings[i] === "⠯") {
         if (dakuten) {
           hiragana = "べ";
           dakuten = false;
@@ -359,7 +362,7 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "へ";
         }
-      } else if (brailleStrings[i] == "⠮") {
+      } else if (brailleStrings[i] === "⠮") {
         if (dakuten) {
           hiragana = "ぼ";
           dakuten = false;
@@ -378,85 +381,85 @@ export default function Touch(): JSX.Element {
         } else {
           hiragana = "ほ";
         }
-      } else if (brailleStrings[i] == "⠵") {
+      } else if (brailleStrings[i] === "⠵") {
         if (contraction) {
           hiragana = "みゃ";
           contraction = false;
         } else {
           hiragana = "ま";
         }
-      } else if (brailleStrings[i] == "⠷") {
+      } else if (brailleStrings[i] === "⠷") {
         hiragana = "み";
-      } else if (brailleStrings[i] == "⠽") {
+      } else if (brailleStrings[i] === "⠽") {
         if (contraction) {
           hiragana = "みゅ";
           contraction = false;
         } else {
           hiragana = "む";
         }
-      } else if (brailleStrings[i] == "⠿") {
+      } else if (brailleStrings[i] === "⠿") {
         hiragana = "め";
-      } else if (brailleStrings[i] == "⠾") {
+      } else if (brailleStrings[i] === "⠾") {
         if (contraction) {
           hiragana = "みょ";
           contraction = false;
         } else {
           hiragana = "も";
         }
-      } else if (brailleStrings[i] == "⠌") {
+      } else if (brailleStrings[i] === "⠌") {
         hiragana = "や";
-      } else if (brailleStrings[i] == "⠬") {
+      } else if (brailleStrings[i] === "⠬") {
         hiragana = "ゆ";
-      } else if (brailleStrings[i] == "⠜") {
+      } else if (brailleStrings[i] === "⠜") {
         hiragana = "よ";
-      } else if (brailleStrings[i] == "⠑") {
+      } else if (brailleStrings[i] === "⠑") {
         if (contraction) {
           hiragana = "りゃ";
           contraction = false;
         } else {
           hiragana = "ら";
         }
-      } else if (brailleStrings[i] == "⠓") {
+      } else if (brailleStrings[i] === "⠓") {
         hiragana = "り";
-      } else if (brailleStrings[i] == "⠙") {
+      } else if (brailleStrings[i] === "⠙") {
         if (contraction) {
           hiragana = "りゅ";
           contraction = false;
         } else {
           hiragana = "る";
         }
-      } else if (brailleStrings[i] == "⠛") {
+      } else if (brailleStrings[i] === "⠛") {
         hiragana = "れ";
-      } else if (brailleStrings[i] == "⠚") {
+      } else if (brailleStrings[i] === "⠚") {
         if (contraction) {
           hiragana = "りょ";
           contraction = false;
         } else {
           hiragana = "ろ";
         }
-      } else if (brailleStrings[i] == "⠄") {
+      } else if (brailleStrings[i] === "⠄") {
         hiragana = "わ";
-      } else if (brailleStrings[i] == "⠔") {
+      } else if (brailleStrings[i] === "⠔") {
         hiragana = "を";
-      } else if (brailleStrings[i] == "⠴") {
+      } else if (brailleStrings[i] === "⠴") {
         hiragana = "ん";
-      } else if (brailleStrings[i] == "⠒") {
+      } else if (brailleStrings[i] === "⠒") {
         hiragana = "ー";
-      } else if (brailleStrings[i] == "⠂") {
+      } else if (brailleStrings[i] === "⠂") {
         hiragana = "っ";
-      } else if (brailleStrings[i] == "⠐") {
+      } else if (brailleStrings[i] === "⠐") {
         dakuten = true;
-      } else if (brailleStrings[i] == "⠠") {
+      } else if (brailleStrings[i] === "⠠") {
         handakuten = true;
-      } else if (brailleStrings[i] == "⠈") {
+      } else if (brailleStrings[i] === "⠈") {
         contraction = true;
-      } else if (brailleStrings[i] == "⠘") {
+      } else if (brailleStrings[i] === "⠘") {
         dakutenContraction = true;
-      } else if (brailleStrings[i] == "⠨") {
+      } else if (brailleStrings[i] === "⠨") {
         handakutenContraction = true;
       }
       hiraganaStrings += hiragana;
-    });
+    }
     setHiraganaStrings(hiraganaStrings);
   };
 

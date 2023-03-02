@@ -4,12 +4,13 @@ env:
 extends:
   - plugin:react/recommended
   - standard-with-typescript
+  - next/core-web-vitals
   - prettier
 overrides: []
 parserOptions:
   ecmaVersion: latest
   sourceType: module
-  project: ["./tsconfig.json"]
+  project: tsconfig.json
 plugins:
   - react
 rules: {}

@@ -41,7 +41,7 @@ npm ci
 npm run dev
 ```
 
-上記のコマンドを実行した後、[http://localhost:5173/](http://localhost:5173/) にアクセスしてください。
+上記のコマンドを実行した後、[http://localhost:3000/](http://localhost:3000/) にアクセスしてください。
 
 ## ライセンス
 

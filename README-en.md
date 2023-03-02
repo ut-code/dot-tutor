@@ -1,10 +1,10 @@
 # Learn Braille
 
-[![React](https://img.shields.io/badge/React-555.svg?logo=react)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-1e1e20.svg?logo=vite)](https://vitejs.dev/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000.svg?logo=next.js)](https://github.com/vercel/next.js/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://github.com/microsoft/TypeScript)
 [![Build and Deploy](https://github.com/ut-code/learn-braille/actions/workflows/deploy.yml/badge.svg)](https://github.com/ut-code/learn-braille/actions/workflows/deploy.yml)
-![LICENSE](https://img.shields.io/badge/license-MIT-informational.svg)
+[![ESLint](https://github.com/ut-code/learn-braille/actions/workflows/eslint.yml/badge.svg)](https://github.com/ut-code/learn-braille/actions/workflows/eslint.yml)
+![license](https://img.shields.io/badge/license-MIT-informational.svg)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 [日本語版 README はこちら](README.md)
@@ -13,29 +13,36 @@ This is software for learning Braille.
 
 ## Table of Contents
 
+- [About](#about)
 - [Usage](#usage)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Local Development](#local-development)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Local Development](#local-development)
 - [License](#license)
 - [Contributing](#contributing)
 
+## About
+
+This is software for learning Braille.
+
 ## Usage
 
-Visit [https://ut-code.github.io/learn-braille/](https://ut-code.github.io/learn-braille/).
+Visit [here](https://ut-code.github.io/learn-braille/).
 
-## Requirements
+## Development
 
-- [Node.js](https://nodejs.org/en/)
-- [npm](https://www.npmjs.com/)
+### Requirements
 
-## Installation
+- [npm](https://github.com/npm/cli)
+
+### Installation
 
 ```shell
 npm ci
 ```
 
-## Local Development
+### Local Development
 
 ```shell
 npm run dev
@@ -46,6 +53,7 @@ After running the command above, visit [http://localhost:3000/](http://localhost
 ## License
 
 Learn Braille is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
+
 Copyright © 2023 ut.code();.
 
 ## Contributing

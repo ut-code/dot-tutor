@@ -1,5 +1,14 @@
 import Head from "next/head";
-import Link from "next/link";
+import NextLink from "next/link";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Stack,
+  Link,
+  IconButton,
+} from "@mui/material";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Home(): JSX.Element {
   return (
@@ -10,11 +19,36 @@ export default function Home(): JSX.Element {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <AppBar component="nav">
+        <Toolbar>
+          <Typography variant="h5" component="h1" flexGrow={1}>
+            点字学習ソフトウェア
+          </Typography>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Link
+              href="/"
+              component={NextLink}
+              color="inherit"
+              underline="hover"
+              sx={{ fontSize: "large" }}
+            >
+              Home
+            </Link>
+            <IconButton
+              color="inherit"
+              href="https://github.com/ut-code/learn-braille"
+            >
+              <GitHubIcon fontSize="large" />
+            </IconButton>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
       <main>
         <h1>ホーム</h1>
-        <Link href="/keyboard">点字キーボード</Link>
+        <NextLink href="/keyboard">点字キーボード</NextLink>
         <br />
-        <Link href="/touch">Web 点字器</Link>
+        <NextLink href="/touch">Web 点字器</NextLink>
       </main>
     </>
   );

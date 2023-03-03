@@ -1,5 +1,6 @@
 import Head from "next/head";
 import NextLink from "next/link";
+import Image from "next/image";
 import {
   AppBar,
   Toolbar,
@@ -17,13 +18,21 @@ export default function Home(): JSX.Element {
         <title>点字学習ソフトウェア</title>
         <meta name="description" content="点字学習ソフトウェアです" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
       <AppBar component="nav">
         <Toolbar>
-          <Typography variant="h5" component="h1" flexGrow={1}>
-            点字学習ソフトウェア
-          </Typography>
+          <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
+            <Image
+              src="/logo-black-background.svg"
+              alt="ロゴ"
+              width="150"
+              height="40"
+            />
+            <Typography variant="h5" component="h1">
+              点字学習ソフトウェア
+            </Typography>
+          </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
             <Link
               href="/"

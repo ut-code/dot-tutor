@@ -6,6 +6,9 @@ const nextConfig = {
   reactStrictMode: true,
   assetPrefix: `${BASE_URL}/`,
   basePath: BASE_URL,
+  publicRuntimeConfig: {
+    staticFolder: BASE_URL,
+  },
   images: {
     unoptimized: true,
   },

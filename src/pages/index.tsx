@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { url } from "@/utils/config";
 import {
   Card,
   CardActionArea,
@@ -50,14 +51,14 @@ export default function Home(): JSX.Element {
           <NavigationCard
             title="点字キーボード"
             linkUrl="/keyboard"
-            imgPath="/logo.svg"
+            imgPath={url("/logo.svg")}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <NavigationCard
             title="Web 点字器"
             linkUrl="/touch"
-            imgPath="/logo.svg"
+            imgPath={url("/logo.svg")}
           />
         </Grid>
       </Grid>

@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import NextLink from "next/link";
 import Image from "next/image";
+import { url } from "@/utils/config";
 import {
   AppBar,
   Toolbar,
@@ -21,13 +22,13 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
         <title>点字学習ソフトウェア</title>
         <meta name="description" content="点字学習ソフトウェアです。" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href={url("/favicon.svg")} />
       </Head>
       <AppBar component="nav">
         <Toolbar>
           <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
             <Image
-              src="/logo-black-background.svg"
+              src={url("/logo-black-background.svg")}
               alt="ロゴ"
               width="150"
               height="40"

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import {
   AppBar,
@@ -8,10 +9,17 @@ import {
   Stack,
   Link,
   IconButton,
+  Box,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Grid,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Home(): JSX.Element {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -29,7 +37,7 @@ export default function Home(): JSX.Element {
               width="150"
               height="40"
             />
-            <Typography variant="h5" component="h1">
+            <Typography variant="h5" component="div">
               点字学習ソフトウェア
             </Typography>
           </Stack>
@@ -53,12 +61,50 @@ export default function Home(): JSX.Element {
         </Toolbar>
       </AppBar>
       <Toolbar />
-      <main>
-        <h1>ホーム</h1>
-        <NextLink href="/keyboard">点字キーボード</NextLink>
-        <br />
-        <NextLink href="/touch">Web 点字器</NextLink>
-      </main>
+      <Box m={2}>
+        <main>
+          <Box m={2}>
+            <Typography variant="h5" component="h1">
+              ようこそ
+            </Typography>
+            <Typography variant="body1" component="p">
+              ここでは、チュートリアル形式で点字について学ぶことができます。
+            </Typography>
+          </Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Card sx={{ maxWidth: 400 }}>
+                <CardActionArea
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onClick={async () => await router.push("/keyboard")}
+                >
+                  <CardMedia component="img" image="/logo.svg" />
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      点字キーボード
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Card sx={{ maxWidth: 400 }}>
+                <CardActionArea
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onClick={async () => await router.push("/touch")}
+                >
+                  <CardMedia component="img" image="/logo.svg" />
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      Web 点字器
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          </Grid>
+        </main>
+      </Box>
     </>
   );
 }

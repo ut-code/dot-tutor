@@ -12,6 +12,7 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1",
     "http://127.0.0.1:5173",
+    "http://localhost:8000",
 ]
 
 app.add_middleware(
@@ -26,7 +27,6 @@ app.add_middleware(
 async def root():
     return {"message": "Hello World"}
 
-tagger = MeCab.Tagger()
 
 '''
 def wakati_func(source):
@@ -34,7 +34,8 @@ def wakati_func(source):
     return target
 '''
 
-def wakati_tenji_func(source):
+def wakati_func(source):
+    tagger = MeCab.Tagger()
     node = tagger.parseToNode(source)
     target = []
     
@@ -71,7 +72,6 @@ def wakati_tenji_func(source):
         node = node.next
     return "".join(target)
     
-            
 
 
 '''
@@ -89,6 +89,16 @@ def tenji_func(source):
             target.append(char)
     return "".join(target)
 '''
+
+def wakati_oyomi_func(source):
+    # mecab -Owakati, -Oyomi
+    owakati_tagger = MeCab.Tagger("-Owakati")
+    oyomi_tagger = MeCab.Tagger("-Oyomi")
+    owakati = owakati_tagger.parse(source)
+    oyomi = oyomi_tagger.parse(source)
+    target = oyomi
+    return target
+
 
 def tenji_func(source):
     letter = [_ for _ in source]
@@ -109,7 +119,7 @@ def tenji_func(source):
     return "".join(target)
 
 def translate_func(text):
-    wakati = wakati_tenji_func(text)
+    wakati = wakati_func(text)
     tenji = tenji_func(wakati)
     return tenji, wakati
 
@@ -117,6 +127,25 @@ def translate_func(text):
 # translate text to braille
 @app.get("/translate/source/")
 async def translate(text: str):
+
+    tenji, wakati = translate_func(text)
+    return {"source": text, "tenji": tenji, "wakati": wakati}
+
+@app.get("/wakati/")
+async def wakati(text: str):
+    wakati = wakati_func(text)
+    return {"source": text, "wakati": wakati}
+
+@app.get("/tenji/")
+async def tenji(text: str):
+    tenji = tenji_func(text)
+    return {"source": text, "tenji": tenji}
+
+@app.get("/evaluation/")
+async def evaluation(source: str, wakati: str, evaluation: str):
+    print("source: " + source, "wakati: " + wakati, "evaluation: " + evaluation, sep = ",")
+    return
+
     source = text
     tenji, wakati = translate_func(source)
     return {"source": text, "target": tenji, "wakati": wakati}

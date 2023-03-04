@@ -108,12 +108,12 @@ function useTypedKey(): KeyboardState {
 }
 
 /**
- * Store the state of typed braille
- * @returns the state of typed braille
+ * Store the state of typed brailles
+ * @returns the state of typed brailles
  */
-export function useTypedBraille(): string {
+export function useTypedBrailles(): string {
   const typedKey = useTypedKey();
-  const [typedBraille, setTypedBraille] = useState<string>("");
+  const [typedBrailles, setTypedBrailles] = useState<string>("");
 
   useEffect(() => {
     // See https://www.unicode.org/charts/PDF/U2800.pdf
@@ -124,9 +124,9 @@ export function useTypedBraille(): string {
     if (typedKey.KeyJ) codePoint += 2 ** 3;
     if (typedKey.KeyK) codePoint += 2 ** 4;
     if (typedKey.KeyL) codePoint += 2 ** 5;
-    setTypedBraille(String.fromCodePoint(codePoint));
+    setTypedBrailles(`${typedBrailles}${String.fromCodePoint(codePoint)}`);
   }, [typedKey]);
-  return typedBraille;
+  return typedBrailles;
 }
 
 /**
@@ -138,10 +138,10 @@ export default function useTypedBrailleStrings(): [
   Dispatch<SetStateAction<string>>
 ] {
   const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
-  const typedBraille = useTypedBraille();
+  const typedBrailles = useTypedBrailles();
   useEffect(() => {
-    setTypedBrailleStrings(`${typedBrailleStrings}${typedBraille}`);
+    setTypedBrailleStrings(`${typedBrailles}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typedBraille]);
+  }, [typedBrailles]);
   return [typedBrailleStrings, setTypedBrailleStrings];
 }

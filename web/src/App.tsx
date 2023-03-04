@@ -128,9 +128,7 @@ function App() {
             />  
             <div>元の文</div>
             <div>
-            <textarea className="bg-green-100 h-60 mx-2"
-            value={wakati2} 
-            /> 
+            <div className="bg-green-100 h-60 mx-2">{wakati2}</div>
             <div className="flex flex-col float-right">
               {thumbdown2 || <ThumbUpOffAlt onClick={()=>{setThumbup2(true)}}/>}
               {thumbup2 || <ThumbDownOffAlt onClick={()=>{setThumbdown2(true)}}/>}        

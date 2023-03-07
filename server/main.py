@@ -43,8 +43,11 @@ def wakati_func(source):
     prehinshi = ""
     while node:
         hinshi = node.feature.split(",")[0]
+        hinshi_specific = node.feature.split(",")[1]
         if hinshi == "補助記号":
             kana = node.feature.split(",")[7]
+        elif hinshi_specific == "数詞":
+            kana = node
         else:
             kana = node.feature.split(",")[9]
         kana_normal = node.feature.split(",")[6]
@@ -106,15 +109,17 @@ def tenji_func(source):
     for char in letter:
         if char in mapping.mapping:
             target.append(mapping.mapping[char])
+        
+        elif prechar + char in mapping.mapping:
+            target.pop(len(target) - 1)
+            target.append(mapping.mapping[prechar + char])
+        elif char in mapping.mapping_num:
+            target.append(mapping.mapping_num[char])
         elif char == " ": 
             # print 
             target.append("　")
         else:
-            if prechar + char in mapping.mapping:
-                target.pop(len(target) - 1)
-                target.append(mapping.mapping[prechar + char])
-            else:
-                target.append(char)
+            target.append(char)
         prechar = char
     return "".join(target)
 

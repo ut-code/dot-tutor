@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
 import Image from "next/image";
@@ -7,17 +8,22 @@ import {
   Toolbar,
   Stack,
   Typography,
+  Button,
   Link,
   IconButton,
   Box,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { TutorialDialog, type TutorialDialogSteps } from "./TutorialDialog";
 
 export default function Layout({
   children,
+  tutorialDialogSteps,
 }: {
   children: React.ReactNode;
+  tutorialDialogSteps?: TutorialDialogSteps;
 }): JSX.Element {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Head>
@@ -40,6 +46,24 @@ export default function Layout({
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
+            {tutorialDialogSteps != null && (
+              <>
+                <Button
+                  color="inherit"
+                  variant="outlined"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  スライドで確認
+                </Button>
+                <TutorialDialog
+                  open={open}
+                  setOpen={setOpen}
+                  tutorialDialogSteps={tutorialDialogSteps}
+                />
+              </>
+            )}
             <Link
               href="/"
               component={NextLink}

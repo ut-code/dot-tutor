@@ -14,9 +14,9 @@ interface TutorialDialogStep {
   content: JSX.Element;
 }
 
-type TutorialDialogSteps = TutorialDialogStep[];
+export type TutorialDialogSteps = TutorialDialogStep[];
 
-export default function TutorialDialog(props: {
+export function TutorialDialog(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   tutorialDialogSteps: TutorialDialogSteps;

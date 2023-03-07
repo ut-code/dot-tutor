@@ -36,43 +36,45 @@ def wakati_func(source):
 
 def wakati_func(source):
     tagger = MeCab.Tagger()
-    node = tagger.parseToNode(source)
+    parses = tagger.parse(source)
+    pasrses_1 = parses.split('\n')
     target = []
     
     hinshi = ""
     prehinshi = ""
-    while node:
-        hinshi = node.feature.split(",")[0]
-        hinshi_specific = node.feature.split(",")[1]
-        if hinshi == "補助記号":
-            kana = node.feature.split(",")[7]
-        elif hinshi_specific == "数詞":
-            kana = node
-        else:
-            kana = node.feature.split(",")[9]
-        kana_normal = node.feature.split(",")[6]
-        sign = node.feature.split(",")[7]
-        if hinshi == "名詞" or hinshi == "代名詞":
-            letter = [_ for _ in kana]
-            letter_normal = [_ for _ in kana_normal]
-            for num in range(len(letter)):
-                if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
-                    letter[num] = letter_normal[num]
-            kana = "".join(letter)
-        if hinshi == "助動詞" or hinshi == "助詞" or hinshi == "接尾辞":
-            target.append(kana)
-        elif prehinshi == "接頭辞":
-            target.append(kana)
-        elif kana == "*":
-            pass
-        elif hinshi == "補助記号":
-            target.append(kana)
-        elif target == []:
-            target.append(kana)
-        else:
-            target.append(" " + kana)
-        prehinshi = hinshi
-        node = node.next
+    for parse in pasrses_1:
+        par = parse.split('\t')
+        if len(par) == 2:
+            hinshi = par[1].split(",")[0]
+            hinshi_specific = par[1].split(",")[1]
+            if hinshi == "補助記号":
+                kana = parse.split()[0]
+            elif hinshi_specific == "数詞":
+                kana = parse.split()[0]
+            else:
+                kana = par[1].split(",")[9]
+                kana_normal = par[1].split(",")[6]
+            
+            if hinshi == "名詞" or hinshi == "代名詞":
+                letter = [_ for _ in kana]
+                letter_normal = [_ for _ in kana_normal]
+                for num in range(len(letter)):
+                    if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
+                        letter[num] = letter_normal[num]
+                kana = "".join(letter)
+            if hinshi == "助動詞" or hinshi == "助詞" or hinshi == "接尾辞":
+                target.append(kana)
+            elif prehinshi == "接頭辞":
+                target.append(kana)
+            elif kana == "*":
+                pass
+            elif hinshi == "補助記号":
+                target.append(kana)
+            elif target == []:
+                target.append(kana)
+            else:
+                target.append(" " + kana)
+            prehinshi = hinshi
     return "".join(target)
     
 
@@ -106,15 +108,19 @@ def wakati_oyomi_func(source):
 def tenji_func(source):
     letter = [_ for _ in source]
     target = []
+    pre_num = False
     for char in letter:
         if char in mapping.mapping:
             target.append(mapping.mapping[char])
-        
         elif prechar + char in mapping.mapping:
             target.pop(len(target) - 1)
             target.append(mapping.mapping[prechar + char])
         elif char in mapping.mapping_num:
-            target.append(mapping.mapping_num[char])
+            if pre_num == True:
+                target.append(mapping.mapping_num[char])
+            else:
+                target.append("⠼" + mapping.mapping_num[char])
+            pre_num = True
         elif char == " ": 
             # print 
             target.append("　")

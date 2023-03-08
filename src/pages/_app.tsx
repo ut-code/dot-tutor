@@ -1,6 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
 import type { AppProps } from "next/app";
-import { Typography } from "@mui/material";
+import { Typography, Link } from "@mui/material";
+import NextLink from "next/link";
 
 function H1(props: any): JSX.Element {
   return (
@@ -134,6 +135,10 @@ function Li(props: any): JSX.Element {
   );
 }
 
+function A(props: any): JSX.Element {
+  return <Link component={NextLink} color="inherit" {...props} />;
+}
+
 const components = {
   h1: H1,
   h2: H2,
@@ -145,6 +150,7 @@ const components = {
   ul: UL,
   ol: OL,
   li: Li,
+  a: A,
 };
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

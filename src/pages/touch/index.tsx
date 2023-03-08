@@ -44,6 +44,7 @@ function EdittableBraille({
         i === index ? toBrailleChar(brailleState) : brailleChar
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
   const xCoordinateList = {
     Dot1: "40",

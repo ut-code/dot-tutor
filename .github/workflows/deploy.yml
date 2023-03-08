@@ -17,13 +17,25 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Make BASE_URL
+        uses: actions/github-script@v6
+        id: base-url
+        with:
+          script: |
+            const githubRepository = "${{ github.repository }}"; // owner/repo
+            const githubOwner = "${{ github.repository_owner }}"; // owner
+            const githubRepositoryName = githubRepository.slice(githubOwner.length + 1); // repo
+            const baseUrl = `/${githubRepositoryName}`;
+            return baseUrl;
+          result-encoding: string
+
       - name: Build
         uses: ./.github/actions/build
         with:
-          base-url: "/learn-braille/"
+          base-url: ${{ steps.base-url.outputs.result }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           clean-exclude: pr-preview/
-          folder: dist
+          folder: out

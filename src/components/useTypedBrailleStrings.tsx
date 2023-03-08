@@ -125,6 +125,7 @@ export function useTypedBrailles(): string {
     if (typedKey.KeyK) codePoint += 2 ** 4;
     if (typedKey.KeyL) codePoint += 2 ** 5;
     setTypedBrailles(`${typedBrailles}${String.fromCodePoint(codePoint)}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKey]);
   return typedBrailles;
 }

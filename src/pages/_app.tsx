@@ -80,6 +80,19 @@ function H6(props: any): JSX.Element {
   );
 }
 
+function P(props: any): JSX.Element {
+  return (
+    <Typography
+      variant="body1"
+      component="p"
+      color="inherit"
+      mt={1}
+      mb={1}
+      {...props}
+    />
+  );
+}
+
 const components = {
   h1: H1,
   h2: H2,
@@ -87,6 +100,7 @@ const components = {
   h4: H4,
   h5: H5,
   h6: H6,
+  p: P,
 };
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

@@ -93,6 +93,47 @@ function P(props: any): JSX.Element {
   );
 }
 
+function UL(props: any): JSX.Element {
+  return (
+    <Typography
+      variant="body1"
+      component="ul"
+      color="inherit"
+      mt={1}
+      mb={1}
+      pl={2}
+      {...props}
+    />
+  );
+}
+
+function OL(props: any): JSX.Element {
+  return (
+    <Typography
+      variant="body1"
+      component="ol"
+      color="inherit"
+      mt={1}
+      mb={1}
+      pl={2}
+      {...props}
+    />
+  );
+}
+
+function Li(props: any): JSX.Element {
+  return (
+    <Typography
+      variant="body1"
+      component="li"
+      color="inherit"
+      mt={1}
+      mb={1}
+      {...props}
+    />
+  );
+}
+
 const components = {
   h1: H1,
   h2: H2,
@@ -101,6 +142,9 @@ const components = {
   h5: H5,
   h6: H6,
   p: P,
+  ul: UL,
+  ol: OL,
+  li: Li,
 };
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

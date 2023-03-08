@@ -23,7 +23,7 @@ export default function Layout({
   children: React.ReactNode;
   tutorialDialogSteps?: TutorialDialogSteps;
 }): JSX.Element {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <>
       <Head>

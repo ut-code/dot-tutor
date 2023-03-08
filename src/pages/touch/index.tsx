@@ -98,20 +98,14 @@ export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
     [...Array(100)].map((_) => "⠀")
   );
-
   const [hiraganaStrings, setHiraganaStrings] = useState<string>();
-
-  const translateBrailleToHiragana = (brailleStrings: BrailleChar[]) => {
-    let hiraganaStrings: string = translateBraille(brailleStrings);
-    setHiraganaStrings(hiraganaStrings);
-  };
 
   return (
     <>
       <button
         type="button"
         onClick={() => {
-          translateBrailleToHiragana(brailleStrings);
+          setHiraganaStrings(translateBraille(brailleStrings));
         }}
       >
         翻訳

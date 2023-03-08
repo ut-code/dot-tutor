@@ -2,7 +2,17 @@
 
 const BASE_URL = process.env.GITHUB_ACTIONS ? process.env.BASE_URL : "";
 
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: true,
   assetPrefix: `${BASE_URL}/`,
   basePath: BASE_URL,
@@ -14,4 +24,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);

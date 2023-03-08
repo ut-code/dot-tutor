@@ -166,16 +166,16 @@ const specialHiraganaTable2 = {
 
 // "⠼"の後
 const numberTable = {
-  1: "⠁",
-  2: "⠃",
-  3: "⠉",
-  4: "⠙",
-  5: "⠑",
-  6: "⠋",
-  7: "⠛",
-  8: "⠓",
-  9: "⠊",
-  0: "⠚",
+  "1": "⠁",
+  "2": "⠃",
+  "3": "⠉",
+  "4": "⠙",
+  "5": "⠑",
+  "6": "⠋",
+  "7": "⠛",
+  "8": "⠓",
+  "9": "⠊",
+  "0": "⠚",
 };
 
 export default function translateBraille(
@@ -196,7 +196,7 @@ export default function translateBraille(
     let hiragana: string = "";
 
     if (number) {
-      hiragana = Object.keys(numberTable) // @ts-expect-error とりあえず、エラーを無視
+      hiragana = (Object.keys(numberTable) as Array<keyof typeof numberTable>)
         .filter((hiragana) => numberTable[hiragana] === brailleStrings[i])
         .join("");
     }
@@ -207,76 +207,103 @@ export default function translateBraille(
       number = false;
 
       if (dakuon) {
-        hiragana = Object.keys(dakuonHiraganaTable)
+        hiragana = (
+          Object.keys(dakuonHiraganaTable) as Array<
+            keyof typeof dakuonHiraganaTable
+          >
+        )
           .filter(
-            // @ts-expect-error とりあえず、エラーを無視
             (hiragana) => dakuonHiraganaTable[hiragana] === brailleStrings[i]
           )
           .join("");
         dakuon = false;
       } else if (handakuon) {
-        hiragana = Object.keys(handakuonHiraganaTable)
+        hiragana = (
+          Object.keys(handakuonHiraganaTable) as Array<
+            keyof typeof handakuonHiraganaTable
+          >
+        )
           .filter(
-            // @ts-expect-error とりあえず、エラーを無視
             (hiragana) => handakuonHiraganaTable[hiragana] === brailleStrings[i]
           )
           .join("");
         handakuon = false;
       } else if (contraction) {
-        hiragana = Object.keys(contractionHiraganaTable)
+        hiragana = (
+          Object.keys(contractionHiraganaTable) as Array<
+            keyof typeof contractionHiraganaTable
+          >
+        )
           .filter(
-            (
-              hiragana // @ts-expect-error とりあえず、エラーを無視
-            ) => contractionHiraganaTable[hiragana] === brailleStrings[i]
+            (hiragana) =>
+              contractionHiraganaTable[hiragana] === brailleStrings[i]
           )
           .join("");
         contraction = false;
       } else if (dakuonContraction) {
-        hiragana = Object.keys(dakuonContractionHiraganaTable)
+        hiragana = (
+          Object.keys(dakuonContractionHiraganaTable) as Array<
+            keyof typeof dakuonContractionHiraganaTable
+          >
+        )
           .filter(
-            (
-              hiragana // @ts-expect-error とりあえず、エラーを無視
-            ) => dakuonContractionHiraganaTable[hiragana] === brailleStrings[i]
+            (hiragana) =>
+              dakuonContractionHiraganaTable[hiragana] === brailleStrings[i]
           )
           .join("");
         dakuonContraction = false;
       } else if (handakuonContraction) {
-        hiragana = Object.keys(handakuonContractionHiraganaTable)
+        hiragana = (
+          Object.keys(handakuonContractionHiraganaTable) as Array<
+            keyof typeof handakuonContractionHiraganaTable
+          >
+        )
           .filter(
-            // prettier-ignore
-            (hiragana) => // @ts-expect-error エラーを無視
+            (hiragana) =>
               handakuonContractionHiraganaTable[hiragana] === brailleStrings[i]
           )
           .join("");
         handakuonContraction = false;
       } else if (special) {
-        hiragana = Object.keys(specialHiraganaTable)
+        hiragana = (
+          Object.keys(specialHiraganaTable) as Array<
+            keyof typeof specialHiraganaTable
+          >
+        )
           .filter(
-            // @ts-expect-error とりあえず、エラーを無視
             (hiragana) => specialHiraganaTable[hiragana] === brailleStrings[i]
           )
           .join("");
         special = false;
       } else if (special1) {
-        hiragana = Object.keys(specialHiraganaTable1)
+        hiragana = (
+          Object.keys(specialHiraganaTable1) as Array<
+            keyof typeof specialHiraganaTable1
+          >
+        )
           .filter(
-            // @ts-expect-error とりあえず、エラーを無視
             (hiragana) => specialHiraganaTable1[hiragana] === brailleStrings[i]
           )
           .join("");
         special1 = false;
       } else if (special2) {
-        hiragana = Object.keys(specialHiraganaTable2)
+        hiragana = (
+          Object.keys(specialHiraganaTable2) as Array<
+            keyof typeof specialHiraganaTable2
+          >
+        )
           .filter(
-            // @ts-expect-error とりあえず、エラーを無視
             (hiragana) => specialHiraganaTable2[hiragana] === brailleStrings[i]
           )
           .join("");
         special2 = false;
       } else if (special2) {
-        hiragana = Object.keys(specialHiraganaTable2)
+        hiragana = (
+          Object.keys(specialHiraganaTable2) as Array<
+            keyof typeof specialHiraganaTable2
+          >
+        )
           .filter(
-            // @ts-expect-error とりあえず、エラーを無視
             (hiragana) => specialHiraganaTable2[hiragana] === brailleStrings[i]
           )
           .join("");
@@ -302,7 +329,9 @@ export default function translateBraille(
       } else if (brailleStrings[i] === "⠤") {
         number = false;
       } else {
-        hiragana = Object.keys(hiraganaTable) // @ts-expect-error とりあえず、エラーを無視
+        hiragana = (
+          Object.keys(hiraganaTable) as Array<keyof typeof hiraganaTable>
+        )
           .filter((hiragana) => hiraganaTable[hiragana] === brailleStrings[i])
           .join("");
       }

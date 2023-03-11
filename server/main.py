@@ -51,9 +51,11 @@ def wakati_func(source):
                 kana = parse.split()[0]
             elif hinshi_specific == "数詞":
                 kana = parse.split()[0]
+            elif parse.split()[0] == "を":
+                kana = par[1].split(",")[6]
             else:
-                kana = par[1].split(",")[9]
-                kana_normal = par[1].split(",")[6]
+                kana = par[1].split(",")[9] if (len(par[1].split(",")) > 9) else parse.split()[0]
+                kana_normal = par[1].split(",")[6] if (len(par[1].split(",")) > 6) else parse.split()[0]
             
             if hinshi == "名詞" or hinshi == "代名詞":
                 letter = [_ for _ in kana]
@@ -104,29 +106,119 @@ def wakati_oyomi_func(source):
     target = oyomi
     return target
 
+def Jp_trans_func(char, prechar, pre_num, target):
+    if char in mapping.mapping:
+        target.append(mapping.mapping[char])
+    elif (prechar + char) in mapping.mapping:
+        target.pop(len(target) - 1)
+        target.append(mapping.mapping[prechar + char])
+    if char in mapping.mapping_num:
+        if pre_num == True:
+            target.append(mapping.mapping_num[char])
+        else:
+            target.append("⠼" + mapping.mapping_num[char])
+    if char == " ": 
+        target.append("　")
+    
 
 def tenji_func(source):
     letter = [_ for _ in source]
     target = []
-    pre_num = False
+    pre_num = False #前が数字か
+    pre_alpha = False #前がアルファベットか
+    pre_alpha_CAP = True #前が大文字か
+    double_CAP = True #二重大文字符効果の範囲内か
+    gaiji = 0
+    inyofu = 0
+    prechar = ""
     for char in letter:
-        if char in mapping.mapping:
-            target.append(mapping.mapping[char])
-        elif prechar + char in mapping.mapping:
-            target.pop(len(target) - 1)
-            target.append(mapping.mapping[prechar + char])
-        elif char in mapping.mapping_num:
-            if pre_num == True:
-                target.append(mapping.mapping_num[char])
+        if inyofu > 0:
+            if char in mapping.mapping_alpha_CAP:
+                if pre_alpha == True:
+                    gaiji = inyofu
+                    target[len(inyofu) - 1] = "⠰"
+                    inyofu = 0
+                    if double_CAP == True:
+                        target.append(mapping.mapping_alpha_CAP[char])
+                    elif pre_alpha_CAP == True:
+                        target[len(target) - 2] = "⠠⠠"
+                        target.append(mapping.mapping_alpha_CAP[char])
+                        double_CAP = True
+                    else:
+                        target.append("⠠")
+                        target.append(mapping.mapping_alpha_CAP[char])
+                else:
+                    target.append("⠠")
+                    target.append(mapping.mapping_alpha_CAP[char])
+                pre_alpha = True
+                pre_alpha_CAP = True
+            elif char in mapping.mapping_alpha:
+                target.append(mapping.mapping_alpha[char])
+                pre_alpha = True
+                pre_alpha_CAP = False
+            elif char in mapping.mapping_alpha_sub:
+                target.append(mapping.mapping_alpha_sub[char])
+                pre_alpha = False
+                pre_alpha_CAP = False
             else:
-                target.append("⠼" + mapping.mapping_num[char])
-            pre_num = True
-        elif char == " ": 
-            # print 
-            target.append("　")
+                target.append("⠴")
+                if prechar != " ":
+                    target.append("　")
+                pre_alpha = False
+                pre_alpha_CAP = False
+                inyofu = 0
+                Jp_trans_func(char, prechar, pre_num, target)
+        elif gaiji > 0:
+            if char in mapping.mapping_alpha_CAP:
+                if double_CAP == True:
+                    target.append(mapping.mapping_alpha_CAP[char])
+                elif pre_alpha_CAP == True:
+                    target[len(target) - 2] = "⠠⠠"
+                    target.append(mapping.mapping_alpha_CAP[char])
+                    double_CAP = True
+                else:
+                    target.append("⠠")
+                    target.append(mapping.mapping_alpha_CAP[char])
+                pre_alpha = True
+                pre_alpha_CAP = True
+            elif char in mapping.mapping_alpha:
+                target.append(mapping.mapping_alpha[char])
+                pre_alpha = True
+                pre_alpha_CAP = False
+            elif char in mapping.mapping_alpha_sub:
+                target.append(mapping.mapping_alpha_sub[char])
+                pre_alpha = False
+                pre_alpha_CAP = False
+                gaiji = 0
+            else:
+                target.append("　")
+                pre_alpha = False
+                pre_alpha_CAP = False
+                gaiji = 0
+                Jp_trans_func(char, prechar, pre_num, target)
         else:
-            target.append(char)
+            if char in mapping.mapping_alpha_CAP:
+                target.append("⠦")
+                inyofu = len(target)
+                target.append("⠠")
+                target.append(mapping.mapping_alpha_CAP[char])
+                pre_alpha = True
+                pre_alpha_CAP = True
+            elif char in mapping.mapping_alpha:
+                target.append("⠦")
+                inyofu = len(target)
+                target.append(mapping.mapping_alpha[char])
+                pre_alpha = True
+                pre_alpha_CAP = False
+            else:
+                Jp_trans_func(char, prechar, pre_num, target)
+        if char in mapping.mapping_num:
+            pre_num = True
+        else:
+            pre_num = False
         prechar = char
+    if inyofu > 0:
+        target.append("⠴")
     return "".join(target)
 
 def translate_func(text):

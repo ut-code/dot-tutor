@@ -60,10 +60,13 @@ def wakati_func(source):
             if hinshi == "名詞" or hinshi == "代名詞":
                 letter = [_ for _ in kana]
                 letter_normal = [_ for _ in kana_normal]
+                letter_default = [_ for _ in parse.split()[0]]
                 for num in range(len(letter)):
                     if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
                         letter[num] = letter_normal[num]
                 kana = "".join(letter)
+                if letter_default[0] in mapping.mapping_alpha or letter_default[0] in mapping.mapping_alpha_CAP:
+                    kana = parse.split()[0]
             if hinshi == "助動詞" or hinshi == "助詞" or hinshi == "接尾辞":
                 target.append(kana)
             elif prehinshi == "接頭辞":
@@ -126,8 +129,8 @@ def tenji_func(source):
     target = []
     pre_num = False #前が数字か
     pre_alpha = False #前がアルファベットか
-    pre_alpha_CAP = True #前が大文字か
-    double_CAP = True #二重大文字符効果の範囲内か
+    pre_alpha_CAP = False #前が大文字か
+    double_CAP = False #二重大文字符効果の範囲内か
     gaiji = 0
     inyofu = 0
     prechar = ""
@@ -136,7 +139,7 @@ def tenji_func(source):
             if char in mapping.mapping_alpha_CAP:
                 if pre_alpha == True:
                     gaiji = inyofu
-                    target[len(inyofu) - 1] = "⠰"
+                    target[inyofu - 1] = "⠰"
                     inyofu = 0
                     if double_CAP == True:
                         target.append(mapping.mapping_alpha_CAP[char])
@@ -161,7 +164,10 @@ def tenji_func(source):
                 pre_alpha = False
                 pre_alpha_CAP = False
             else:
-                target.append("⠴")
+                if inyofu == len(target) - 2:
+                    target[inyofu - 1] = "⠰" 
+                else:
+                    target.append("⠴")
                 if prechar != " ":
                     target.append("　")
                 pre_alpha = False
@@ -217,8 +223,13 @@ def tenji_func(source):
         else:
             pre_num = False
         prechar = char
+        if (char not in mapping.mapping_alpha_CAP) or (pre_alpha_CAP != True):
+            double_CAP = False
     if inyofu > 0:
-        target.append("⠴")
+        if inyofu == len(target) - 2:
+            target[inyofu - 1] = "⠰" 
+        else:
+             target.append("⠴")
     return "".join(target)
 
 def translate_func(text):

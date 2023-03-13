@@ -51,6 +51,7 @@ def wakati_func(source):
                 kana = parse.split()[0]
             elif hinshi_specific == "数詞":
                 kana = parse.split()[0]
+                kana_normal = ""
             elif parse.split()[0] == "を":
                 kana = par[1].split(",")[6]
             else:
@@ -111,7 +112,10 @@ def wakati_oyomi_func(source):
 
 def Jp_trans_func(char, prechar, pre_num, target):
     if char in mapping.mapping:
-        target.append(mapping.mapping[char])
+        if char in mapping.mapping_notNum and pre_num == True:
+            target.append("⠤" + mapping.mapping[char])
+        else:
+            target.append(mapping.mapping[char])
     elif (prechar + char) in mapping.mapping:
         target.pop(len(target) - 1)
         target.append(mapping.mapping[prechar + char])

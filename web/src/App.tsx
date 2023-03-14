@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import { API_ENDPOINT } from './commons/config';
 
 const bull = (
   <Box
@@ -68,19 +69,19 @@ function App() {
   const [thumbdown2, setThumbdown2] = React.useState(false);
 
   async function wakati(text: string) {
-    const response = await fetch('http://localhost:8000/wakati/?text=' + text);
+    const response = await fetch(`${API_ENDPOINT}/wakati/?text=` + text);
     const data = await response.json();
     return data.wakati
   }
 
   async function tenji(text: string) {
-    const response = await fetch('http://localhost:8000/tenji/?text=' + text);
+    const response = await fetch(`${API_ENDPOINT}/tenji/?text=` + text);
     const data = await response.json();
     return data.tenji
   }
 
-  async function sendWakatiEvaluation(source: string, wakati: string, evalutation: string){
-    const response = await fetch(`http://localhost:8000/tenji/?text=${text}&wakati=${wakati}&evaluation=${evaluation}`);
+  async function sendWakatiEvaluation(source: string, wakati: string, evaluation: string){
+    const response = await fetch(`${API_ENDPOINT}/tenji/?text=${text}&wakati=${wakati}&evaluation=${evaluation}`);
     const data = await response.json();
     return data
   }

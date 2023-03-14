@@ -168,7 +168,7 @@ def tenji_func(source):
                 pre_alpha = False
                 pre_alpha_CAP = False
             else:
-                if inyofu == len(target) - 2:
+                if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (pre_alpha == True and inyofu == len(target) - 1):
                     target[inyofu - 1] = "⠰" 
                 else:
                     target.append("⠴")
@@ -230,7 +230,7 @@ def tenji_func(source):
         if (char not in mapping.mapping_alpha_CAP) or (pre_alpha_CAP != True):
             double_CAP = False
     if inyofu > 0:
-        if inyofu == len(target) - 2:
+        if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (pre_alpha == True and inyofu == len(target) - 1):
             target[inyofu - 1] = "⠰" 
         else:
              target.append("⠴")

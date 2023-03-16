@@ -1,3 +1,12 @@
-### 見出し 3
+import EdittableBraille from "../EdittableBraille";
 
-中身
+ここでは、点字を実際に入力してみましょう。
+
+次のように左上の点だけを打つと、日本語の「あ」になります。
+
+<EdittableBraille
+  height={"100"}
+  width={"60"}
+  brailleChar={"⠁"}
+  updateBrailleChar={(brailleChar) => {}}
+/>

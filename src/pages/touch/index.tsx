@@ -17,8 +17,8 @@ export default function Touch(): JSX.Element {
     <>
       <Layout
         tutorialDialogSteps={[
-          { title: "見出し 2", content: <Tutorial1 /> },
-          { title: "見出し 2", content: <Tutorial2 /> },
+          { title: "点字を打ってみよう", content: <Tutorial1 /> },
+          { title: "点字を打ってみよう", content: <Tutorial2 /> },
         ]}
       >
         <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>

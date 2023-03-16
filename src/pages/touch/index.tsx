@@ -12,6 +12,7 @@ import {
 import fromBrailleChar from "../../components/fromBrailleChar";
 import toBrailleChar from "../../components/toBrailleChar";
 import translateBraille from "../../components/translateBraille";
+import Layout from "../../components/Layout";
 
 /**
  * component to create touch-to-change Braille
@@ -102,26 +103,27 @@ export default function Touch(): JSX.Element {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => {
-          setHiraganaStrings(translateBraille(brailleStrings));
-        }}
-      >
-        翻訳
-      </button>
-      <p>{hiraganaStrings}</p>
-
-      {brailleStrings.map((_, index) => (
-        <EdittableBraille
-          key={index}
-          height={"100"}
-          width={"60"}
-          brailleStrings={brailleStrings}
-          setBrailleStrings={setBrailleStrings}
-          index={index}
-        />
-      ))}
+      <Layout>
+        <button
+          type="button"
+          onClick={() => {
+            setHiraganaStrings(translateBraille(brailleStrings));
+          }}
+        >
+          翻訳
+        </button>
+        <p>{hiraganaStrings}</p>
+        {brailleStrings.map((_, index) => (
+          <EdittableBraille
+            key={index}
+            height={"100"}
+            width={"60"}
+            brailleStrings={brailleStrings}
+            setBrailleStrings={setBrailleStrings}
+            index={index}
+          />
+        ))}
+      </Layout>
     </>
   );
 }

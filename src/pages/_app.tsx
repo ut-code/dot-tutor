@@ -94,6 +94,18 @@ function P(props: any): JSX.Element {
   );
 }
 
+function Strong(props: any): JSX.Element {
+  return (
+    <Typography
+      variant="body1"
+      component="strong"
+      color="inherit"
+      fontWeight="bold"
+      {...props}
+    />
+  );
+}
+
 function UL(props: any): JSX.Element {
   return (
     <Typography
@@ -147,6 +159,7 @@ const components = {
   h5: H5,
   h6: H6,
   p: P,
+  strong: Strong,
   ul: UL,
   ol: OL,
   li: Li,

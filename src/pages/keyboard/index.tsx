@@ -1,5 +1,7 @@
-import Layout from "@/components/Layout";
+import Layout from "../../components/Layout";
 import useTypedBrailleStrings from "../../components/useTypedBrailleStrings";
+import Tutorial1 from "./tutorial/tutorial1.mdx";
+import Tutorial2 from "./tutorial/tutorial2.mdx";
 
 export default function Keyboard(): JSX.Element {
   const [typedBrailleStrings] = useTypedBrailleStrings();
@@ -7,8 +9,8 @@ export default function Keyboard(): JSX.Element {
     <>
       <Layout
         tutorialDialogSteps={[
-          { title: "Title", content: <>content</> },
-          { title: "Title2", content: <>content2</> },
+          { title: "見出し 2", content: <Tutorial1 /> },
+          { title: "見出し 2", content: <Tutorial2 /> },
         ]}
       >
         {typedBrailleStrings}

@@ -4,6 +4,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Typography,
   IconButton,
   Button,
 } from "@mui/material";
@@ -43,7 +44,9 @@ export function TutorialDialog(props: {
         }}
       >
         <DialogTitle m={0} p={2}>
-          {props.tutorialDialogSteps[selectedStep].title}
+          <Typography variant="h4" component="div" color="inherit">
+            {props.tutorialDialogSteps[selectedStep].title}
+          </Typography>
           <IconButton
             sx={{ position: "absolute", right: 8, top: 8 }}
             onClick={() => {

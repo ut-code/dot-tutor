@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  Fragment,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import {
   type BrailleChar,
   type BrailleState,
@@ -18,33 +12,27 @@ import toBrailleChar from "../../components/toBrailleChar";
  * @param param0 props
  * @param param0.height height
  * @param param0.width width
- * @param param0.brailleStrings strings of Braille
- * @param param0.setBrailleStrings function to update the strings
+ * @param param0.brailleChar character of Braille
+ * @param param0.updateBrailleChar function to update the character of braille
  * @param param0.index index of the current character
  * @returns touch-to-change SVG Braille
  */
 export default function EdittableBraille({
   height,
   width,
-  brailleStrings,
-  setBrailleStrings,
-  index,
+  brailleChar,
+  updateBrailleChar,
 }: {
   height: string;
   width: string;
-  brailleStrings: BrailleChar[];
-  setBrailleStrings: Dispatch<SetStateAction<BrailleChar[]>>;
-  index: number;
+  brailleChar: BrailleChar;
+  updateBrailleChar: (brailleChar: BrailleChar) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>(
-    fromBrailleChar(brailleStrings[index])
+    fromBrailleChar(brailleChar)
   );
   useEffect(() => {
-    setBrailleStrings(
-      brailleStrings.map((brailleChar, i) =>
-        i === index ? toBrailleChar(brailleState) : brailleChar
-      )
-    );
+    updateBrailleChar(toBrailleChar(brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
   const xCoordinateList = {

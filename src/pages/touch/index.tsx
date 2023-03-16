@@ -29,14 +29,17 @@ export default function Touch(): JSX.Element {
           翻訳
         </button>
         <p>{hiraganaStrings}</p>
-        {brailleStrings.map((_, index) => (
+        {brailleStrings.map((brailleChar, i) => (
           <EdittableBraille
-            key={index}
+            key={i}
             height={"100"}
             width={"60"}
-            brailleStrings={brailleStrings}
-            setBrailleStrings={setBrailleStrings}
-            index={index}
+            brailleChar={brailleChar}
+            updateBrailleChar={(brailleChar) => {
+              setBrailleStrings(
+                brailleStrings.map((_, j) => (j === i ? brailleChar : _))
+              );
+            }}
           />
         ))}
       </Layout>

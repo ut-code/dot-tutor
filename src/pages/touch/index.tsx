@@ -13,6 +13,8 @@ import fromBrailleChar from "../../components/fromBrailleChar";
 import toBrailleChar from "../../components/toBrailleChar";
 import translateBraille from "../../components/translateBraille";
 import Layout from "../../components/Layout";
+import Tutorial1 from "./tutorial/tutorial1.mdx";
+import Tutorial2 from "./tutorial/tutorial2.mdx";
 
 /**
  * component to create touch-to-change Braille
@@ -103,7 +105,12 @@ export default function Touch(): JSX.Element {
 
   return (
     <>
-      <Layout>
+      <Layout
+        tutorialDialogSteps={[
+          { title: "見出し 2", content: <Tutorial1 /> },
+          { title: "見出し 2", content: <Tutorial2 /> },
+        ]}
+      >
         <button
           type="button"
           onClick={() => {

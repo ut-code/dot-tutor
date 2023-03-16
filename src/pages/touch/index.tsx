@@ -1,127 +1,69 @@
-import React, {
-  useState,
-  useEffect,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
-import {
-  type BrailleChar,
-  type BrailleState,
-  availableDots,
-} from "../../components/brailleDefinitions";
-import fromBrailleChar from "../../components/fromBrailleChar";
-import toBrailleChar from "../../components/toBrailleChar";
+import React, { useState } from "react";
+import { type BrailleChar } from "../../components/brailleDefinitions";
 import translateBraille from "../../components/translateBraille";
-
-/**
- * component to create touch-to-change Braille
- * @param param0.height height
- * @param param0.width width
- * @param param0.brailleStrings strings of Braille
- * @param param0.setBrailleStrings function to update the strings
- * @param param0.index index of the current character
- * @returns touch-to-change SVG Braille
- */
-function EdittableBraille({
-  height,
-  width,
-  brailleStrings,
-  setBrailleStrings,
-  index,
-}: {
-  height: string;
-  width: string;
-  brailleStrings: BrailleChar[];
-  setBrailleStrings: Dispatch<SetStateAction<BrailleChar[]>>;
-  index: number;
-}): JSX.Element {
-  const [brailleState, setBrailleState] = useState<BrailleState>(
-    fromBrailleChar(brailleStrings[index])
-  );
-  useEffect(() => {
-    setBrailleStrings(
-      brailleStrings.map((brailleChar, i) =>
-        i === index ? toBrailleChar(brailleState) : brailleChar
-      )
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brailleState]);
-  const xCoordinateList = {
-    Dot1: "40",
-    Dot2: "40",
-    Dot3: "40",
-    Dot4: "90",
-    Dot5: "90",
-    Dot6: "90",
-  };
-  const yCoordinateList = {
-    Dot1: "30",
-    Dot2: "75",
-    Dot3: "120",
-    Dot4: "30",
-    Dot5: "75",
-    Dot6: "120",
-  };
-  return (
-    <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height={height}
-        width={width}
-        viewBox="0,0,120,160"
-      >
-        <text x="2" y="141" style={{ fontSize: "169px" }}>
-          {toBrailleChar(brailleState)}
-        </text>
-        {Object.values(availableDots).map((dotNumber) => (
-          <React.Fragment key={dotNumber}>
-            <circle
-              cx={xCoordinateList[dotNumber]}
-              cy={yCoordinateList[dotNumber]}
-              r="10"
-              fill={brailleState[dotNumber] ? "black" : "#ccc"}
-              onClick={() => {
-                setBrailleState({
-                  ...brailleState,
-                  [dotNumber]: !brailleState[dotNumber],
-                });
-              }}
-            />
-          </React.Fragment>
-        ))}
-      </svg>
-    </>
-  );
-}
+import EdittableBraille from "../../components/EdittableBraille";
+import { Paper, Typography, Divider, Button } from "@mui/material";
+import Layout from "../../components/Layout";
+import Tutorial1 from "./tutorial/tutorial1.mdx";
+import Tutorial2 from "./tutorial/tutorial2.mdx";
 
 export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
-    [...Array(100)].map((_) => "⠀")
+    [...Array(10)].map((_) => "⠀")
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>();
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => {
-          setHiraganaStrings(translateBraille(brailleStrings));
-        }}
+      <Layout
+        tutorialDialogSteps={[
+          { title: "点字を打ってみよう", content: <Tutorial1 /> },
+          { title: "点字を打ってみよう", content: <Tutorial2 /> },
+        ]}
       >
-        翻訳
-      </button>
-      <p>{hiraganaStrings}</p>
-
-      {brailleStrings.map((_, index) => (
-        <EdittableBraille
-          key={index}
-          height={"100"}
-          width={"60"}
-          brailleStrings={brailleStrings}
-          setBrailleStrings={setBrailleStrings}
-          index={index}
-        />
-      ))}
+        <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
+          <Typography variant="h6" component="h2" color="inherit" p={2}>
+            点字
+          </Typography>
+          <Divider />
+          {brailleStrings.map((brailleChar, i) => (
+            <EdittableBraille
+              key={i}
+              height={"100"}
+              width={"60"}
+              brailleChar={brailleChar}
+              updateBrailleChar={(brailleChar) => {
+                setBrailleStrings(
+                  brailleStrings.map((_, j) => (j === i ? brailleChar : _))
+                );
+              }}
+            />
+          ))}
+        </Paper>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setHiraganaStrings(translateBraille(brailleStrings));
+          }}
+        >
+          翻訳
+        </Button>
+        <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
+          <Typography variant="h6" component="h2" color="inherit" p={2}>
+            墨字
+          </Typography>
+          <Divider />
+          <Typography
+            variant="body1"
+            component="div"
+            color="inherit"
+            p={2}
+            sx={{ minHeight: 100 }}
+          >
+            {hiraganaStrings}
+          </Typography>
+        </Paper>
+      </Layout>
     </>
   );
 }

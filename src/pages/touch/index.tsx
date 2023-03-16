@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { type BrailleChar } from "../../components/brailleDefinitions";
 import translateBraille from "../../components/translateBraille";
-import EdittableBraille from "./EdittableBraille";
+import EdittableBraille from "../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import Layout from "../../components/Layout";
 import Tutorial1 from "./tutorial/tutorial1.mdx";

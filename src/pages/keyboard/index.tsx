@@ -9,8 +9,8 @@ export default function Keyboard(): JSX.Element {
     <>
       <Layout
         tutorialDialogSteps={[
-          { title: "見出し 1", content: <Tutorial1 /> },
-          { title: "見出し 1", content: <Tutorial2 /> },
+          { title: "見出し 2", content: <Tutorial1 /> },
+          { title: "見出し 2", content: <Tutorial2 /> },
         ]}
       >
         {typedBrailleStrings}

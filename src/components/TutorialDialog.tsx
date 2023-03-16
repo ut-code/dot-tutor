@@ -44,7 +44,7 @@ export function TutorialDialog(props: {
         }}
       >
         <DialogTitle m={0} p={2}>
-          <Typography variant="h4" component="h1" color="inherit">
+          <Typography variant="h4" component="div" color="inherit">
             {props.tutorialDialogSteps[selectedStep].title}
           </Typography>
           <IconButton

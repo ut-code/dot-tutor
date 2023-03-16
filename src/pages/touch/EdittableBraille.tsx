@@ -14,6 +14,7 @@ import toBrailleChar from "../../components/toBrailleChar";
 
 /**
  * component to create touch-to-change Braille
+ * @param param0 props
  * @param param0.height height
  * @param param0.width width
  * @param param0.brailleStrings strings of Braille

@@ -6,7 +6,7 @@ import NextLink from "next/link";
 function H1(props: any): JSX.Element {
   return (
     <Typography
-      variant="h4"
+      variant="h3"
       component="h1"
       color="inherit"
       mt={2}
@@ -19,7 +19,7 @@ function H1(props: any): JSX.Element {
 function H2(props: any): JSX.Element {
   return (
     <Typography
-      variant="h5"
+      variant="h4"
       component="h2"
       color="inherit"
       mt={1.5}
@@ -32,7 +32,7 @@ function H2(props: any): JSX.Element {
 function H3(props: any): JSX.Element {
   return (
     <Typography
-      variant="h6"
+      variant="h5"
       component="h3"
       color="inherit"
       mt={1}
@@ -45,7 +45,7 @@ function H3(props: any): JSX.Element {
 function H4(props: any): JSX.Element {
   return (
     <Typography
-      variant="subtitle1"
+      variant="h6"
       component="h4"
       color="inherit"
       mt={1}
@@ -58,7 +58,7 @@ function H4(props: any): JSX.Element {
 function H5(props: any): JSX.Element {
   return (
     <Typography
-      variant="subtitle2"
+      variant="subtitle1"
       component="h5"
       color="inherit"
       mt={1}

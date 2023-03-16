@@ -1,6 +1,7 @@
 import React, {
   useState,
   useEffect,
+  Fragment,
   type Dispatch,
   type SetStateAction,
 } from "react";
@@ -74,7 +75,7 @@ export default function EdittableBraille({
           {toBrailleChar(brailleState)}
         </text>
         {Object.values(availableDots).map((dotNumber) => (
-          <React.Fragment key={dotNumber}>
+          <Fragment key={dotNumber}>
             <circle
               cx={xCoordinateList[dotNumber]}
               cy={yCoordinateList[dotNumber]}
@@ -87,7 +88,7 @@ export default function EdittableBraille({
                 });
               }}
             />
-          </React.Fragment>
+          </Fragment>
         ))}
       </svg>
     </>

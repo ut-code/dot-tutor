@@ -8,7 +8,7 @@ import Tutorial2 from "./tutorial/tutorial2.mdx";
 
 export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
-    [...Array(100)].map((_) => "⠀")
+    [...Array(10)].map((_) => "⠀")
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>();
 

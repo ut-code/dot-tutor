@@ -8,6 +8,7 @@ interface KeyboardState {
   KeyK: boolean;
   KeyL: boolean;
   Space: boolean;
+  Backspace: boolean;
 }
 
 const defaultKeyboardValues = {
@@ -18,9 +19,19 @@ const defaultKeyboardValues = {
   KeyK: false,
   KeyL: false,
   Space: false,
+  Backspace: false,
 };
 
-const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyJ", "KeyK", "KeyL", "Space"];
+const availableKeys = [
+  "KeyF",
+  "KeyD",
+  "KeyS",
+  "KeyJ",
+  "KeyK",
+  "KeyL",
+  "Space",
+  "Backspace",
+];
 type AvailableKeys =
   | "KeyF"
   | "KeyD"
@@ -28,11 +39,12 @@ type AvailableKeys =
   | "KeyJ"
   | "KeyK"
   | "KeyL"
-  | "Space";
+  | "Space"
+  | "Backspace";
 
 /**
- * Store the state of F,D,S,J,K,L,Space keys
- * @returns the state of F,D,S,J,K,L,Space keys
+ * Store the state of F,D,S,J,K,L,Space,Backspace keys
+ * @returns the state of F,D,S,J,K,L,Space,Backspace keys
  */
 function useKeyboardState(): KeyboardState {
   const keyboardState: KeyboardState = { ...defaultKeyboardValues };
@@ -117,14 +129,22 @@ export function useTypedBrailles(): string {
 
   useEffect(() => {
     // See https://www.unicode.org/charts/PDF/U2800.pdf
-    let codePoint = 0x2800;
-    if (typedKey.KeyF) codePoint += 2 ** 0;
-    if (typedKey.KeyD) codePoint += 2 ** 1;
-    if (typedKey.KeyS) codePoint += 2 ** 2;
-    if (typedKey.KeyJ) codePoint += 2 ** 3;
-    if (typedKey.KeyK) codePoint += 2 ** 4;
-    if (typedKey.KeyL) codePoint += 2 ** 5;
-    setTypedBrailles(`${typedBrailles}${String.fromCodePoint(codePoint)}`);
+    if (!typedKey.Backspace) {
+      let codePoint = 0x2800;
+      if (typedKey.KeyF) codePoint += 2 ** 0;
+      if (typedKey.KeyD) codePoint += 2 ** 1;
+      if (typedKey.KeyS) codePoint += 2 ** 2;
+      if (typedKey.KeyJ) codePoint += 2 ** 3;
+      if (typedKey.KeyK) codePoint += 2 ** 4;
+      if (typedKey.KeyL) codePoint += 2 ** 5;
+      setTypedBrailles(`${typedBrailles}${String.fromCodePoint(codePoint)}`);
+    } else {
+      if (typedBrailles.length !== 0) {
+        setTypedBrailles(typedBrailles.slice(0, -1));
+      } else {
+        setTypedBrailles(typedBrailles);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKey]);
   return typedBrailles;
@@ -141,7 +161,7 @@ export default function useTypedBrailleStrings(): [
   const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
   const typedBrailles = useTypedBrailles();
   useEffect(() => {
-    setTypedBrailleStrings(`${typedBrailles}`);
+    setTypedBrailleStrings(typedBrailles);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedBrailles]);
   return [typedBrailleStrings, setTypedBrailleStrings];

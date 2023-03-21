@@ -140,7 +140,7 @@ export function useTypedBrailles(): string {
       setTypedBrailles(`${typedBrailles}${String.fromCodePoint(codePoint)}`);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     } else {
-      if (typedBrailles.length != 0) {
+      if (typedBrailles.length !== 0) {
         setTypedBrailles(typedBrailles.slice(0, -1));
       } else {
         setTypedBrailles(typedBrailles);

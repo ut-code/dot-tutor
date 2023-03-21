@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { type BrailleChar } from "../../components/brailleDefinitions";
 import translateBraille from "../../components/translateBraille";
-//import judge from "../../components/problemAndJudge";
-import judge, { problem1 } from "../../components/problemAndJudge";
+import { judge, makeQuestion } from "../../components/questionAndJudge";
 import EdittableBraille from "../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import Layout from "../../components/Layout";
 import Tutorial1 from "./tutorial/tutorial1.mdx";
 import Tutorial2 from "./tutorial/tutorial2.mdx";
 
-//let problem1 = "あい"
-
 export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
     [...Array(10)].map((_) => "⠀")
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>();
+  const [question, setQuestion] = useState<string>();
   const [rightOrWrong, judgeAnswer] = useState<string>();
 
   return (
@@ -26,6 +24,15 @@ export default function Touch(): JSX.Element {
           { title: "点字を打ってみよう", content: <Tutorial2 /> },
         ]}
       >
+        <Button
+          variant="contained"
+          onClick={() => {
+            setQuestion(makeQuestion());
+          }}
+        >
+          問題生成
+        </Button>
+
         <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
           <Typography variant="h6" component="h2" color="inherit" p={2}>
             問題
@@ -38,7 +45,7 @@ export default function Touch(): JSX.Element {
             p={2}
             sx={{ minHeight: 100 }}
           >
-            {problem1}
+            {question}
           </Typography>
         </Paper>
 
@@ -88,7 +95,7 @@ export default function Touch(): JSX.Element {
         <Button
           variant="contained"
           onClick={() => {
-            judgeAnswer(judge(brailleStrings, problem1));
+            judgeAnswer(judge(brailleStrings, question));
           }}
         >
           答え合わせ
@@ -99,7 +106,15 @@ export default function Touch(): JSX.Element {
             正誤
           </Typography>
           <Divider />
-          {rightOrWrong}
+          <Typography
+            variant="body1"
+            component="div"
+            color="inherit"
+            p={2}
+            sx={{ minHeight: 100 }}
+          >
+            {rightOrWrong}
+          </Typography>
         </Paper>
       </Layout>
     </>

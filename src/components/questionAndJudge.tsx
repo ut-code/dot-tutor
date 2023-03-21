@@ -6,9 +6,12 @@ export function makeQuestion(): string {
   return questions[Math.floor(Math.random() * questions.length)];
 }
 
-export function judge(typedBrailleStrings: BrailleChar[], question: string) {
-  let typedAnswer = translateBraille(typedBrailleStrings);
-  if (typedAnswer == question) {
+export function judge(
+  typedBrailleStrings: BrailleChar[],
+  question: string
+): string {
+  const typedAnswer = translateBraille(typedBrailleStrings);
+  if (typedAnswer === question) {
     return "正解";
   } else {
     return "不正解";

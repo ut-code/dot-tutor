@@ -58,16 +58,16 @@ def wakati_func(source):
                 kana = par[1].split(",")[9] if (len(par[1].split(",")) > 9) else parse.split()[0]
                 kana_normal = par[1].split(",")[6] if (len(par[1].split(",")) > 6) else parse.split()[0]
             
-            if hinshi == "名詞" or hinshi == "代名詞":
-                letter = [_ for _ in kana]
-                letter_normal = [_ for _ in kana_normal]
-                letter_default = [_ for _ in parse.split()[0]]
-                for num in range(len(letter)):
-                    if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
-                        letter[num] = letter_normal[num]
-                kana = "".join(letter)
-                if letter_default[0] in mapping.mapping_alpha or letter_default[0] in mapping.mapping_alpha_CAP:
-                    kana = parse.split()[0]
+            letter = [_ for _ in kana]
+            letter_normal = [_ for _ in kana_normal]
+            letter_default = [_ for _ in parse.split()[0]]
+            for num in range(len(letter)):
+                preLetter = ""
+                if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
+                    letter[num] = letter_normal[num]
+            kana = "".join(letter)
+            if letter_default[0] in mapping.mapping_alpha or letter_default[0] in mapping.mapping_alpha_CAP:
+                kana = parse.split()[0]
             if hinshi == "助動詞" or hinshi == "助詞" or hinshi == "接尾辞":
                 target.append(kana)
             elif prehinshi == "接頭辞":
@@ -79,7 +79,7 @@ def wakati_func(source):
             elif target == []:
                 target.append(kana)
             else:
-                target.append(" " + kana)
+                target.append("　" + kana)
             prehinshi = hinshi
     return "".join(target)
     
@@ -124,8 +124,8 @@ def Jp_trans_func(char, prechar, pre_num, target):
             target.append(mapping.mapping_num[char])
         else:
             target.append("⠼" + mapping.mapping_num[char])
-    if char == " ": 
-        target.append("　")
+    if char == "　": 
+        target.append("⠀")
     
 
 def tenji_func(source):
@@ -172,8 +172,8 @@ def tenji_func(source):
                     target[inyofu - 1] = "⠰" 
                 else:
                     target.append("⠴")
-                if prechar != " ":
-                    target.append("　")
+                if prechar != "　":
+                    target.append("⠀")
                 pre_alpha = False
                 pre_alpha_CAP = False
                 inyofu = 0
@@ -233,7 +233,7 @@ def tenji_func(source):
         if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (pre_alpha == True and inyofu == len(target) - 1):
             target[inyofu - 1] = "⠰" 
         else:
-             target.append("⠴")
+            target.append("⠴")
     return "".join(target)
 
 def translate_func(text):

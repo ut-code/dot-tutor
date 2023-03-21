@@ -138,7 +138,6 @@ export function useTypedBrailles(): string {
       if (typedKey.KeyK) codePoint += 2 ** 4;
       if (typedKey.KeyL) codePoint += 2 ** 5;
       setTypedBrailles(`${typedBrailles}${String.fromCodePoint(codePoint)}`);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     } else {
       if (typedBrailles.length !== 0) {
         setTypedBrailles(typedBrailles.slice(0, -1));
@@ -146,6 +145,7 @@ export function useTypedBrailles(): string {
         setTypedBrailles(typedBrailles);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKey]);
   return typedBrailles;
 }

@@ -13,8 +13,8 @@ export default function Touch(): JSX.Element {
     [...Array(10)].map((_) => "⠀")
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>();
-  const [question, setQuestion] = useState<string>();
-  const [rightOrWrong, judgeAnswer] = useState<string>();
+  const [question, setQuestion] = useState<string>("あ"); //問題
+  const [rightOrWrong, judgeAnswer] = useState<string>(); //正誤
 
   return (
     <>

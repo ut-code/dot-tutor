@@ -4,15 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 import MeCab
 import unidic
 import mapping
+import os
 
 app = FastAPI()
 
+
+WEB_ORIGIN = os.getenv("WEB_ORIGIN", "http://localhost:5173")
+
 origins = [
-    "http://localhost",
-    "http://localhost:5173",
-    "http://127.0.0.1",
-    "http://127.0.0.1:5173",
-    "http://localhost:8000",
+    WEB_ORIGIN
 ]
 
 app.add_middleware(

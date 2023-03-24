@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: translate-braille
+    env: static
+    rootDir: web
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_ENDPOINT
+        value: https://translate-braille-server.onrender.com
+  - type: web
+    name: translate-braille-server
+    env: python
+    region: singapore
+    plan: free
+    rootDir: server
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --port 10000
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: WEB_ORIGIN
+        value: https://translate-braille.onrender.com

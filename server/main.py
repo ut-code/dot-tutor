@@ -1,7 +1,7 @@
 from urllib import request
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import MeCab 
+import MeCab
 import unidic
 import mapping
 

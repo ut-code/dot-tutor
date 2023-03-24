@@ -4,7 +4,7 @@ import './App.css'
 import React from 'react'
 // import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { ThumbUpOffAlt, ThumbDownOffAlt, ThumbUpAlt, ThumbDownAlt } from '@mui/icons-material';
-import { Button, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+import { Button, AppBar, Toolbar, IconButton, Typography, TextField} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -81,7 +81,7 @@ function App() {
   }
 
   async function sendWakatiEvaluation(source: string, wakati: string, evaluation: string){
-    const response = await fetch(`${API_ENDPOINT}/tenji/?text=${text}&wakati=${wakati}&evaluation=${evaluation}`);
+    const response = await fetch(`${API_ENDPOINT}/tenji/?text=${source}&wakati=${wakati}&evaluation=${evaluation}`);
     const data = await response.json();
     return data
   }
@@ -116,31 +116,40 @@ function App() {
 
       <div className="px-2 bg-gray-100">
         <div className="flex my-5 mx-2 px-5">
-          <div>
-            <textarea className="bg-white-200 h-60 mx-2"
-              value={source} 
-              onChange={e => setSource(e.currentTarget.value)} 
-            />  
-          </div>
-          <div>
-            <textarea className="bg-white-200 h-60 mx-2"
-            value={wakati1} 
-            onChange={e => setWakati1(e.currentTarget.value)} 
-            />  
-            <div>元の文</div>
+      
+      <div style={{display: 'flex', flexDirection: 'column'}}>      
+        <Typography variant="h5" gutterBottom>
+          翻訳元のテキスト
+        </Typography>        
+        {/* <TextField sx={{width:'400px', height: '400px'}} label="元の文" variant="outlined" value={source} onChange={e => setSource(e.currentTarget.value)} /> */}
+        <TextField multiline variant="outlined" rows={4} fullWidth value={source} onChange={e => setSource(e.currentTarget.value)} />
+        <Button onClick={() => {navigator.clipboard.writeText(target)}}>Copy</Button>
+
+      </div>
+      <div>
+        <Typography variant="h5" gutterBottom>
+          分かち書きのテキスト
+        </Typography> 
+        <TextField multiline variant="outlined" rows={4} fullWidth value={wakati1} onChange={e => setWakati1(e.currentTarget.value)} />
+        <Button onClick={() => {navigator.clipboard.writeText(wakati1)}}>Copy</Button>
             <div>
-            <div className="bg-green-100 h-60 mx-2">{wakati2}</div>
-            <div className="flex flex-col float-right">
-              {thumbdown2 || <ThumbUpOffAlt onClick={()=>{setThumbup2(true)}}/>}
-              {thumbup2 || <ThumbDownOffAlt onClick={()=>{setThumbdown2(true)}}/>}        
-            </div>
+        <Typography variant="h5" gutterBottom>
+          分かち書きのテキスト(編集前)
+        </Typography> 
+        <TextField multiline variant="outlined" rows={4} fullWidth value={wakati2} />
+              <div className="flex flex-col float-right">
+                {thumbdown2 || <ThumbUpOffAlt onClick={()=>{setThumbup2(true)}}/>}
+                {thumbup2 || <ThumbDownOffAlt onClick={()=>{setThumbdown2(true)}}/>}        
+              </div>
             </div>
           </div>
 
           <div>
-            <textarea className="bg-white-200 h-60 mx-2"
-            value={target} 
-            onChange={(e) => {setTarget(e.currentTarget.value)}}/>  
+            <Typography variant="h5" gutterBottom>
+              翻訳後のテキスト
+            </Typography>
+            <TextField multiline variant="outlined" rows={4} fullWidth value={target} onChange={(e) => setTarget(e.currentTarget.value)} />
+
           <Button onClick={() => {navigator.clipboard.writeText(target)}}>Copy</Button>
           </div>
           </div>

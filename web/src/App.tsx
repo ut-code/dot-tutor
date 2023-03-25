@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import React from 'react'
 import { ThumbUpOffAlt, ThumbDownOffAlt, ThumbUpAlt, ThumbDownAlt } from '@mui/icons-material';
-import { Button, AppBar, Toolbar, IconButton, Typography, TextField} from '@mui/material';
+import { Box, Button, AppBar, Toolbar, IconButton, Typography, TextField} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import { API_ENDPOINT } from './commons/config';
 import Grid from '@mui/system/Unstable_Grid';
 

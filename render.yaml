@@ -14,7 +14,7 @@ services:
     region: singapore
     plan: free
     rootDir: server
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python -m unidic download
     startCommand: uvicorn main:app --port 10000
     envVars:
       - key: PORT

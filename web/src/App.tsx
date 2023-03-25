@@ -59,7 +59,7 @@ function App() {
       </AppBar>
 
       <Box className="px-2 bg-gray-100">
-        <Grid container spacing={2}>
+        <Box sx={{justifyContent: 'space-around'}}>
           <Box sx={{m: 0.5}} >      
             <Typography variant="h6" gutterBottom>
               翻訳元のテキスト
@@ -68,34 +68,34 @@ function App() {
             <Button onClick={() => {navigator.clipboard.writeText(sourceText)}}>Copy</Button>
           </Box>
           
-          <Box sx={{m: 0.5}}>
+          <Box sx={{ m: 0.5}}>
             <Box>
               <Typography variant="h6" gutterBottom>
                 分かち書きのテキスト
               </Typography> 
               <TextField multiline variant="outlined" rows={4} fullWidth value={wakatiText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWakatiText(e.target.value)} />
-              <Button onClick={() => {navigator.clipboard.writeText(wakatiText)}}>Copy</Button>
             </Box>
             <Box>
-              <Typography variant="h6" gutterBottom>
+              {/* <Typography variant="h6" gutterBottom>
                 分かち書きのテキスト(編集前)
-              </Typography> 
-              <TextField multiline variant="outlined" rows={4} fullWidth value={wakatiReference} />
-              <Box className="flex flex-col float-right">
+              </Typography>  */}
+              <TextField sx={{my:1}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} />
+              {/* <Box className="flex flex-col float-right">
                 {thumbdown || <ThumbUpOffAlt onClick={()=>{setThumbup(true)}}/>}
                 {thumbup || <ThumbDownOffAlt onClick={()=>{setThumbdown(true)}}/>}        
-              </Box>
+              </Box> */}
             </Box>
+            <Button onClick={() => {navigator.clipboard.writeText(wakatiText)}}>Copy</Button>
           </Box>
 
-          <Box sx={{m: 0.5}}>
+          <Box sx={{ m: 0.5}}>
             <Typography variant="h6" gutterBottom>
               翻訳後のテキスト
             </Typography>
-            <TextField multiline variant="outlined" rows={4} fullWidth value={targetText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTargetText(e.target.value)} />
+            <TextField label="readonly" multiline variant="outlined" rows={4} fullWidth value={targetText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTargetText(e.target.value)} />
             <Button onClick={() => {navigator.clipboard.writeText(targetText)}}>Copy</Button>
           </Box>
-        </Grid>
+        </Box>
       </Box>
     </Box>
   )

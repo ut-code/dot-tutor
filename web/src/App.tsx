@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 import React from 'react'
 import { ThumbUpOffAlt, ThumbDownOffAlt, ThumbUpAlt, ThumbDownAlt } from '@mui/icons-material';
 import { Box, Button, AppBar, Toolbar, IconButton, Typography, TextField} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import { API_ENDPOINT } from './commons/config';
-import Grid from '@mui/system/Unstable_Grid';
 
 
 function App() {
@@ -45,7 +43,7 @@ function App() {
 
   const theme = useTheme();
   return (
-    <Box className="App">
+    <div className="App">
       <AppBar position="static">
         <Toolbar variant="dense">
           <IconButton edge="start" color="inherit" aria-label="menu">
@@ -56,47 +54,47 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-
-      <Box className="px-2 bg-gray-100">
+      <div className="px-5 bg-gray-100">
         <Box sx={{justifyContent: 'space-around'}}>
-          <Box sx={{m: 0.5}} >      
-            <Typography variant="h6" gutterBottom>
+          <Box sx={{mx: 1, pt:1.5}} >      
+            <Typography align="center" variant="h6" gutterBottom >
               翻訳元のテキスト
-            </Typography>        
-            <TextField multiline variant="outlined" rows={4} fullWidth value={sourceText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSourceText(e.target.value)} />
+            </Typography>    
+                {/* set background color of TextField to white */}
+            <TextField  style={{backgroundColor: 'white'}} multiline variant="outlined" rows={6} fullWidth value={sourceText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSourceText(e.target.value)}/>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+
             <Button onClick={() => {navigator.clipboard.writeText(sourceText)}}>Copy</Button>
-          </Box>
+</div>          </Box>
           
-          <Box sx={{ m: 0.5}}>
+          <Box sx={{ mx: 1}}>
             <Box>
-              <Typography variant="h6" gutterBottom>
+            {/* <TextField sx={{mt: 2}} style={{backgroundColor: theme.palette.secondary.main}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} /> */}
+
+              <Typography align="center" variant="h6" gutterBottom>
                 分かち書きのテキスト
               </Typography> 
-              <TextField multiline variant="outlined" rows={4} fullWidth value={wakatiText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWakatiText(e.target.value)} />
+              <TextField style={{backgroundColor: 'white'}} multiline variant="outlined" rows={6} fullWidth value={wakatiText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWakatiText(e.target.value)} />
             </Box>
             <Box>
-              {/* <Typography variant="h6" gutterBottom>
-                分かち書きのテキスト(編集前)
-              </Typography>  */}
-              <TextField sx={{my:1}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} />
-              {/* <Box className="flex flex-col float-right">
-                {thumbdown || <ThumbUpOffAlt onClick={()=>{setThumbup(true)}}/>}
-                {thumbup || <ThumbDownOffAlt onClick={()=>{setThumbdown(true)}}/>}        
-              </Box> */}
             </Box>
-            <Button onClick={() => {navigator.clipboard.writeText(wakatiText)}}>Copy</Button>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button onClick={() => {navigator.clipboard.writeText(wakatiText)}}>Copy</Button>
+            </div>
           </Box>
 
-          <Box sx={{ m: 0.5}}>
-            <Typography variant="h6" gutterBottom>
+          <Box sx={{ mx:1, pb: 6}}>
+            <Typography align="center" variant="h6" gutterBottom>
               翻訳後のテキスト
             </Typography>
-            <TextField label="readonly" multiline variant="outlined" rows={4} fullWidth value={targetText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTargetText(e.target.value)} />
-            <Button onClick={() => {navigator.clipboard.writeText(targetText)}}>Copy</Button>
+            <TextField style={{backgroundColor: theme.palette.secondary.main}} label="readonly" multiline variant="outlined" rows={6} fullWidth value={targetText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTargetText(e.target.value)} />
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button onClick={() => {navigator.clipboard.writeText(targetText)}}>Copy</Button>
+            </div>          
           </Box>
         </Box>
-      </Box>
-    </Box>
+      </div>      
+    </div>
   )
 }
 

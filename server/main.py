@@ -12,7 +12,8 @@ app = FastAPI()
 WEB_ORIGIN = os.getenv("WEB_ORIGIN", "http://localhost:5173")
 
 origins = [
-    WEB_ORIGIN
+    WEB_ORIGIN,
+    "http://127.0.0.1:5173",
 ]
 
 app.add_middleware(
@@ -29,12 +30,12 @@ async def root():
 
 
 '''
-def wakati_func(source):
+def source2wakati(source):
     target = tagger.parse(source)
     return target
 '''
 
-def wakati_func(source):
+def source2wakati(source):
     tagger = MeCab.Tagger()
     parses = tagger.parse(source)
     pasrses_1 = parses.split('\n')
@@ -86,7 +87,7 @@ def wakati_func(source):
 
 
 '''
-def tenji_func(source):
+def wakati2target(source):
     letter = [_ for _ in source]
     target = []
     for char in letter:
@@ -128,7 +129,7 @@ def Jp_trans_func(char, prechar, pre_num, target):
         target.append("⠀")
     
 
-def tenji_func(source):
+def wakati2target(source):
     letter = [_ for _ in source]
     target = []
     pre_num = False #前が数字か
@@ -236,28 +237,29 @@ def tenji_func(source):
             target.append("⠴")
     return "".join(target)
 
-def translate_func(text):
-    wakati = wakati_func(text)
-    tenji = tenji_func(wakati)
-    return tenji, wakati
+def source2target(sourceText):
+    wakatiText = source2wakati(sourceText)
+    targetText = wakati2target(wakatiText)
+    return {"targetText": targetText, "wakatiText": wakatiText}
 
 
 # translate text to braille
-@app.get("/translate/source/")
-async def translate(text: str):
+@app.get("/source2target/")
+async def callSource2target(sourceText: str):
+    data = source2target(sourceText)
+    targetText = data["targetText"]
+    wakatiText = data["wakatiText"]
+    return {"sourceText": sourceText, "targetText": targetText, "wakatiText": wakatiText}
 
-    tenji, wakati = translate_func(text)
-    return {"source": text, "tenji": tenji, "wakati": wakati}
+@app.get("/source2wakati/")
+async def callSource2wakati(sourceText: str):
+    wakatiText = source2wakati(sourceText)
+    return {"sourceText": sourceText, "wakatiText": wakatiText}
 
-@app.get("/wakati/")
-async def wakati(text: str):
-    wakati = wakati_func(text)
-    return {"source": text, "wakati": wakati}
-
-@app.get("/tenji/")
-async def tenji(text: str):
-    tenji = tenji_func(text)
-    return {"source": text, "tenji": tenji}
+@app.get("/wakati2target/")
+async def callWakati2target(wakatiText: str):
+    targetText = wakati2target(wakatiText)
+    return {"wakatiText":wakatiText , "targetText": targetText}
 
 @app.get("/evaluation/")
 async def evaluation(source: str, wakati: str, evaluation: str):

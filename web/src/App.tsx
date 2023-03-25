@@ -1,166 +1,103 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import React from 'react'
-// import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { ThumbUpOffAlt, ThumbDownOffAlt, ThumbUpAlt, ThumbDownAlt } from '@mui/icons-material';
 import { Button, AppBar, Toolbar, IconButton, Typography, TextField} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import { API_ENDPOINT } from './commons/config';
+import Grid from '@mui/system/Unstable_Grid';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
-
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        Word of the Day
-      </Typography>
-      <Typography variant="h5" component="div">
-        be{bull}nev{bull}o{bull}lent
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        adjective
-      </Typography>
-      <Typography variant="body2">
-        well meaning and kindly.
-        <br />
-        {'"a benevolent smile"'}
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </React.Fragment>
-);
-
-const TextAreaEditable = () => {
-  const [content, setContent] = React.useState("")
-  return (
-    <textarea className="bg-gray-200 h-60 mx-2"
-      value={content} 
-      onChange={e => setContent(e.currentTarget.value)} 
-    />  
-  )
-}
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [source, setSource] = useState('今日の天気は晴天ですね。')
-  const [target, setTarget] = useState('')
-  const [wakati1, setWakati1] = useState('')
-  const [wakati2, setWakati2] = useState('')
-  const [thumbup1, setThumbup1] = React.useState(false);
-  const [thumbdown1, setThumbdown1] = React.useState(false);
-  const [thumbup2, setThumbup2] = React.useState(false);
-  const [thumbdown2, setThumbdown2] = React.useState(false);
+  const [sourceText, setSourceText] = useState('今日の天気は晴天ですね。')
+  const [targetText, setTargetText] = useState('')
+  const [wakatiText, setWakatiText] = useState('')
+  const [wakatiReference, setWakatiReference] = useState('')
+  const [thumbup, setThumbup] = React.useState(false);
+  const [thumbdown, setThumbdown] = React.useState(false);
 
-  async function wakati(text: string) {
-    const response = await fetch(`${API_ENDPOINT}/wakati/?text=` + text);
+  async function source2wakati(text: string) {
+    const response = await fetch(`${API_ENDPOINT}/source2wakati?sourceText=` + text);
     const data = await response.json();
-    return data.wakati
+    return data
   }
 
-  async function tenji(text: string) {
-    const response = await fetch(`${API_ENDPOINT}/tenji/?text=` + text);
-    const data = await response.json();
-    return data.tenji
-  }
-
-  async function sendWakatiEvaluation(source: string, wakati: string, evaluation: string){
-    const response = await fetch(`${API_ENDPOINT}/tenji/?text=${source}&wakati=${wakati}&evaluation=${evaluation}`);
+  async function wakati2target(text: string) {
+    const response = await fetch(`${API_ENDPOINT}/wakati2target?wakatiText=` + text);
     const data = await response.json();
     return data
   }
 
 
   useEffect(() => {
-    wakati(source).then((data) => {
-      setWakati1(data)
-      setWakati2(data)
+    source2wakati(sourceText).then((data) => {
+      setWakatiText(data.wakatiText)
+      setWakatiReference(data.wakatiText)
     })
-  },[source])
+  },[sourceText])
 
   useEffect(() => {
-    tenji(wakati1).then((data) => {
-      setTarget(data)
+    wakati2target(wakatiText).then((data) => {
+      setTargetText(data.targetText)
     })
-  },[wakati1])
+  },[wakatiText])
 
   const theme = useTheme();
   return (
-    <div className="App">
+    <Box className="App">
       <AppBar position="static">
         <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+          <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" component="div">
+          <Typography variant="h6" color="inherit">
             ut.code(); 点字翻訳アプリ 
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <div className="px-2 bg-gray-100">
-        <div className="flex my-5 mx-2 px-5">
-      
-      <div style={{display: 'flex', flexDirection: 'column'}}>      
-        <Typography variant="h5" gutterBottom>
-          翻訳元のテキスト
-        </Typography>        
-        {/* <TextField sx={{width:'400px', height: '400px'}} label="元の文" variant="outlined" value={source} onChange={e => setSource(e.currentTarget.value)} /> */}
-        <TextField multiline variant="outlined" rows={4} fullWidth value={source} onChange={e => setSource(e.currentTarget.value)} />
-        <Button onClick={() => {navigator.clipboard.writeText(target)}}>Copy</Button>
+      <Box className="px-2 bg-gray-100">
+        <Grid container spacing={2}>
+          <Box sx={{m: 0.5}} >      
+            <Typography variant="h6" gutterBottom>
+              翻訳元のテキスト
+            </Typography>        
+            <TextField multiline variant="outlined" rows={4} fullWidth value={sourceText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSourceText(e.target.value)} />
+            <Button onClick={() => {navigator.clipboard.writeText(sourceText)}}>Copy</Button>
+          </Box>
+          
+          <Box sx={{m: 0.5}}>
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                分かち書きのテキスト
+              </Typography> 
+              <TextField multiline variant="outlined" rows={4} fullWidth value={wakatiText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWakatiText(e.target.value)} />
+              <Button onClick={() => {navigator.clipboard.writeText(wakatiText)}}>Copy</Button>
+            </Box>
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                分かち書きのテキスト(編集前)
+              </Typography> 
+              <TextField multiline variant="outlined" rows={4} fullWidth value={wakatiReference} />
+              <Box className="flex flex-col float-right">
+                {thumbdown || <ThumbUpOffAlt onClick={()=>{setThumbup(true)}}/>}
+                {thumbup || <ThumbDownOffAlt onClick={()=>{setThumbdown(true)}}/>}        
+              </Box>
+            </Box>
+          </Box>
 
-      </div>
-      <div>
-        <Typography variant="h5" gutterBottom>
-          分かち書きのテキスト
-        </Typography> 
-        <TextField multiline variant="outlined" rows={4} fullWidth value={wakati1} onChange={e => setWakati1(e.currentTarget.value)} />
-        <Button onClick={() => {navigator.clipboard.writeText(wakati1)}}>Copy</Button>
-            <div>
-        <Typography variant="h5" gutterBottom>
-          分かち書きのテキスト(編集前)
-        </Typography> 
-        <TextField multiline variant="outlined" rows={4} fullWidth value={wakati2} />
-              <div className="flex flex-col float-right">
-                {thumbdown2 || <ThumbUpOffAlt onClick={()=>{setThumbup2(true)}}/>}
-                {thumbup2 || <ThumbDownOffAlt onClick={()=>{setThumbdown2(true)}}/>}        
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <Typography variant="h5" gutterBottom>
+          <Box sx={{m: 0.5}}>
+            <Typography variant="h6" gutterBottom>
               翻訳後のテキスト
             </Typography>
-            <TextField multiline variant="outlined" rows={4} fullWidth value={target} onChange={(e) => setTarget(e.currentTarget.value)} />
-
-          <Button onClick={() => {navigator.clipboard.writeText(target)}}>Copy</Button>
-          </div>
-          </div>
-          <div className="flex mx-2 px-5">
-        </div>
-        <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card}</Card>
+            <TextField multiline variant="outlined" rows={4} fullWidth value={targetText} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTargetText(e.target.value)} />
+            <Button onClick={() => {navigator.clipboard.writeText(targetText)}}>Copy</Button>
+          </Box>
+        </Grid>
+      </Box>
     </Box>
-      </div>
-
-    </div>
   )
 }
 

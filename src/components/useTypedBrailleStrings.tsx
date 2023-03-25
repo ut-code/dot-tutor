@@ -1,16 +1,5 @@
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 
-interface KeyboardState {
-  KeyF: boolean;
-  KeyD: boolean;
-  KeyS: boolean;
-  KeyJ: boolean;
-  KeyK: boolean;
-  KeyL: boolean;
-  Space: boolean;
-  Backspace: boolean;
-}
-
 const defaultKeyboardValues = {
   KeyF: false,
   KeyD: false,
@@ -22,25 +11,10 @@ const defaultKeyboardValues = {
   Backspace: false,
 };
 
-const availableKeys = [
-  "KeyF",
-  "KeyD",
-  "KeyS",
-  "KeyJ",
-  "KeyK",
-  "KeyL",
-  "Space",
-  "Backspace",
-];
-type AvailableKeys =
-  | "KeyF"
-  | "KeyD"
-  | "KeyS"
-  | "KeyJ"
-  | "KeyK"
-  | "KeyL"
-  | "Space"
-  | "Backspace";
+type KeyboardState = typeof defaultKeyboardValues;
+
+type AvailableKeys = keyof KeyboardState;
+const availableKeys = Object.keys(defaultKeyboardValues);
 
 /**
  * Store the state of F,D,S,J,K,L,Space,Backspace keys

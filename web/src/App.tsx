@@ -56,7 +56,7 @@ function App() {
       </AppBar>
       <div className="px-5 bg-gray-100">
         <Box sx={{justifyContent: 'space-around'}}>
-          <Box sx={{mx: 1, pt:1.5}} >      
+          <Box sx={{mx: 2.5, pt:1.5}} >      
             <Typography align="center" variant="h6" gutterBottom >
               翻訳元のテキスト
             </Typography>    
@@ -67,7 +67,7 @@ function App() {
             <Button onClick={() => {navigator.clipboard.writeText(sourceText)}}>Copy</Button>
 </div>          </Box>
           
-          <Box sx={{ mx: 1}}>
+          <Box sx={{ mx: 2.5}}>
             <Box>
             {/* <TextField sx={{mt: 2}} style={{backgroundColor: theme.palette.secondary.main}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} /> */}
 
@@ -83,7 +83,7 @@ function App() {
             </div>
           </Box>
 
-          <Box sx={{ mx:1, pb: 6}}>
+          <Box sx={{ mx:2.5, pb: 6}}>
             <Typography align="center" variant="h6" gutterBottom>
               翻訳後のテキスト
             </Typography>

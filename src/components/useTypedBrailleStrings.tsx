@@ -99,6 +99,36 @@ function useTypedKey(): [
 }
 
 /**
+ * convert the state of F, D, S, J, K, L, Space, Backspace keys to a code point of braille
+ * @param keyboardState the state of F, D, S, J, K, L, Space, Backspace keys
+ * @returns the code point of braille
+ */
+function toCodePoint(keyboardState: KeyboardState): number {
+  if (keyboardState.Backspace) {
+    return 0x0008; // return the code point of backspace
+  } else {
+    // See https://www.unicode.org/charts/PDF/U2800.pdf
+    let codePoint = 0x2800;
+    if (keyboardState.KeyF) codePoint += 2 ** 0;
+    if (keyboardState.KeyD) codePoint += 2 ** 1;
+    if (keyboardState.KeyS) codePoint += 2 ** 2;
+    if (keyboardState.KeyJ) codePoint += 2 ** 3;
+    if (keyboardState.KeyK) codePoint += 2 ** 4;
+    if (keyboardState.KeyL) codePoint += 2 ** 5;
+    return codePoint;
+  }
+}
+
+/**
+ * convert the state of F, D, S, J, K, L, Space, Backspace keys to a braille
+ * @param keyboardState the state of F, D, S, J, K, L, Space, Backspace keys
+ * @returns the braille
+ */
+function toBraille(keyboardState: KeyboardState): string {
+  return String.fromCodePoint(toCodePoint(keyboardState));
+}
+
+/**
  * Store the state of typed braille strings
  * @returns [the state of typed braille strings, the function to update the state]
  */
@@ -115,24 +145,13 @@ export default function useTypedBrailleStrings(): [
   };
 
   useEffect(() => {
-    if (!typedKey.Backspace) {
-      // See https://www.unicode.org/charts/PDF/U2800.pdf
-      let codePoint = 0x2800;
-      if (typedKey.KeyF) codePoint += 2 ** 0;
-      if (typedKey.KeyD) codePoint += 2 ** 1;
-      if (typedKey.KeyS) codePoint += 2 ** 2;
-      if (typedKey.KeyJ) codePoint += 2 ** 3;
-      if (typedKey.KeyK) codePoint += 2 ** 4;
-      if (typedKey.KeyL) codePoint += 2 ** 5;
-      setTypedBrailleStringsDirectly(
-        `${typedBrailleStrings}${String.fromCodePoint(codePoint)}`
-      );
+    const typedBraille = toBraille(typedKey);
+    if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
+      setTypedBrailleStringsDirectly(typedBrailleStrings.slice(0, -1));
+    } else if (typedBraille === "\b") {
+      setTypedBrailleStringsDirectly(typedBraille);
     } else {
-      if (typedBrailleStrings.length !== 0) {
-        setTypedBrailleStringsDirectly(typedBrailleStrings.slice(0, -1));
-      } else {
-        setTypedBrailleStringsDirectly(typedBrailleStrings);
-      }
+      setTypedBrailleStringsDirectly(`${typedBrailleStrings}${typedBraille}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKey]);

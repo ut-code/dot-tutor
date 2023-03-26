@@ -18,7 +18,7 @@ const availableKeys = Object.keys(defaultKeyboardValues);
 
 /**
  * Update the state of F, D, S, J, K, L, Space, Backspace keys
- * @returns [the state of F, D, S, J, K, L, Space, Backspace keys, the function to update the state]
+ * @returns [the state of keyboard, the function to update the state of keyboard]
  */
 function useKeyboardState(): [
   keyboardState: KeyboardState,
@@ -27,6 +27,8 @@ function useKeyboardState(): [
   const [keyboardState, setKeyboardStateDirectly] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
+
+  // function to update the state of keyboard
   const setKeyboardState = (e: KeyboardEvent): void => {
     // Set state `true` when key is pressed.
     function pressed(e: KeyboardEvent): void {
@@ -73,6 +75,7 @@ function useTypedKey(): [
     ...defaultKeyboardValues,
   });
 
+  // Update the state of keyboard.
   const setTypedKey = (e: KeyboardEvent): void => {
     setKeyboardState(e);
   };
@@ -87,7 +90,7 @@ function useTypedKey(): [
       }
     });
 
-    // Store the state to `typedKey` and reset the state.
+    // Store the state to `typedKey` and reset the state, if all of the keys are released.
     if (Object.values(keyboardState).every((value: boolean) => !value)) {
       setTypedKeyDirectly({ ...pressedKeys });
       setPressedKeys({ ...defaultKeyboardValues });
@@ -99,15 +102,15 @@ function useTypedKey(): [
 }
 
 /**
- * convert the state of F, D, S, J, K, L, Space, Backspace keys to a code point of braille
- * @param keyboardState the state of F, D, S, J, K, L, Space, Backspace keys
+ * convert the state of keyboard to a code point of braille
+ * @param keyboardState the state of keyboard
  * @returns the code point of braille
  */
 function toCodePoint(keyboardState: KeyboardState): number {
   if (keyboardState.Backspace) {
-    return 0x0008; // return the code point of backspace
+    return 0x0008; // Return the code point of backspace.
   } else {
-    // See https://www.unicode.org/charts/PDF/U2800.pdf
+    // See https://www.unicode.org/charts/PDF/U2800.pdf.
     let codePoint = 0x2800;
     if (keyboardState.KeyF) codePoint += 2 ** 0;
     if (keyboardState.KeyD) codePoint += 2 ** 1;
@@ -120,8 +123,8 @@ function toCodePoint(keyboardState: KeyboardState): number {
 }
 
 /**
- * convert the state of F, D, S, J, K, L, Space, Backspace keys to a braille
- * @param keyboardState the state of F, D, S, J, K, L, Space, Backspace keys
+ * convert the state of keyboard to a braille
+ * @param keyboardState the state of keyboard
  * @returns the braille
  */
 function toBraille(keyboardState: KeyboardState): string {
@@ -140,6 +143,7 @@ export default function useTypedBrailleStrings(): [
   const [typedBrailleStrings, setTypedBrailleStringsDirectly] =
     useState<string>("");
 
+  // Update the state of typed key.
   const setTypedBrailleStrings = (e: KeyboardEvent): void => {
     setTypedKey(e);
   };
@@ -147,10 +151,13 @@ export default function useTypedBrailleStrings(): [
   useEffect(() => {
     const typedBraille = toBraille(typedKey);
     if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
+      // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
       setTypedBrailleStringsDirectly(typedBrailleStrings.slice(0, -1));
     } else if (typedBraille === "\b") {
+      // If the typed braille strings is empty, do nothing.
       setTypedBrailleStringsDirectly(typedBraille);
     } else {
+      // If the typed braille is not backspace, add it.
       setTypedBrailleStringsDirectly(`${typedBrailleStrings}${typedBraille}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

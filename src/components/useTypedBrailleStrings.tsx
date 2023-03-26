@@ -155,7 +155,7 @@ export default function useTypedBrailleStrings(): [
       setTypedBrailleStringsDirectly(typedBrailleStrings.slice(0, -1));
     } else if (typedBraille === "\b") {
       // If the typed braille strings is empty, do nothing.
-      setTypedBrailleStringsDirectly(typedBraille);
+      setTypedBrailleStringsDirectly(typedBrailleStrings);
     } else {
       // If the typed braille is not backspace, add it.
       setTypedBrailleStringsDirectly(`${typedBrailleStrings}${typedBraille}`);

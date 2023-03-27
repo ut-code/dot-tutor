@@ -1,0 +1,19 @@
+---
+name: Render Awake
+
+on:
+  schedule:
+    - cron: "*/14 * * * *"
+
+jobs:
+  render-awake:
+    name: Render Awake
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install curl
+        run: sudo apt install curl
+        shell: bash
+
+      - name: Access to Render
+        run: curl --silent --show-error https://translate-braille-server.onrender.com/
+        shell: bash

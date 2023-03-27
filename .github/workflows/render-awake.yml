@@ -4,6 +4,7 @@ name: Render Awake
 on:
   schedule:
     - cron: "*/14 * * * *"
+  workflow_dispatch:
 
 jobs:
   render-awake:

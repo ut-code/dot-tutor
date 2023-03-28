@@ -25,7 +25,7 @@ export const gojyuonQuestions1 = [
   "くく",
   "こい",
   "こうくう",
-]; //「あいうえおかきくけこ」で構成される
+]; // 「あいうえおかきくけこ」で構成される
 
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { type BrailleChar } from "../../components/brailleDefinitions";
 import translateBraille from "../../components/translateBraille";
 import {
@@ -11,6 +11,7 @@ import { Paper, Typography, Divider, Button } from "@mui/material";
 import Layout from "../../components/Layout";
 import Tutorial1 from "./tutorial/tutorial1.mdx";
 import Tutorial2 from "./tutorial/tutorial2.mdx";
+import { Props } from "@mdx-js/react/lib";
 
 export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
@@ -20,8 +21,8 @@ export default function Touch(): JSX.Element {
   const [question, setQuestion] = useState<string>("あ"); // 問題
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
 
-  function nextQuestion() {
-    if (rightOrWrong == "正解") {
+  function nextQuestion(): JSX.Element {
+    if (rightOrWrong === "正解") {
       return (
         <Button
           variant="contained"
@@ -34,6 +35,8 @@ export default function Touch(): JSX.Element {
           次の問題
         </Button>
       );
+    } else {
+      return <p></p>;
     }
   }
 

@@ -11,7 +11,6 @@ import { Paper, Typography, Divider, Button } from "@mui/material";
 import Layout from "../../components/Layout";
 import Tutorial1 from "./tutorial/tutorial1.mdx";
 import Tutorial2 from "./tutorial/tutorial2.mdx";
-import { Props } from "@mdx-js/react/lib";
 
 export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(

@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { type BrailleChar } from "../../components/brailleDefinitions";
 import translateBraille from "../../components/translateBraille";
-import { judge, makeQuestion } from "../../components/questionAndJudge";
+import {
+  judge,
+  makeQuestion,
+  vowelQuestions,
+} from "../../components/questionAndJudge";
 import EdittableBraille from "../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import Layout from "../../components/Layout";
@@ -12,9 +16,26 @@ export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
     [...Array(10)].map((_) => "⠀")
   );
-  const [hiraganaStrings, setHiraganaStrings] = useState<string>();
+  const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>("あ"); // 問題
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
+
+  function nextQuestion() {
+    if (rightOrWrong == "正解") {
+      return (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setQuestion(makeQuestion(vowelQuestions));
+            setHiraganaStrings("");
+            judgeAnswer("");
+          }}
+        >
+          次の問題
+        </Button>
+      );
+    }
+  }
 
   return (
     <>
@@ -24,15 +45,6 @@ export default function Touch(): JSX.Element {
           { title: "点字を打ってみよう", content: <Tutorial2 /> },
         ]}
       >
-        <Button
-          variant="contained"
-          onClick={() => {
-            setQuestion(makeQuestion());
-          }}
-        >
-          問題生成
-        </Button>
-
         <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
           <Typography variant="h6" component="h2" color="inherit" p={2}>
             問題
@@ -116,6 +128,8 @@ export default function Touch(): JSX.Element {
             {rightOrWrong}
           </Typography>
         </Paper>
+
+        {nextQuestion()}
       </Layout>
     </>
   );

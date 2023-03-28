@@ -1,8 +1,33 @@
 import { type BrailleChar } from "./brailleDefinitions";
 import translateBraille from "./translateBraille";
 
-export function makeQuestion(): string {
-  const questions = ["あい", "あう", "あお"];
+export const vowelQuestions = [
+  "あい",
+  "あう",
+  "あお",
+  "いう",
+  "いえ",
+  "おい",
+  "おう",
+  "おお",
+];
+export const gojyuonQuestions1 = [
+  "かき",
+  "かこ",
+  "かう",
+  "かお",
+  "きあい",
+  "きおう",
+  "きく",
+  "くい",
+  "くう",
+  "くき",
+  "くく",
+  "こい",
+  "こうくう",
+]; //「あいうえおかきくけこ」で構成される
+
+export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];
 }
 

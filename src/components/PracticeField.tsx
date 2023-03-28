@@ -6,20 +6,20 @@ export default function PracticeField({
   question,
   answer,
 }: {
-  question: String;
-  answer: String;
+  question: string;
+  answer: string;
 }): JSX.Element {
   const [typedBrailleStrings, setTypedBrailleStrings] =
     useTypedBrailleStrings();
   const [answered, setAnswered] = useState<boolean>(false);
-  const [correctOrNot, setCorrectOrNot] = useState<String>("不正解です。");
-  function clickedAnswered(typedBrailleStrings: String, answer: String): void {
+  const [correctOrNot, setCorrectOrNot] = useState<string>("不正解です。");
+  function clickedAnswered(typedBrailleStrings: string, answer: string): void {
     if (typedBrailleStrings === answer) {
       setCorrectOrNot("正解です！");
     }
     setAnswered(true);
   }
-  if (answered === false) {
+  if (!answered) {
     return (
       <>
         <div>
@@ -34,7 +34,14 @@ export default function PracticeField({
               setTypedBrailleStrings(e);
             }}
           />
-          <button onClick={() => clickedAnswered(typedBrailleStrings, answer)}>
+          <button
+            onClick={() => {
+              if (typedBrailleStrings === answer) {
+                setCorrectOrNot("正解です！");
+              }
+              setAnswered(true);
+            }}
+          >
             答え合わせをする
           </button>
         </div>

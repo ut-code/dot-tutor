@@ -83,10 +83,11 @@ export default function Touch(): JSX.Element {
         <Button
           variant="contained"
           onClick={() => {
+            judgeAnswer(judge(brailleStrings, question));
             setHiraganaStrings(translateBraille(brailleStrings));
           }}
         >
-          翻訳
+          答え合わせ
         </Button>
         <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
           <Typography variant="h6" component="h2" color="inherit" p={2}>
@@ -103,16 +104,6 @@ export default function Touch(): JSX.Element {
             {hiraganaStrings}
           </Typography>
         </Paper>
-
-        <Button
-          variant="contained"
-          onClick={() => {
-            judgeAnswer(judge(brailleStrings, question));
-          }}
-        >
-          答え合わせ
-        </Button>
-
         <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
           <Typography variant="h6" component="h2" color="inherit" p={2}>
             正誤

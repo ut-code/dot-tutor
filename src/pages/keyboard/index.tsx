@@ -7,9 +7,11 @@ import Tutorial4 from "./tutorial/2_write_hiragana.mdx";
 import Tutorial5 from "./tutorial/3_kanadukai_number.mdx";
 import Tutorial6 from "./tutorial/4_alphabet.mdx";
 import Tutorial7 from "./tutorial/5_symbol.mdx";
+import { TextField } from "@mui/material";
 
 export default function Keyboard(): JSX.Element {
-  const [typedBrailleStrings] = useTypedBrailleStrings();
+  const [typedBrailleStrings, setTypedBrailleStrings] =
+    useTypedBrailleStrings();
   return (
     <>
       <Layout
@@ -23,7 +25,16 @@ export default function Keyboard(): JSX.Element {
           { title: "見出し 2", content: <Tutorial2 /> },
         ]}
       >
-        {typedBrailleStrings}
+        <TextField
+          variant="outlined"
+          value={typedBrailleStrings}
+          onKeyDown={(e) => {
+            setTypedBrailleStrings(e);
+          }}
+          onKeyUp={(e) => {
+            setTypedBrailleStrings(e);
+          }}
+        />
       </Layout>
     </>
   );

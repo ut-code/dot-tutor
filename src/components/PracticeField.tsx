@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useTypedBrailleStrings from "./useTypedBrailleStrings";
+import { TextField } from "@mui/material";
 
 export default function PracticeField({
   question,
@@ -8,34 +9,34 @@ export default function PracticeField({
   question: String;
   answer: String;
 }): JSX.Element {
-  const [typedBrailleStrings] = useTypedBrailleStrings();
-  const [answering, setAnswering] = useState<number>(0);
-  const [correctOrNot, setCorrectOrNot] = useState<String>("不正解");
-  const clickedAnswer = () => setAnswering(1);
-  function clickedCheck(typedBrailleStrings: String, answer: String): void {
+  const [typedBrailleStrings, setTypedBrailleStrings] =
+    useTypedBrailleStrings();
+  const [answered, setAnswered] = useState<boolean>(false);
+  const [correctOrNot, setCorrectOrNot] = useState<String>("不正解です。");
+  function clickedAnswered(typedBrailleStrings: String, answer: String): void {
     if (typedBrailleStrings === answer) {
-      setCorrectOrNot("正解");
+      setCorrectOrNot("正解です！");
     }
-    setAnswering(2);
+    setAnswered(true);
   }
-  if (answering === 0) {
+  if (answered === false) {
     return (
       <>
         <div>
           {question}
-          <button onClick={clickedAnswer}>回答する</button>
-        </div>
-      </>
-    );
-  } else if (answering === 1) {
-    return (
-      <>
-        <div>
-          {question}
-          <button onClick={() => clickedCheck(typedBrailleStrings, answer)}>
+          <TextField
+            variant="outlined"
+            value={typedBrailleStrings}
+            onKeyDown={(e) => {
+              setTypedBrailleStrings(e);
+            }}
+            onKeyUp={(e) => {
+              setTypedBrailleStrings(e);
+            }}
+          />
+          <button onClick={() => clickedAnswered(typedBrailleStrings, answer)}>
             答え合わせをする
           </button>
-          <p>{typedBrailleStrings}</p>
         </div>
       </>
     );
@@ -44,8 +45,8 @@ export default function PracticeField({
       <>
         <div>
           <p>
-            {" "}
             {correctOrNot}
+            {"答えは"}
             {answer}
           </p>
         </div>

@@ -13,12 +13,6 @@ export default function PracticeField({
     useTypedBrailleStrings();
   const [answered, setAnswered] = useState<boolean>(false);
   const [correctOrNot, setCorrectOrNot] = useState<string>("不正解です。");
-  function clickedAnswered(typedBrailleStrings: string, answer: string): void {
-    if (typedBrailleStrings === answer) {
-      setCorrectOrNot("正解です！");
-    }
-    setAnswered(true);
-  }
   if (!answered) {
     return (
       <>

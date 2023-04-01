@@ -20,7 +20,7 @@ export default function Touch(): JSX.Element {
   const [question, setQuestion] = useState<string>("あ"); // 問題
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
 
-  function nextQuestion(): JSX.Element {
+  function NextQuestion(): JSX.Element {
     if (rightOrWrong === "正解") {
       return (
         <Button
@@ -35,7 +35,7 @@ export default function Touch(): JSX.Element {
         </Button>
       );
     } else {
-      return <p></p>;
+      return <></>;
     }
   }
 
@@ -122,7 +122,7 @@ export default function Touch(): JSX.Element {
           </Typography>
         </Paper>
 
-        {nextQuestion()}
+        <NextQuestion />
       </Layout>
     </>
   );

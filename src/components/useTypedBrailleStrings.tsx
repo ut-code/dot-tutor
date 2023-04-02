@@ -22,21 +22,21 @@ const availableKeys = Object.keys(defaultKeyboardValues);
  */
 function useKeyboardState(): [
   keyboardState: KeyboardState,
-  setKeyboardState: (e: KeyboardEvent) => void
+  updateKeyboardState: (e: KeyboardEvent) => void
 ] {
-  const [keyboardState, setKeyboardStateDirectly] = useState<KeyboardState>({
+  const [keyboardState, setKeyboardState] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
 
   // function to update the state of keyboard
-  const setKeyboardState = (e: KeyboardEvent): void => {
+  const updateKeyboardState = (e: KeyboardEvent): void => {
     // Set state `true` when key is pressed.
     function pressed(e: KeyboardEvent): void {
       if (availableKeys.includes(e.code)) {
         const key = e.code as AvailableKeys;
         const tmp = { ...keyboardState };
         tmp[key] = true;
-        setKeyboardStateDirectly(tmp);
+        setKeyboardState(tmp);
       }
     }
 
@@ -46,7 +46,7 @@ function useKeyboardState(): [
         const key = e.code as AvailableKeys;
         const tmp = { ...keyboardState };
         tmp[key] = false;
-        setKeyboardStateDirectly(tmp);
+        setKeyboardState(tmp);
       }
     }
 
@@ -56,7 +56,7 @@ function useKeyboardState(): [
       released(e);
     }
   };
-  return [keyboardState, setKeyboardState];
+  return [keyboardState, updateKeyboardState];
 }
 
 /**

@@ -1,4 +1,4 @@
-import Tutorial from "@/components/Tutorial";
+import Layout from "@/components/Layout";
 import Tutorial1 from "./tutorial/tutorial1";
 import Tutorial1Dialog1 from "./tutorial/tutorial1/dialog/1_braille_6dots.mdx";
 import Tutorial1Dialog2 from "./tutorial/tutorial1/dialog/2_write_hiragana.mdx";
@@ -9,7 +9,7 @@ import Tutorial1Dialog5 from "./tutorial/tutorial1/dialog/5_symbol.mdx";
 export default function Keyboard(): JSX.Element {
   return (
     <>
-      <Tutorial
+      <Layout
         tutorialSteps={[
           {
             dialog: [

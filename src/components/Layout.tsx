@@ -15,15 +15,24 @@ import {
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { TutorialDialog, type TutorialDialogSteps } from "./TutorialDialog";
+import BottomNavigationBar from "./BottomNavigationBar";
+
+interface TutorialStep {
+  dialog: TutorialDialogSteps;
+  content: JSX.Element;
+}
+
+type TutorialSteps = TutorialStep[];
 
 export default function Layout({
   children,
-  tutorialDialogSteps,
+  tutorialSteps,
 }: {
-  children: React.ReactNode;
-  tutorialDialogSteps?: TutorialDialogSteps;
+  children?: React.ReactNode;
+  tutorialSteps?: TutorialSteps;
 }): JSX.Element {
   const [open, setOpen] = useState(true);
+  const [selectedStep, setSelectedStep] = useState<number>(0);
   return (
     <>
       <Head>
@@ -46,7 +55,7 @@ export default function Layout({
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
-            {tutorialDialogSteps != null && (
+            {tutorialSteps?.[selectedStep].dialog != null && (
               <>
                 <Button
                   color="inherit"
@@ -60,7 +69,7 @@ export default function Layout({
                 <TutorialDialog
                   open={open}
                   setOpen={setOpen}
-                  tutorialDialogSteps={tutorialDialogSteps}
+                  tutorialDialogSteps={tutorialSteps[selectedStep].dialog}
                 />
               </>
             )}
@@ -84,8 +93,17 @@ export default function Layout({
       </AppBar>
       <Toolbar />
       <Box m={2}>
-        <main>{children}</main>
+        <main>
+          {children === null ? tutorialSteps?.[selectedStep].content : children}
+        </main>
       </Box>
+      {tutorialSteps != null && (
+        <BottomNavigationBar
+          selectedStep={selectedStep}
+          setSelectedStep={setSelectedStep}
+          tutorialLength={tutorialSteps.length}
+        />
+      )}
     </>
   );
 }

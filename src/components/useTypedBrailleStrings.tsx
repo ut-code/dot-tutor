@@ -63,27 +63,27 @@ function useKeyboardState(): [
  * Store the state of the object of typed keys
  * @returns [the state of the object of typed keys, the function to update the state]
  */
-function useTypedKey(): [
+function useTypedKeys(): [
   typedKey: KeyboardState,
-  updateTypedKey: (e: KeyboardEvent) => void
+  updateTypedKeys: (e: KeyboardEvent) => void
 ] {
   const [keyboardState, setKeyboardState] = useKeyboardState();
   const [pressedKeys, setPressedKeys] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
-  const [typedKey, setTypedKey] = useState<KeyboardState>({
+  const [typedKeys, setTypedKeys] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
 
   // Update the state of keyboard.
-  const updateTypedKey = (e: KeyboardEvent): void => {
+  const updateTypedKeys = (e: KeyboardEvent): void => {
     setKeyboardState(e);
   };
 
   useEffect(() => {
     // If all of the keys are released, store the state to `typedKey` and reset the state.
     if (Object.values(keyboardState).every((value: boolean) => !value)) {
-      setTypedKey({ ...pressedKeys });
+      setTypedKeys({ ...pressedKeys });
       setPressedKeys({ ...defaultKeyboardValues });
     }
     // If any of the keys are pressed, set the state to `true`.
@@ -98,7 +98,7 @@ function useTypedKey(): [
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyboardState]);
 
-  return [typedKey, updateTypedKey];
+  return [typedKeys, updateTypedKeys];
 }
 
 /**
@@ -139,18 +139,18 @@ export default function useTypedBrailleStrings(): [
   typedBrailleStrings: string,
   updateTypedBrailleStrings: (e: KeyboardEvent) => void
 ] {
-  const [typedKey, setTypedKey] = useTypedKey();
+  const [typedKeys, setTypedKeys] = useTypedKeys();
   const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
 
   // Update the state of typed key.
   const updateTypedBrailleStrings = (e: KeyboardEvent): void => {
-    setTypedKey(e);
+    setTypedKeys(e);
   };
 
   useEffect(() => {
     // If the typed key is not empty, convert the typed key to braille and add it to the typed braille strings.
-    if (!Object.values(typedKey).every((value: boolean) => !value)) {
-      const typedBraille = toBraille(typedKey);
+    if (!Object.values(typedKeys).every((value: boolean) => !value)) {
+      const typedBraille = toBraille(typedKeys);
       if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
         // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
         setTypedBrailleStrings(typedBrailleStrings.slice(0, -1));
@@ -163,6 +163,6 @@ export default function useTypedBrailleStrings(): [
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typedKey]);
+  }, [typedKeys]);
   return [typedBrailleStrings, updateTypedBrailleStrings];
 }

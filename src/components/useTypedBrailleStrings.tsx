@@ -153,16 +153,19 @@ export default function useTypedBrailleStrings(): [
       const typedBraille = toBraille(typedKeys);
       if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
         // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
-        setTypedBrailleStrings(typedBrailleStrings.slice(0, -1));
+        setTypedBrailleStrings((typedBrailleStrings) =>
+          typedBrailleStrings.slice(0, -1)
+        );
       } else if (typedBraille === "\b") {
         // If the typed braille strings is empty, do nothing.
-        setTypedBrailleStrings(typedBrailleStrings);
       } else {
         // If the typed braille is not backspace, add it.
-        setTypedBrailleStrings(`${typedBrailleStrings}${typedBraille}`);
+        setTypedBrailleStrings(
+          (typedBrailleStrings) => `${typedBrailleStrings}${typedBraille}`
+        );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typedKeys]);
+  }, [typedKeys, setTypedBrailleStrings]);
   return [typedBrailleStrings, updateTypedBrailleStrings];
 }

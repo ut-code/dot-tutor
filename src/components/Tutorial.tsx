@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { Toolbar, Box } from "@mui/material";
-import { type TutorialDialogSteps } from "./TutorialDialog";
+import { type TutorialSteps } from "./tutorialDefinitions";
 import TopBar from "./TopBar";
 import BottomStepper from "./BottomStepper";
-
-interface TutorialStep {
-  dialog: TutorialDialogSteps;
-  content: JSX.Element;
-}
-
-export type TutorialSteps = TutorialStep[];
 
 export default function Tutorial({
   tutorialSteps,

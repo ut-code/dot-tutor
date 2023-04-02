@@ -1,4 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
+import { type TutorialDialogSteps } from "./tutorialDefinitions";
 import {
   Dialog,
   DialogTitle,
@@ -10,14 +11,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-interface TutorialDialogStep {
-  title: string;
-  content: JSX.Element;
-}
-
-export type TutorialDialogSteps = TutorialDialogStep[];
-
-export function TutorialDialog(props: {
+export default function TutorialDialog(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   tutorialDialogSteps: TutorialDialogSteps;

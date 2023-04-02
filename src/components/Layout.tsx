@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { TutorialDialog, type TutorialDialogSteps } from "./TutorialDialog";
-import BottomNavigationBar from "./BottomNavigationBar";
+import BottomNavigationBar from "./BottomStepper";
 
 interface TutorialStep {
   dialog: TutorialDialogSteps;
@@ -101,7 +101,7 @@ export default function Layout({
         <BottomNavigationBar
           selectedStep={selectedStep}
           setSelectedStep={setSelectedStep}
-          tutorialLength={tutorialSteps.length}
+          length={tutorialSteps.length}
         />
       )}
     </>

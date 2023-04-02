@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
 import Image from "next/image";
@@ -18,7 +18,10 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 export default function TopBar(props: {
   tutorialDialogSteps?: TutorialDialogSteps;
 }): JSX.Element {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState<boolean>(true);
+  useEffect(() => {
+    setOpen(true);
+  }, [props.tutorialDialogSteps]);
   return (
     <>
       <Head>

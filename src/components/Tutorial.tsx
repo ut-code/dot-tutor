@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Toolbar, Box } from "@mui/material";
 import { type TutorialDialogSteps } from "./TutorialDialog";
 import TopBar from "./TopBar";
-import BottomNavigationBar from "./BottomStepper";
+import BottomStepper from "./BottomStepper";
 
 interface TutorialStep {
   dialog: TutorialDialogSteps;
@@ -24,7 +24,7 @@ export default function Tutorial({
       <Box m={2}>
         <main>{tutorialSteps[selectedStep].content}</main>
       </Box>
-      <BottomNavigationBar
+      <BottomStepper
         selectedStep={selectedStep}
         setSelectedStep={setSelectedStep}
         length={tutorialSteps.length}

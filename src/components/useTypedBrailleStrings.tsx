@@ -81,19 +81,19 @@ function useTypedKey(): [
   };
 
   useEffect(() => {
-    // Set state `true` when key is newly pressed.
-    setPressedKeys(
-      Object.fromEntries(
-        Object.entries(pressedKeys).map(([key, value]) =>
-          keyboardState[key as AvailableKeys] ? [key, true] : [key, value]
-        )
-      ) as KeyboardState
-    );
-
-    // Store the state to `typedKey` and reset the state, if all of the keys are released.
+    // If all of the keys are released, store the state to `typedKey` and reset the state.
     if (Object.values(keyboardState).every((value: boolean) => !value)) {
       setTypedKey({ ...pressedKeys });
       setPressedKeys({ ...defaultKeyboardValues });
+    }
+    // If any of the keys are pressed, set the state to `true`.
+    else {
+      const newPressedKeys = Object.fromEntries(
+        Object.entries(pressedKeys).map(([key, value]) =>
+          keyboardState[key as AvailableKeys] ? [key, true] : [key, value]
+        )
+      ) as KeyboardState;
+      setPressedKeys(newPressedKeys);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyboardState]);

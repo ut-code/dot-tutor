@@ -137,14 +137,13 @@ function toBraille(keyboardState: KeyboardState): string {
  */
 export default function useTypedBrailleStrings(): [
   typedBrailleStrings: string,
-  setTypedBrailleStrings: (e: KeyboardEvent) => void
+  updateTypedBrailleStrings: (e: KeyboardEvent) => void
 ] {
   const [typedKey, setTypedKey] = useTypedKey();
-  const [typedBrailleStrings, setTypedBrailleStringsDirectly] =
-    useState<string>("");
+  const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
 
   // Update the state of typed key.
-  const setTypedBrailleStrings = (e: KeyboardEvent): void => {
+  const updateTypedBrailleStrings = (e: KeyboardEvent): void => {
     setTypedKey(e);
   };
 
@@ -154,16 +153,16 @@ export default function useTypedBrailleStrings(): [
       const typedBraille = toBraille(typedKey);
       if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
         // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
-        setTypedBrailleStringsDirectly(typedBrailleStrings.slice(0, -1));
+        setTypedBrailleStrings(typedBrailleStrings.slice(0, -1));
       } else if (typedBraille === "\b") {
         // If the typed braille strings is empty, do nothing.
-        setTypedBrailleStringsDirectly(typedBrailleStrings);
+        setTypedBrailleStrings(typedBrailleStrings);
       } else {
         // If the typed braille is not backspace, add it.
-        setTypedBrailleStringsDirectly(`${typedBrailleStrings}${typedBraille}`);
+        setTypedBrailleStrings(`${typedBrailleStrings}${typedBraille}`);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKey]);
-  return [typedBrailleStrings, setTypedBrailleStrings];
+  return [typedBrailleStrings, updateTypedBrailleStrings];
 }

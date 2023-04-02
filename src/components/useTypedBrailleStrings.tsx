@@ -65,18 +65,18 @@ function useKeyboardState(): [
  */
 function useTypedKey(): [
   typedKey: KeyboardState,
-  setTypedKey: (e: KeyboardEvent) => void
+  updateTypedKey: (e: KeyboardEvent) => void
 ] {
   const [keyboardState, setKeyboardState] = useKeyboardState();
   const [pressedKeys, setPressedKeys] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
-  const [typedKey, setTypedKeyDirectly] = useState<KeyboardState>({
+  const [typedKey, setTypedKey] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
 
   // Update the state of keyboard.
-  const setTypedKey = (e: KeyboardEvent): void => {
+  const updateTypedKey = (e: KeyboardEvent): void => {
     setKeyboardState(e);
   };
 
@@ -92,13 +92,13 @@ function useTypedKey(): [
 
     // Store the state to `typedKey` and reset the state, if all of the keys are released.
     if (Object.values(keyboardState).every((value: boolean) => !value)) {
-      setTypedKeyDirectly({ ...pressedKeys });
+      setTypedKey({ ...pressedKeys });
       setPressedKeys({ ...defaultKeyboardValues });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyboardState]);
 
-  return [typedKey, setTypedKey];
+  return [typedKey, updateTypedKey];
 }
 
 /**

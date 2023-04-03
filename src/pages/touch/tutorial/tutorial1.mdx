@@ -1,12 +1,37 @@
 import EdittableBraille from "../../../components/EdittableBraille";
+import PracticeTouch from "../../../components/practiceTouch";
+
+### 参考文献
+
+このチュートリアルは自立活動指導書 別冊１ 点字研修資料 (広島県立広島中央特別支援学校) (https://www.hiroshima-sb.hiroshima-c.ed.jp/kenkyu_kensyu/jiritukatudou_sidousyo/additional%20volume1/2-1.pdf 2023 年 3 月 27 日閲覧)を元に作成されました。
+
+<br />
+
+### 実際に入力しよう！
 
 ここでは、点字を実際に入力してみましょう。
 
-次のように左上の点だけを打つと、日本語の「あ」になります。
+点字の点をクリックすることで、点字を入力することができます。
+
+下のマスを使って自由に点字をうってみよう。
 
 <EdittableBraille
   height={"100"}
   width={"60"}
-  brailleChar={"⠁"}
+  brailleChar={"⠀"}
   updateBrailleChar={(brailleChar) => {}}
+/>
+
+### 練習しよう！
+
+<PracticeTouch
+  question="①「め」(⠿)と入力してみましょう！"
+  answer="め"
+  length="1;"
+/>
+<br />
+<PracticeTouch
+  question="②「てんじ」(⠟⠴⠐⠳)と入力してみましょう！"
+  answer="てんじ"
+  length="4;"
 />

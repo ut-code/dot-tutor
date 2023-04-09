@@ -8,12 +8,14 @@ import Layout from "./Layout";
 export default function PracticeTouch({
   question,
   answer,
+  length,
 }: {
   question: string;
   answer: string;
+  length: number;
 }): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
-    [...Array(4)].map((_) => "⠀")
+    [...Array(length)].map((_) => "⠀")
   );
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
 

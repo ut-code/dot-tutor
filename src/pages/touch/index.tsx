@@ -9,8 +9,10 @@ import {
 import EdittableBraille from "../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import Layout from "../../components/Layout";
-import Tutorial1 from "./tutorial/tutorial1.mdx";
-import Tutorial2 from "./tutorial/tutorial2.mdx";
+import TouchTutorial1 from "./tutorial/1_braille_touch.mdx";
+import TouchTutorial2 from "./tutorial/2_write_vowel.mdx";
+import TouchTutorial3 from "./tutorial/3_write_gojyuon.mdx";
+import TouchTutorial4 from "./tutorial/4_write_dakuon_handakuon.mdx";
 
 export default function Touch(): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
@@ -43,8 +45,10 @@ export default function Touch(): JSX.Element {
     <>
       <Layout
         tutorialDialogSteps={[
-          { title: "点字を打ってみよう", content: <Tutorial1 /> },
-          { title: "点字を打ってみよう", content: <Tutorial2 /> },
+          { title: "点字を打ってみよう", content: <TouchTutorial1 /> },
+          { title: "母音を打ってみよう", content: <TouchTutorial2 /> },
+          { title: "五十音を打ってみよう", content: <TouchTutorial3 /> },
+          { title: "濁音、半濁音を打ってみよう", content: <TouchTutorial4 /> },
         ]}
       >
         <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>

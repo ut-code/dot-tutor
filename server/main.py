@@ -57,15 +57,21 @@ def source2wakati(source):
                 kana = par[1].split(",")[6]
             else:
                 kana = par[1].split(",")[9] if (len(par[1].split(",")) > 9) else parse.split()[0]
-                kana_normal = par[1].split(",")[6] if (len(par[1].split(",")) > 6) else parse.split()[0]
+                kana_normal = par[1].split(",")[6] if (len(par[1].split(",")) > 6) else parse.split()[0] #そのまま
             
-            letter = [_ for _ in kana]
+            letter = [_ for _ in kana] 
             letter_normal = [_ for _ in kana_normal]
-            letter_default = [_ for _ in parse.split()[0]]
-            for num in range(len(letter)):
-                preLetter = ""
-                if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"):
+            letter_default = [_ for _ in parse.split()[0]] #入力された文字１つずつ
+            for num in range(len(letter)): 
+                if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"): #イとオは長音にしない
                     letter[num] = letter_normal[num]
+                if letter[num] == "ズ" and (letter_normal[num] == "ヅ"): #「続く」は「ツヅク」
+                    letter[num] = letter_normal[num]
+                if letter[num] == "ジ" and (letter_normal[num] == "ヂ"): #「縮む」は「チヂム」
+                    letter[num] = letter_normal[num]
+            for num in range(len(letter_default)):
+                if letter_default[num] == "ー": #長音は長音のまま
+                    letter[num] = letter_default[num]
             kana = "".join(letter)
             if letter_default[0] in mapping.mapping_alpha or letter_default[0] in mapping.mapping_alpha_CAP:
                 kana = parse.split()[0]

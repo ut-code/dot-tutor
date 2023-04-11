@@ -1,6 +1,16 @@
 import { MDXProvider } from "@mdx-js/react";
 import type { AppProps } from "next/app";
-import { Typography, Link } from "@mui/material";
+import {
+  Typography,
+  Link,
+  Paper,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 import NextLink from "next/link";
 
 function H1(props: any): JSX.Element {
@@ -163,6 +173,37 @@ function A(props: any): JSX.Element {
   return <Link component={NextLink} color="inherit" {...props} />;
 }
 
+function TableWrapper(props: any): JSX.Element {
+  return (
+    <TableContainer
+      component={Paper}
+      sx={{ mt: 1, mb: 1, width: "fit-content" }}
+    >
+      <Table color="inherit" {...props} />
+    </TableContainer>
+  );
+}
+
+function Thead(props: any): JSX.Element {
+  return <TableHead color="inherit" {...props} />;
+}
+
+function Tbody(props: any): JSX.Element {
+  return <TableBody color="inherit" {...props} />;
+}
+
+function Tr(props: any): JSX.Element {
+  return <TableRow color="inherit" {...props} />;
+}
+
+function Th(props: any): JSX.Element {
+  return <TableCell variant="head" component="th" color="inherit" {...props} />;
+}
+
+function Td(props: any): JSX.Element {
+  return <TableCell variant="body" component="td" color="inherit" {...props} />;
+}
+
 const components = {
   h1: H1,
   h2: H2,
@@ -177,6 +218,12 @@ const components = {
   ol: OL,
   li: Li,
   a: A,
+  table: TableWrapper,
+  thead: Thead,
+  tbody: Tbody,
+  tr: Tr,
+  th: Th,
+  td: Td,
 };
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 
+import nextMDX from "@next/mdx";
+
 const BASE_URL = process.env.GITHUB_ACTIONS ? process.env.BASE_URL : "";
 
-const withMDX = require("@next/mdx")({
+const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
@@ -25,4 +27,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);

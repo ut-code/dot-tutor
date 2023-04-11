@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 import nextMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
 
 const BASE_URL = process.env.GITHUB_ACTIONS ? process.env.BASE_URL : "";
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [],
     providerImportSource: "@mdx-js/react",
   },

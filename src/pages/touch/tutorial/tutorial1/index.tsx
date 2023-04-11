@@ -38,7 +38,7 @@ export default function Tutorial1(): JSX.Element {
 
   return (
     <>
-      <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
+      <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           問題
         </Typography>
@@ -54,7 +54,7 @@ export default function Tutorial1(): JSX.Element {
         </Typography>
       </Paper>
 
-      <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
+      <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           点字
         </Typography>
@@ -82,7 +82,7 @@ export default function Tutorial1(): JSX.Element {
       >
         答え合わせ
       </Button>
-      <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
+      <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           墨字
         </Typography>
@@ -97,7 +97,7 @@ export default function Tutorial1(): JSX.Element {
           {hiraganaStrings}
         </Typography>
       </Paper>
-      <Paper elevation={2} sx={{ mt: 2, mb: 2 }}>
+      <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           正誤
         </Typography>

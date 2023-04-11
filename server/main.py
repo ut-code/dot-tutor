@@ -43,20 +43,18 @@ def source2wakati(source):
     
     hinshi = ""
     prehinshi = ""
+    prehinshi_specific = ""
     for parse in pasrses_1:
         par = parse.split('\t')
         if len(par) == 2:
-            hinshi = par[1].split(",")[0]
-            hinshi_specific = par[1].split(",")[1]
+            hinshi = par[1].split(",")[0] #"名詞"とか"接頭辞"とか
+            hinshi_specific = par[1].split(",")[1] #"数詞"とか"代名詞"とか
             if hinshi == "補助記号":
                 kana = parse.split()[0]
-            elif hinshi_specific == "数詞":
-                kana = parse.split()[0]
-                kana_normal = ""
             elif parse.split()[0] == "を":
                 kana = par[1].split(",")[6]
             else:
-                kana = par[1].split(",")[9] if (len(par[1].split(",")) > 9) else parse.split()[0]
+                kana = par[1].split(",")[9] if (len(par[1].split(",")) > 9) else parse.split()[0] #中段に出る文字
                 kana_normal = par[1].split(",")[6] if (len(par[1].split(",")) > 6) else parse.split()[0] #そのまま
             
             letter = [_ for _ in kana] 
@@ -79,6 +77,8 @@ def source2wakati(source):
                 target.append(kana)
             elif prehinshi == "接頭辞":
                 target.append(kana)
+            elif prehinshi_specific == "数詞" and hinshi == "名詞": #数字と単位の間は空けない
+                target.append(kana)
             elif kana == "*":
                 pass
             elif hinshi == "補助記号":
@@ -88,6 +88,7 @@ def source2wakati(source):
             else:
                 target.append("　" + kana)
             prehinshi = hinshi
+            prehinshi_specific = hinshi_specific
     return "".join(target)
     
 

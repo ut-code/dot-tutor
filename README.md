@@ -39,6 +39,7 @@
 ### 環境構築
 
 ```shell
+cd learn-braille
 npm ci
 ```
 
@@ -56,6 +57,6 @@ npm run dev
 
 Copyright © 2023 ut.code();.
 
-## 外部からの寄与・アクセスの可否
+## コントリビューション
 
 Issue や PR などはいつでも歓迎します。

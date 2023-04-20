@@ -49,6 +49,7 @@ export default function PracticeField({
             {correctOrNot}
             {"答えは"}
             {answer}
+            {"です。"}
           </p>
         </div>
       </>

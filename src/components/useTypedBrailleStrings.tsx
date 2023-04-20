@@ -22,21 +22,21 @@ const availableKeys = Object.keys(defaultKeyboardValues);
  */
 function useKeyboardState(): [
   keyboardState: KeyboardState,
-  setKeyboardState: (e: KeyboardEvent) => void
+  updateKeyboardState: (e: KeyboardEvent) => void
 ] {
-  const [keyboardState, setKeyboardStateDirectly] = useState<KeyboardState>({
+  const [keyboardState, setKeyboardState] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
 
   // function to update the state of keyboard
-  const setKeyboardState = (e: KeyboardEvent): void => {
+  const updateKeyboardState = (e: KeyboardEvent): void => {
     // Set state `true` when key is pressed.
     function pressed(e: KeyboardEvent): void {
       if (availableKeys.includes(e.code)) {
         const key = e.code as AvailableKeys;
         const tmp = { ...keyboardState };
         tmp[key] = true;
-        setKeyboardStateDirectly(tmp);
+        setKeyboardState(tmp);
       }
     }
 
@@ -46,7 +46,7 @@ function useKeyboardState(): [
         const key = e.code as AvailableKeys;
         const tmp = { ...keyboardState };
         tmp[key] = false;
-        setKeyboardStateDirectly(tmp);
+        setKeyboardState(tmp);
       }
     }
 
@@ -56,49 +56,49 @@ function useKeyboardState(): [
       released(e);
     }
   };
-  return [keyboardState, setKeyboardState];
+  return [keyboardState, updateKeyboardState];
 }
 
 /**
  * Store the state of the object of typed keys
  * @returns [the state of the object of typed keys, the function to update the state]
  */
-function useTypedKey(): [
+function useTypedKeys(): [
   typedKey: KeyboardState,
-  setTypedKey: (e: KeyboardEvent) => void
+  updateTypedKeys: (e: KeyboardEvent) => void
 ] {
   const [keyboardState, setKeyboardState] = useKeyboardState();
   const [pressedKeys, setPressedKeys] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
-  const [typedKey, setTypedKeyDirectly] = useState<KeyboardState>({
+  const [typedKeys, setTypedKeys] = useState<KeyboardState>({
     ...defaultKeyboardValues,
   });
 
   // Update the state of keyboard.
-  const setTypedKey = (e: KeyboardEvent): void => {
+  const updateTypedKeys = (e: KeyboardEvent): void => {
     setKeyboardState(e);
   };
 
   useEffect(() => {
-    // Set state `true` when key is newly pressed.
-    setPressedKeys(
-      Object.fromEntries(
+    // If all of the keys are released, store the state to `typedKey` and reset the state.
+    if (Object.values(keyboardState).every((value: boolean) => !value)) {
+      setTypedKeys({ ...pressedKeys });
+      setPressedKeys({ ...defaultKeyboardValues });
+    }
+    // If any of the keys are pressed, set the state to `true`.
+    else {
+      const newPressedKeys = Object.fromEntries(
         Object.entries(pressedKeys).map(([key, value]) =>
           keyboardState[key as AvailableKeys] ? [key, true] : [key, value]
         )
-      ) as KeyboardState
-    );
-
-    // Store the state to `typedKey` and reset the state, if all of the keys are released.
-    if (Object.values(keyboardState).every((value: boolean) => !value)) {
-      setTypedKeyDirectly({ ...pressedKeys });
-      setPressedKeys({ ...defaultKeyboardValues });
+      ) as KeyboardState;
+      setPressedKeys(newPressedKeys);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyboardState]);
 
-  return [typedKey, setTypedKey];
+  return [typedKeys, updateTypedKeys];
 }
 
 /**
@@ -137,33 +137,35 @@ function toBraille(keyboardState: KeyboardState): string {
  */
 export default function useTypedBrailleStrings(): [
   typedBrailleStrings: string,
-  setTypedBrailleStrings: (e: KeyboardEvent) => void
+  updateTypedBrailleStrings: (e: KeyboardEvent) => void
 ] {
-  const [typedKey, setTypedKey] = useTypedKey();
-  const [typedBrailleStrings, setTypedBrailleStringsDirectly] =
-    useState<string>("");
+  const [typedKeys, setTypedKeys] = useTypedKeys();
+  const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
 
   // Update the state of typed key.
-  const setTypedBrailleStrings = (e: KeyboardEvent): void => {
-    setTypedKey(e);
+  const updateTypedBrailleStrings = (e: KeyboardEvent): void => {
+    setTypedKeys(e);
   };
 
   useEffect(() => {
     // If the typed key is not empty, convert the typed key to braille and add it to the typed braille strings.
-    if (!Object.values(typedKey).every((value: boolean) => !value)) {
-      const typedBraille = toBraille(typedKey);
+    if (!Object.values(typedKeys).every((value: boolean) => !value)) {
+      const typedBraille = toBraille(typedKeys);
       if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
         // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
-        setTypedBrailleStringsDirectly(typedBrailleStrings.slice(0, -1));
+        setTypedBrailleStrings((typedBrailleStrings) =>
+          typedBrailleStrings.slice(0, -1)
+        );
       } else if (typedBraille === "\b") {
         // If the typed braille strings is empty, do nothing.
-        setTypedBrailleStringsDirectly(typedBrailleStrings);
       } else {
         // If the typed braille is not backspace, add it.
-        setTypedBrailleStringsDirectly(`${typedBrailleStrings}${typedBraille}`);
+        setTypedBrailleStrings(
+          (typedBrailleStrings) => `${typedBrailleStrings}${typedBraille}`
+        );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typedKey]);
-  return [typedBrailleStrings, setTypedBrailleStrings];
+  }, [typedKeys, setTypedBrailleStrings]);
+  return [typedBrailleStrings, updateTypedBrailleStrings];
 }

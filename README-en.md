@@ -39,6 +39,7 @@ Visit [here](https://ut-code.github.io/learn-braille/).
 ### Installation
 
 ```shell
+cd learn-braille
 npm ci
 ```
 

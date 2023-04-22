@@ -50,7 +50,7 @@ export default function Tutorial1(): JSX.Element {
           p={2}
           sx={{ minHeight: 100 }}
         >
-          {question}
+          「{question}」を点字に直してください。
         </Typography>
       </Paper>
 

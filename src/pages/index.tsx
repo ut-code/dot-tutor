@@ -15,6 +15,7 @@ function NavigationCard(props: {
   title: string;
   linkUrl: string;
   imgPath: string;
+  description: string;
 }): JSX.Element {
   const router = useRouter();
   return (
@@ -28,6 +29,9 @@ function NavigationCard(props: {
           <CardContent>
             <Typography variant="h5" component="div">
               {props.title}
+            </Typography>
+            <Typography variant="body1" component="div" p={1}>
+              {props.description}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -54,6 +58,7 @@ export default function Home(): JSX.Element {
               title="点字キーボード"
               linkUrl="/keyboard"
               imgPath={url("/logo.svg")}
+              description="パソコンのキーボードを用いて ⠿ のような 6 点式点字を入力する練習ツールです。"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -61,6 +66,7 @@ export default function Home(): JSX.Element {
               title="Web 点字器"
               linkUrl="/touch"
               imgPath={url("/logo.svg")}
+              description="点字から墨字（ひらがな表記）への翻訳をクイズを通して学びます。"
             />
           </Grid>
         </Grid>

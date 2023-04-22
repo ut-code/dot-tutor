@@ -25,9 +25,7 @@ function NavigationCard(props: {
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={async () => await router.push(props.linkUrl)}
         >
-          <Box p={2}>
-            <CardMedia component="img" image={props.imgPath} />
-          </Box>
+          <CardMedia component="img" image={props.imgPath} />
           <CardContent>
             <Typography variant="h5" component="div">
               {props.title}

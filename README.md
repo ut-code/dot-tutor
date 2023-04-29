@@ -17,6 +17,14 @@ npm run setup
 npm run dev
 ```
 
+## コードのフォーマット
+
+下のスクリプトでコードをフォーマットすることができます。
+
+```shell
+npm run format
+```
+
 ## 参考資料
 
 https://atmarkit.itmedia.co.jp/ait/articles/2102/05/news027_2.html

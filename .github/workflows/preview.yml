@@ -23,6 +23,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        shell: bash
+
       - name: Make BASE_URL
         uses: actions/github-script@v6
         id: base-url
@@ -38,9 +48,18 @@ jobs:
           result-encoding: string
 
       - name: Build
-        uses: ./.github/actions/build
-        with:
-          base-url: ${{ steps.base-url.outputs.result }}
+        run: npm run build
+        env:
+          BASE_URL: ${{ steps.base-url.outputs.result }}
+        shell: bash
+
+      - name: Export
+        run: npm run export
+        shell: bash
+
+      - name: Add nojekill
+        run: touch out/.nojekyll
+        shell: bash
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1

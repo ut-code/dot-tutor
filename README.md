@@ -12,16 +12,8 @@ npm run setup
 
 ## 開発
 
-### フロントエンド
-
 ```shell
-npm run web:dev
-```
-
-### バックエンド
-
-```shell
-npm run server:dev
+npm run dev
 ```
 
 ## 参考資料

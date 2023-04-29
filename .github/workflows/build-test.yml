@@ -23,6 +23,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          BASE_URL: ""
         shell: bash
 
       - name: Export

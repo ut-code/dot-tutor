@@ -24,60 +24,75 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
 
-'''
+"""
 def source2wakati(source):
     target = tagger.parse(source)
     return target
-'''
+"""
+
 
 def source2wakati(source):
     tagger = MeCab.Tagger()
     parses = tagger.parse(source)
-    pasrses_1 = parses.split('\n')
+    pasrses_1 = parses.split("\n")
     target = []
-    
+
     hinshi = ""
     prehinshi = ""
     prehinshi_specific = ""
     for parse in pasrses_1:
-        par = parse.split('\t')
+        par = parse.split("\t")
         if len(par) == 2:
-            hinshi = par[1].split(",")[0] #"名詞"とか"接頭辞"とか
-            hinshi_specific = par[1].split(",")[1] #"数詞"とか"代名詞"とか
+            hinshi = par[1].split(",")[0]  # "名詞"とか"接頭辞"とか
+            hinshi_specific = par[1].split(",")[1]  # "数詞"とか"代名詞"とか
             if hinshi == "補助記号":
                 kana = parse.split()[0]
             elif parse.split()[0] == "を":
                 kana = par[1].split(",")[6]
             else:
-                kana = par[1].split(",")[9] if (len(par[1].split(",")) > 9) else parse.split()[0] #中段に出る文字
-                kana_normal = par[1].split(",")[6] if (len(par[1].split(",")) > 6) else parse.split()[0] #そのまま
-            
-            letter = [_ for _ in kana] 
+                kana = (
+                    par[1].split(",")[9]
+                    if (len(par[1].split(",")) > 9)
+                    else parse.split()[0]
+                )  # 中段に出る文字
+                kana_normal = (
+                    par[1].split(",")[6]
+                    if (len(par[1].split(",")) > 6)
+                    else parse.split()[0]
+                )  # そのまま
+
+            letter = [_ for _ in kana]
             letter_normal = [_ for _ in kana_normal]
-            letter_default = [_ for _ in parse.split()[0]] #入力された文字１つずつ
-            for num in range(min(len(letter), len(letter_normal))): 
-                if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"): #イとオは長音にしない
+            letter_default = [_ for _ in parse.split()[0]]  # 入力された文字１つずつ
+            for num in range(len(letter)):
+                if letter[num] == "ー" and (
+                    letter_normal[num] == "イ" or letter_normal[num] == "オ"
+                ):  # イとオは長音にしない
                     letter[num] = letter_normal[num]
-                if letter[num] == "ズ" and (letter_normal[num] == "ヅ"): #「続く」は「ツヅク」
+                if letter[num] == "ズ" and (letter_normal[num] == "ヅ"):  # 「続く」は「ツヅク」
                     letter[num] = letter_normal[num]
-                if letter[num] == "ジ" and (letter_normal[num] == "ヂ"): #「縮む」は「チヂム」
+                if letter[num] == "ジ" and (letter_normal[num] == "ヂ"):  # 「縮む」は「チヂム」
                     letter[num] = letter_normal[num]
             for num in range(len(letter_default)):
-                if letter_default[num] == "ー": #長音は長音のまま
+                if letter_default[num] == "ー":  # 長音は長音のまま
                     letter[num] = letter_default[num]
             kana = "".join(letter)
-            if letter_default[0] in mapping.mapping_alpha or letter_default[0] in mapping.mapping_alpha_CAP:
+            if (
+                letter_default[0] in mapping.mapping_alpha
+                or letter_default[0] in mapping.mapping_alpha_CAP
+            ):
                 kana = parse.split()[0]
             if hinshi == "助動詞" or hinshi == "助詞" or hinshi == "接尾辞":
                 target.append(kana)
             elif prehinshi == "接頭辞":
                 target.append(kana)
-            elif prehinshi_specific == "数詞" and hinshi == "名詞": #数字と単位の間は空けない
+            elif prehinshi_specific == "数詞" and hinshi == "名詞":  # 数字と単位の間は空けない
                 target.append(kana)
             elif kana == "*":
                 pass
@@ -90,10 +105,9 @@ def source2wakati(source):
             prehinshi = hinshi
             prehinshi_specific = hinshi_specific
     return "".join(target)
-    
 
 
-'''
+"""
 def wakati2target(source):
     letter = [_ for _ in source]
     target = []
@@ -107,7 +121,8 @@ def wakati2target(source):
             # print 
             target.append(char)
     return "".join(target)
-'''
+"""
+
 
 def wakati_oyomi_func(source):
     # mecab -Owakati, -Oyomi
@@ -117,6 +132,7 @@ def wakati_oyomi_func(source):
     oyomi = oyomi_tagger.parse(source)
     target = oyomi
     return target
+
 
 def Jp_trans_func(char, prechar, pre_num, target):
     if char in mapping.mapping:
@@ -132,17 +148,17 @@ def Jp_trans_func(char, prechar, pre_num, target):
             target.append(mapping.mapping_num[char])
         else:
             target.append("⠼" + mapping.mapping_num[char])
-    if char == "　": 
+    if char == "　":
         target.append("⠀")
-    
+
 
 def wakati2target(source):
     letter = [_ for _ in source]
     target = []
-    pre_num = False #前が数字か
-    pre_alpha = False #前がアルファベットか
-    pre_alpha_CAP = False #前が大文字か
-    double_CAP = False #二重大文字符効果の範囲内か
+    pre_num = False  # 前が数字か
+    pre_alpha = False  # 前がアルファベットか
+    pre_alpha_CAP = False  # 前が大文字か
+    double_CAP = False  # 二重大文字符効果の範囲内か
     gaiji = 0
     inyofu = 0
     prechar = ""
@@ -176,8 +192,10 @@ def wakati2target(source):
                 pre_alpha = False
                 pre_alpha_CAP = False
             else:
-                if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (pre_alpha == True and inyofu == len(target) - 1):
-                    target[inyofu - 1] = "⠰" 
+                if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (
+                    pre_alpha == True and inyofu == len(target) - 1
+                ):
+                    target[inyofu - 1] = "⠰"
                 else:
                     target.append("⠴")
                 if prechar != "　":
@@ -238,11 +256,14 @@ def wakati2target(source):
         if (char not in mapping.mapping_alpha_CAP) or (pre_alpha_CAP != True):
             double_CAP = False
     if inyofu > 0:
-        if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (pre_alpha == True and inyofu == len(target) - 1):
-            target[inyofu - 1] = "⠰" 
+        if (pre_alpha_CAP == True and inyofu == len(target) - 2) or (
+            pre_alpha == True and inyofu == len(target) - 1
+        ):
+            target[inyofu - 1] = "⠰"
         else:
             target.append("⠴")
     return "".join(target)
+
 
 def source2target(sourceText):
     wakatiText = source2wakati(sourceText)
@@ -256,29 +277,25 @@ async def callSource2target(sourceText: str):
     data = source2target(sourceText)
     targetText = data["targetText"]
     wakatiText = data["wakatiText"]
-    return {"sourceText": sourceText, "targetText": targetText, "wakatiText": wakatiText}
+    return {
+        "sourceText": sourceText,
+        "targetText": targetText,
+        "wakatiText": wakatiText,
+    }
+
 
 @app.get("/source2wakati/")
 async def callSource2wakati(sourceText: str):
     wakatiText = source2wakati(sourceText)
     return {"sourceText": sourceText, "wakatiText": wakatiText}
 
+
 @app.get("/wakati2target/")
 async def callWakati2target(wakatiText: str):
     targetText = wakati2target(wakatiText)
-    return {"wakatiText":wakatiText , "targetText": targetText}
+    return {"wakatiText": wakatiText, "targetText": targetText}
+
 
 @app.get("/evaluation/")
-async def evaluation(source: str, wakati: str, evaluation: str):
-    print("source: " + source, "wakati: " + wakati, "evaluation: " + evaluation, sep = ",")
+async def evaluation(sourceText: str, wakatiText: str, evaluation: str):
     return
-
-    source = text
-    tenji, wakati = translate_func(source)
-    return {"source": text, "target": tenji, "wakati": wakati}
-
-@app.get("/translate/wakati/")
-async def translate(text: str):
-    wakati = text
-    tenji = tenji_func(text)
-    return {"target": tenji}

@@ -8,6 +8,7 @@
     "setup:install": "npm run setup:install:web && npm run setup:install:server",
     "setup:install:web": "cd web && npm ci",
     "setup:install:server": "cd server && python3 -m venv env && source ./env/bin/activate && pip install -r requirements.txt && python -m unidic download && deactivate",
+    "dev": "npm run server:dev & npm run web:dev",
     "web:dev": "cd web && npm run dev",
     "server:dev": "cd server && source ./env/bin/activate && uvicorn main:app --reload --port 8000 && deactivate"
   },

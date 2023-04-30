@@ -10,7 +10,7 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -19,7 +19,7 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Install dependencies
+      - name: Install Node Packages
         run: npm ci
         shell: bash
 

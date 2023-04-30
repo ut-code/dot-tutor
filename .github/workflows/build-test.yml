@@ -19,7 +19,7 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
         shell: bash
 

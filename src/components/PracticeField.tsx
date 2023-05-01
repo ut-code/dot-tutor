@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import useTypedBrailleStrings from "./useTypedBrailleStrings";
-import { TextField } from "@mui/material";
+import translateBraille from "./translateBraille";
+import { TextField, Typography } from "@mui/material";
+import { type BrailleChar } from "./brailleDefinitions";
 
 export default function PracticeField({
   question,
@@ -17,7 +19,7 @@ export default function PracticeField({
     return (
       <>
         <div>
-          {question}
+          <Typography>{question}</Typography>
           <TextField
             variant="outlined"
             value={typedBrailleStrings}
@@ -28,6 +30,9 @@ export default function PracticeField({
               setTypedBrailleStrings(e);
             }}
           />
+          <Typography style={{ color: "gray", fontSize: "75%" }}>
+            {translateBraille(Array.from(typedBrailleStrings) as BrailleChar[])}
+          </Typography>
           <button
             onClick={() => {
               if (typedBrailleStrings === answer) {

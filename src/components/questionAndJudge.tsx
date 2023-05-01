@@ -28,7 +28,44 @@ export const gojyuonQuestions1 = [
   "こい",
   "こうくう",
 ]; // 「あいうえおかきくけこ」で構成される
-export const dakuonHandakuonQuestions = ["がんばれ", "だんべる", "ざるそば"];
+export const dakuonHandakuonQuestions = [
+  "がんばれ",
+  "だんべる",
+  "ざるそば",
+  "どんぶり",
+  "ずばり",
+  "でこぼこ",
+  "ばくだん",
+  "どらやき",
+  "ぷりん",
+  "だんごむし",
+]; //濁音、半濁音が含まれる言葉
+export const contractionQuestions = [
+  "ぎゅうにゅう",
+  "ちゅうい",
+  "じゃがいも",
+  "しょうゆ",
+  "きゅうり",
+  "りゅう",
+  "ぴょんぴょん",
+  "きょうかしょ",
+  "きょうじゅ",
+  "ぎょうざ",
+  "しゅくだい",
+  "きょうりゅう",
+  "きゅうりょう",
+  "しょくよく",
+  "りゅうこう",
+  "しょくよく",
+  "しゅうかん",
+  "きゃらくたー",
+  "にゅうしゃ",
+  "しょうりゃく",
+  "しょうたい",
+  "しゅっぱつ",
+  "しゅうまつ",
+  "にゅうがく",
+]; //拗音が含まれる言葉
 
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];

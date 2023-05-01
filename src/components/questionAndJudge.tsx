@@ -1,7 +1,5 @@
 import { type BrailleChar } from "./brailleDefinitions";
 import translateBraille from "./translateBraille";
-//import { rightOrWrong, setQuestion, setHiraganaStrings, judgeAnswer } from "../../pages/touch/tutorial/tutorial1/index.tsx";
-//import { Paper, Typography, Divider, Button } from "@mui/material";
 
 export const vowelQuestions = [
   "あい",
@@ -66,6 +64,7 @@ export const contractionQuestions = [
   "しゅうまつ",
   "にゅうがく",
 ]; //拗音が含まれる言葉
+export const questions = ["うぉーきんぐ", "せいめいかがく", "ぴゅーりたん"]; //特殊音が含まれる言葉
 
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];

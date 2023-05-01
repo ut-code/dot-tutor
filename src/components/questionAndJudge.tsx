@@ -1,5 +1,7 @@
 import { type BrailleChar } from "./brailleDefinitions";
 import translateBraille from "./translateBraille";
+//import { rightOrWrong, setQuestion, setHiraganaStrings, judgeAnswer } from "../../pages/touch/tutorial/tutorial1/index.tsx";
+//import { Paper, Typography, Divider, Button } from "@mui/material";
 
 export const vowelQuestions = [
   "あい",
@@ -26,6 +28,7 @@ export const gojyuonQuestions1 = [
   "こい",
   "こうくう",
 ]; // 「あいうえおかきくけこ」で構成される
+export const dakuonHandakuonQuestions = ["がんばれ", "だんべる", "ざるそば"];
 
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];
@@ -42,3 +45,24 @@ export function judge(
     return "不正解";
   }
 }
+
+/*
+export function NextQuestion(rightOrWrong, ): JSX.Element {
+  if (rightOrWrong === "正解") {
+    return (
+      <Button
+        variant="contained"
+        onClick={() => {
+          setQuestion(makeQuestion(vowelQuestions));
+          setHiraganaStrings("");
+          judgeAnswer("");
+        }}
+      >
+        次の問題
+      </Button>
+    );
+  } else {
+    return <></>;
+  }
+}
+*/

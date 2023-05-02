@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useTypedBrailleStrings from "./../hooks/useTypedBrailleStrings";
 import translateBraille from "../utils/translateBraille";
 import { TextField, Typography } from "@mui/material";
-import { type BrailleChar } from "../types/brailleDefinitions";
+import { BrailleString } from "@/models/Braille";
 
 export default function PracticeField({
   question,
@@ -31,7 +31,9 @@ export default function PracticeField({
             }}
           />
           <Typography style={{ color: "gray", fontSize: "75%" }}>
-            {translateBraille(Array.from(typedBrailleStrings) as BrailleChar[])}
+            {translateBraille(
+              new BrailleString("unicode", typedBrailleStrings)
+            )}
           </Typography>
           <button
             onClick={() => {

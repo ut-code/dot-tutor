@@ -1,4 +1,4 @@
-import { type BrailleChar } from "../types/brailleDefinitions";
+import { type BrailleString } from "@/models/Braille";
 import translateBraille from "../utils/translateBraille";
 
 export const vowelQuestions = [
@@ -71,7 +71,7 @@ export function makeQuestion(questions: string[]): string {
 }
 
 export function judge(
-  typedBrailleStrings: BrailleChar[],
+  typedBrailleStrings: BrailleString,
   question: string
 ): string {
   const typedAnswer = translateBraille(typedBrailleStrings);

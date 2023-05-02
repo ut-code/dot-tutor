@@ -1,6 +1,6 @@
 import useTypedBrailleStrings from "../../../../hooks/useTypedBrailleStrings";
 import { TextField, Typography } from "@mui/material";
-import { type BrailleChar } from "../../../../types/brailleDefinitions";
+import { BrailleString } from "@/models/Braille";
 import translateBraille from "../../../../utils/translateBraille";
 
 export default function Tutorial1(): JSX.Element {
@@ -20,7 +20,7 @@ export default function Tutorial1(): JSX.Element {
         style={{ width: "100%" }}
       />
       <Typography style={{ color: "gray", fontSize: "75%" }}>
-        {translateBraille(Array.from(typedBrailleStrings) as BrailleChar[])}
+        {translateBraille(new BrailleString("unicode", typedBrailleStrings))}
       </Typography>
     </>
   );

@@ -1,11 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
-import {
-  type BrailleChar,
-  type BrailleState,
-  availableDots,
-} from "../types/brailleDefinitions";
-import fromBrailleChar from "../utils/fromBrailleChar";
-import toBrailleChar from "../utils/toBrailleChar";
+import { type BrailleState, availableDots } from "../types/brailleDefinitions";
+import { Braille } from "@/models/Braille";
 
 /**
  * component to create touch-to-change Braille
@@ -25,14 +20,14 @@ export default function EdittableBraille({
 }: {
   height: string;
   width: string;
-  brailleChar: BrailleChar;
-  updateBrailleChar: (brailleChar: BrailleChar) => void;
+  brailleChar: Braille;
+  updateBrailleChar: (brailleChar: Braille) => void;
 }): JSX.Element {
-  const [brailleState, setBrailleState] = useState<BrailleState>(
-    fromBrailleChar(brailleChar)
-  );
+  const [brailleState, setBrailleState] = useState<BrailleState>({
+    ...brailleChar.brailleState,
+  });
   useEffect(() => {
-    updateBrailleChar(toBrailleChar(brailleState));
+    updateBrailleChar(brailleChar);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
   const xCoordinateList = {
@@ -60,7 +55,7 @@ export default function EdittableBraille({
         viewBox="0,0,120,160"
       >
         <text x="2" y="141" style={{ fontSize: "169px" }}>
-          {toBrailleChar(brailleState)}
+          {new Braille("braille state", brailleState).unicodeBraille}
         </text>
         {Object.values(availableDots).map((dotNumber) => (
           <Fragment key={dotNumber}>

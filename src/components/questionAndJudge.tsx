@@ -1,4 +1,4 @@
-import Braille from "@/models/Braille";
+import { BrailleString } from "@/models/Braille";
 import translateBraille from "../utils/translateBraille";
 
 export const vowelQuestions = [
@@ -33,7 +33,7 @@ export function makeQuestion(questions: string[]): string {
 
 export function judge(typedBrailleStrings: string, question: string): string {
   const typedAnswer = translateBraille(
-    new Braille("unicode", typedBrailleStrings)
+    new BrailleString("unicode", typedBrailleStrings)
   );
   if (typedAnswer === question) {
     return "正解";

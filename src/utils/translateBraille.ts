@@ -1,4 +1,4 @@
-import type Braille from "@/models/Braille";
+import { type BrailleString } from "@/models/Braille";
 
 const hiraganaTable = {
   あ: "⠁",
@@ -178,7 +178,9 @@ const numberTable = {
   "0": "⠚",
 };
 
-export default function translateBraille(brailleStrings: Braille): string {
+export default function translateBraille(
+  brailleStrings: BrailleString
+): string {
   let hiraganaStrings: string = "";
   let dakuon: boolean = false; // 濁音
   let handakuon: boolean = false; // 半濁音
@@ -190,14 +192,14 @@ export default function translateBraille(brailleStrings: Braille): string {
   let special2: boolean = false; // でゅ
   let number: boolean = false; // 数符
 
-  Array.from(brailleStrings.unicodeBraille).forEach((_, i) => {
+  brailleStrings.brailleArray.forEach((_, i) => {
     let hiragana: string = "";
 
     if (number) {
       hiragana = (Object.keys(numberTable) as Array<keyof typeof numberTable>)
         .filter(
           (hiragana) =>
-            numberTable[hiragana] === brailleStrings.unicodeBraille[i]
+            numberTable[hiragana] === brailleStrings.unicodeBrailleString[i]
         )
         .join("");
     }
@@ -215,7 +217,8 @@ export default function translateBraille(brailleStrings: Braille): string {
         )
           .filter(
             (hiragana) =>
-              dakuonHiraganaTable[hiragana] === brailleStrings.unicodeBraille[i]
+              dakuonHiraganaTable[hiragana] ===
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         dakuon = false;
@@ -228,7 +231,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               handakuonHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         handakuon = false;
@@ -241,7 +244,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               contractionHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         contraction = false;
@@ -254,7 +257,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               dakuonContractionHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         dakuonContraction = false;
@@ -267,7 +270,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               handakuonContractionHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         handakuonContraction = false;
@@ -280,7 +283,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               specialHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         special = false;
@@ -293,7 +296,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               specialHiraganaTable1[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         special1 = false;
@@ -306,7 +309,7 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               specialHiraganaTable2[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         special2 = false;
@@ -319,29 +322,29 @@ export default function translateBraille(brailleStrings: Braille): string {
           .filter(
             (hiragana) =>
               specialHiraganaTable2[hiragana] ===
-              brailleStrings.unicodeBraille[i]
+              brailleStrings.unicodeBrailleString[i]
           )
           .join("");
         special2 = false;
-      } else if (brailleStrings.unicodeBraille[i] === "⠐") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠐") {
         dakuon = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠠") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
         handakuon = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠈") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠈") {
         contraction = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠘") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠘") {
         dakuonContraction = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠨") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠨") {
         handakuonContraction = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠢") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠢") {
         special = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠲") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠲") {
         special1 = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠸") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠸") {
         special2 = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠼") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠼") {
         number = true;
-      } else if (brailleStrings.unicodeBraille[i] === "⠤") {
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠤") {
         number = false;
       } else {
         hiragana = (
@@ -349,7 +352,7 @@ export default function translateBraille(brailleStrings: Braille): string {
         )
           .filter(
             (hiragana) =>
-              hiraganaTable[hiragana] === brailleStrings.unicodeBraille[i]
+              hiraganaTable[hiragana] === brailleStrings.unicodeBrailleString[i]
           )
           .join("");
       }

@@ -1,4 +1,4 @@
-import { type BrailleChar } from "../types/brailleDefinitions";
+import Braille from "@/models/Braille";
 import translateBraille from "../utils/translateBraille";
 
 export const vowelQuestions = [
@@ -31,11 +31,10 @@ export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];
 }
 
-export function judge(
-  typedBrailleStrings: BrailleChar[],
-  question: string
-): string {
-  const typedAnswer = translateBraille(typedBrailleStrings);
+export function judge(typedBrailleStrings: string, question: string): string {
+  const typedAnswer = translateBraille(
+    new Braille("unicode", typedBrailleStrings)
+  );
   if (typedAnswer === question) {
     return "正解";
   } else {

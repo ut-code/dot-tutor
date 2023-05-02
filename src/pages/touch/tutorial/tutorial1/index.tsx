@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import translateBraille from "../../../../utils/translateBraille";
-import {
-  judge,
-  makeQuestion,
-  vowelQuestions,
-} from "../../../../components/questionAndJudge";
+import { judge, makeQuestion } from "../../../../components/questionAndJudge";
 import EdittableBraille from "../../../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import { Braille, BrailleString } from "@/models/Braille";
 
-export default function Tutorial1(): JSX.Element {
+export default function Tutorial1({
+  typeOfQuestions,
+}: {
+  typeOfQuestions: string[];
+}): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<Braille[]>(
     [...Array(10)].map((_) => new Braille("unicode", "⠀"))
   );
@@ -23,7 +23,7 @@ export default function Tutorial1(): JSX.Element {
         <Button
           variant="contained"
           onClick={() => {
-            setQuestion(makeQuestion(vowelQuestions));
+            setQuestion(makeQuestion(typeOfQuestions));
             setHiraganaStrings("");
             judgeAnswer("");
           }}

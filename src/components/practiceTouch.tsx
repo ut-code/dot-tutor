@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Braille } from "@/models/Braille";
+import { Braille, BrailleString } from "@/models/Braille";
 import { judge } from "./questionAndJudge";
 import EdittableBraille from "./EdittableBraille";
 import { Button } from "@mui/material";
@@ -41,7 +41,9 @@ export default function PracticeTouch({
         <Button
           variant="contained"
           onClick={() => {
-            judgeAnswer(judge(brailleStrings, answer));
+            judgeAnswer(
+              judge(new BrailleString("braille array", brailleStrings), answer)
+            );
           }}
         >
           答え合わせ

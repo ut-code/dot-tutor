@@ -76,7 +76,9 @@ export default function Tutorial1({
       <Button
         variant="contained"
         onClick={() => {
-          judgeAnswer(judge(brailleStrings, question));
+          judgeAnswer(
+            judge(new BrailleString("braille array", brailleStrings), question)
+          );
           setHiraganaStrings(
             translateBraille(new BrailleString("braille array", brailleStrings))
           );

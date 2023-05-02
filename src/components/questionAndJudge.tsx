@@ -37,7 +37,7 @@ export const dakuonHandakuonQuestions = [
   "どらやき",
   "ぷりん",
   "だんごむし",
-]; //濁音、半濁音が含まれる言葉
+]; // 濁音、半濁音が含まれる言葉
 export const contractionQuestions = [
   "ぎゅうにゅう",
   "ちゅうい",
@@ -63,8 +63,8 @@ export const contractionQuestions = [
   "しゅっぱつ",
   "しゅうまつ",
   "にゅうがく",
-]; //拗音が含まれる言葉
-export const questions = ["うぉーきんぐ", "せいめいかがく", "ぴゅーりたん"]; //特殊音が含まれる言葉
+]; // 拗音が含まれる言葉
+export const questions = ["うぉーきんぐ", "せいめいかがく", "ぴゅーりたん"]; // 特殊音が含まれる言葉
 
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];
@@ -81,24 +81,3 @@ export function judge(
     return "不正解";
   }
 }
-
-/*
-export function NextQuestion(rightOrWrong, ): JSX.Element {
-  if (rightOrWrong === "正解") {
-    return (
-      <Button
-        variant="contained"
-        onClick={() => {
-          setQuestion(makeQuestion(vowelQuestions));
-          setHiraganaStrings("");
-          judgeAnswer("");
-        }}
-      >
-        次の問題
-      </Button>
-    );
-  } else {
-    return <></>;
-  }
-}
-*/

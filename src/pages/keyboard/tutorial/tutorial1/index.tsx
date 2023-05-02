@@ -1,4 +1,4 @@
-import useTypedBrailleStrings from "../../../../components/useTypedBrailleStrings";
+import useTypedBrailleStrings from "../../../../hooks/useTypedBrailleStrings";
 import { TextField, Typography } from "@mui/material";
 import { type BrailleChar } from "../../../../components/brailleDefinitions";
 import translateBraille from "../../../../components/translateBraille";

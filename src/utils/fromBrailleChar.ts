@@ -2,7 +2,7 @@ import {
   type BrailleChar,
   type BrailleState,
   defaultBrailleStateValue,
-} from "./brailleDefinitions";
+} from "../types/brailleDefinitions";
 
 /**
  * convert braille character to the state of braille

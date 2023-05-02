@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Toolbar, Box } from "@mui/material";
-import { type TutorialSteps } from "./tutorialDefinitions";
+import { type TutorialSteps } from "../types/tutorialDefinitions";
 import TopBar from "./TopBar";
 import BottomStepper from "./BottomStepper";
 

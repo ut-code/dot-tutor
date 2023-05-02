@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { url } from "@/utils/config";
 import TutorialDialog from "./TutorialDialog";
-import { type TutorialDialogSteps } from "./tutorialDefinitions";
+import { type TutorialDialogSteps } from "../types/tutorialDefinitions";
 import {
   AppBar,
   Toolbar,

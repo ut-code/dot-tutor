@@ -1,5 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
-import { type TutorialDialogSteps } from "./tutorialDefinitions";
+import { type TutorialDialogSteps } from "../types/tutorialDefinitions";
 import {
   Dialog,
   DialogTitle,

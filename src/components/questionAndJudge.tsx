@@ -1,4 +1,4 @@
-import { type BrailleChar } from "./brailleDefinitions";
+import { type BrailleChar } from "../types/brailleDefinitions";
 import translateBraille from "./translateBraille";
 
 export const vowelQuestions = [

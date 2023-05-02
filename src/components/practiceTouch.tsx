@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { type BrailleChar } from "./brailleDefinitions";
+import { type BrailleChar } from "../types/brailleDefinitions";
 import { judge } from "./questionAndJudge";
 import EdittableBraille from "./EdittableBraille";
 import { Button } from "@mui/material";

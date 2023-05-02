@@ -1,6 +1,6 @@
 import useTypedBrailleStrings from "../../../../hooks/useTypedBrailleStrings";
 import { TextField, Typography } from "@mui/material";
-import { type BrailleChar } from "../../../../components/brailleDefinitions";
+import { type BrailleChar } from "../../../../types/brailleDefinitions";
 import translateBraille from "../../../../components/translateBraille";
 
 export default function Tutorial1(): JSX.Element {

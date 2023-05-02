@@ -3,7 +3,7 @@ import {
   type BrailleChar,
   type BrailleState,
   availableDots,
-} from "./brailleDefinitions";
+} from "../types/brailleDefinitions";
 import fromBrailleChar from "./fromBrailleChar";
 import toBrailleChar from "./toBrailleChar";
 

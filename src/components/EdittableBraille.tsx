@@ -5,7 +5,7 @@ import {
   availableDots,
 } from "../types/brailleDefinitions";
 import fromBrailleChar from "./fromBrailleChar";
-import toBrailleChar from "./toBrailleChar";
+import toBrailleChar from "../utils/toBrailleChar";
 
 /**
  * component to create touch-to-change Braille

@@ -28,7 +28,7 @@ import {
  * });
  * const unicodeBraille = braille.unicodeBraille;
  */
-export default class Braille {
+export class Braille {
   private readonly braille: string;
 
   public get unicodeBraille(): string {
@@ -100,5 +100,56 @@ export default class Braille {
     brailleState.Dot5 = Boolean((codePoint - 0x2800) & (2 ** 4));
     brailleState.Dot6 = Boolean((codePoint - 0x2800) & (2 ** 5));
     return { ...brailleState };
+  }
+}
+
+/**
+ * BrailleString class
+ * @class
+ * @classdesc BrailleString class
+ * @property {string} unicodeBrailleString - unicode string of braille
+ * @property {Braille[]} brailleArray - array of braille
+ * @constructor
+ * @param {string} type - type of braille ("unicode" or "braille array")
+ * @param {string | Braille[]} brailleString - unicode string of braille or array of braille
+ * @throws {Error} - Invalid Braille Type!
+ * @example
+ * const brailleString = new BrailleString("unicode", "⠁⠂⠃⠄");
+ * const brailleArray = brailleString.brailleArray;
+ * @example
+ * const brailleString = new BrailleString("braille array", [
+ *  new Braille("unicode", "⠁"),
+ *  new Braille("unicode", "⠂"),
+ *  new Braille("unicode", "⠃"),
+ *  new Braille("unicode", "⠄"),
+ * ]);
+ * const unicodeBrailleString = brailleString.unicodeBrailleString;
+ */
+export class BrailleString {
+  private readonly brailleString: Braille[];
+
+  public get unicodeBrailleString(): string {
+    return this.brailleString.map((braille) => braille.unicodeBraille).join("");
+  }
+
+  public get brailleArray(): Braille[] {
+    return this.brailleString;
+  }
+
+  constructor(type: "unicode", brailleString: string);
+  constructor(type: "braille array", brailleString: Braille[]);
+  constructor(
+    type: "unicode" | "braille array",
+    brailleString: string | Braille[]
+  ) {
+    if (type === "unicode") {
+      this.brailleString = Array.from(brailleString as string).map(
+        (brailleChar) => new Braille("unicode", brailleChar)
+      );
+    } else if (type === "braille array") {
+      this.brailleString = brailleString as Braille[];
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
   }
 }

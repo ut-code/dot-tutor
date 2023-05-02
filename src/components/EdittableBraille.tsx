@@ -4,7 +4,7 @@ import {
   type BrailleState,
   availableDots,
 } from "../types/brailleDefinitions";
-import fromBrailleChar from "./fromBrailleChar";
+import fromBrailleChar from "../utils/fromBrailleChar";
 import toBrailleChar from "../utils/toBrailleChar";
 
 /**

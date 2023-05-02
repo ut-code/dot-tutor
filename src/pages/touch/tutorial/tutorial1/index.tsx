@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { type BrailleChar } from "../../../../types/brailleDefinitions";
 import translateBraille from "../../../../utils/translateBraille";
 import {
   judge,
@@ -8,10 +7,11 @@ import {
 } from "../../../../components/questionAndJudge";
 import EdittableBraille from "../../../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
+import { Braille, BrailleString } from "@/models/Braille";
 
 export default function Tutorial1(): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<BrailleChar[]>(
-    [...Array(10)].map((_) => "⠀")
+  const [brailleStrings, setBrailleStrings] = useState<Braille[]>(
+    [...Array(10)].map((_) => new Braille("unicode", "⠀"))
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>("あ"); // 問題
@@ -77,7 +77,9 @@ export default function Tutorial1(): JSX.Element {
         variant="contained"
         onClick={() => {
           judgeAnswer(judge(brailleStrings, question));
-          setHiraganaStrings(translateBraille(brailleStrings));
+          setHiraganaStrings(
+            translateBraille(new BrailleString("braille array", brailleStrings))
+          );
         }}
       >
         答え合わせ

@@ -7,25 +7,27 @@ import {
  * Braille class
  * @class
  * @classdesc Braille class
- * @property {string} unicodeBraille - unicode character of braille
- * @property {BrailleState} brailleState - the state of braille
+ * @property {string} unicodeBraille - unicode characters of braille
+ * @property {BrailleState[]} brailleState - the states of braille
  * @constructor
- * @param {string} type - type of braille (unicode or braille state)
- * @param {string | BrailleState} braille - unicode character of braille or the state of braille
- * @throws {Error} - Invalid Braille Character!
+ * @param {string} type - type of braille ("unicode" or "braille state")
+ * @param {string | BrailleState} braille - unicode characters of braille or the states of braille
+ * @throws {Error} - Invalid Braille Characters!
  * @throws {Error} - Invalid Braille Type!
  * @example
  * const braille = new Braille("unicode", "⠁");
  * const brailleState = braille.brailleState;
  * @example
- * const braille = new Braille("braille state", {
- *  Dot1: true,
- *  Dot2: false,
- *  Dot3: false,
- *  Dot4: false,
- *  Dot5: false,
- *  Dot6: false,
- * });
+ * const braille = new Braille("braille state", [
+ *   {
+ *     Dot1: true,
+ *     Dot2: false,
+ *     Dot3: false,
+ *     Dot4: false,
+ *     Dot5: false,
+ *     Dot6: false,
+ *   },
+ * ]);
  * const unicodeBraille = braille.unicodeBraille;
  */
 export default class Braille {
@@ -35,15 +37,18 @@ export default class Braille {
     return this.braille;
   }
 
-  public get brailleState(): BrailleState {
-    return this.convertUnicodeToBrailleState(this.braille);
+  public get brailleState(): BrailleState[] {
+    const brailleArray = Array.from(this.braille);
+    return brailleArray.map((braille) =>
+      this.convertUnicodeToBrailleState(braille)
+    );
   }
 
   constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: BrailleState);
+  constructor(type: "braille state", braille: BrailleState[]);
   constructor(
     type: "unicode" | "braille state",
-    braille: string | BrailleState
+    braille: string | BrailleState[]
   ) {
     if (type === "unicode") {
       if (!this.isValid(braille as string)) {
@@ -51,7 +56,10 @@ export default class Braille {
       }
       this.braille = braille as string;
     } else if (type === "braille state") {
-      this.braille = this.convertBrailleStateToUnicode(braille as BrailleState);
+      const brailleStateArray = braille as BrailleState[];
+      this.braille = brailleStateArray
+        .map((brailleState) => this.convertBrailleStateToUnicode(brailleState))
+        .join();
     } else {
       throw new Error("Invalid Braille Type!");
     }
@@ -63,7 +71,8 @@ export default class Braille {
    * @returns boolean
    */
   private isValid(braille: string): boolean {
-    return braille.match(/[⠀-⠿]/) !== null;
+    const brailleArray = Array.from(braille);
+    return brailleArray.every((braille) => braille.match(/[⠀-⠿]/) !== null);
   }
 
   /**

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { type BrailleChar } from "../../../../types/brailleDefinitions";
-import translateBraille from "../../../../components/translateBraille";
+import translateBraille from "../../../../utils/translateBraille";
 import {
   judge,
   makeQuestion,

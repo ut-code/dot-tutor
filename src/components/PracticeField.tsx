@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useTypedBrailleStrings from "./../hooks/useTypedBrailleStrings";
-import translateBraille from "./translateBraille";
+import translateBraille from "../utils/translateBraille";
 import { TextField, Typography } from "@mui/material";
 import { type BrailleChar } from "../types/brailleDefinitions";
 

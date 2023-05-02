@@ -1,5 +1,5 @@
 import { type BrailleChar } from "../types/brailleDefinitions";
-import translateBraille from "./translateBraille";
+import translateBraille from "../utils/translateBraille";
 
 export const vowelQuestions = [
   "あい",

@@ -1,4 +1,3 @@
----
 name: Build and Deploy
 
 on:
@@ -8,10 +7,11 @@ on:
 permissions:
   contents: write
 
+concurrency: ci-${{ github.ref }}
+
 jobs:
   build-and-deploy:
     name: Build and Deploy
-    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -23,7 +23,7 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Install dependencies
+      - name: Install Node Packages
         run: npm ci
         shell: bash
 
@@ -32,9 +32,7 @@ jobs:
         id: base-url
         with:
           script: |
-            const githubRepository = "${{ github.repository }}"; // owner/repo
-            const githubOwner = "${{ github.repository_owner }}"; // owner
-            const githubRepositoryName = githubRepository.slice(githubOwner.length + 1); // repo
+            const githubRepositoryName = "${{ github.event.repository.name }}"; // repo
             const baseUrl = `/${githubRepositoryName}`;
             return baseUrl;
           result-encoding: string

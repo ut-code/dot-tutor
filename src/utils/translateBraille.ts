@@ -1,4 +1,4 @@
-import { type BrailleChar } from "./brailleDefinitions";
+import { type BrailleChar } from "../types/brailleDefinitions";
 
 const hiraganaTable = {
   あ: "⠁",

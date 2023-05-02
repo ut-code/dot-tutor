@@ -1,5 +1,4 @@
----
-name: Deploy PR Previews
+name: Deploy PR Preview
 
 on:
   pull_request:
@@ -17,7 +16,7 @@ concurrency: preview-${{ github.ref }}
 
 jobs:
   deploy-preview:
-    name: Deploy PR Previews
+    name: Deploy PR Preview
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -29,7 +28,7 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Install dependencies
+      - name: Install Node Packages
         run: npm ci
         shell: bash
 
@@ -38,13 +37,10 @@ jobs:
         id: base-url
         with:
           script: |
-            const refName = "${{ github.ref_name }}"; // PR_NUMBER/merge
-            const prNumber = refName.slice(0, refName.length - 6); // PR_NUMBER
-            const githubRepository = "${{ github.repository }}"; // owner/repo
-            const githubOwner = "${{ github.repository_owner }}"; // owner
-            const githubRepositoryName = githubRepository.slice(githubOwner.length + 1); // repo
+            const githubRepositoryName = "${{ github.event.repository.name }}"; // repo
+            const prNumber = "${{ github.event.number }}"; // pr-number
             const baseUrl = `/${githubRepositoryName}/pr-preview/pr-${prNumber}`;
-            return baseUrl;
+            return baseUrl; // /<repo>/pr-preview/pr-<pr-number>
           result-encoding: string
 
       - name: Build
@@ -61,7 +57,7 @@ jobs:
         run: touch out/.nojekyll
         shell: bash
 
-      - name: Deploy preview
+      - name: Deploy Preview
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: out

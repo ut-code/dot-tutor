@@ -1,4 +1,7 @@
-import { type BrailleChar, type BrailleState } from "./brailleDefinitions";
+import {
+  type BrailleChar,
+  type BrailleState,
+} from "../types/brailleDefinitions";
 
 /**
  * convert the state of braille to braille character

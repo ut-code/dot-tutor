@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { type BrailleChar } from "../../../../components/brailleDefinitions";
-import translateBraille from "../../../../components/translateBraille";
+import { type BrailleChar } from "../../../../types/brailleDefinitions";
+import translateBraille from "../../../../utils/translateBraille";
 import { judge, makeQuestion } from "../../../../components/questionAndJudge";
 import EdittableBraille from "../../../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";

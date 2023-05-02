@@ -130,6 +130,7 @@ const handakuonContractionHiraganaTable = {
   ぴゅ: "⠭",
   ぴょ: "⠮",
   てゅ: "⠝",
+  ふゅ: "⠬",
 };
 
 // "⠢"の後
@@ -162,6 +163,7 @@ const specialHiraganaTable1 = {
 // "⠸"の後
 const specialHiraganaTable2 = {
   でゅ: "⠝",
+  ヴュ: "⠬",
 };
 
 // "⠼"の後

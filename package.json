@@ -13,7 +13,7 @@
     "server:dev": "cd server && . ./env/bin/activate && uvicorn main:app --reload --port 8000 && deactivate",
     "format": "npm run format:web && npm run format:server",
     "format:web": "prettier --write web",
-    "format:server": "cd server && source ./env/bin/activate && black . && deactivate"
+    "format:server": "cd server && . ./env/bin/activate && black . && deactivate"
   },
   "repository": {
     "type": "git",

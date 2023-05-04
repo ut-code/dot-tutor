@@ -110,19 +110,21 @@ function useTypedKeys(): [
  * @example
  * const keyboardState = {
  *  KeyF: true,
- *  KeyD: false,
- *  KeyS: true,
+ *  KeyD: true,
+ *  KeyS: false,
  *  KeyJ: false,
- *  KeyK: true,
+ *  KeyK: false,
  *  KeyL: false,
+ *  Space: false,
+ *  Backspace: false,
  * };
  * const brailleState = convertKeyboardStateToBrailleState(keyboardState);
  * // brailleState = {
  * //   Dot1: true,
- * //   Dot2: false,
- * //   Dot3: true,
+ * //   Dot2: true,
+ * //   Dot3: false,
  * //   Dot4: false,
- * //   Dot5: true,
+ * //   Dot5: false,
  * //   Dot6: false,
  * // };
  */

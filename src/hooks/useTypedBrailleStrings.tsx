@@ -106,7 +106,7 @@ function useTypedKeys(): [
  * @param keyboardState the state of keyboard
  * @returns the code point of braille
  */
-function toCodePoint(keyboardState: KeyboardState): number {
+function convertKeyboardStateToCodePoint(keyboardState: KeyboardState): number {
   if (keyboardState.Backspace) {
     return 0x0008; // Return the code point of backspace.
   } else {
@@ -128,7 +128,7 @@ function toCodePoint(keyboardState: KeyboardState): number {
  * @returns the braille
  */
 function toBraille(keyboardState: KeyboardState): string {
-  return String.fromCodePoint(toCodePoint(keyboardState));
+  return String.fromCodePoint(convertKeyboardStateToCodePoint(keyboardState));
 }
 
 /**

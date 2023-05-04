@@ -1,4 +1,5 @@
 import { useState, useEffect, type KeyboardEvent } from "react";
+import { type BrailleState } from "../types/brailleDefinitions";
 
 const defaultKeyboardValues = {
   KeyF: false,
@@ -99,6 +100,43 @@ function useTypedKeys(): [
   }, [keyboardState]);
 
   return [typedKeys, updateTypedKeys];
+}
+
+/**
+ * convert the state of keyboard to the state of braille
+ * @param keyboardState the state of keyboard
+ * @returns the state of braille
+ * @example
+ * const keyboardState = {
+ *  KeyF: true,
+ *  KeyD: false,
+ *  KeyS: true,
+ *  KeyJ: false,
+ *  KeyK: true,
+ *  KeyL: false,
+ * };
+ * const brailleState = convertKeyboardStateToBrailleState(keyboardState);
+ * // brailleState = {
+ * //   Dot1: true,
+ * //   Dot2: false,
+ * //   Dot3: true,
+ * //   Dot4: false,
+ * //   Dot5: true,
+ * //   Dot6: false,
+ * // };
+ */
+function convertKeyboardStateToBrailleState(
+  keyboardState: KeyboardState
+): BrailleState {
+  const brailleState: BrailleState = {
+    Dot1: keyboardState.KeyF,
+    Dot2: keyboardState.KeyD,
+    Dot3: keyboardState.KeyS,
+    Dot4: keyboardState.KeyJ,
+    Dot5: keyboardState.KeyK,
+    Dot6: keyboardState.KeyL,
+  };
+  return brailleState;
 }
 
 /**

@@ -1,5 +1,6 @@
 import { useState, useEffect, type KeyboardEvent } from "react";
 import { type BrailleState } from "../types/brailleDefinitions";
+import { Braille } from "../models/Braille";
 
 const defaultKeyboardValues = {
   KeyF: false,
@@ -140,33 +141,31 @@ function convertKeyboardStateToBrailleState(
 }
 
 /**
- * convert the state of keyboard to a code point of braille
+ * convert the state of keyboard to the unicode character of braille
  * @param keyboardState the state of keyboard
- * @returns the code point of braille
- */
-function convertKeyboardStateToCodePoint(keyboardState: KeyboardState): number {
-  if (keyboardState.Backspace) {
-    return 0x0008; // Return the code point of backspace.
-  } else {
-    // See https://www.unicode.org/charts/PDF/U2800.pdf.
-    let codePoint = 0x2800;
-    if (keyboardState.KeyF) codePoint += 2 ** 0;
-    if (keyboardState.KeyD) codePoint += 2 ** 1;
-    if (keyboardState.KeyS) codePoint += 2 ** 2;
-    if (keyboardState.KeyJ) codePoint += 2 ** 3;
-    if (keyboardState.KeyK) codePoint += 2 ** 4;
-    if (keyboardState.KeyL) codePoint += 2 ** 5;
-    return codePoint;
-  }
-}
-
-/**
- * convert the state of keyboard to a braille
- * @param keyboardState the state of keyboard
- * @returns the braille
+ * @returns the unicode character of braille
+ * @example
+ * const keyboardState = {
+ *  KeyF: true,
+ *  KeyD: true,
+ *  KeyS: false,
+ *  KeyJ: false,
+ *  KeyK: false,
+ *  KeyL: false,
+ *  Space: false,
+ *  Backspace: false,
+ * };
+ * const braille = convertKeyboardStateToBraille(keyboardState);
+ * // braille = "⠃"
  */
 function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
-  return String.fromCodePoint(convertKeyboardStateToCodePoint(keyboardState));
+  if (keyboardState.Backspace) {
+    return "\b"; // Return backspace character.
+  } else {
+    const brailleState = convertKeyboardStateToBrailleState(keyboardState);
+    const braille = new Braille("braille state", brailleState);
+    return braille.unicodeBraille;
+  }
 }
 
 /**

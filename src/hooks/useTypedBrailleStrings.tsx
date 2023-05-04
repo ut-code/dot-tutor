@@ -2,6 +2,9 @@ import { useState, useEffect, type KeyboardEvent } from "react";
 import { type BrailleState } from "../types/brailleDefinitions";
 import { Braille } from "../models/Braille";
 
+/**
+ * The default state of keyboard
+ */
 const defaultKeyboardValues = {
   KeyF: false,
   KeyD: false,
@@ -13,9 +16,21 @@ const defaultKeyboardValues = {
   Backspace: false,
 };
 
+/**
+ * The type of the state of keyboard
+ */
 type KeyboardState = typeof defaultKeyboardValues;
 
+/**
+ * The type of the available keys
+ */
 type AvailableKeys = keyof KeyboardState;
+
+/**
+ * The array of the available keys
+ * @example
+ * const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyJ", "KeyK", "KeyL", "Space", "Backspace"];
+ */
 const availableKeys = Object.keys(defaultKeyboardValues);
 
 /**

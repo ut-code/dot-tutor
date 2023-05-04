@@ -127,7 +127,7 @@ function convertKeyboardStateToCodePoint(keyboardState: KeyboardState): number {
  * @param keyboardState the state of keyboard
  * @returns the braille
  */
-function toBraille(keyboardState: KeyboardState): string {
+function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
   return String.fromCodePoint(convertKeyboardStateToCodePoint(keyboardState));
 }
 
@@ -150,7 +150,7 @@ export default function useTypedBrailleStrings(): [
   useEffect(() => {
     // If the typed key is not empty, convert the typed key to braille and add it to the typed braille strings.
     if (!Object.values(typedKeys).every((value: boolean) => !value)) {
-      const typedBraille = toBraille(typedKeys);
+      const typedBraille = convertKeyboardStateToBraille(typedKeys);
       if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
         // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
         setTypedBrailleStrings((typedBrailleStrings) =>

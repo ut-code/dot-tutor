@@ -214,6 +214,19 @@ function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
 /**
  * Store the string of typed braille.
  * @returns [the string of typed braille, the function to update the state]
+ * @example
+ * const [typedBrailleString, updateTypedBrailleString] = useTypedBrailleString();
+ * <input
+ *   type="text"
+ *   value={typedBrailleString}
+ *   onKeyDown={(e) => {
+ *     updateTypedBrailleString(e);
+ *   }}
+ *   onKeyUp={(e) => {
+ *     updateTypedBrailleString(e);
+ *   }}
+ * />
+ * {typedBrailleString}
  */
 export default function useTypedBrailleString(): [
   typedBrailleString: string,
@@ -222,22 +235,22 @@ export default function useTypedBrailleString(): [
   const [typedKeys, setTypedKeys] = useTypedKeys();
   const [typedBrailleString, setTypedBrailleString] = useState<string>("");
 
-  // Update the state of typed key.
+  // Update the state of typed keys.
   const updateTypedBrailleString = (e: KeyboardEvent): void => {
     setTypedKeys(e);
   };
 
   useEffect(() => {
-    // If the typed key is not empty, convert the typed key to braille and add it to the typed braille strings.
+    // If the `typedKeys` is not empty, convert the `typedKeys` to the unicode character of braille and add it to the `typedBrailleString`.
     if (!Object.values(typedKeys).every((value: boolean) => !value)) {
       const typedBraille = convertKeyboardStateToBraille(typedKeys);
       if (typedBraille === "\b" && typedBrailleString.length !== 0) {
-        // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
+        // If the typed braille is backspace and the `typedBrailleString` is not empty, remove the last character.
         setTypedBrailleString((typedBrailleString) =>
           typedBrailleString.slice(0, -1)
         );
       } else if (typedBraille === "\b") {
-        // If the typed braille strings is empty, do nothing.
+        // If the `typedBrailleString` is empty, do nothing.
       } else {
         // If the typed braille is not backspace, add it.
         setTypedBrailleString(

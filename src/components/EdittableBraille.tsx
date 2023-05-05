@@ -3,33 +3,47 @@ import { type BrailleState, availableDots } from "../types/brailleDefinitions";
 import { Braille } from "@/models/Braille";
 
 /**
- * component to create touch-to-change Braille
- * @param param0 props
- * @param param0.height height
- * @param param0.width width
- * @param param0.brailleChar character of Braille
- * @param param0.updateBrailleChar function to update the character of braille
- * @param param0.index index of the current character
- * @returns touch-to-change SVG Braille
+ * Component for displaying touch-to-change braille
+ * @param height height of the SVG
+ * @param width width of the SVG
+ * @param braille braille instance to display
+ * @param updateBraille function to update the braille instance when braille has been changed
+ * @returns touch-to-change SVG braille
+ * @example
+ * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
+ *
+ * <EdittableBraille
+ *   height="100"
+ *   width="60"
+ *   braille={braille}
+ *   updateBraille={(braille) => {
+ *     setBraille(braille);
+ *   }}
+ * />
  */
 export default function EdittableBraille({
   height,
   width,
-  brailleChar,
-  updateBrailleChar,
+  braille,
+  updateBraille,
 }: {
   height: string;
   width: string;
-  brailleChar: Braille;
-  updateBrailleChar: (brailleChar: Braille) => void;
+  braille: Braille;
+  updateBraille: (braille: Braille) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
-    ...brailleChar.brailleState,
+    ...braille.brailleState,
   });
+
   useEffect(() => {
-    updateBrailleChar(brailleChar);
+    updateBraille(new Braille("braille state", brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
+
+  /**
+   * list of x coordinates for each dot
+   */
   const xCoordinateList = {
     Dot1: "40",
     Dot2: "40",
@@ -38,6 +52,9 @@ export default function EdittableBraille({
     Dot5: "90",
     Dot6: "90",
   };
+  /**
+   * list of y coordinates for each dot
+   */
   const yCoordinateList = {
     Dot1: "30",
     Dot2: "75",
@@ -46,6 +63,7 @@ export default function EdittableBraille({
     Dot5: "75",
     Dot6: "120",
   };
+
   return (
     <>
       <svg

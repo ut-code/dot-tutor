@@ -28,10 +28,10 @@ export default function PracticeTouch({
             key={i}
             height={"100"}
             width={"60"}
-            brailleChar={brailleChar}
-            updateBrailleChar={(brailleChar) => {
+            braille={brailleChar}
+            updateBraille={(braille) => {
               setBrailleStrings(
-                brailleStrings.map((_, j) => (j === i ? brailleChar : _))
+                brailleStrings.map((_, j) => (j === i ? braille : _))
               );
             }}
           />

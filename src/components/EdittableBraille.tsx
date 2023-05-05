@@ -26,10 +26,12 @@ export default function EdittableBraille({
   const [brailleState, setBrailleState] = useState<BrailleState>({
     ...braille.brailleState,
   });
+
   useEffect(() => {
     updateBraille(new Braille("braille state", brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
+
   const xCoordinateList = {
     Dot1: "40",
     Dot2: "40",
@@ -46,6 +48,7 @@ export default function EdittableBraille({
     Dot5: "75",
     Dot6: "120",
   };
+
   return (
     <>
       <svg

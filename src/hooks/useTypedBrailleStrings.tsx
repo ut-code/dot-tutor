@@ -212,18 +212,18 @@ function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
 }
 
 /**
- * Store the state of typed braille strings
- * @returns [the state of typed braille strings, the function to update the state]
+ * Store the string of typed braille.
+ * @returns [the string of typed braille, the function to update the state]
  */
-export default function useTypedBrailleStrings(): [
-  typedBrailleStrings: string,
-  updateTypedBrailleStrings: (e: KeyboardEvent) => void
+export default function useTypedBrailleString(): [
+  typedBrailleString: string,
+  updateTypedBrailleString: (e: KeyboardEvent) => void
 ] {
   const [typedKeys, setTypedKeys] = useTypedKeys();
-  const [typedBrailleStrings, setTypedBrailleStrings] = useState<string>("");
+  const [typedBrailleString, setTypedBrailleString] = useState<string>("");
 
   // Update the state of typed key.
-  const updateTypedBrailleStrings = (e: KeyboardEvent): void => {
+  const updateTypedBrailleString = (e: KeyboardEvent): void => {
     setTypedKeys(e);
   };
 
@@ -231,21 +231,21 @@ export default function useTypedBrailleStrings(): [
     // If the typed key is not empty, convert the typed key to braille and add it to the typed braille strings.
     if (!Object.values(typedKeys).every((value: boolean) => !value)) {
       const typedBraille = convertKeyboardStateToBraille(typedKeys);
-      if (typedBraille === "\b" && typedBrailleStrings.length !== 0) {
+      if (typedBraille === "\b" && typedBrailleString.length !== 0) {
         // If the typed braille is backspace and the typed braille strings is not empty, remove the last character.
-        setTypedBrailleStrings((typedBrailleStrings) =>
-          typedBrailleStrings.slice(0, -1)
+        setTypedBrailleString((typedBrailleString) =>
+          typedBrailleString.slice(0, -1)
         );
       } else if (typedBraille === "\b") {
         // If the typed braille strings is empty, do nothing.
       } else {
         // If the typed braille is not backspace, add it.
-        setTypedBrailleStrings(
-          (typedBrailleStrings) => `${typedBrailleStrings}${typedBraille}`
+        setTypedBrailleString(
+          (typedBrailleString) => `${typedBrailleString}${typedBraille}`
         );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typedKeys, setTypedBrailleStrings]);
-  return [typedBrailleStrings, updateTypedBrailleStrings];
+  }, [typedKeys, setTypedBrailleString]);
+  return [typedBrailleString, updateTypedBrailleString];
 }

@@ -27,7 +27,7 @@ export default function EdittableBraille({
     ...brailleCharacter.brailleState,
   });
   useEffect(() => {
-    updateBrailleCharacter(brailleCharacter);
+    updateBrailleCharacter(new Braille("braille state", brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
   const xCoordinateList = {

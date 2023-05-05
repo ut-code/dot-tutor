@@ -15,16 +15,16 @@ import { Braille } from "@/models/Braille";
 export default function EdittableBraille({
   height,
   width,
-  brailleCharacter,
+  braille,
   updateBrailleCharacter,
 }: {
   height: string;
   width: string;
-  brailleCharacter: Braille;
+  braille: Braille;
   updateBrailleCharacter: (brailleCharacter: Braille) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
-    ...brailleCharacter.brailleState,
+    ...braille.brailleState,
   });
   useEffect(() => {
     updateBrailleCharacter(new Braille("braille state", brailleState));

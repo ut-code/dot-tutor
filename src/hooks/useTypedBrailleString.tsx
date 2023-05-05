@@ -1,5 +1,5 @@
 import { useState, useEffect, type KeyboardEvent } from "react";
-import { type BrailleState } from "../types/brailleDefinitions";
+import { type BrailleState } from "../types/BrailleState";
 import { Braille } from "../models/Braille";
 
 /**

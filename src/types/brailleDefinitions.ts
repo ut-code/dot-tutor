@@ -1,12 +1,6 @@
-export interface BrailleState {
-  Dot1: boolean;
-  Dot2: boolean;
-  Dot3: boolean;
-  Dot4: boolean;
-  Dot5: boolean;
-  Dot6: boolean;
-}
-
+/**
+ * The default state of braille
+ */
 export const defaultBrailleStateValue = {
   Dot1: false,
   Dot2: false,
@@ -16,12 +10,21 @@ export const defaultBrailleStateValue = {
   Dot6: false,
 };
 
-export type AvailableDot = "Dot1" | "Dot2" | "Dot3" | "Dot4" | "Dot5" | "Dot6";
-export const availableDots: AvailableDot[] = [
-  "Dot1",
-  "Dot2",
-  "Dot3",
-  "Dot4",
-  "Dot5",
-  "Dot6",
-];
+/**
+ * The type of the state of braille
+ */
+export type BrailleState = typeof defaultBrailleStateValue;
+
+/**
+ * The type of the available dots
+ */
+type AvailableDot = keyof BrailleState;
+
+/**
+ * The array of the available dots
+ * @example
+ * const availableDots = ["Dot1", "Dot2", "Dot3", "Dot4", "Dot5", "Dot6"];
+ */
+export const availableDots = Object.keys(
+  defaultBrailleStateValue
+) as AvailableDot[];

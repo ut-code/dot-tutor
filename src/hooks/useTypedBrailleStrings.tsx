@@ -34,8 +34,21 @@ type AvailableKeys = keyof KeyboardState;
 const availableKeys = Object.keys(defaultKeyboardValues);
 
 /**
- * Update the state of F, D, S, J, K, L, Space, Backspace keys
- * @returns [the state of keyboard, the function to update the state of keyboard]
+ * Store whether F, D, S, J, K, L, Space, Backspace keys are being pressed or not.
+ * @returns [the state of F, D, S, J, K, L, Space, Backspace keys, the function to update the state of F, D, S, J, K, L, Space, Backspace keys]
+ * @example
+ * const [keyboardState, updateKeyboardState] = useKeyboardState();
+ *
+ * <input
+ *   type="text"
+ *   onKeyDown={(e) => {
+ *     updateKeyboardState(e);
+ *   }}
+ *   onKeyUp={(e) => {
+ *     updateKeyboardState(e);
+ *   }}
+ * />
+ * {JSON.stringify(keyboardState)}
  */
 function useKeyboardState(): [
   keyboardState: KeyboardState,

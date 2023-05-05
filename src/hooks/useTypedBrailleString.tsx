@@ -24,7 +24,7 @@ type KeyboardState = typeof defaultKeyboardValues;
 /**
  * The type of the available keys
  */
-type AvailableKeys = keyof KeyboardState;
+type AvailableKey = keyof KeyboardState;
 
 /**
  * The array of the available keys
@@ -63,7 +63,7 @@ function useKeyboardState(): [
     // Set state `true` when key is pressed.
     function pressed(e: KeyboardEvent): void {
       if (availableKeys.includes(e.code)) {
-        const key = e.code as AvailableKeys;
+        const key = e.code as AvailableKey;
         const tmp = { ...keyboardState };
         tmp[key] = true;
         setKeyboardState(tmp);
@@ -73,7 +73,7 @@ function useKeyboardState(): [
     // Set state `false` when key is released.
     function released(e: KeyboardEvent): void {
       if (availableKeys.includes(e.code)) {
-        const key = e.code as AvailableKeys;
+        const key = e.code as AvailableKey;
         const tmp = { ...keyboardState };
         tmp[key] = false;
         setKeyboardState(tmp);
@@ -133,7 +133,7 @@ function useTypedKeys(): [
     else {
       const newPressedKeys = Object.fromEntries(
         Object.entries(pressedKeys).map(([key, value]) =>
-          keyboardState[key as AvailableKeys] ? [key, true] : [key, value]
+          keyboardState[key as AvailableKey] ? [key, true] : [key, value]
         )
       ) as KeyboardState;
       setPressedKeys(newPressedKeys);

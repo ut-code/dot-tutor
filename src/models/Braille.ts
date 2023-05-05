@@ -1,7 +1,7 @@
 import {
   type BrailleState,
   defaultBrailleStateValue,
-} from "@/types/brailleDefinitions";
+} from "@/types/BrailleState";
 
 /**
  * Braille class

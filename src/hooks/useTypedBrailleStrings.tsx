@@ -145,7 +145,7 @@ function useTypedKeys(): [
 }
 
 /**
- * convert the state of keyboard to the state of braille
+ * Convert the state of keyboard to the state of braille.
  * @param keyboardState the state of keyboard
  * @returns the state of braille
  * @example
@@ -184,7 +184,7 @@ function convertKeyboardStateToBrailleState(
 }
 
 /**
- * convert the state of keyboard to the unicode character of braille
+ * Convert the state of keyboard to the unicode character of braille.
  * @param keyboardState the state of keyboard
  * @returns the unicode character of braille
  * @example

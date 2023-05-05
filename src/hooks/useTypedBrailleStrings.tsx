@@ -90,8 +90,21 @@ function useKeyboardState(): [
 }
 
 /**
- * Store the state of the object of typed keys
- * @returns [the state of the object of typed keys, the function to update the state]
+ * Store the state of the object of typed keys. It considers any key that has been pressed at least once from the moment a key is first pressed until all keys are released, as "typed".
+ * @returns [the state of the object of typed keys, the function to update the state of the object of typed keys]
+ * @example
+ * const [typedKeys, updateTypedKeys] = useTypedKeys();
+ *
+ * <input
+ *   type="text"
+ *   onKeyDown={(e) => {
+ *     updateTypedKeys(e);
+ *   }}
+ *   onKeyUp={(e) => {
+ *     updateTypedKeys(e);
+ *   }}
+ * />
+ * {JSON.stringify(typedKeys)}
  */
 function useTypedKeys(): [
   typedKey: KeyboardState,
@@ -105,18 +118,18 @@ function useTypedKeys(): [
     ...defaultKeyboardValues,
   });
 
-  // Update the state of keyboard.
+  // function to update the state of typed keys
   const updateTypedKeys = (e: KeyboardEvent): void => {
     setKeyboardState(e);
   };
 
   useEffect(() => {
-    // If all of the keys are released, store the state to `typedKey` and reset the state.
+    // If all of the keys are released, store the state of the object of typed keys to the state of the object of pressed keys and reset the state of the object of typed keys.
     if (Object.values(keyboardState).every((value: boolean) => !value)) {
       setTypedKeys({ ...pressedKeys });
       setPressedKeys({ ...defaultKeyboardValues });
     }
-    // If any of the keys are pressed, set the state to `true`.
+    // If any of the keys are pressed, set the state of the key to `true` in the state of the object of pressed keys.
     else {
       const newPressedKeys = Object.fromEntries(
         Object.entries(pressedKeys).map(([key, value]) =>

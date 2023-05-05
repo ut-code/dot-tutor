@@ -1,4 +1,4 @@
-import useTypedBrailleString from "../../../../hooks/useTypedBrailleStrings";
+import useTypedBrailleString from "../../../../hooks/useTypedBrailleString";
 import { TextField, Typography } from "@mui/material";
 import { BrailleString } from "@/models/Braille";
 import translateBraille from "../../../../utils/translateBraille";

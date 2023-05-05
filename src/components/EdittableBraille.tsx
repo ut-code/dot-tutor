@@ -16,18 +16,18 @@ export default function EdittableBraille({
   height,
   width,
   braille,
-  updateBrailleCharacter,
+  updateBraille,
 }: {
   height: string;
   width: string;
   braille: Braille;
-  updateBrailleCharacter: (brailleCharacter: Braille) => void;
+  updateBraille: (braille: Braille) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
     ...braille.brailleState,
   });
   useEffect(() => {
-    updateBrailleCharacter(new Braille("braille state", brailleState));
+    updateBraille(new Braille("braille state", brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
   const xCoordinateList = {

@@ -29,9 +29,9 @@ export default function PracticeTouch({
             height={"100"}
             width={"60"}
             braille={brailleChar}
-            updateBrailleCharacter={(brailleCharacter) => {
+            updateBraille={(braille) => {
               setBrailleStrings(
-                brailleStrings.map((_, j) => (j === i ? brailleCharacter : _))
+                brailleStrings.map((_, j) => (j === i ? braille : _))
               );
             }}
           />

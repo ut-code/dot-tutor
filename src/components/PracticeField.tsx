@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useTypedBrailleStrings from "./../hooks/useTypedBrailleStrings";
+import useTypedBrailleString from "../hooks/useTypedBrailleString";
 import translateBraille from "../utils/translateBraille";
 import { TextField, Typography } from "@mui/material";
 import { BrailleString } from "@/models/Braille";
@@ -11,8 +11,7 @@ export default function PracticeField({
   question: string;
   answer: string;
 }): JSX.Element {
-  const [typedBrailleStrings, setTypedBrailleStrings] =
-    useTypedBrailleStrings();
+  const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
   const [answered, setAnswered] = useState<boolean>(false);
   const [correctOrNot, setCorrectOrNot] = useState<string>("不正解です。");
   if (!answered) {
@@ -22,22 +21,20 @@ export default function PracticeField({
           <Typography>{question}</Typography>
           <TextField
             variant="outlined"
-            value={typedBrailleStrings}
+            value={typedBrailleString}
             onKeyDown={(e) => {
-              setTypedBrailleStrings(e);
+              setTypedBrailleString(e);
             }}
             onKeyUp={(e) => {
-              setTypedBrailleStrings(e);
+              setTypedBrailleString(e);
             }}
           />
           <Typography style={{ color: "gray", fontSize: "75%" }}>
-            {translateBraille(
-              new BrailleString("unicode", typedBrailleStrings)
-            )}
+            {translateBraille(new BrailleString("unicode", typedBrailleString))}
           </Typography>
           <button
             onClick={() => {
-              if (typedBrailleStrings === answer) {
+              if (typedBrailleString === answer) {
                 setCorrectOrNot("正解です！");
               }
               setAnswered(true);

@@ -65,9 +65,9 @@ export default function Tutorial1({
             height={"100"}
             width={"60"}
             brailleCharacter={brailleChar}
-            updateBrailleChar={(brailleChar) => {
+            updateBrailleCharacter={(brailleCharacter) => {
               setBrailleStrings(
-                brailleStrings.map((_, j) => (j === i ? brailleChar : _))
+                brailleStrings.map((_, j) => (j === i ? brailleCharacter : _))
               );
             }}
           />

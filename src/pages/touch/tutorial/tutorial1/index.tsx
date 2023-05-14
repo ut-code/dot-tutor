@@ -64,10 +64,10 @@ export default function Tutorial1({
             key={i}
             height={"140"}
             width={"60"}
-            brailleChar={brailleChar}
-            updateBrailleChar={(brailleChar) => {
+            braille={brailleChar}
+            updateBraille={(braille) => {
               setBrailleStrings(
-                brailleStrings.map((_, j) => (j === i ? brailleChar : _))
+                brailleStrings.map((_, j) => (j === i ? braille : _))
               );
             }}
           />

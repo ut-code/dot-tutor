@@ -34,17 +34,21 @@ export default function EdittableBraille({
     Dot1: "40",
     Dot2: "40",
     Dot3: "40",
-    Dot4: "90",
+    Dot4: "40",
     Dot5: "90",
     Dot6: "90",
+    Dot7: "90",
+    Dot8: "90",
   };
   const yCoordinateList = {
     Dot1: "30",
     Dot2: "75",
     Dot3: "120",
-    Dot4: "30",
-    Dot5: "75",
-    Dot6: "120",
+    Dot4: "165",
+    Dot5: "30",
+    Dot6: "75",
+    Dot7: "120",
+    Dot8: "165",
   };
   return (
     <>

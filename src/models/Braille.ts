@@ -63,7 +63,7 @@ export class Braille {
    * @returns boolean
    */
   private isValid(braille: string): boolean {
-    return braille.match(/[⠀-⠿]/) !== null;
+    return braille.match(/[⠀-⣿]/) !== null;
   }
 
   /**
@@ -77,9 +77,11 @@ export class Braille {
     if (brailleState.Dot1) codePoint += 2 ** 0;
     if (brailleState.Dot2) codePoint += 2 ** 1;
     if (brailleState.Dot3) codePoint += 2 ** 2;
-    if (brailleState.Dot4) codePoint += 2 ** 3;
-    if (brailleState.Dot5) codePoint += 2 ** 4;
-    if (brailleState.Dot6) codePoint += 2 ** 5;
+    if (brailleState.Dot4) codePoint += 2 ** 6;
+    if (brailleState.Dot5) codePoint += 2 ** 3;
+    if (brailleState.Dot6) codePoint += 2 ** 4;
+    if (brailleState.Dot7) codePoint += 2 ** 5;
+    if (brailleState.Dot8) codePoint += 2 ** 7;
     const unicodeBraille = String.fromCodePoint(codePoint);
     return new Braille("unicode", unicodeBraille).braille;
   }
@@ -96,9 +98,11 @@ export class Braille {
     brailleState.Dot1 = Boolean((codePoint - 0x2800) & (2 ** 0));
     brailleState.Dot2 = Boolean((codePoint - 0x2800) & (2 ** 1));
     brailleState.Dot3 = Boolean((codePoint - 0x2800) & (2 ** 2));
-    brailleState.Dot4 = Boolean((codePoint - 0x2800) & (2 ** 3));
-    brailleState.Dot5 = Boolean((codePoint - 0x2800) & (2 ** 4));
-    brailleState.Dot6 = Boolean((codePoint - 0x2800) & (2 ** 5));
+    brailleState.Dot4 = Boolean((codePoint - 0x2800) & (2 ** 6));
+    brailleState.Dot5 = Boolean((codePoint - 0x2800) & (2 ** 3));
+    brailleState.Dot6 = Boolean((codePoint - 0x2800) & (2 ** 4));
+    brailleState.Dot7 = Boolean((codePoint - 0x2800) & (2 ** 5));
+    brailleState.Dot8 = Boolean((codePoint - 0x2800) & (2 ** 7));
     return { ...brailleState };
   }
 }

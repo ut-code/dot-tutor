@@ -62,7 +62,7 @@ export default function Tutorial1({
         {brailleStrings.map((brailleChar, i) => (
           <EdittableBraille
             key={i}
-            height={"100"}
+            height={"140"}
             width={"60"}
             brailleChar={brailleChar}
             updateBrailleChar={(brailleChar) => {

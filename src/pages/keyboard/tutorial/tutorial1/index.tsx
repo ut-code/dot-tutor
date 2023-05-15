@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import useTypedBrailleString from "../../../../hooks/useTypedBrailleString";
 import React, { useState, useEffect } from "react";
 import {
@@ -49,7 +48,7 @@ export default function Tutorial1({
         </Typography>
         <Divider />
         <Typography sx={{ minHeight: 100 }} p={2}>
-          {questionList &&
+          {questionList !== undefined &&
             (questionIndex >= questionList.length
               ? "すべての問題を解きました！"
               : `「${questionList[questionIndex]}」を入力してください。`)}
@@ -89,7 +88,7 @@ export default function Tutorial1({
 
       <Button
         onClick={() => {
-          if (questionList) {
+          if (questionList !== undefined) {
             if (questionIndex < questionList.length) {
               setQuestionIndex(questionIndex + 1);
             }

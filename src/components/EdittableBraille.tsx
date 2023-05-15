@@ -73,7 +73,7 @@ export default function EdittableBraille({
     Dot5: "75",
     Dot6: "120",
   };
-  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS
+  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS.
   // const yCoordinateList = {
   //   Dot1: "40",
   //   Dot2: "80",

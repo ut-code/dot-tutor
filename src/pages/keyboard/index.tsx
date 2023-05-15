@@ -6,6 +6,13 @@ import Tutorial1Dialog3 from "./tutorial/tutorial1/dialog/3_kanadukai.mdx";
 import Tutorial1Dialog6 from "./tutorial/tutorial1/dialog/3_number.mdx";
 import Tutorial1Dialog4 from "./tutorial/tutorial1/dialog/4_alphabet.mdx";
 import Tutorial1Dialog5 from "./tutorial/tutorial1/dialog/5_symbol.mdx";
+import {
+  questionList1,
+  questionList2,
+  questionList3,
+  questionList4,
+  questionList5,
+} from "./tutorial/tutorial1/questions";
 
 export default function Keyboard(): JSX.Element {
   return (
@@ -22,21 +29,41 @@ export default function Keyboard(): JSX.Element {
                 title: "ひらがなを入力してみよう",
                 content: <Tutorial1Dialog2 />,
               },
+            ],
+            content: <Tutorial1 questionList={questionList1} />,
+          },
+          {
+            dialog: [
               {
                 title: "かなづかいの例外ルール",
                 content: <Tutorial1Dialog3 />,
               },
+            ],
+            content: <Tutorial1 questionList={questionList2} />,
+          },
+          {
+            dialog: [
               {
                 title: "数字の書き方",
                 content: <Tutorial1Dialog6 />,
               },
+            ],
+            content: <Tutorial1 questionList={questionList3} />,
+          },
+          {
+            dialog: [
               {
                 title: "アルファベットの入力方法",
                 content: <Tutorial1Dialog4 />,
               },
+            ],
+            content: <Tutorial1 questionList={questionList4} />,
+          },
+          {
+            dialog: [
               { title: "記号を含む文字列", content: <Tutorial1Dialog5 /> },
             ],
-            content: <Tutorial1 />,
+            content: <Tutorial1 questionList={questionList5} />,
           },
         ]}
       />

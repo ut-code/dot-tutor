@@ -52,6 +52,16 @@ export default function EdittableBraille({
     Dot5: "90",
     Dot6: "90",
   };
+  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS.
+  // const xCoordinateList = {
+  //   Dot1: "40",
+  //   Dot2: "40",
+  //   Dot3: "40",
+  //   Dot4: "80",
+  //   Dot5: "80",
+  //   Dot6: "80",
+  // };
+
   /**
    * list of y coordinates for each dot
    */
@@ -63,6 +73,15 @@ export default function EdittableBraille({
     Dot5: "75",
     Dot6: "120",
   };
+  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS
+  // const yCoordinateList = {
+  //   Dot1: "40",
+  //   Dot2: "80",
+  //   Dot3: "120",
+  //   Dot4: "40",
+  //   Dot5: "80",
+  //   Dot6: "120",
+  // };
 
   return (
     <>

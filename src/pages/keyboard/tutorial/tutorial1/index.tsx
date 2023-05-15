@@ -11,7 +11,7 @@ import {
 import { BrailleString } from "@/models/Braille";
 import translateBraille from "../../../../utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-const QUESTIONS: string[][] = [
+export const QUESTIONS: string[][] = [
   ["て", "ん", "じ"],
   ["て", "ん", "じ"],
   ["て", "ん", "じ"],

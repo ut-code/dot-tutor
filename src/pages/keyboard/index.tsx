@@ -32,7 +32,7 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog3 />,
               },
             ],
-            content: <Tutorial1 questionListIndex={2} />,
+            content: <Tutorial1 questionListIndex={1} />,
           },
           {
             dialog: [
@@ -41,7 +41,7 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog6 />,
               },
             ],
-            content: <Tutorial1 questionListIndex={3} />,
+            content: <Tutorial1 questionListIndex={2} />,
           },
           {
             dialog: [
@@ -50,13 +50,13 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog4 />,
               },
             ],
-            content: <Tutorial1 questionListIndex={4} />,
+            content: <Tutorial1 questionListIndex={3} />,
           },
           {
             dialog: [
               { title: "記号を含む文字列", content: <Tutorial1Dialog5 /> },
             ],
-            content: <Tutorial1 questionListIndex={5} />,
+            content: <Tutorial1 questionListIndex={4} />,
           },
         ]}
       />

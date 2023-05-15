@@ -60,7 +60,7 @@ def source2wakati(source):
             letter = [_ for _ in kana] 
             letter_normal = [_ for _ in kana_normal]
             letter_default = [_ for _ in parse.split()[0]] #入力された文字１つずつ
-            for num in range(len(letter)): 
+            for num in range(min(len(letter), len(letter_normal))): 
                 if letter[num] == "ー" and (letter_normal[num] == "イ" or letter_normal[num] == "オ"): #イとオは長音にしない
                     letter[num] = letter_normal[num]
                 if letter[num] == "ズ" and (letter_normal[num] == "ヅ"): #「続く」は「ツヅク」

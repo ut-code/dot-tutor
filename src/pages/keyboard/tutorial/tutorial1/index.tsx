@@ -11,18 +11,13 @@ import {
 import { BrailleString } from "@/models/Braille";
 import translateBraille from "../../../../utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-export const QUESTIONS: string[][] = [
-  ["て", "ん", "じ"],
-  ["て", "ん", "じ"],
-  ["て", "ん", "じ"],
-  ["て", "ん", "じ"],
-  ["て", "ん", "じ"],
-];
+
+export const questionList1: string[] = ["て", "ん", "じ"];
 
 export default function Tutorial1({
-  questionListIndex,
+  questionList,
 }: {
-  questionListIndex: number;
+  questionList: string[];
 }): JSX.Element {
   const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
   const [questionIndex, setQuestionIndex] = useState<number>(0);
@@ -35,10 +30,8 @@ export default function Tutorial1({
     );
   }, [typedBrailleString]);
   useEffect(() => {
-    setGoNextQuestion(
-      translatedBrailleString === QUESTIONS[questionListIndex][questionIndex]
-    );
-  }, [translatedBrailleString, questionIndex, questionListIndex]);
+    setGoNextQuestion(translatedBrailleString === questionList[questionIndex]);
+  }, [translatedBrailleString, questionIndex, questionList]);
 
   return (
     <>
@@ -48,9 +41,9 @@ export default function Tutorial1({
         </Typography>
         <Divider />
         <Typography sx={{ minHeight: 100 }} p={2}>
-          {questionIndex === QUESTIONS[questionListIndex].length
+          {questionIndex === questionList.length
             ? "すべての問題を解きました！"
-            : `「${QUESTIONS[questionListIndex][questionIndex]}」を入力してください。`}
+            : `「${questionList[questionIndex]}」を入力してください。`}
         </Typography>
       </Paper>
 
@@ -87,7 +80,7 @@ export default function Tutorial1({
 
       <Button
         onClick={() => {
-          if (questionIndex < QUESTIONS[questionListIndex].length) {
+          if (questionIndex < questionList.length) {
             setQuestionIndex(questionIndex + 1);
           }
         }}

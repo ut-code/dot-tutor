@@ -6,13 +6,6 @@ import Tutorial1Dialog3 from "./tutorial/tutorial1/dialog/3_kanadukai.mdx";
 import Tutorial1Dialog6 from "./tutorial/tutorial1/dialog/3_number.mdx";
 import Tutorial1Dialog4 from "./tutorial/tutorial1/dialog/4_alphabet.mdx";
 import Tutorial1Dialog5 from "./tutorial/tutorial1/dialog/5_symbol.mdx";
-import {
-  questionList1,
-  questionList2,
-  questionList3,
-  questionList4,
-  questionList5,
-} from "./tutorial/tutorial1/questions";
 
 export default function Keyboard(): JSX.Element {
   return (
@@ -30,7 +23,7 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog2 />,
               },
             ],
-            content: <Tutorial1 questionList={questionList1} />,
+            content: <Tutorial1 questionListIndex={0} />,
           },
           {
             dialog: [
@@ -39,7 +32,7 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog3 />,
               },
             ],
-            content: <Tutorial1 questionList={questionList2} />,
+            content: <Tutorial1 questionListIndex={2} />,
           },
           {
             dialog: [
@@ -48,7 +41,7 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog6 />,
               },
             ],
-            content: <Tutorial1 questionList={questionList3} />,
+            content: <Tutorial1 questionListIndex={3} />,
           },
           {
             dialog: [
@@ -57,13 +50,13 @@ export default function Keyboard(): JSX.Element {
                 content: <Tutorial1Dialog4 />,
               },
             ],
-            content: <Tutorial1 questionList={questionList4} />,
+            content: <Tutorial1 questionListIndex={4} />,
           },
           {
             dialog: [
               { title: "記号を含む文字列", content: <Tutorial1Dialog5 /> },
             ],
-            content: <Tutorial1 questionList={questionList5} />,
+            content: <Tutorial1 questionListIndex={5} />,
           },
         ]}
       />

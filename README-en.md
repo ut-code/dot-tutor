@@ -51,6 +51,12 @@ npm run dev
 
 After running the command above, visit [http://localhost:3000/](http://localhost:3000/).
 
+### Before Commit
+
+```shell
+npm run lint && npm run build
+```
+
 ## License
 
 Learn Braille is licensed under the [MIT](https://opensource.org/licenses/MIT) license.

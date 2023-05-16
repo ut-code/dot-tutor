@@ -51,6 +51,12 @@ npm run dev
 
 上記のコマンドを実行した後、[http://localhost:3000/](http://localhost:3000/) にアクセスしてください。
 
+### コミット前
+
+```shell
+npm run lint && npm run build
+```
+
 ## ライセンス
 
 点字学習ソフトウェアは [MIT](https://opensource.org/licenses/MIT) ライセンスのもとで公開されています。

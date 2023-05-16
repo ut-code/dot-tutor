@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useTypedBrailleString from "../hooks/useTypedBrailleString";
 import translateBraille from "../utils/translateBraille";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, Box, Button } from "@mui/material";
 import { BrailleString } from "@/models/Braille";
 
 export default function PracticeField({
@@ -14,11 +14,19 @@ export default function PracticeField({
   const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
   const [answered, setAnswered] = useState<boolean>(false);
   const [correctOrNot, setCorrectOrNot] = useState<string>("不正解です。");
+  const [translatedBrailleString, setTranslatedBrailleString] =
+    useState<string>("");
+  useEffect(() => {
+    setTranslatedBrailleString(
+      translateBraille(new BrailleString("unicode", typedBrailleString))
+    );
+  }, [typedBrailleString]);
+
   if (!answered) {
     return (
       <>
-        <div>
-          <Typography>{question}</Typography>
+        <Box marginBottom={4}>
+          <Typography m={1}>{question}</Typography>
           <TextField
             variant="outlined"
             value={typedBrailleString}
@@ -29,10 +37,11 @@ export default function PracticeField({
               setTypedBrailleString(e);
             }}
           />
-          <Typography style={{ color: "gray", fontSize: "75%" }}>
-            {translateBraille(new BrailleString("unicode", typedBrailleString))}
+          <Typography style={{ color: "gray", fontSize: "75%" }} m={1}>
+            {translatedBrailleString}
           </Typography>
-          <button
+          <Button
+            variant="outlined"
             onClick={() => {
               if (typedBrailleString === answer) {
                 setCorrectOrNot("正解です！");
@@ -41,8 +50,8 @@ export default function PracticeField({
             }}
           >
             答え合わせをする
-          </button>
-        </div>
+          </Button>
+        </Box>
       </>
     );
   } else {

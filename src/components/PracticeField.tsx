@@ -13,7 +13,7 @@ export default function PracticeField({
 }): JSX.Element {
   const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
   const [answered, setAnswered] = useState<boolean>(false);
-  const [correctOrNot, setCorrectOrNot] = useState<string>("不正解です。");
+  const [correctOrNot, setCorrectOrNot] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =
     useState<string>("");
   useEffect(() => {
@@ -22,10 +22,10 @@ export default function PracticeField({
     );
   }, [typedBrailleString]);
 
-  if (!answered) {
-    return (
-      <>
-        <Box marginBottom={4}>
+  return (
+    <>
+      <Box display="flex" alignItems="center">
+        <Box m={1}>
           <Typography m={1}>{question}</Typography>
           <TextField
             variant="outlined"
@@ -40,11 +40,14 @@ export default function PracticeField({
           <Typography style={{ color: "gray", fontSize: "75%" }} m={1}>
             {translatedBrailleString}
           </Typography>
+        </Box>
+        <Box m={1}>
           <Button
             variant="outlined"
             onClick={() => {
+              setCorrectOrNot(false);
               if (typedBrailleString === answer) {
-                setCorrectOrNot("正解です！");
+                setCorrectOrNot(true);
               }
               setAnswered(true);
             }}
@@ -52,20 +55,14 @@ export default function PracticeField({
             答え合わせをする
           </Button>
         </Box>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div>
-          <p>
-            {correctOrNot}
-            {"答えは"}
-            {answer}
-            {"です。"}
-          </p>
-        </div>
-      </>
-    );
-  }
+        <Box m={1}>
+          {answered
+            ? `${
+                correctOrNot ? "正解です！" : "不正解です..."
+              } 答えは${answer}です。`
+            : " "}
+        </Box>
+      </Box>
+    </>
+  );
 }

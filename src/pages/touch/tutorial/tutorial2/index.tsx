@@ -16,6 +16,6 @@ export const gojyuonQuestions1 = [
   "こうくう",
 ]; // 「あいうえおかきくけこ」で構成される
 
-export default function Practice2({}): JSX.Element {
+export default function Practice2(): JSX.Element {
   return <TouchMain typeOfQuestions={gojyuonQuestions1} />;
 }

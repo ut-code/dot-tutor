@@ -11,6 +11,6 @@ export const vowelQuestions = [
   "おお",
 ];
 
-export default function Practice1({}): JSX.Element {
+export default function Practice1(): JSX.Element {
   return <TouchMain typeOfQuestions={vowelQuestions} />;
 }

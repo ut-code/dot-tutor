@@ -10,8 +10,6 @@ import {
   Button,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { judge, makeQuestion } from "./questionAndJudge";
-import typeOfQuestions from "../pages/touch/tutorial/tutorial1/index";
 
 export default function TutorialDialog(props: {
   open: boolean;

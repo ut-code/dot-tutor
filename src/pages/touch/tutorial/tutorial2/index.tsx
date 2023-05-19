@@ -5,7 +5,7 @@ import EdittableBraille from "../../../../components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import { Braille, BrailleString } from "@/models/Braille";
 
-export default function Tutorial1({
+export default function Tutorial2({
   typeOfQuestions,
 }: {
   typeOfQuestions: string[];

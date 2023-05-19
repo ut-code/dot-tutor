@@ -1,12 +1,16 @@
 import React from "react";
 import Tutorial from "../../components/Tutorial";
 import Tutorial1 from "./tutorial/tutorial1";
+import Tutorial2 from "./tutorial/tutorial2";
+import Tutorial3 from "./tutorial/tutorial3";
+import Tutorial4 from "./tutorial/tutorial4";
+import Tutorial5 from "./tutorial/tutorial5";
 import Tutorial1Dialog1 from "./tutorial/tutorial1/dialog/1_braille_touch.mdx";
 import Tutorial1Dialog2 from "./tutorial/tutorial1/dialog/2_write_vowel.mdx";
-import Tutorial1Dialog3 from "./tutorial/tutorial1/dialog/3_write_gojyuon.mdx";
-import Tutorial1Dialog4 from "./tutorial/tutorial1/dialog/4_write_dakuon_handakuon.mdx";
-import Tutorial1Dialog5 from "./tutorial/tutorial1/dialog/5_write_contraction.mdx";
-import Tutorial1Dialog6 from "./tutorial/tutorial1/dialog/6_write_special_hiragana.mdx";
+import Tutorial1Dialog3 from "./tutorial/tutorial2/dialog/3_write_gojyuon.mdx";
+import Tutorial1Dialog4 from "./tutorial/tutorial3/dialog/4_write_dakuon_handakuon.mdx";
+import Tutorial1Dialog5 from "./tutorial/tutorial4/dialog/5_write_contraction.mdx";
+import Tutorial1Dialog6 from "./tutorial/tutorial5/dialog/6_write_special_hiragana.mdx";
 import {
   vowelQuestions,
   gojyuonQuestions1,
@@ -31,7 +35,7 @@ export default function Touch(): JSX.Element {
             dialog: [
               { title: "五十音を打ってみよう", content: <Tutorial1Dialog3 /> },
             ],
-            content: <Tutorial1 typeOfQuestions={gojyuonQuestions1} />,
+            content: <Tutorial2 typeOfQuestions={gojyuonQuestions1} />,
           },
           {
             dialog: [
@@ -40,7 +44,7 @@ export default function Touch(): JSX.Element {
                 content: <Tutorial1Dialog4 />,
               },
             ],
-            content: <Tutorial1 typeOfQuestions={dakuonHandakuonQuestions} />,
+            content: <Tutorial3 typeOfQuestions={dakuonHandakuonQuestions} />,
           },
           {
             dialog: [
@@ -49,7 +53,7 @@ export default function Touch(): JSX.Element {
                 content: <Tutorial1Dialog5 />,
               },
             ],
-            content: <Tutorial1 typeOfQuestions={contractionQuestions} />,
+            content: <Tutorial4 typeOfQuestions={contractionQuestions} />,
           },
           {
             dialog: [
@@ -58,7 +62,7 @@ export default function Touch(): JSX.Element {
                 content: <Tutorial1Dialog6 />,
               },
             ],
-            content: <Tutorial1 typeOfQuestions={questions} />,
+            content: <Tutorial5 typeOfQuestions={questions} />,
           },
         ]}
       />

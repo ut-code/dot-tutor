@@ -83,7 +83,7 @@ jobs:
           cache: npm
 
       - name: Install Node Packages
-        run: npm ci
+        run: cd web && npm ci
         shell: bash
 
       - name: Type Check Front

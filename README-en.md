@@ -73,7 +73,7 @@ npm run lint && npm run type-check
 
 ## License
 
-This software is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
+This software is licensed under the [MIT](./LICENSE) license.
 
 Copyright © 2023 ut.code();.
 

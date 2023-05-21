@@ -38,6 +38,13 @@ To use this web application, just visit [here](https://ut-code.github.io/learn-b
 
 - [npm](https://github.com/npm/cli)
 
+### Recommended
+
+- [VS Code Extensions](https://marketplace.visualstudio.com/VSCode)
+  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+  - [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)
+
 ### Installation
 
 ```shell

@@ -38,6 +38,13 @@
 
 - [npm](https://github.com/npm/cli)
 
+### 推奨
+
+- [VS Code 拡張機能](https://marketplace.visualstudio.com/VSCode)
+  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+  - [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)
+
 ### 環境構築
 
 ```shell

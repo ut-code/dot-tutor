@@ -9,7 +9,7 @@
 
 [日本語版 README はこちら](README.md)
 
-This is software for learning Braille.
+This is Learn Braille, which is a web application for learning Braille.
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@ This is software for learning Braille.
 
 ## About
 
-This is software for learning Braille.
+This is Learn Braille, which is a web application for learning Braille.
 
 ## Usage
 

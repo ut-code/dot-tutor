@@ -1,4 +1,4 @@
-# 点字学習ソフトウェア
+# 体験型点字学習ソフトウェア Learn Braille
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000.svg?logo=next.js)](https://github.com/vercel/next.js/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://github.com/microsoft/TypeScript)
@@ -9,7 +9,7 @@
 
 [English README is here.](README-en.md)
 
-これは、点字学習ソフトウェアです。
+これは、体験型点字学習ソフトウェア Learn Braille です。
 
 ## 目次
 
@@ -24,7 +24,7 @@
 
 ## 概要
 
-これは、点字学習ソフトウェアです。
+これは、体験型点字学習ソフトウェア Learn Braille です。
 
 ## 使い方
 

@@ -71,7 +71,7 @@ npm run lint && npm run type-check
 
 ## License
 
-Learn Braille is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
+This software is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
 
 Copyright © 2023 ut.code();.
 

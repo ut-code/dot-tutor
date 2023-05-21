@@ -19,8 +19,10 @@ This is Learn Braille, which is a web application for learning Braille.
 - [Usage](#usage)
 - [Development](#development)
   - [Requirements](#requirements)
+  - [Recommended](#recommended)
   - [Installation](#installation)
   - [Local Development](#local-development)
+  - [Before Commit](#before-commit)
 - [License](#license)
 - [Contributing](#contributing)
 

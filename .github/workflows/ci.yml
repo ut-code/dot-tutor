@@ -28,9 +28,6 @@ jobs:
     needs: check-npm-install
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Build
         run: npm run build
         env:
@@ -45,9 +42,6 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Run ESLint
         run: npx eslint .
 
@@ -55,9 +49,6 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Prettier
         run: npm run format:check
         shell: bash

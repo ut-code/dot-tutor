@@ -11,6 +11,8 @@
 
 これは、体験型点字学習ソフトウェア Learn Braille です。
 
+<img width="1436" alt="image" src="https://github.com/ut-code/learn-braille/assets/104971044/743816ce-7f7e-4905-998c-84dc5d03d3bc">
+
 ## 目次
 
 - [概要](#概要)

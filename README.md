@@ -4,7 +4,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://github.com/microsoft/TypeScript)
 [![Vite](https://img.shields.io/badge/Vite-1e1e20.svg?logo=vite)](https://github.com/vitejs/vite)
 [![CI](https://github.com/ut-code/translate-braille/actions/workflows/ci.yml/badge.svg)](https://github.com/ut-code/translate-braille/actions/workflows/ci.yml)
-![license](https://img.shields.io/badge/license-MIT-informational.svg)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 [English README is here.](README-en.md)
@@ -23,7 +22,6 @@
   - [環境構築](#環境構築)
   - [開発用サーバーの起動](#開発用サーバーの起動)
   - [コミット前](#コミット前)
-- [ライセンス](#ライセンス)
 - [コントリビューション](#コントリビューション)
 
 ## 概要
@@ -70,12 +68,6 @@ npm run dev
 ```shell
 npm run format && npm run type-check
 ```
-
-## ライセンス
-
-このソフトウェアは [MIT](./LICENSE) ライセンスのもとで公開されています。
-
-Copyright © 2023 ut.code();.
 
 ## コントリビューション
 

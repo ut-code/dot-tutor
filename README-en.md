@@ -4,7 +4,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://github.com/microsoft/TypeScript)
 [![Vite](https://img.shields.io/badge/Vite-1e1e20.svg?logo=vite)](https://github.com/vitejs/vite)
 [![CI](https://github.com/ut-code/translate-braille/actions/workflows/ci.yml/badge.svg)](https://github.com/ut-code/translate-braille/actions/workflows/ci.yml)
-![license](https://img.shields.io/badge/license-MIT-informational.svg)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 [日本語版 README はこちら](README.md)
@@ -23,7 +22,6 @@ This is Translate Braille, which is a web application for automatically translat
   - [Installation](#installation)
   - [Local Development](#local-development)
   - [Before Commit](#before-commit)
-- [License](#license)
 - [Contributing](#contributing)
 
 ## About
@@ -70,12 +68,6 @@ Before committing, run the command below to check the code style and types.
 ```shell
 npm run format && npm run type-check
 ```
-
-## License
-
-This software is licensed under the [MIT](./LICENSE) license.
-
-Copyright © 2023 ut.code();.
 
 ## Contributing
 

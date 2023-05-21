@@ -47,3 +47,24 @@ jobs:
       - name: Prettier
         run: npx prettier --check .
         shell: bash
+
+  black:
+    name: Black
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: latest
+          cache: pip
+
+      - name: Install Python Packages
+        run: pip install -r server/requirements.txt
+        shell: bash
+
+      - name: Black
+        run: black --check .
+        shell: bash

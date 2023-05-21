@@ -11,6 +11,8 @@
     "dev": "npm run server:dev & npm run web:dev",
     "web:dev": "cd web && npm run dev",
     "server:dev": "cd server && . ./env/bin/activate && uvicorn main:app --reload --port 8000 && deactivate",
+    "build": "npm run build:web",
+    "build:web": "cd web && npm run build",
     "format": "npm run format:web && npm run format:server",
     "format:web": "prettier --write web",
     "format:server": "cd server && . ./env/bin/activate && black . && deactivate"

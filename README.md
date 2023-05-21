@@ -3,7 +3,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-000000.svg?logo=next.js)](https://github.com/vercel/next.js/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white)](https://github.com/microsoft/TypeScript)
 [![Build and Deploy](https://github.com/ut-code/learn-braille/actions/workflows/deploy.yml/badge.svg)](https://github.com/ut-code/learn-braille/actions/workflows/deploy.yml)
-[![ESLint](https://github.com/ut-code/learn-braille/actions/workflows/eslint.yml/badge.svg)](https://github.com/ut-code/learn-braille/actions/workflows/eslint.yml)
+[![CI](https://github.com/ut-code/learn-braille/actions/workflows/ci.yml/badge.svg)](https://github.com/ut-code/learn-braille/actions/workflows/ci.yml)
 ![license](https://img.shields.io/badge/license-MIT-informational.svg)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 

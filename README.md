@@ -63,8 +63,10 @@ npm run dev
 
 ### コミット前
 
+コミット前には、以下のコマンドを実行して、コードスタイルと型のチェックを行ってください。
+
 ```shell
-npm run lint && npm run build
+npm run lint && npm run type-check
 ```
 
 ## ライセンス

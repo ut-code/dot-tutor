@@ -63,8 +63,10 @@ npm run dev
 
 ### Before Commit
 
+Before committing, run the command below to check the code style and types.
+
 ```shell
-npm run lint && npm run build
+npm run lint && npm run type-check
 ```
 
 ## License

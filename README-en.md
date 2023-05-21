@@ -55,11 +55,11 @@ npm ci
 
 ### Local Development
 
+To start local development, run the command below. Then, you can access the application at [http://localhost:3000](http://localhost:3000).
+
 ```shell
 npm run dev
 ```
-
-After running the command above, visit [http://localhost:3000/](http://localhost:3000/).
 
 ### Before Commit
 

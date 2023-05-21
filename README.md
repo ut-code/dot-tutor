@@ -55,11 +55,11 @@ npm ci
 
 ### 開発
 
+開発用サーバーを起動するには、以下のコマンドを実行してください。そうすると、[http://localhost:3000](http://localhost:3000) でアプリケーションにアクセスできます。
+
 ```shell
 npm run dev
 ```
-
-上記のコマンドを実行した後、[http://localhost:3000/](http://localhost:3000/) にアクセスしてください。
 
 ### コミット前
 

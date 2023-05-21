@@ -51,7 +51,7 @@ jobs:
         shell: bash
 
       - name: Run ESLint
-        run: npx eslint .
+        run: npx eslint --max-warnings 0 .
 
   prettier:
     name: Prettier
@@ -71,5 +71,26 @@ jobs:
         shell: bash
 
       - name: Prettier
-        run: npm run format:check
+        run: npx prettier --check .
+        shell: bash
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Type Check
+        run: npm run type-check
         shell: bash

@@ -30,7 +30,7 @@ This is Learn Braille, which is a web application for learning Braille.
 
 ## Usage
 
-Visit [here](https://ut-code.github.io/learn-braille/).
+To use this web application, just visit [here](https://ut-code.github.io/learn-braille/).
 
 ## Development
 

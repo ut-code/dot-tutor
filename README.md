@@ -30,7 +30,7 @@
 
 ## 使い方
 
-[https://ut-code.github.io/learn-braille/](https://ut-code.github.io/learn-braille/) にアクセスしてください。
+この Web アプリケーションを使用するには、[ここ](https://ut-code.github.io/learn-braille/)にアクセスしてください。
 
 ## 開発
 

@@ -71,5 +71,5 @@ jobs:
         shell: bash
 
       - name: Prettier
-        run: npm run format:check
+        run: npx prettier --check .
         shell: bash

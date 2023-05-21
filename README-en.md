@@ -47,8 +47,9 @@ To use this web application, just visit [here](https://ut-code.github.io/learn-b
 
 ### Installation
 
+After cloning this repository, move to the project root directory and then run the command below.
+
 ```shell
-cd learn-braille
 npm ci
 ```
 

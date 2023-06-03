@@ -25,6 +25,8 @@ import {
  *  Dot4: false,
  *  Dot5: false,
  *  Dot6: false,
+ *  Dot7: false,
+ *  Dot8: false,
  * });
  * const unicodeBraille = braille.unicodeBraille;
  */
@@ -58,7 +60,7 @@ export class Braille {
   }
 
   /**
-   * check if unicode character of braille matches any character between ⠀ and ⠿
+   * check if unicode character of braille matches any character between ⠀ and ⣿
    * @param braille unicode character of braille
    * @returns boolean
    */
@@ -77,10 +79,10 @@ export class Braille {
     if (brailleState.Dot1) codePoint += 2 ** 0;
     if (brailleState.Dot2) codePoint += 2 ** 1;
     if (brailleState.Dot3) codePoint += 2 ** 2;
-    if (brailleState.Dot4) codePoint += 2 ** 6;
-    if (brailleState.Dot5) codePoint += 2 ** 3;
-    if (brailleState.Dot6) codePoint += 2 ** 4;
-    if (brailleState.Dot7) codePoint += 2 ** 5;
+    if (brailleState.Dot4) codePoint += 2 ** 3;
+    if (brailleState.Dot5) codePoint += 2 ** 4;
+    if (brailleState.Dot6) codePoint += 2 ** 5;
+    if (brailleState.Dot7) codePoint += 2 ** 6;
     if (brailleState.Dot8) codePoint += 2 ** 7;
     const unicodeBraille = String.fromCodePoint(codePoint);
     return new Braille("unicode", unicodeBraille).braille;
@@ -98,10 +100,10 @@ export class Braille {
     brailleState.Dot1 = Boolean((codePoint - 0x2800) & (2 ** 0));
     brailleState.Dot2 = Boolean((codePoint - 0x2800) & (2 ** 1));
     brailleState.Dot3 = Boolean((codePoint - 0x2800) & (2 ** 2));
-    brailleState.Dot4 = Boolean((codePoint - 0x2800) & (2 ** 6));
-    brailleState.Dot5 = Boolean((codePoint - 0x2800) & (2 ** 3));
-    brailleState.Dot6 = Boolean((codePoint - 0x2800) & (2 ** 4));
-    brailleState.Dot7 = Boolean((codePoint - 0x2800) & (2 ** 5));
+    brailleState.Dot4 = Boolean((codePoint - 0x2800) & (2 ** 3));
+    brailleState.Dot5 = Boolean((codePoint - 0x2800) & (2 ** 4));
+    brailleState.Dot6 = Boolean((codePoint - 0x2800) & (2 ** 5));
+    brailleState.Dot7 = Boolean((codePoint - 0x2800) & (2 ** 6));
     brailleState.Dot8 = Boolean((codePoint - 0x2800) & (2 ** 7));
     return { ...brailleState };
   }
@@ -148,7 +150,7 @@ export class BrailleString {
   ) {
     if (type === "unicode") {
       this.brailleString = Array.from(brailleString as string).map(
-        (brailleChar) => new Braille("unicode", brailleChar)
+        (brailleCharacter) => new Braille("unicode", brailleCharacter)
       );
     } else if (type === "braille array") {
       this.brailleString = brailleString as Braille[];

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { type BrailleState, availableDots } from "../types/BrailleState";
-import { Braille } from "@/models/Braille";
+import { SixDotBraille, EightDotBraille } from "@/models/Braille";
 
 /**
  * Component for displaying touch-to-change braille
@@ -12,7 +12,7 @@ import { Braille } from "@/models/Braille";
  * @example
  * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
  *
- * <EdittableBraille
+ * <EdittableBraille<SixDotBraille>
  *   height="100"
  *   width="60"
  *   braille={braille}
@@ -21,7 +21,9 @@ import { Braille } from "@/models/Braille";
  *   }}
  * />
  */
-export default function EdittableBraille({
+export default function EdittableBraille<
+  T extends SixDotBraille | EightDotBraille
+>({
   height,
   width,
   braille,
@@ -29,15 +31,19 @@ export default function EdittableBraille({
 }: {
   height: string;
   width: string;
-  braille: Braille;
-  updateBraille: (braille: Braille) => void;
+  braille: T;
+  updateBraille: (braille: T) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
     ...braille.brailleState,
   });
 
   useEffect(() => {
-    updateBraille(new Braille("braille state", brailleState));
+    if (braille instanceof SixDotBraille) {
+      updateBraille(new SixDotBraille("braille state", brailleState) as T);
+    } else if (braille instanceof EightDotBraille) {
+      updateBraille(new EightDotBraille("braille state", brailleState) as T);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
 
@@ -48,40 +54,26 @@ export default function EdittableBraille({
     Dot1: "40",
     Dot2: "40",
     Dot3: "40",
-    Dot4: "90",
-    Dot5: "90",
-    Dot6: "90",
+    Dot7: "40",
+    Dot4: "80",
+    Dot5: "80",
+    Dot6: "80",
+    Dot8: "80",
   };
-  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS.
-  // const xCoordinateList = {
-  //   Dot1: "40",
-  //   Dot2: "40",
-  //   Dot3: "40",
-  //   Dot4: "80",
-  //   Dot5: "80",
-  //   Dot6: "80",
-  // };
 
   /**
    * list of y coordinates for each dot
    */
   const yCoordinateList = {
-    Dot1: "30",
-    Dot2: "75",
+    Dot1: "40",
+    Dot2: "80",
     Dot3: "120",
-    Dot4: "30",
-    Dot5: "75",
+    Dot7: "160",
+    Dot4: "40",
+    Dot5: "80",
     Dot6: "120",
+    Dot8: "160",
   };
-  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS.
-  // const yCoordinateList = {
-  //   Dot1: "40",
-  //   Dot2: "80",
-  //   Dot3: "120",
-  //   Dot4: "40",
-  //   Dot5: "80",
-  //   Dot6: "120",
-  // };
 
   return (
     <>
@@ -89,27 +81,30 @@ export default function EdittableBraille({
         xmlns="http://www.w3.org/2000/svg"
         height={height}
         width={width}
-        viewBox="0,0,120,160"
+        viewBox={`0,0,120,${
+          braille instanceof EightDotBraille ? "200" : "160"
+        }`}
       >
-        <text x="2" y="141" style={{ fontSize: "169px" }}>
-          {new Braille("braille state", brailleState).unicodeBraille}
-        </text>
-        {Object.values(availableDots).map((dotNumber) => (
-          <Fragment key={dotNumber}>
-            <circle
-              cx={xCoordinateList[dotNumber]}
-              cy={yCoordinateList[dotNumber]}
-              r="10"
-              fill={brailleState[dotNumber] ? "black" : "#ccc"}
-              onClick={() => {
-                setBrailleState({
-                  ...brailleState,
-                  [dotNumber]: !brailleState[dotNumber],
-                });
-              }}
-            />
-          </Fragment>
-        ))}
+        {Object.values(availableDots).map(
+          (dotNumber) =>
+            (braille instanceof EightDotBraille ||
+              (dotNumber !== "Dot7" && dotNumber !== "Dot8")) && (
+              <Fragment key={dotNumber}>
+                <circle
+                  cx={xCoordinateList[dotNumber]}
+                  cy={yCoordinateList[dotNumber]}
+                  r="10"
+                  fill={brailleState[dotNumber] ? "black" : "#ccc"}
+                  onClick={() => {
+                    setBrailleState({
+                      ...brailleState,
+                      [dotNumber]: !brailleState[dotNumber],
+                    });
+                  }}
+                />
+              </Fragment>
+            )
+        )}
       </svg>
     </>
   );

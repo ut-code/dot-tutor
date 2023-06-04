@@ -3,15 +3,15 @@ import translateBraille from "./../utils/translateBraille";
 import { judge, makeQuestion } from "./questionAndJudge";
 import EdittableBraille from "./EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
-import { Braille, BrailleString } from "@/models/Braille";
+import { SixDotBraille, SixDotBrailleString } from "@/models/Braille";
 
 export default function TouchMain({
   typeOfQuestions,
 }: {
   typeOfQuestions: string[];
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<Braille[]>(
-    [...Array(10)].map((_) => new Braille("unicode", "⠀"))
+  const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
+    [...Array(10)].map((_) => new SixDotBraille("unicode", "⠀"))
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(
@@ -79,10 +79,15 @@ export default function TouchMain({
         variant="contained"
         onClick={() => {
           judgeAnswer(
-            judge(new BrailleString("braille array", brailleStrings), question)
+            judge(
+              new SixDotBrailleString("braille array", brailleStrings),
+              question
+            )
           );
           setHiraganaStrings(
-            translateBraille(new BrailleString("braille array", brailleStrings))
+            translateBraille(
+              new SixDotBrailleString("braille array", brailleStrings)
+            )
           );
         }}
       >

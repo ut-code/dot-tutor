@@ -1,6 +1,6 @@
 import { useState, useEffect, type KeyboardEvent } from "react";
 import { type BrailleState } from "../types/BrailleState";
-import { Braille } from "../models/Braille";
+import { SixDotBraille } from "../models/Braille";
 
 /**
  * The default state of keyboard
@@ -164,9 +164,11 @@ function useTypedKeys(): [
  * //   Dot1: true,
  * //   Dot2: true,
  * //   Dot3: false,
+ * //   Dot7: false,
  * //   Dot4: false,
  * //   Dot5: false,
  * //   Dot6: false,
+ * //   Dot8: false,
  * // };
  */
 function convertKeyboardStateToBrailleState(
@@ -176,9 +178,11 @@ function convertKeyboardStateToBrailleState(
     Dot1: keyboardState.KeyF,
     Dot2: keyboardState.KeyD,
     Dot3: keyboardState.KeyS,
+    Dot7: false,
     Dot4: keyboardState.KeyJ,
     Dot5: keyboardState.KeyK,
     Dot6: keyboardState.KeyL,
+    Dot8: false,
   };
   return brailleState;
 }
@@ -206,7 +210,7 @@ function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
     return "\b"; // Return backspace character.
   } else {
     const brailleState = convertKeyboardStateToBrailleState(keyboardState);
-    const braille = new Braille("braille state", brailleState);
+    const braille = new SixDotBraille("braille state", brailleState);
     return braille.unicodeBraille;
   }
 }

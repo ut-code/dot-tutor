@@ -109,7 +109,6 @@ export class Braille {
   }
 }
 
-
 /**
  * SixDotBraille class
  * @class
@@ -163,7 +162,6 @@ export class SixDotBraille extends Braille {
   }
 }
 
-
 /**
  * EightDotBraille class
  * @class
@@ -189,7 +187,6 @@ export class SixDotBraille extends Braille {
  * const unicodeBraille = braille.unicodeBraille;
  */
 export class EightDotBraille extends Braille {}
-
 
 /**
  * BrailleString class

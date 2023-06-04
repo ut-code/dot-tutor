@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Braille, BrailleString } from "@/models/Braille";
+import { SixDotBraille, SixDotBrailleString } from "@/models/Braille";
 import { judge } from "./questionAndJudge";
 import EdittableBraille from "./EdittableBraille";
 import { Button } from "@mui/material";
@@ -13,8 +13,8 @@ export default function PracticeTouch({
   answer: string;
   length: number;
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<Braille[]>(
-    [...Array(length)].map((_) => new Braille("unicode", "⠀"))
+  const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
+    [...Array(length)].map((_) => new SixDotBraille("unicode", "⠀"))
   );
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
 
@@ -42,7 +42,10 @@ export default function PracticeTouch({
           variant="contained"
           onClick={() => {
             judgeAnswer(
-              judge(new BrailleString("braille array", brailleStrings), answer)
+              judge(
+                new SixDotBrailleString("braille array", brailleStrings),
+                answer
+              )
             );
           }}
         >

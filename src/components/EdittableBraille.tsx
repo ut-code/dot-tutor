@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { type BrailleState, availableDots } from "../types/BrailleState";
-import { SixDotBraille } from "@/models/Braille";
+import { Braille } from "@/models/Braille";
 
 /**
  * Component for displaying touch-to-change braille
@@ -29,15 +29,15 @@ export default function EdittableBraille({
 }: {
   height: string;
   width: string;
-  braille: SixDotBraille;
-  updateBraille: (braille: SixDotBraille) => void;
+  braille: Braille;
+  updateBraille: (braille: Braille) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
     ...braille.brailleState,
   });
 
   useEffect(() => {
-    updateBraille(new SixDotBraille("braille state", brailleState));
+    updateBraille(new Braille("braille state", brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
 
@@ -49,43 +49,25 @@ export default function EdittableBraille({
     Dot2: "40",
     Dot3: "40",
     Dot7: "40",
-    Dot4: "90",
-    Dot5: "90",
-    Dot6: "90",
-    Dot8: "90",
+    Dot4: "80",
+    Dot5: "80",
+    Dot6: "80",
+    Dot8: "80",
   };
-  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS.
-  // const xCoordinateList = {
-  //   Dot1: "40",
-  //   Dot2: "40",
-  //   Dot3: "40",
-  //   Dot4: "80",
-  //   Dot5: "80",
-  //   Dot6: "80",
-  // };
 
   /**
    * list of y coordinates for each dot
    */
   const yCoordinateList = {
-    Dot1: "30",
-    Dot2: "75",
+    Dot1: "40",
+    Dot2: "80",
     Dot3: "120",
-    Dot7: "165",
-    Dot4: "30",
-    Dot5: "75",
+    Dot7: "160",
+    Dot4: "40",
+    Dot5: "80",
     Dot6: "120",
-    Dot8: "165",
+    Dot8: "160",
   };
-  // FIXME: The position of dots shift depending on OS. Below is the settings for macOS.
-  // const yCoordinateList = {
-  //   Dot1: "40",
-  //   Dot2: "80",
-  //   Dot3: "120",
-  //   Dot4: "40",
-  //   Dot5: "80",
-  //   Dot6: "120",
-  // };
 
   return (
     <>
@@ -93,11 +75,8 @@ export default function EdittableBraille({
         xmlns="http://www.w3.org/2000/svg"
         height={height}
         width={width}
-        viewBox="0,0,120,205"
+        viewBox="0,0,120,200"
       >
-        <text x="2" y="141" style={{ fontSize: "169px" }}>
-          {new SixDotBraille("braille state", brailleState).unicodeBraille}
-        </text>
         {Object.values(availableDots).map((dotNumber) => (
           <Fragment key={dotNumber}>
             <circle

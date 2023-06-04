@@ -162,6 +162,8 @@ export class SixDotBraille extends Braille {
   }
 }
 
+export class EightDotBraille extends Braille {}
+
 /**
  * BrailleString class
  * @class

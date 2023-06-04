@@ -5,10 +5,10 @@ export const defaultBrailleStateValue = {
   Dot1: false,
   Dot2: false,
   Dot3: false,
+  Dot7: false,
   Dot4: false,
   Dot5: false,
   Dot6: false,
-  Dot7: false,
   Dot8: false,
 };
 
@@ -25,7 +25,7 @@ type AvailableDot = keyof BrailleState;
 /**
  * The array of the available dots
  * @example
- * const availableDots = ["Dot1", "Dot2", "Dot3", "Dot4", "Dot5", "Dot6"];
+ * const availableDots = ["Dot1", "Dot2", "Dot3", "Dot7", "Dot4", "Dot5", "Dot6", "Dot8"];
  */
 export const availableDots = Object.keys(
   defaultBrailleStateValue

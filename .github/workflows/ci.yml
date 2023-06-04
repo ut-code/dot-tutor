@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build-test:
+    name: Build Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Build
+        run: npm run build
+        env:
+          BASE_URL: ""
+        shell: bash
+
+      - name: Export
+        run: npm run export
+        shell: bash
+
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Run ESLint
+        run: npx eslint --max-warnings 0 .
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Prettier
+        run: npx prettier --check .
+        shell: bash
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Type Check
+        run: npm run type-check
+        shell: bash

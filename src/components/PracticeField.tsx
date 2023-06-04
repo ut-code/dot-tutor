@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useTypedBrailleString from "../hooks/useTypedBrailleString";
 import translateBraille from "../utils/translateBraille";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, Box, Button } from "@mui/material";
 import { BrailleString } from "@/models/Braille";
 
 export default function PracticeField({
@@ -13,12 +13,20 @@ export default function PracticeField({
 }): JSX.Element {
   const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
   const [answered, setAnswered] = useState<boolean>(false);
-  const [correctOrNot, setCorrectOrNot] = useState<string>("不正解です。");
-  if (!answered) {
-    return (
-      <>
-        <div>
-          <Typography>{question}</Typography>
+  const [correctOrNot, setCorrectOrNot] = useState<boolean>(false);
+  const [translatedBrailleString, setTranslatedBrailleString] =
+    useState<string>("");
+  useEffect(() => {
+    setTranslatedBrailleString(
+      translateBraille(new BrailleString("unicode", typedBrailleString))
+    );
+  }, [typedBrailleString]);
+
+  return (
+    <>
+      <Box display="flex" alignItems="center">
+        <Box m={1}>
+          <Typography m={1}>{question}</Typography>
           <TextField
             variant="outlined"
             value={typedBrailleString}
@@ -29,34 +37,32 @@ export default function PracticeField({
               setTypedBrailleString(e);
             }}
           />
-          <Typography style={{ color: "gray", fontSize: "75%" }}>
-            {translateBraille(new BrailleString("unicode", typedBrailleString))}
+          <Typography style={{ color: "gray", fontSize: "75%" }} m={1}>
+            {translatedBrailleString}
           </Typography>
-          <button
+        </Box>
+        <Box m={1}>
+          <Button
+            variant="outlined"
             onClick={() => {
+              setCorrectOrNot(false);
               if (typedBrailleString === answer) {
-                setCorrectOrNot("正解です！");
+                setCorrectOrNot(true);
               }
               setAnswered(true);
             }}
           >
             答え合わせをする
-          </button>
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div>
-          <p>
-            {correctOrNot}
-            {"答えは"}
-            {answer}
-            {"です。"}
-          </p>
-        </div>
-      </>
-    );
-  }
+          </Button>
+        </Box>
+        <Box m={1}>
+          {answered
+            ? `${
+                correctOrNot ? "正解です！" : "不正解です..."
+              } 答えは${answer}です。`
+            : " "}
+        </Box>
+      </Box>
+    </>
+  );
 }

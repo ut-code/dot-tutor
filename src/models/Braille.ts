@@ -238,3 +238,54 @@ export class BrailleString {
     }
   }
 }
+
+/**
+ * SixDotBrailleString class
+ * @class
+ * @classdesc SixDotBrailleString class
+ * @property {string} unicodeBrailleString - 6-dot unicode string of braille
+ * @property {SixDotBraille[]} brailleArray - array of braille
+ * @constructor
+ * @param {string} type - type of braille ("unicode" or "braille array")
+ * @param {string | SixDotBraille[]} brailleString - unicode string of braille or array of braille
+ * @throws {Error} - Invalid Braille Type!
+ * @example
+ * const brailleString = new SixDotBrailleString("unicode", "⠁⠂⠃⠄");
+ * const brailleArray = brailleString.brailleArray;
+ * @example
+ * const brailleString = new SixDotBrailleString("braille array", [
+ *  new SixDotBraille("unicode", "⠁"),
+ *  new SixDotBraille("unicode", "⠂"),
+ *  new SixDotBraille("unicode", "⠃"),
+ *  new SixDotBraille("unicode", "⠄"),
+ * ]);
+ * const unicodeBrailleString = brailleString.unicodeBrailleString;
+ */
+export class SixDotBrailleString {
+  private readonly brailleString: SixDotBraille[];
+
+  public get unicodeBrailleString(): string {
+    return this.brailleString.map((braille) => braille.unicodeBraille).join("");
+  }
+
+  public get brailleArray(): SixDotBraille[] {
+    return this.brailleString;
+  }
+
+  constructor(type: "unicode", brailleString: string);
+  constructor(type: "braille array", brailleString: SixDotBraille[]);
+  constructor(
+    type: "unicode" | "braille array",
+    brailleString: string | SixDotBraille[]
+  ) {
+    if (type === "unicode") {
+      this.brailleString = Array.from(brailleString as string).map(
+        (brailleCharacter) => new SixDotBraille("unicode", brailleCharacter)
+      );
+    } else if (type === "braille array") {
+      this.brailleString = brailleString as SixDotBraille[];
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
+  }
+}

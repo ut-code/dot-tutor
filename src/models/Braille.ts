@@ -289,3 +289,11 @@ export class SixDotBrailleString {
     }
   }
 }
+
+/**
+ * EightDotBrailleString class
+ * @class
+ * @classdesc EightDotBrailleString class
+ * @extends BrailleString
+ */
+export class EightDotBrailleString extends BrailleString {}

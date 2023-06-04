@@ -109,6 +109,30 @@ export class Braille {
   }
 }
 
+/**
+ * SixDotBraille class
+ * @class
+ * @classdesc SixDotBraille class
+ * @extends Braille
+ * @throws {Error} - Invalid Braille Character!
+ * @throws {Error} - Invalid Braille Type!
+ * @throws {Error} - Not a 6-dot Braille Character!
+ * @example
+ * const braille = new SixDotBraille("unicode", "⠁");
+ * const brailleState = braille.brailleState;
+ * @example
+ * const braille = new SixDotBraille("braille state", {
+ *  Dot1: true,
+ *  Dot2: false,
+ *  Dot3: false,
+ *  Dot7: false,
+ *  Dot4: false,
+ *  Dot5: false,
+ *  Dot6: false,
+ *  Dot8: false,
+ * });
+ * const unicodeBraille = braille.unicodeBraille;
+ */
 export class SixDotBraille extends Braille {
   constructor(type: "unicode", braille: string);
   constructor(type: "braille state", braille: BrailleState);
@@ -128,6 +152,11 @@ export class SixDotBraille extends Braille {
     }
   }
 
+  /**
+   * check if unicode character of braille matches any character between ⠀ and ⠿
+   * @param braille unicode character of braille
+   * @returns boolean
+   */
   private isSixDotBraille(braille: string): boolean {
     return braille.match(/[⠀-⠿]/) !== null;
   }

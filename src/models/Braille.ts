@@ -147,7 +147,7 @@ export class SixDotBraille extends Braille {
     } else {
       throw new Error("Invalid Braille Type!");
     }
-    if (!this.isSixDotBraille(braille as string)) {
+    if (!this.isSixDotBraille(this.unicodeBraille)) {
       throw new Error("Not a 6-dot Braille Character!");
     }
   }

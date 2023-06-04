@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { type BrailleState, availableDots } from "../types/BrailleState";
-import { Braille } from "@/models/Braille";
+import { SixDotBraille } from "@/models/Braille";
 
 /**
  * Component for displaying touch-to-change braille
@@ -29,15 +29,15 @@ export default function EdittableBraille({
 }: {
   height: string;
   width: string;
-  braille: Braille;
-  updateBraille: (braille: Braille) => void;
+  braille: SixDotBraille;
+  updateBraille: (braille: SixDotBraille) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
     ...braille.brailleState,
   });
 
   useEffect(() => {
-    updateBraille(new Braille("braille state", brailleState));
+    updateBraille(new SixDotBraille("braille state", brailleState));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
 
@@ -48,10 +48,10 @@ export default function EdittableBraille({
     Dot1: "40",
     Dot2: "40",
     Dot3: "40",
-    Dot4: "40",
+    Dot7: "40",
+    Dot4: "90",
     Dot5: "90",
     Dot6: "90",
-    Dot7: "90",
     Dot8: "90",
   };
   /**
@@ -61,10 +61,10 @@ export default function EdittableBraille({
     Dot1: "30",
     Dot2: "75",
     Dot3: "120",
-    Dot4: "165",
-    Dot5: "30",
-    Dot6: "75",
-    Dot7: "120",
+    Dot7: "165",
+    Dot4: "30",
+    Dot5: "75",
+    Dot6: "120",
     Dot8: "165",
   };
 
@@ -74,10 +74,10 @@ export default function EdittableBraille({
         xmlns="http://www.w3.org/2000/svg"
         height={height}
         width={width}
-        viewBox="0,0,120,160"
+        viewBox="0,0,120,205"
       >
         <text x="2" y="141" style={{ fontSize: "169px" }}>
-          {new Braille("braille state", brailleState).unicodeBraille}
+          {new SixDotBraille("braille state", brailleState).unicodeBraille}
         </text>
         {Object.values(availableDots).map((dotNumber) => (
           <Fragment key={dotNumber}>

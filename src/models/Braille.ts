@@ -109,6 +109,30 @@ export class Braille {
   }
 }
 
+export class SixDotBraille extends Braille {
+  constructor(type: "unicode", braille: string);
+  constructor(type: "braille state", braille: BrailleState);
+  constructor(
+    type: "unicode" | "braille state",
+    braille: string | BrailleState
+  ) {
+    if (type === "unicode") {
+      super("unicode", braille as string);
+    } else if (type === "braille state") {
+      super("braille state", braille as BrailleState);
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
+    if (!this.isSixDotBraille(braille as string)) {
+      throw new Error("Not a 6-dot Braille Character!");
+    }
+  }
+
+  private isSixDotBraille(braille: string): boolean {
+    return braille.match(/[⠀-⠿]/) !== null;
+  }
+}
+
 /**
  * BrailleString class
  * @class

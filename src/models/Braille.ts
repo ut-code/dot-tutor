@@ -162,6 +162,30 @@ export class SixDotBraille extends Braille {
   }
 }
 
+/**
+ * EightDotBraille class
+ * @class
+ * @classdesc EightDotBraille class
+ * @extends Braille
+ * @throws {Error} - Invalid Braille Character!
+ * @throws {Error} - Invalid Braille Type!
+ * @throws {Error} - Not a 8-dot Braille Character!
+ * @example
+ * const braille = new EightDotBraille("unicode", "⠡");
+ * const brailleState = braille.brailleState;
+ * @example
+ * const braille = new EightDotBraille("braille state", {
+ *  Dot1: true,
+ *  Dot2: false,
+ *  Dot3: false,
+ *  Dot7: false,
+ *  Dot4: false,
+ *  Dot5: false,
+ *  Dot6: false,
+ *  Dot8: true,
+ * });
+ * const unicodeBraille = braille.unicodeBraille;
+ */
 export class EightDotBraille extends Braille {}
 
 /**

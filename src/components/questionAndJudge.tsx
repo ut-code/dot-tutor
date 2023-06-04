@@ -1,71 +1,6 @@
 import { type BrailleString } from "@/models/Braille";
 import translateBraille from "../utils/translateBraille";
 
-export const vowelQuestions = [
-  "あい",
-  "あう",
-  "あお",
-  "いう",
-  "いえ",
-  "おい",
-  "おう",
-  "おお",
-];
-export const gojyuonQuestions1 = [
-  "かき",
-  "かこ",
-  "かう",
-  "かお",
-  "きあい",
-  "きおう",
-  "きく",
-  "くい",
-  "くう",
-  "くき",
-  "くく",
-  "こい",
-  "こうくう",
-]; // 「あいうえおかきくけこ」で構成される
-export const dakuonHandakuonQuestions = [
-  "がんばれ",
-  "だんべる",
-  "ざるそば",
-  "どんぶり",
-  "ずばり",
-  "でこぼこ",
-  "ばくだん",
-  "どらやき",
-  "ぷりん",
-  "だんごむし",
-]; // 濁音、半濁音が含まれる言葉
-export const contractionQuestions = [
-  "ぎゅうにゅう",
-  "ちゅうい",
-  "じゃがいも",
-  "しょうゆ",
-  "きゅうり",
-  "りゅう",
-  "ぴょんぴょん",
-  "きょうかしょ",
-  "きょうじゅ",
-  "ぎょうざ",
-  "しゅくだい",
-  "きょうりゅう",
-  "きゅうりょう",
-  "しょくよく",
-  "りゅうこう",
-  "しょくよく",
-  "しゅうかん",
-  "きゃらくたー",
-  "にゅうしゃ",
-  "しょうりゃく",
-  "しょうたい",
-  "しゅっぱつ",
-  "しゅうまつ",
-  "にゅうがく",
-]; // 拗音が含まれる言葉
-export const questions = ["うぉーきんぐ", "せいめいかがく", "ぴゅーりたん"]; // 特殊音が含まれる言葉
-
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];
 }
@@ -74,7 +9,29 @@ export function judge(
   typedBrailleStrings: BrailleString,
   question: string
 ): string {
-  const typedAnswer = translateBraille(typedBrailleStrings);
+  let typedAnswer = translateBraille(typedBrailleStrings);
+
+  let begin = 0;
+  let end = typedAnswer.length;
+
+  for (let i = 0; i < typedAnswer.length; i++) {
+    if (typedAnswer[i] === " ") {
+      begin = i;
+    } else {
+      break;
+    }
+  }
+
+  for (let i = typedAnswer.length - 1; i >= 0; i--) {
+    if (typedAnswer.charAt(i) === " ") {
+      end = i;
+    } else {
+      break;
+    }
+  }
+
+  typedAnswer = typedAnswer.substring(begin, end);
+
   if (typedAnswer === question) {
     return "正解";
   } else {

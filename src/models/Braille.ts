@@ -22,10 +22,10 @@ import {
  *  Dot1: true,
  *  Dot2: false,
  *  Dot3: false,
+ *  Dot7: false,
  *  Dot4: false,
  *  Dot5: false,
  *  Dot6: false,
- *  Dot7: false,
  *  Dot8: false,
  * });
  * const unicodeBraille = braille.unicodeBraille;

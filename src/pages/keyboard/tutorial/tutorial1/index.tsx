@@ -8,7 +8,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { BrailleString } from "@/models/Braille";
+import { SixDotBrailleString } from "@/models/Braille";
 import translateBraille from "../../../../utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
@@ -30,7 +30,7 @@ export default function Tutorial1({
     useState<string>("");
   useEffect(() => {
     setTranslatedBrailleString(
-      translateBraille(new BrailleString("unicode", typedBrailleString))
+      translateBraille(new SixDotBrailleString("unicode", typedBrailleString))
     );
   }, [typedBrailleString]);
   useEffect(() => {

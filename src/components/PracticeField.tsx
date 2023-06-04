@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useTypedBrailleString from "../hooks/useTypedBrailleString";
 import translateBraille from "../utils/translateBraille";
 import { TextField, Typography, Box, Button } from "@mui/material";
-import { BrailleString } from "@/models/Braille";
+import { SixDotBrailleString } from "@/models/Braille";
 
 export default function PracticeField({
   question,
@@ -18,7 +18,7 @@ export default function PracticeField({
     useState<string>("");
   useEffect(() => {
     setTranslatedBrailleString(
-      translateBraille(new BrailleString("unicode", typedBrailleString))
+      translateBraille(new SixDotBrailleString("unicode", typedBrailleString))
     );
   }, [typedBrailleString]);
 

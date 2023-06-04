@@ -30,7 +30,7 @@ import {
  * });
  * const unicodeBraille = braille.unicodeBraille;
  */
-export class Braille {
+class Braille {
   private readonly braille: string;
 
   public get unicodeBraille(): string {
@@ -210,7 +210,7 @@ export class EightDotBraille extends Braille {}
  * ]);
  * const unicodeBrailleString = brailleString.unicodeBrailleString;
  */
-export class BrailleString {
+class BrailleString {
   private readonly brailleString: Braille[];
 
   public get unicodeBrailleString(): string {

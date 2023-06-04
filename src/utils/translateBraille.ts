@@ -1,4 +1,4 @@
-import { type BrailleString } from "@/models/Braille";
+import { type SixDotBrailleString } from "@/models/Braille";
 
 const hiraganaTable = {
   " ": "⠀",
@@ -182,7 +182,7 @@ const numberTable = {
 };
 
 export default function translateBraille(
-  brailleStrings: BrailleString
+  brailleStrings: SixDotBrailleString
 ): string {
   let hiraganaStrings: string = "";
   let dakuon: boolean = false; // 濁音

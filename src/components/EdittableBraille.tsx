@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { type BrailleState, availableDots } from "../types/BrailleState";
-import { Braille } from "@/models/Braille";
+import { SixDotBraille, EightDotBraille } from "@/models/Braille";
 
 /**
  * Component for displaying touch-to-change braille
@@ -12,7 +12,7 @@ import { Braille } from "@/models/Braille";
  * @example
  * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
  *
- * <EdittableBraille
+ * <EdittableBraille<SixDotBraille>
  *   height="100"
  *   width="60"
  *   braille={braille}
@@ -21,7 +21,9 @@ import { Braille } from "@/models/Braille";
  *   }}
  * />
  */
-export default function EdittableBraille({
+export default function EdittableBraille<
+  T extends SixDotBraille | EightDotBraille
+>({
   height,
   width,
   braille,
@@ -29,15 +31,19 @@ export default function EdittableBraille({
 }: {
   height: string;
   width: string;
-  braille: Braille;
-  updateBraille: (braille: Braille) => void;
+  braille: T;
+  updateBraille: (braille: T) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
     ...braille.brailleState,
   });
 
   useEffect(() => {
-    updateBraille(new Braille("braille state", brailleState));
+    if (braille instanceof SixDotBraille) {
+      updateBraille(new SixDotBraille("braille state", brailleState) as T);
+    } else if (braille instanceof EightDotBraille) {
+      updateBraille(new EightDotBraille("braille state", brailleState) as T);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
 
@@ -75,24 +81,30 @@ export default function EdittableBraille({
         xmlns="http://www.w3.org/2000/svg"
         height={height}
         width={width}
-        viewBox="0,0,120,200"
+        viewBox={`0,0,120,${
+          braille instanceof EightDotBraille ? "200" : "160"
+        }`}
       >
-        {Object.values(availableDots).map((dotNumber) => (
-          <Fragment key={dotNumber}>
-            <circle
-              cx={xCoordinateList[dotNumber]}
-              cy={yCoordinateList[dotNumber]}
-              r="10"
-              fill={brailleState[dotNumber] ? "black" : "#ccc"}
-              onClick={() => {
-                setBrailleState({
-                  ...brailleState,
-                  [dotNumber]: !brailleState[dotNumber],
-                });
-              }}
-            />
-          </Fragment>
-        ))}
+        {Object.values(availableDots).map(
+          (dotNumber) =>
+            (braille instanceof EightDotBraille ||
+              (dotNumber !== "Dot7" && dotNumber !== "Dot8")) && (
+              <Fragment key={dotNumber}>
+                <circle
+                  cx={xCoordinateList[dotNumber]}
+                  cy={yCoordinateList[dotNumber]}
+                  r="10"
+                  fill={brailleState[dotNumber] ? "black" : "#ccc"}
+                  onClick={() => {
+                    setBrailleState({
+                      ...brailleState,
+                      [dotNumber]: !brailleState[dotNumber],
+                    });
+                  }}
+                />
+              </Fragment>
+            )
+        )}
       </svg>
     </>
   );

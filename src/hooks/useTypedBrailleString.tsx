@@ -1,6 +1,6 @@
 import { useState, useEffect, type KeyboardEvent } from "react";
 import { type BrailleState } from "../types/BrailleState";
-import { SixDotBraille } from "../models/Braille";
+import { SixDotBraille } from "../models/BrailleCharacter";
 
 /**
  * The default state of keyboard

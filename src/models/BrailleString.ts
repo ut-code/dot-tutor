@@ -1,4 +1,4 @@
-import { Braille, SixDotBraille } from "./Braille";
+import { Braille, SixDotBraille } from "./BrailleCharacter";
 
 /**
  * BrailleString class

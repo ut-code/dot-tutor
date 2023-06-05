@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SixDotBraille } from "@/models/Braille";
+import { SixDotBraille } from "@/models/BrailleCharacter";
 import { SixDotBrailleString } from "@/models/BrailleString";
 import { judge } from "./questionAndJudge";
 import EdittableBraille from "./EdittableBraille";

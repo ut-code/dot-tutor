@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { type BrailleState, availableDots } from "../types/BrailleState";
-import { SixDotBraille, EightDotBraille } from "@/models/Braille";
+import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
 
 /**
  * Component for displaying touch-to-change braille

@@ -3,7 +3,8 @@ import translateBraille from "./../utils/translateBraille";
 import { judge, makeQuestion } from "./questionAndJudge";
 import EdittableBraille from "./EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
-import { SixDotBraille, SixDotBrailleString } from "@/models/Braille";
+import { SixDotBraille } from "@/models/BrailleCharacter";
+import { SixDotBrailleString } from "@/models/BrailleString";
 
 export default function TouchMain({
   typeOfQuestions,

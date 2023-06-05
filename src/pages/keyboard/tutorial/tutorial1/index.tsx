@@ -8,7 +8,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { SixDotBrailleString } from "@/models/Braille";
+import { SixDotBrailleString } from "@/models/BrailleString";
 import translateBraille from "../../../../utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 

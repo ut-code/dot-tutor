@@ -44,7 +44,8 @@ export default function EdittableBraille<
     } else if (braille instanceof EightDotBraille) {
       updateBraille(new EightDotBraille("braille state", brailleState) as T);
     }
-  }, [brailleState, braille, updateBraille]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brailleState]);
 
   /**
    * list of x coordinates for each dot

@@ -3,7 +3,7 @@ import Head from "next/head";
 import NextLink from "next/link";
 import Image from "next/image";
 import { url } from "@/utils/config";
-import TutorialDialog from "./TutorialDialog";
+import TutorialDialog from "@/components/TutorialDialog";
 import { type TutorialDialogSteps } from "../types/Tutorial";
 import {
   AppBar,

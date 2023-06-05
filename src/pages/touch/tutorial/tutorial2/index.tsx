@@ -1,4 +1,4 @@
-import TouchMain from "../../../../components/TouchMain";
+import TouchMain from "@/components/TouchMain";
 
 export const gojyuonQuestions1 = [
   "かき",

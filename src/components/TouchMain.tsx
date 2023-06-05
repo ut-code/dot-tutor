@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import translateBraille from "./../utils/translateBraille";
-import { judge, makeQuestion } from "./questionAndJudge";
-import EdittableBraille from "./EdittableBraille";
+import translateBraille from "@/utils/translateBraille";
+import { judge, makeQuestion } from "@/components/questionAndJudge";
+import EdittableBraille from "@/components/EdittableBraille";
 import { Paper, Typography, Divider, Button } from "@mui/material";
 import { SixDotBraille } from "@/models/BrailleCharacter";
 import { SixDotBrailleString } from "@/models/BrailleString";

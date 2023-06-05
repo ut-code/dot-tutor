@@ -1,4 +1,4 @@
-import useTypedBrailleString from "../../../../hooks/useTypedBrailleString";
+import useTypedBrailleString from "@/hooks/useTypedBrailleString";
 import React, { useState, useEffect } from "react";
 import {
   Paper,
@@ -9,7 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import { SixDotBrailleString } from "@/models/BrailleString";
-import translateBraille from "../../../../utils/translateBraille";
+import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 export const questionList1: string[] = ["て", "ん", "じ"];

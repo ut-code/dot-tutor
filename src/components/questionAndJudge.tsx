@@ -1,5 +1,5 @@
 import { type SixDotBrailleString } from "@/models/BrailleString";
-import translateBraille from "../utils/translateBraille";
+import translateBraille from "@/utils/translateBraille";
 
 export function makeQuestion(questions: string[]): string {
   return questions[Math.floor(Math.random() * questions.length)];

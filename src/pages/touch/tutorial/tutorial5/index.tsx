@@ -1,4 +1,4 @@
-import TouchMain from "../../../../components/TouchMain";
+import TouchMain from "@/components/TouchMain";
 
 export const questions = ["うぉーきんぐ", "せいめいかがく", "ぴゅーりたん"]; // 特殊音が含まれる言葉
 

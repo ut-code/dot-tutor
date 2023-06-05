@@ -1,5 +1,5 @@
 import React from "react";
-import Tutorial from "../../components/Tutorial";
+import Tutorial from "@/components/Tutorial";
 import Practice1 from "./tutorial/tutorial1";
 import Practice2 from "./tutorial/tutorial2";
 import Practice3 from "./tutorial/tutorial3";

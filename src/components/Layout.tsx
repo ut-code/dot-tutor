@@ -1,4 +1,4 @@
-import TopBar from "./TopBar";
+import TopBar from "@/components/TopBar";
 import { Toolbar, Box } from "@mui/material";
 
 export default function Layout(props: {

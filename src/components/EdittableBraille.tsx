@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { type BrailleState, availableDots } from "../types/BrailleState";
+import { type BrailleState, availableDots } from "@/types/BrailleState";
 import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
 
 /**

@@ -1,4 +1,4 @@
-import { type SixDotBrailleString } from "@/models/Braille";
+import { type SixDotBrailleString } from "@/models/BrailleString";
 import translateBraille from "../utils/translateBraille";
 
 export function makeQuestion(questions: string[]): string {

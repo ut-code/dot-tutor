@@ -9,7 +9,10 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "unifiedjs.vscode-mdx"
-      ]
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
     }
   }
 }

@@ -1,0 +1,6 @@
+{
+  "name": "Learn Braille",
+  "dockerComposeFile": "compose.yaml",
+  "service": "app",
+  "workspaceFolder": "/app"
+}

@@ -1,6 +1,6 @@
 import { type SixDotBrailleString } from "@/models/BrailleString";
 
-const hiraganaTable = {
+export const hiraganaTable = {
   " ": "⠀",
   あ: "⠁",
   い: "⠃",

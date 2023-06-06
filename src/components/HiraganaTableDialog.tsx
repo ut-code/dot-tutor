@@ -12,10 +12,10 @@ import { hiraganaTable } from "@/utils/translateBraille";
 
 export default function HiraganaTableDialog(props: {
   open: boolean;
-  setClose: Dispatch<SetStateAction<boolean>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }): JSX.Element {
   function closeDialog(): void {
-    props.setClose(false);
+    props.setOpen(false);
   }
   return (
     <Dialog

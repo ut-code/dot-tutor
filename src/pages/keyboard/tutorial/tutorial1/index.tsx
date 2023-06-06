@@ -12,26 +12,35 @@ import { SixDotBrailleString } from "@/models/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-export const questionList1: string[][] = [["て"], ["ん"], ["じ"]];
-export const questionList2: string[][] = [
-  ["弟は 算数を 習う", "おとーとわ さんすーを ならう"],
+interface Question {
+  question: string;
+  answer?: string;
+}
+type QuestionList = Question[];
+export const questionList1: QuestionList = [
+  { question: "て" },
+  { question: "ん" },
+  { question: "じ" },
 ];
-export const questionList3: string[][] = [
-  ["2023"],
-  ["9と 4分の3番 線", "9と 4ぶんの3ばん せん"],
+export const questionList2: QuestionList = [
+  { question: "弟は 算数を 習う", answer: "おとーとわ さんすーを ならう" },
 ];
-export const questionList4: string[][] = [["Tokyo"]];
-export const questionList5: string[][] = [
-  [
-    "今日の 天気は、 雨 のち 曇りです。",
-    "きょーの てんきわ、 あめ のち くもりです。",
-  ],
+export const questionList3: QuestionList = [
+  { question: "2023" },
+  { question: "9と 4分の3番 線", answer: "9と 4ぶんの3ばん せん" },
+];
+export const questionList4: QuestionList = [{ question: "Tokyo" }];
+export const questionList5: QuestionList = [
+  {
+    question: "今日の 天気は、 雨 のち 曇りです。",
+    answer: "きょーの てんきわ、 あめ のち くもりです。",
+  },
 ];
 
 export default function Tutorial1({
   questionList,
 }: {
-  questionList: string[][];
+  questionList: QuestionList;
 }): JSX.Element {
   const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
   const [questionIndex, setQuestionIndex] = useState<number>(0);
@@ -45,13 +54,13 @@ export default function Tutorial1({
   }, [typedBrailleString]);
   useEffect(() => {
     if (questionList !== undefined && questionIndex < questionList.length) {
-      if (questionList[questionIndex][1] === undefined) {
+      if ("answer" in questionList[questionIndex]) {
         setGoNextQuestion(
-          translatedBrailleString === questionList[questionIndex][0]
+          translatedBrailleString === questionList[questionIndex].answer
         );
       } else {
         setGoNextQuestion(
-          translatedBrailleString === questionList[questionIndex][1]
+          translatedBrailleString === questionList[questionIndex].question
         );
       }
     }
@@ -71,7 +80,7 @@ export default function Tutorial1({
           {questionList !== undefined &&
             (questionIndex >= questionList.length
               ? "すべての問題を解きました！"
-              : `「${questionList[questionIndex][0]}」を入力してください。`)}
+              : `「${questionList[questionIndex].question}」を入力してください。`)}
         </Typography>
       </Paper>
 

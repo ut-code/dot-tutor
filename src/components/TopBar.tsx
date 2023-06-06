@@ -59,7 +59,7 @@ export default function TopBar(props: {
             </Button>
             <HiraganaTableDialog
               open={isHiraganaTableOpen}
-              setClose={setIsHiraganaTableOpen}
+              setOpen={setIsHiraganaTableOpen}
             />
 
             {props.tutorialDialogSteps !== undefined && (

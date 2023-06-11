@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node
 WORKDIR /app
 COPY . .
 RUN npm ci

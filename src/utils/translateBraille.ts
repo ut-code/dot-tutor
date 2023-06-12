@@ -203,6 +203,12 @@ const alphabetTable = {
   r: "⠗",
   s: "⠎",
   t: "⠞",
+  u: "⠥",
+  v: "⠧",
+  w: "⠺",
+  x: "⠭",
+  y: "⠽",
+  z: "⠵",
 };
 
 const alphabetCapitalTable = {
@@ -226,6 +232,12 @@ const alphabetCapitalTable = {
   R: "⠗",
   S: "⠎",
   T: "⠞",
+  U: "⠥",
+  V: "⠧",
+  W: "⠺",
+  X: "⠭",
+  Y: "⠽",
+  Z: "⠵",
 };
 
 // 一つの点字に対応する文字を返す関数
@@ -256,23 +268,58 @@ export default function translateBraille(
   let alphabetCapital: boolean = false; //大文字アルファベット
 
   brailleStrings.brailleArray.forEach((_, i) => {
-    console.log(typeof numberTable);
-    console.log(typeof brailleStrings.unicodeBrailleString[i]);
     let hiragana: string = "";
+    console.log(i, alphabet);
+    console.log(alphabetCapital);
 
+    // 数符の後
     if (number) {
       hiragana = matchedChar(
         numberTable,
         brailleStrings.unicodeBrailleString[i]
       );
-      console.log("number", hiragana);
       if (hiragana === "") {
-        number = false;
+        number = false; // 対応する数字がなければ、数字の範囲は終了
       } else {
         hiraganaStrings += hiragana;
         return;
       }
     }
+
+    // 外字符の後
+    if (alphabet) {
+      if (alphabetCapital) {
+        hiragana = matchedChar(
+          alphabetCapitalTable,
+          brailleStrings.unicodeBrailleString[i]
+        ); // 大文字符の後の場合
+        alphabetCapital = false;
+      } else {
+        hiragana = matchedChar(
+          alphabetTable,
+          brailleStrings.unicodeBrailleString[i]
+        );
+      }
+
+      // 大文字符の場合
+      if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+        alphabetCapital = true;
+        alphabet = true;
+        return;
+      }
+
+      if (hiragana === "") {
+        alphabet = false; // 以上で対応する英字がなければ、英字の範囲は終了
+      } else {
+        hiraganaStrings += hiragana;
+        return;
+      }
+
+      console.log(hiragana);
+    }
+
+    console.log(i, alphabet);
+    console.log(alphabetCapital);
 
     if (brailleStrings.unicodeBrailleString[i] === "⠐") {
       dakuon = true;
@@ -295,9 +342,6 @@ export default function translateBraille(
     } else if (brailleStrings.unicodeBrailleString[i] === "⠤") {
       number = false;
     } else if (brailleStrings.unicodeBrailleString[i] === "⠰") {
-      alphabet = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
-      alphabetCapital = true;
       alphabet = true;
     } else if (dakuon) {
       hiragana = matchedChar(

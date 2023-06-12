@@ -1,4 +1,5 @@
 import { type SixDotBrailleString } from "@/models/BrailleString";
+import { alpha } from "@mui/material";
 
 export const hiraganaTable = {
   " ": "⠀",
@@ -181,6 +182,63 @@ const numberTable = {
   "0": "⠚",
 };
 
+const alphabetTable = {
+  a: "⠁",
+  b: "⠃",
+  c: "⠉",
+  d: "⠙",
+  e: "⠑",
+  f: "⠋",
+  g: "⠛",
+  h: "⠓",
+  i: "⠊",
+  j: "⠚",
+  k: "⠅",
+  l: "⠇",
+  m: "⠍",
+  n: "⠝",
+  o: "⠕",
+  p: "⠏",
+  q: "⠟",
+  r: "⠗",
+  s: "⠎",
+  t: "⠞",
+};
+
+const alphabetCapitalTable = {
+  A: "⠁",
+  B: "⠃",
+  C: "⠉",
+  D: "⠙",
+  E: "⠑",
+  F: "⠋",
+  G: "⠛",
+  H: "⠓",
+  I: "⠊",
+  J: "⠚",
+  K: "⠅",
+  L: "⠇",
+  M: "⠍",
+  N: "⠝",
+  O: "⠕",
+  P: "⠏",
+  Q: "⠟",
+  R: "⠗",
+  S: "⠎",
+  T: "⠞",
+};
+
+// 一つの点字に対応する文字を返す関数
+// |tableType|: 文字と点字を対応させるobject、hiraganaTable, dakutenHiraganaTableなど
+// |brailleChar|: 対応させたい点字一つ
+function matchedChar(tableType: object, brailleChar: string): string {
+  let hiragana: string = "";
+  hiragana = (Object.keys(tableType) as Array<keyof typeof tableType>)
+    .filter((hiragana) => tableType[hiragana] === brailleChar)
+    .join("");
+  return hiragana;
+}
+
 export default function translateBraille(
   brailleStrings: SixDotBrailleString
 ): string {
@@ -194,142 +252,147 @@ export default function translateBraille(
   let special1: boolean = false; // ヴぁ、ヴぃ、ヴぇ、ヴぉ、どぅ、ぐぁ
   let special2: boolean = false; // でゅ
   let number: boolean = false; // 数符
+  let alphabet: boolean = false; //アルファベット
+  let alphabetCapital: boolean = false; //大文字アルファベット
 
   brailleStrings.brailleArray.forEach((_, i) => {
+    console.log(typeof numberTable);
+    console.log(typeof brailleStrings.unicodeBrailleString[i]);
     let hiragana: string = "";
 
     if (number) {
-      hiragana = (Object.keys(numberTable) as Array<keyof typeof numberTable>)
-        .filter(
-          (hiragana) =>
-            numberTable[hiragana] === brailleStrings.unicodeBrailleString[i]
-        )
-        .join("");
+      hiragana = matchedChar(
+        numberTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      console.log("number", hiragana);
+      if (hiragana === "") {
+        number = false;
+      } else {
+        hiraganaStrings += hiragana;
+        return;
+      }
     }
 
-    if (hiragana !== "") {
+    if (brailleStrings.unicodeBrailleString[i] === "⠐") {
+      dakuon = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+      handakuon = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠈") {
+      contraction = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠘") {
+      dakuonContraction = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠨") {
+      handakuonContraction = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠢") {
+      special = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠲") {
+      special1 = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠸") {
+      special2 = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠼") {
+      number = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠤") {
+      number = false;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠰") {
+      alphabet = true;
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+      alphabetCapital = true;
+      alphabet = true;
+    } else if (dakuon) {
+      hiragana = matchedChar(
+        dakuonHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      dakuon = false;
+    } else if (handakuon) {
+      hiragana = matchedChar(
+        handakuonHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      handakuon = false;
+    } else if (contraction) {
+      hiragana = matchedChar(
+        contractionHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      contraction = false;
+    } else if (dakuonContraction) {
+      hiragana = matchedChar(
+        dakuonContractionHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      dakuonContraction = false;
+    } else if (handakuonContraction) {
+      hiragana = matchedChar(
+        handakuonContractionHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      handakuonContraction = false;
+    } else if (special) {
+      hiragana = matchedChar(
+        specialHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      special = false;
+    } else if (special1) {
+      hiragana = matchedChar(
+        specialHiraganaTable1,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      special1 = false;
+    } else if (special2) {
+      hiragana = matchedChar(
+        specialHiraganaTable2,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      special2 = false;
+    } else {
+      hiragana = matchedChar(
+        hiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+    }
+
+    hiraganaStrings += hiragana;
+  });
+
+  return hiraganaStrings;
+
+  /*     if (hiragana !== "") {
+      hiraganaStrings += hiragana;
+    } else if (alphabet) {
+      if(alphabetCapital) {
+        hiragana = (Object.keys(alphabetCapitalTable) as Array<keyof typeof alphabetCapitalTable>)
+          .filter(
+            (hiragana) =>
+              alphabetCapitalTable[hiragana] === brailleStrings.unicodeBrailleString[i]
+          )
+          .join("");
+        alphabetCapital = false
+      } else {
+        hiragana = (Object.keys(alphabetTable) as Array<keyof typeof alphabetTable>)
+          .filter(
+            (hiragana) =>
+              alphabetTable[hiragana] === brailleStrings.unicodeBrailleString[i]
+          )
+          .join("");
+      }
+
+      if(hiragana === "") {
+        alphabet = false;
+      }
+      console.log("in alphabet", alphabet)
+    } */
+
+  /* if (hiragana !== "") {
       hiraganaStrings += hiragana;
     } else {
+      console.log(i);
+      console.log("in hiragana", brailleStrings.unicodeBrailleString[i])
       number = false;
 
-      if (dakuon) {
-        hiragana = (
-          Object.keys(dakuonHiraganaTable) as Array<
-            keyof typeof dakuonHiraganaTable
-          >
-        )
-          .filter(
-            (hiragana) =>
-              dakuonHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        dakuon = false;
-      } else if (handakuon) {
-        hiragana = (
-          Object.keys(handakuonHiraganaTable) as Array<
-            keyof typeof handakuonHiraganaTable
-          >
-        )
-          .filter(
-            (hiragana) =>
-              handakuonHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        handakuon = false;
-      } else if (contraction) {
-        hiragana = (
-          Object.keys(contractionHiraganaTable) as Array<
-            keyof typeof contractionHiraganaTable
-          >
-        )
-          .filter(
-            (hiragana) =>
-              contractionHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        contraction = false;
-      } else if (dakuonContraction) {
-        hiragana = (
-          Object.keys(dakuonContractionHiraganaTable) as Array<
-            keyof typeof dakuonContractionHiraganaTable
-          >
-        )
-          .filter(
-            (hiragana) =>
-              dakuonContractionHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        dakuonContraction = false;
-      } else if (handakuonContraction) {
-        hiragana = (
-          Object.keys(handakuonContractionHiraganaTable) as Array<
-            keyof typeof handakuonContractionHiraganaTable
-          >
-        )
-          .filter(
-            (hiragana) =>
-              handakuonContractionHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        handakuonContraction = false;
-      } else if (special) {
-        hiragana = (
-          Object.keys(specialHiraganaTable) as Array<
-            keyof typeof specialHiraganaTable
-          >
-        )
-          .filter(
-            (hiragana) =>
-              specialHiraganaTable[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        special = false;
-      } else if (special1) {
-        hiragana = (
-          Object.keys(specialHiraganaTable1) as Array<
-            keyof typeof specialHiraganaTable1
-          >
-        )
-          .filter(
-            (hiragana) =>
-              specialHiraganaTable1[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        special1 = false;
-      } else if (special2) {
-        hiragana = (
-          Object.keys(specialHiraganaTable2) as Array<
-            keyof typeof specialHiraganaTable2
-          >
-        )
-          .filter(
-            (hiragana) =>
-              specialHiraganaTable2[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        special2 = false;
-      } else if (special2) {
-        hiragana = (
-          Object.keys(specialHiraganaTable2) as Array<
-            keyof typeof specialHiraganaTable2
-          >
-        )
-          .filter(
-            (hiragana) =>
-              specialHiraganaTable2[hiragana] ===
-              brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
-        special2 = false;
-      } else if (brailleStrings.unicodeBrailleString[i] === "⠐") {
+      if (brailleStrings.unicodeBrailleString[i] === "⠐") {
         dakuon = true;
       } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
         handakuon = true;
@@ -349,20 +412,45 @@ export default function translateBraille(
         number = true;
       } else if (brailleStrings.unicodeBrailleString[i] === "⠤") {
         number = false;
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠰") {
+        alphabet = true;
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+        alphabetCapital = true;
+        alphabet = true;
+      } else if (dakuon) {
+        hiragana = matchedChar(dakuonHiraganaTable, brailleStrings.unicodeBrailleString[i]);
+        dakuon = false;
+      } else if (handakuon) {
+        hiragana = matchedChar(handakuonHiraganaTable, brailleStrings.unicodeBrailleString[i]);
+        handakuon = false;
+      } else if (contraction) {
+        hiragana = matchedChar(contractionHiraganaTable, brailleStrings.unicodeBrailleString[i]);
+        contraction = false;
+      } else if (dakuonContraction) {
+        hiragana = matchedChar(dakuonContractionHiraganaTable, brailleStrings.unicodeBrailleString[i]);
+        dakuonContraction = false;
+      } else if (handakuonContraction) {
+        hiragana = matchedChar(handakuonContractionHiraganaTable, brailleStrings.unicodeBrailleString[i]);
+        handakuonContraction = false;
+      } else if (special) {
+        hiragana = matchedChar(specialHiraganaTable, brailleStrings.unicodeBrailleString[i]);
+        special = false;
+      } else if (special1) {
+        hiragana = matchedChar(specialHiraganaTable1, brailleStrings.unicodeBrailleString[i]);
+        special1 = false;
+      } else if (special2) {
+        hiragana = matchedChar(specialHiraganaTable2, brailleStrings.unicodeBrailleString[i]);
+        special2 = false;
       } else {
-        hiragana = (
-          Object.keys(hiraganaTable) as Array<keyof typeof hiraganaTable>
-        )
-          .filter(
-            (hiragana) =>
-              hiraganaTable[hiragana] === brailleStrings.unicodeBrailleString[i]
-          )
-          .join("");
+        hiragana = matchedChar(hiraganaTable, brailleStrings.unicodeBrailleString[i]);
       }
 
       hiraganaStrings += hiragana;
     }
-  });
+    hiraganaStrings += hiragana;
+    console.log(alphabet);
+    console.log(hiraganaStrings);
+  });*/
 
-  return hiraganaStrings;
+  //return hiraganaStrings;
 }

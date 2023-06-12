@@ -15,14 +15,11 @@ import {
   IconButton,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import HiraganaTableDialog from "./HiraganaTableDialog";
 
 export default function TopBar(props: {
   tutorialDialogSteps?: TutorialDialogSteps;
 }): JSX.Element {
   const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(true);
-  const [isHiraganaTableOpen, setIsHiraganaTableOpen] =
-    useState<boolean>(false);
   useEffect(() => {
     setIsTutorialOpen(true);
   }, [props.tutorialDialogSteps]);
@@ -48,20 +45,6 @@ export default function TopBar(props: {
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
-            <Button
-              color="inherit"
-              variant="outlined"
-              onClick={() => {
-                setIsHiraganaTableOpen(true);
-              }}
-            >
-              点字⇔ひらがな表を確認する
-            </Button>
-            <HiraganaTableDialog
-              open={isHiraganaTableOpen}
-              setOpen={setIsHiraganaTableOpen}
-            />
-
             {props.tutorialDialogSteps !== undefined && (
               <>
                 <Button

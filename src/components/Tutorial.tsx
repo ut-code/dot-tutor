@@ -3,6 +3,7 @@ import { Toolbar, Box } from "@mui/material";
 import { type TutorialSteps } from "@/types/Tutorial";
 import TopBar from "@/components/TopBar";
 import BottomStepper from "@/components/BottomStepper";
+import HiraganaTableDialog from "./HiraganaTableDialog";
 
 export default function Tutorial({
   tutorialSteps,
@@ -16,6 +17,7 @@ export default function Tutorial({
       <Toolbar />
       <Box m={2}>
         <main>{tutorialSteps[selectedStep].content}</main>
+        <HiraganaTableDialog></HiraganaTableDialog>
       </Box>
       <BottomStepper
         selectedStep={selectedStep}

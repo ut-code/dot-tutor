@@ -50,6 +50,9 @@ export const hiraganaTable = {
   ん: "⠴",
   ー: "⠒",
   っ: "⠂",
+  "。": "⠲",
+  "、": "⠰",
+  "？": "⠢",
 };
 
 const dakuonHiraganaTable = {
@@ -240,20 +243,20 @@ const alphabetCapitalTable = {
 };
 
 // 一つの点字に対応する文字を返す関数
-// |tableType|: 文字と点字を対応させるobject、hiraganaTable, dakutenHiraganaTableなど
+// |tableType|: 文字と点字を対応させるobject、hiraganaTable, dakutonHiraganaTableなど
 // |brailleChar|: 対応させたい点字一つ
 function matchedChar(tableType: object, brailleChar: string): string {
-  let hiragana: string = "";
-  hiragana = (Object.keys(tableType) as Array<keyof typeof tableType>)
-    .filter((hiragana) => tableType[hiragana] === brailleChar)
+  let sumijiChar: string = "";
+  sumijiChar = (Object.keys(tableType) as Array<keyof typeof tableType>)
+    .filter((sumijiChar) => tableType[sumijiChar] === brailleChar)
     .join("");
-  return hiragana;
+  return sumijiChar;
 }
 
 export default function translateBraille(
   brailleStrings: SixDotBrailleString
 ): string {
-  let hiraganaStrings: string = "";
+  let sumijiStrings: string = "";
   let dakuon: boolean = false; // 濁音
   let handakuon: boolean = false; // 半濁音
   let contraction: boolean = false; // 拗音
@@ -265,69 +268,155 @@ export default function translateBraille(
   let number: boolean = false; // 数符
   let alphabet: boolean = false; // アルファベット
   let alphabetCapital: boolean = false; // 大文字アルファベット
+  let alphabetCapitalSuccession: boolean = false; // 二重大文字符
+
+  function initialize(): void {
+    dakuon = false; // 濁音
+    handakuon = false; // 半濁音
+    contraction = false; // 拗音
+    dakuonContraction = false; // 濁音＋拗音
+    handakuonContraction = false; // 半濁音＋拗音
+    special = false; // 特殊音
+    special1 = false; // ヴぁ、ヴぃ、ヴぇ、ヴぉ、どぅ、ぐぁ
+    special2 = false; // でゅ
+    number = false; // 数符
+    alphabet = false; // アルファベット
+    alphabetCapital = false; // 大文字アルファベット
+    alphabetCapitalSuccession = false;
+  }
 
   brailleStrings.brailleArray.forEach((_, i) => {
-    let hiragana: string = "";
+    let sumijiChar: string = "";
 
-    // 記号類
+    // 分かち書きのスペースの場合、全てのフラグを初期化
     if (brailleStrings.unicodeBrailleString[i] === "⠀") {
-      if (special1) {
-        hiragana = "。"; // 句点「。」の点字は特殊音を示す"⠲"と同じなので、"⠲"の次がスペースならば句点と判断する
-        special1 = false;
-      } else if (alphabet) {
-        hiragana = "、"; // 読点「、」の点字は外字符"⠰"と同じなので、"⠰"の次がスペースならば読点と判断する
-        alphabet = false;
-      } else if (special) {
-        hiragana = "？"; // クエスチョンマーク「？」の点字は特殊音を示す"⠢"と同じなので、"⠢"の次がスペースならばクエスチョンマークと判断する
-        special = false;
-      }
-
-      hiraganaStrings += hiragana + "　";
+      sumijiStrings += sumijiChar + "　";
+      initialize();
       return;
     }
 
-    // 数符の後
+    // 数符の後の処理
     if (number) {
-      hiragana = matchedChar(
+      sumijiChar = matchedChar(
         numberTable,
         brailleStrings.unicodeBrailleString[i]
       );
-      if (hiragana === "") {
+
+      if (sumijiChar === "") {
         number = false; // 対応する数字がなければ、数字の範囲は終了
       } else {
-        hiraganaStrings += hiragana;
+        sumijiStrings += sumijiChar;
         return;
       }
     }
 
-    // 外字符の後
+    // 外字符または外国語引用符の後の処理
     if (alphabet) {
-      if (alphabetCapital) {
-        hiragana = matchedChar(
+      // 外字符と「、」は同じ点字"⠰"で表されるのでsumijiStringsの最後の文字である「、」を削除する
+      if (sumijiStrings.slice(-1) === "、") {
+        sumijiStrings = sumijiStrings.slice(0, -1);
+      }
+
+      if (brailleStrings.unicodeBrailleString[i] === "⠠" && alphabetCapital) {
+        alphabetCapitalSuccession = true;
+        return;
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+        alphabetCapital = true;
+        alphabet = true;
+        return;
+      } else if (brailleStrings.unicodeBrailleString[i] === "⠴") {
+        alphabet = false;
+        alphabetCapital = false;
+        alphabetCapitalSuccession = false;
+        return;
+      } else if (alphabetCapitalSuccession) {
+        // 二重大文字符の中の場合
+        sumijiChar = matchedChar(
           alphabetCapitalTable,
           brailleStrings.unicodeBrailleString[i]
-        ); // 大文字符の後の場合
+        );
+      } else if (alphabetCapital) {
+        // 大文字符の中の場合
+        sumijiChar = matchedChar(
+          alphabetCapitalTable,
+          brailleStrings.unicodeBrailleString[i]
+        );
         alphabetCapital = false;
       } else {
-        hiragana = matchedChar(
+        // 外字符の中の場合
+        sumijiChar = matchedChar(
           alphabetTable,
           brailleStrings.unicodeBrailleString[i]
         );
       }
 
-      // 現在の点字が大文字符の場合
-      if (brailleStrings.unicodeBrailleString[i] === "⠠") {
-        alphabetCapital = true;
-        alphabet = true;
-        return;
-      }
-
-      if (hiragana === "") {
-        alphabet = false; // 以上で対応する英字がなければ、英字の範囲は終了
+      // 以上で対応する英字がなければ、英字の範囲は終了
+      // 対応する英字があればsumijiStringsに足して、次の文字へ
+      if (sumijiChar === "") {
+        alphabet = false;
+        alphabetCapital = false;
+        alphabetCapitalSuccession = false;
       } else {
-        hiraganaStrings += hiragana;
+        sumijiStrings += sumijiChar;
         return;
       }
+    }
+
+    if (dakuon) {
+      sumijiChar = matchedChar(
+        dakuonHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      dakuon = false;
+    } else if (handakuon) {
+      sumijiChar = matchedChar(
+        handakuonHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      handakuon = false;
+    } else if (contraction) {
+      sumijiChar = matchedChar(
+        contractionHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      contraction = false;
+    } else if (dakuonContraction) {
+      sumijiChar = matchedChar(
+        dakuonContractionHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      dakuonContraction = false;
+    } else if (handakuonContraction) {
+      sumijiChar = matchedChar(
+        handakuonContractionHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      handakuonContraction = false;
+    } else if (special) {
+      sumijiChar = matchedChar(
+        specialHiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      sumijiStrings = sumijiStrings.slice(0, -1); // 現在の点字が"⠀"でない場合は、特殊音なのでsumijiStringsの最後の文字である「？」を削除する
+      special = false;
+    } else if (special1) {
+      sumijiChar = matchedChar(
+        specialHiraganaTable1,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      sumijiStrings = sumijiStrings.slice(0, -1); // 現在の点字が"⠀"でない場合は、特殊音なのでsumijiStringsの最後の文字である「。」を削除する
+      special1 = false;
+    } else if (special2) {
+      sumijiChar = matchedChar(
+        specialHiraganaTable2,
+        brailleStrings.unicodeBrailleString[i]
+      );
+      special2 = false;
+    } else {
+      sumijiChar = matchedChar(
+        hiraganaTable,
+        brailleStrings.unicodeBrailleString[i]
+      );
     }
 
     if (brailleStrings.unicodeBrailleString[i] === "⠐") {
@@ -351,64 +440,13 @@ export default function translateBraille(
     } else if (brailleStrings.unicodeBrailleString[i] === "⠤") {
       number = false;
     } else if (brailleStrings.unicodeBrailleString[i] === "⠰") {
-      alphabet = true;
-    } else if (dakuon) {
-      hiragana = matchedChar(
-        dakuonHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      dakuon = false;
-    } else if (handakuon) {
-      hiragana = matchedChar(
-        handakuonHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      handakuon = false;
-    } else if (contraction) {
-      hiragana = matchedChar(
-        contractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      contraction = false;
-    } else if (dakuonContraction) {
-      hiragana = matchedChar(
-        dakuonContractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      dakuonContraction = false;
-    } else if (handakuonContraction) {
-      hiragana = matchedChar(
-        handakuonContractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      handakuonContraction = false;
-    } else if (special) {
-      hiragana = matchedChar(
-        specialHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      special = false;
-    } else if (special1) {
-      hiragana = matchedChar(
-        specialHiraganaTable1,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      special1 = false;
-    } else if (special2) {
-      hiragana = matchedChar(
-        specialHiraganaTable2,
-        brailleStrings.unicodeBrailleString[i]
-      );
-      special2 = false;
-    } else {
-      hiragana = matchedChar(
-        hiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
-      );
+      alphabet = true; // 外字符
+    } else if (brailleStrings.unicodeBrailleString[i] === "⠦") {
+      alphabet = true; // 外国語引用符（始まり）
     }
 
-    hiraganaStrings += hiragana;
+    sumijiStrings += sumijiChar;
   });
 
-  return hiraganaStrings;
+  return sumijiStrings;
 }

@@ -7,10 +7,12 @@ import {
   TextField,
   Typography,
   Button,
+  Stack,
 } from "@mui/material";
 import { SixDotBrailleString } from "@/models/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 interface Question {
   question: string;
@@ -85,9 +87,24 @@ export default function Tutorial1({
       </Paper>
 
       <Paper elevation={2} sx={{ my: 2 }}>
-        <Typography variant="h6" component="h2" color="inherit" p={2}>
-          点字を入力
-        </Typography>
+        <Stack direction="row" p={2}>
+          <Typography
+            variant="h6"
+            component="h2"
+            color="inherit"
+            marginRight={2}
+          >
+            点字を入力
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setTypedBrailleString(undefined, "");
+            }}
+          >
+            <RefreshIcon></RefreshIcon>リセット
+          </Button>
+        </Stack>
         <Divider />
         <Box sx={{ minHeight: 100 }} p={2}>
           <TextField

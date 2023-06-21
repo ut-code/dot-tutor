@@ -69,6 +69,14 @@ export default function Home(): JSX.Element {
               description="点字から墨字（ひらがな表記）への翻訳をクイズを通して学びます。"
             />
           </Grid>
+          <Grid item xs={12} sm={6}>
+            <NavigationCard
+              title="漢点字学習コーナー"
+              linkUrl="/kanji"
+              imgPath={url("/logo.svg")}
+              description="点字の漢字バージョンを「Web点字器」の形式で学びます。"
+            />
+          </Grid>
         </Grid>
       </Layout>
     </>

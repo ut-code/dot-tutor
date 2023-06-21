@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import translateBraille from "@/utils/translateBraille";
 import { judge, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
@@ -19,6 +19,12 @@ export default function TouchMain({
     makeQuestion(typeOfQuestions)
   ); // 問題
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
+
+  useEffect(() => {
+    setHiraganaStrings(
+      translateBraille(new SixDotBrailleString("braille array", brailleStrings))
+    );
+  }, [brailleStrings]);
 
   function NextQuestion(): JSX.Element {
     if (rightOrWrong === "正解") {
@@ -83,11 +89,6 @@ export default function TouchMain({
             judge(
               new SixDotBrailleString("braille array", brailleStrings),
               question
-            )
-          );
-          setHiraganaStrings(
-            translateBraille(
-              new SixDotBrailleString("braille array", brailleStrings)
             )
           );
         }}

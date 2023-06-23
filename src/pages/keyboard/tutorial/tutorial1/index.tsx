@@ -44,7 +44,11 @@ export default function Tutorial1({
 }: {
   questionList: QuestionList;
 }): JSX.Element {
-  const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
+  const [
+    typedBrailleString,
+    setTypedBrailleString,
+    setTypedBrailleStringFromString,
+  ] = useTypedBrailleString();
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [goNextQuestion, setGoNextQuestion] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =
@@ -93,7 +97,9 @@ export default function Tutorial1({
           </Typography>
           <Button
             variant="outlined"
-            onClick={() => {}}
+            onClick={() => {
+              setTypedBrailleStringFromString("");
+            }}
             startIcon={<RefreshIcon />}
           >
             リセット

@@ -234,22 +234,19 @@ function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
  */
 export default function useTypedBrailleString(): [
   typedBrailleString: string,
-  updateTypedBrailleString: (e?: KeyboardEvent, value?: string) => void
+  updateTypedBrailleString: (e: KeyboardEvent) => void,
+  setTypedBrailleStringFromString: (value: string) => void
 ] {
   const [typedKeys, setTypedKeys] = useTypedKeys();
   const [typedBrailleString, setTypedBrailleString] = useState<string>("");
 
   // Update the state of typed keys.
-  const updateTypedBrailleString = (
-    e?: KeyboardEvent,
-    value?: string
-  ): void => {
-    if (e !== undefined) {
-      setTypedKeys(e);
-    }
-    if (value !== undefined) {
-      setTypedBrailleString(value);
-    }
+  const updateTypedBrailleString = (e: KeyboardEvent): void => {
+    setTypedKeys(e);
+  };
+
+  const setTypedBrailleStringFromString = (value: string): void => {
+    setTypedBrailleString(value);
   };
 
   useEffect(() => {
@@ -272,5 +269,9 @@ export default function useTypedBrailleString(): [
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKeys, setTypedBrailleString]);
-  return [typedBrailleString, updateTypedBrailleString];
+  return [
+    typedBrailleString,
+    updateTypedBrailleString,
+    setTypedBrailleStringFromString,
+  ];
 }

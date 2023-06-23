@@ -35,8 +35,18 @@ export default function EdittableBraille<
   updateBraille: (braille: T) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>({
-    ...braille.brailleState,
+    Dot1: false,
+    Dot2: false,
+    Dot3: false,
+    Dot7: false,
+    Dot4: false,
+    Dot5: false,
+    Dot6: false,
+    Dot8: false,
   });
+  useEffect(() => {
+    setBrailleState({ ...braille.brailleState });
+  }, [braille.brailleState]);
 
   useEffect(() => {
     if (braille instanceof SixDotBraille) {

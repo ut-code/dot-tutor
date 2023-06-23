@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import translateBraille from "@/utils/translateBraille";
 import { judge, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
-import { Paper, Typography, Divider, Button } from "@mui/material";
+import { Paper, Typography, Divider, Button, Stack } from "@mui/material";
 import { SixDotBraille } from "@/models/BrailleCharacter";
 import { SixDotBrailleString } from "@/models/BrailleString";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 export default function TouchMain({
   typeOfQuestions,
@@ -64,9 +65,22 @@ export default function TouchMain({
       </Paper>
 
       <Paper elevation={2} sx={{ my: 2 }}>
-        <Typography variant="h6" component="h2" color="inherit" p={2}>
-          点字
-        </Typography>
+        <Stack direction="row" p={2} spacing={2}>
+          <Typography variant="h6" component="h2" color="inherit">
+            点字
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setBrailleStrings(
+                brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
+              );
+            }}
+            startIcon={<RefreshIcon />}
+          >
+            リセット
+          </Button>
+        </Stack>
         <Divider />
         {brailleStrings.map((brailleChar, i) => (
           <EdittableBraille

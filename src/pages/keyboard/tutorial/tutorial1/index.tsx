@@ -87,22 +87,16 @@ export default function Tutorial1({
       </Paper>
 
       <Paper elevation={2} sx={{ my: 2 }}>
-        <Stack direction="row" p={2}>
-          <Typography
-            variant="h6"
-            component="h2"
-            color="inherit"
-            marginRight={2}
-          >
+        <Stack direction="row" p={2} spacing={2}>
+          <Typography variant="h6" component="h2" color="inherit">
             点字を入力
           </Typography>
           <Button
             variant="outlined"
-            onClick={() => {
-              setTypedBrailleString(undefined, "");
-            }}
+            onClick={() => {}}
+            startIcon={<RefreshIcon />}
           >
-            <RefreshIcon></RefreshIcon>リセット
+            リセット
           </Button>
         </Stack>
         <Divider />

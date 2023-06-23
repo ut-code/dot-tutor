@@ -245,10 +245,6 @@ export default function useTypedBrailleString(): [
     setTypedKeys(e);
   };
 
-  const setTypedBrailleStringFromString = (value: string): void => {
-    setTypedBrailleString(value);
-  };
-
   useEffect(() => {
     // If the `typedKeys` is not empty, convert the `typedKeys` to the unicode character of braille and add it to the `typedBrailleString`.
     if (!Object.values(typedKeys).every((value: boolean) => !value)) {
@@ -269,9 +265,5 @@ export default function useTypedBrailleString(): [
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKeys, setTypedBrailleString]);
-  return [
-    typedBrailleString,
-    updateTypedBrailleString,
-    setTypedBrailleStringFromString,
-  ];
+  return [typedBrailleString, updateTypedBrailleString, setTypedBrailleString];
 }

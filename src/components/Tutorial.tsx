@@ -17,10 +17,8 @@ export default function Tutorial({
       <Toolbar />
       <Box m={2}>
         <main>{tutorialSteps[selectedStep].content}</main>
-        {tutorialSteps[selectedStep].hasHintHiraganaTable ? (
+        {tutorialSteps[selectedStep].hasHintHiraganaTable === true && (
           <HiraganaTableDialog></HiraganaTableDialog>
-        ) : (
-          " "
         )}
       </Box>
       <BottomStepper

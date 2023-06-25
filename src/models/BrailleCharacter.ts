@@ -3,6 +3,7 @@ import {
   defaultBrailleStateValue,
 } from "@/types/BrailleState";
 import { type SixDotBrailleState } from "@/types/SixDotBrailleState";
+import { type EightDotBrailleState } from "@/types/EightDotBrailleState";
 
 /**
  * Braille class
@@ -177,6 +178,11 @@ export class SixDotBraille extends Braille {
  * @class
  * @classdesc EightDotBraille class
  * @extends Braille
+ * @property {string} unicodeBraille - unicode character of braille
+ * @property {EightDotBrailleState} brailleState - the state of braille
+ * @constructor
+ * @param {string} type - type of braille (unicode or braille state)
+ * @param {string | EightDotBrailleState} braille - unicode character of braille or the state of braille
  * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
  * @example
@@ -195,4 +201,19 @@ export class SixDotBraille extends Braille {
  * });
  * const unicodeBraille = braille.unicodeBraille;
  */
-export class EightDotBraille extends Braille {}
+export class EightDotBraille extends Braille {
+  constructor(type: "unicode", braille: string);
+  constructor(type: "braille state", braille: EightDotBrailleState);
+  constructor(
+    type: "unicode" | "braille state",
+    braille: string | EightDotBrailleState
+  ) {
+    if (type === "unicode") {
+      super("unicode", braille as string);
+    } else if (type === "braille state") {
+      super("braille state", braille as BrailleState);
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
+  }
+}

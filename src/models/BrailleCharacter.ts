@@ -12,7 +12,7 @@ import {
  * @constructor
  * @param {string} type - type of braille (unicode or braille state)
  * @param {string | BrailleState} braille - unicode character of braille or the state of braille
- * @throws {Error} - Invalid Braille Character!
+ * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
  * @example
  * const braille = new Braille("unicode", "⠁");
@@ -49,7 +49,7 @@ export class Braille {
   ) {
     if (type === "unicode") {
       if (!this.isValid(braille as string)) {
-        throw new Error("Invalid Braille Character!");
+        throw new Error("Not a Braille Character!");
       }
       this.braille = braille as string;
     } else if (type === "braille state") {

@@ -60,7 +60,7 @@ class BrailleString {
  * @constructor
  * @param {string} type - type of braille ("unicode" or "braille array")
  * @param {string | SixDotBraille[]} brailleString - unicode string of braille or array of braille
- * @throws {Error} - Invalid Braille Type!
+ * @throws {Error} - Invalid Type of Braille Set!
  * @example
  * const brailleString = new SixDotBrailleString("unicode", "⠁⠂⠃⠄");
  * const brailleArray = brailleString.brailleArray;
@@ -97,7 +97,7 @@ export class SixDotBrailleString {
     } else if (type === "braille array") {
       this.brailleString = brailleString as SixDotBraille[];
     } else {
-      throw new Error("Invalid Braille Type!");
+      throw new Error("Invalid Type of Braille Set!");
     }
   }
 }

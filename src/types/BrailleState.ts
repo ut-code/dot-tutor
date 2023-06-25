@@ -20,7 +20,7 @@ export type BrailleState = typeof defaultBrailleStateValue;
 /**
  * The type of the available dots
  */
-type AvailableDot = keyof BrailleState;
+export type AvailableDot = keyof BrailleState;
 
 /**
  * The array of the available dots

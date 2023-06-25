@@ -179,7 +179,6 @@ export class SixDotBraille extends Braille {
  * @extends Braille
  * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
- * @throws {Error} - Not a 8-dot Braille Character!
  * @example
  * const braille = new EightDotBraille("unicode", "⠡");
  * const brailleState = braille.brailleState;

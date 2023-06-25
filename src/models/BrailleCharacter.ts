@@ -122,7 +122,7 @@ export class Braille {
  * @param {string | SixDotBrailleState} braille - unicode character of braille or the state of braille
  * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
- * @throws {Error} - Not a 6-dot Braille Character!
+ * @throws {Error} - Not a six-dot Braille Character!
  * @example
  * const braille = new SixDotBraille("unicode", "⠁");
  * const brailleState = braille.brailleState;
@@ -158,7 +158,7 @@ export class SixDotBraille extends Braille {
       throw new Error("Invalid Braille Type!");
     }
     if (!this.isSixDotBraille(this.unicodeBraille)) {
-      throw new Error("Not a 6-dot Braille Character!");
+      throw new Error("Not a six-dot Braille Character!");
     }
   }
 

@@ -55,7 +55,7 @@ class BrailleString {
  * SixDotBrailleString class
  * @class
  * @classdesc SixDotBrailleString class
- * @property {string} unicodeBrailleString - 6-dot unicode string of braille
+ * @property {string} unicodeBrailleString - six-dot unicode string of braille
  * @property {SixDotBraille[]} brailleArray - array of braille
  * @constructor
  * @param {string} type - type of braille ("unicode" or "braille array")

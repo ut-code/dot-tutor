@@ -75,15 +75,20 @@ export default function EdittableBraille<
     Dot8: "160",
   };
 
+  const sixDotBrailleViewBox = "0,0,120,160";
+  const eightDotBrailleViewBox = "0,0,120,200";
+
   return (
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height={height}
         width={width}
-        viewBox={`0,0,120,${
-          braille instanceof EightDotBraille ? "200" : "160"
-        }`}
+        viewBox={
+          braille instanceof SixDotBraille
+            ? sixDotBrailleViewBox
+            : eightDotBrailleViewBox
+        }
       >
         {Object.values(availableDots).map(
           (dotNumber) =>

@@ -114,7 +114,7 @@ export class Braille {
  * @class
  * @classdesc SixDotBraille class
  * @extends Braille
- * @throws {Error} - Invalid Braille Character!
+ * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
  * @throws {Error} - Not a 6-dot Braille Character!
  * @example
@@ -167,7 +167,7 @@ export class SixDotBraille extends Braille {
  * @class
  * @classdesc EightDotBraille class
  * @extends Braille
- * @throws {Error} - Invalid Braille Character!
+ * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
  * @throws {Error} - Not a 8-dot Braille Character!
  * @example

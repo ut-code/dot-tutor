@@ -124,3 +124,23 @@ export class SixDotBrailleString extends BrailleString {
     }
   }
 }
+
+/**
+ * EightDotBrailleString class
+ */
+export class EightDotBrailleString extends BrailleString {
+  constructor(type: "unicode", brailleString: string);
+  constructor(type: "braille array", brailleString: Braille[]);
+  constructor(
+    type: "unicode" | "braille array",
+    brailleString: string | Braille[]
+  ) {
+    if (type === "unicode") {
+      super(type, brailleString as string, 8);
+    } else if (type === "braille array") {
+      super(type, brailleString as Braille[], 8);
+    } else {
+      throw new Error("Invalid Type of Braille Set!");
+    }
+  }
+}

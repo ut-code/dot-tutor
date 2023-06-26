@@ -24,6 +24,49 @@ interface EightDotBrailleStateType {
   dot8: boolean;
 }
 
+/**
+ * The class of the state of braille
+ * @class
+ * @classdesc The class of the state of braille
+ * @property {6 | 8} brailleDotCount the number of dots of braille
+ * @property {boolean} dot1 the state of dot 1
+ * @property {boolean} dot2 the state of dot 2
+ * @property {boolean} dot3 the state of dot 3
+ * @property {boolean} dot7 the state of dot 7
+ * @property {boolean} dot4 the state of dot 4
+ * @property {boolean} dot5 the state of dot 5
+ * @property {boolean} dot6 the state of dot 6
+ * @property {boolean} dot8 the state of dot 8
+ * @constructor
+ * @param {SixDotBrailleStateType | EightDotBrailleStateType} brailleState the state of braille
+ * @param {6 | 8} brailleDotCount the number of dots of braille
+ * @throws {Error} Invalid Number of Dots of Braille!
+ * @example
+ * const brailleState = new BrailleState(
+ *   {
+ *     dot1: true,
+ *     dot2: false,
+ *     dot3: false,
+ *     dot4: false,
+ *     dot5: false,
+ *     dot6: false,
+ *   },
+ *   6
+ * );
+ * const brailleState = new BrailleState(
+ *   {
+ *     dot1: true,
+ *     dot2: false,
+ *     dot3: false,
+ *     dot7: false,
+ *     dot4: false,
+ *     dot5: false,
+ *     dot6: false,
+ *     dot8: false,
+ *   },
+ *   8
+ * );
+ */
 export class BrailleState {
   private readonly _brailleDotCount: 6 | 8;
   private readonly _dot1: boolean;
@@ -91,7 +134,7 @@ export class BrailleState {
       this._dot7 = (brailleState as EightDotBrailleStateType).dot7;
       this._dot8 = (brailleState as EightDotBrailleStateType).dot8;
     } else {
-      throw new Error("Invalid Number of Dots of Braille");
+      throw new Error("Invalid Number of Dots of Braille!");
     }
   }
 }

@@ -88,7 +88,7 @@ function BrailleDot({
  * @example
  * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
  *
- * <EdittableBraille<SixDotBraille>
+ * <EdittableBraille
  *   height="100"
  *   width="60"
  *   braille={braille}

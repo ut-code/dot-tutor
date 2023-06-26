@@ -1,9 +1,4 @@
-import {
-  type BrailleState,
-  defaultBrailleStateValue,
-} from "@/types/BrailleState";
-import { type SixDotBrailleState } from "@/types/SixDotBrailleState";
-import { type EightDotBrailleState } from "@/types/EightDotBrailleState";
+import { BrailleState } from "@/types/BrailleState";
 
 /**
  * Braille class
@@ -78,14 +73,14 @@ export class Braille {
   private convertBrailleStateToUnicode(brailleState: BrailleState): string {
     // See https://www.unicode.org/charts/PDF/U2800.pdf
     let codePoint = 0x2800;
-    if (brailleState.Dot1) codePoint += 2 ** 0;
-    if (brailleState.Dot2) codePoint += 2 ** 1;
-    if (brailleState.Dot3) codePoint += 2 ** 2;
-    if (brailleState.Dot4) codePoint += 2 ** 3;
-    if (brailleState.Dot5) codePoint += 2 ** 4;
-    if (brailleState.Dot6) codePoint += 2 ** 5;
-    if (brailleState.Dot7) codePoint += 2 ** 6;
-    if (brailleState.Dot8) codePoint += 2 ** 7;
+    if (brailleState.dot1) codePoint += 2 ** 0;
+    if (brailleState.dot2) codePoint += 2 ** 1;
+    if (brailleState.dot3) codePoint += 2 ** 2;
+    if (brailleState.dot4) codePoint += 2 ** 3;
+    if (brailleState.dot5) codePoint += 2 ** 4;
+    if (brailleState.dot6) codePoint += 2 ** 5;
+    if (brailleState.dot7) codePoint += 2 ** 6;
+    if (brailleState.dot8) codePoint += 2 ** 7;
     const unicodeBraille = String.fromCodePoint(codePoint);
     return new Braille("unicode", unicodeBraille).braille;
   }
@@ -97,17 +92,21 @@ export class Braille {
    */
   private convertUnicodeToBrailleState(braille: string): BrailleState {
     // See https://www.unicode.org/charts/PDF/U2800.pdf
-    const brailleState = { ...defaultBrailleStateValue };
     const codePoint = braille.codePointAt(0) as number;
-    brailleState.Dot1 = Boolean((codePoint - 0x2800) & (2 ** 0));
-    brailleState.Dot2 = Boolean((codePoint - 0x2800) & (2 ** 1));
-    brailleState.Dot3 = Boolean((codePoint - 0x2800) & (2 ** 2));
-    brailleState.Dot4 = Boolean((codePoint - 0x2800) & (2 ** 3));
-    brailleState.Dot5 = Boolean((codePoint - 0x2800) & (2 ** 4));
-    brailleState.Dot6 = Boolean((codePoint - 0x2800) & (2 ** 5));
-    brailleState.Dot7 = Boolean((codePoint - 0x2800) & (2 ** 6));
-    brailleState.Dot8 = Boolean((codePoint - 0x2800) & (2 ** 7));
-    return { ...brailleState };
+    const brailleState = new BrailleState(
+      {
+        dot1: Boolean((codePoint - 0x2800) & (2 ** 0)),
+        dot2: Boolean((codePoint - 0x2800) & (2 ** 1)),
+        dot3: Boolean((codePoint - 0x2800) & (2 ** 2)),
+        dot4: Boolean((codePoint - 0x2800) & (2 ** 3)),
+        dot5: Boolean((codePoint - 0x2800) & (2 ** 4)),
+        dot6: Boolean((codePoint - 0x2800) & (2 ** 5)),
+        dot7: Boolean((codePoint - 0x2800) & (2 ** 6)),
+        dot8: Boolean((codePoint - 0x2800) & (2 ** 7)),
+      },
+      8
+    );
+    return brailleState;
   }
 }
 
@@ -142,19 +141,15 @@ export class Braille {
  */
 export class SixDotBraille extends Braille {
   constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: SixDotBrailleState);
+  constructor(type: "braille state", braille: BrailleState);
   constructor(
     type: "unicode" | "braille state",
-    braille: string | SixDotBrailleState
+    braille: string | BrailleState
   ) {
     if (type === "unicode") {
       super("unicode", braille as string);
     } else if (type === "braille state") {
-      super("braille state", {
-        ...(braille as SixDotBrailleState),
-        Dot7: false,
-        Dot8: false,
-      } satisfies BrailleState);
+      super("braille state", braille as BrailleState);
     } else {
       throw new Error("Invalid Braille Type!");
     }
@@ -203,10 +198,10 @@ export class SixDotBraille extends Braille {
  */
 export class EightDotBraille extends Braille {
   constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: EightDotBrailleState);
+  constructor(type: "braille state", braille: BrailleState);
   constructor(
     type: "unicode" | "braille state",
-    braille: string | EightDotBrailleState
+    braille: string | BrailleState
   ) {
     if (type === "unicode") {
       super("unicode", braille as string);

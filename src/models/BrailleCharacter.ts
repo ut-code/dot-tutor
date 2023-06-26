@@ -29,6 +29,7 @@ import { BrailleState } from "@/models/BrailleState";
  */
 export class Braille {
   private readonly braille: string;
+  private readonly brailleDotCount: 6 | 8;
 
   public get unicodeBraille(): string {
     return this.braille;
@@ -38,22 +39,39 @@ export class Braille {
     return this.convertUnicodeToBrailleState(this.braille);
   }
 
-  constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: BrailleState);
+  constructor(type: "unicode", braille: string, brailleDotCount?: 6 | 8);
+  constructor(
+    type: "braille state",
+    braille: BrailleState,
+    brailleDotCount?: 6 | 8
+  );
   constructor(
     type: "unicode" | "braille state",
-    braille: string | BrailleState
+    braille: string | BrailleState,
+    brailleDotCount?: 6 | 8
   ) {
+    this.brailleDotCount = brailleDotCount ?? 6;
+
+    let brailleCharacter: string;
     if (type === "unicode") {
-      if (!this.isValid(braille as string)) {
-        throw new Error("Not a Braille Character!");
-      }
-      this.braille = braille as string;
+      brailleCharacter = braille as string;
     } else if (type === "braille state") {
-      this.braille = this.convertBrailleStateToUnicode(braille as BrailleState);
+      brailleCharacter = this.convertBrailleStateToUnicode(
+        braille as BrailleState
+      );
     } else {
       throw new Error("Invalid Braille Type!");
     }
+
+    if (!this.isBraille(brailleCharacter)) {
+      throw new Error("Not a Braille Character!");
+    }
+    if (this.brailleDotCount === 6) {
+      if (!this.isSixDotBraille(this.unicodeBraille)) {
+        throw new Error("Not a six-dot Braille Character!");
+      }
+    }
+    this.braille = brailleCharacter;
   }
 
   /**
@@ -61,8 +79,17 @@ export class Braille {
    * @param braille unicode character of braille
    * @returns boolean
    */
-  private isValid(braille: string): boolean {
+  private isBraille(braille: string): boolean {
     return braille.match(/[⠀-⣿]/) !== null;
+  }
+
+  /**
+   * check if unicode character of braille matches any character between ⠀ and ⠿
+   * @param braille unicode character of braille
+   * @returns boolean
+   */
+  private isSixDotBraille(braille: string): boolean {
+    return braille.match(/[⠀-⠿]/) !== null;
   }
 
   /**
@@ -107,108 +134,5 @@ export class Braille {
       8
     );
     return brailleState;
-  }
-}
-
-/**
- * SixDotBraille class
- * @class
- * @classdesc SixDotBraille class
- * @extends Braille
- * @property {string} unicodeBraille - unicode character of braille
- * @property {SixDotBrailleState} brailleState - the state of braille
- * @constructor
- * @param {string} type - type of braille (unicode or braille state)
- * @param {string | SixDotBrailleState} braille - unicode character of braille or the state of braille
- * @throws {Error} - Not a Braille Character!
- * @throws {Error} - Invalid Braille Type!
- * @throws {Error} - Not a six-dot Braille Character!
- * @example
- * const braille = new SixDotBraille("unicode", "⠁");
- * const brailleState = braille.brailleState;
- * @example
- * const braille = new SixDotBraille("braille state", {
- *  Dot1: true,
- *  Dot2: false,
- *  Dot3: false,
- *  Dot7: false,
- *  Dot4: false,
- *  Dot5: false,
- *  Dot6: false,
- *  Dot8: false,
- * });
- * const unicodeBraille = braille.unicodeBraille;
- */
-export class SixDotBraille extends Braille {
-  constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: BrailleState);
-  constructor(
-    type: "unicode" | "braille state",
-    braille: string | BrailleState
-  ) {
-    if (type === "unicode") {
-      super("unicode", braille as string);
-    } else if (type === "braille state") {
-      super("braille state", braille as BrailleState);
-    } else {
-      throw new Error("Invalid Braille Type!");
-    }
-    if (!this.isSixDotBraille(this.unicodeBraille)) {
-      throw new Error("Not a six-dot Braille Character!");
-    }
-  }
-
-  /**
-   * check if unicode character of braille matches any character between ⠀ and ⠿
-   * @param braille unicode character of braille
-   * @returns boolean
-   */
-  private isSixDotBraille(braille: string): boolean {
-    return braille.match(/[⠀-⠿]/) !== null;
-  }
-}
-
-/**
- * EightDotBraille class
- * @class
- * @classdesc EightDotBraille class
- * @extends Braille
- * @property {string} unicodeBraille - unicode character of braille
- * @property {EightDotBrailleState} brailleState - the state of braille
- * @constructor
- * @param {string} type - type of braille (unicode or braille state)
- * @param {string | EightDotBrailleState} braille - unicode character of braille or the state of braille
- * @throws {Error} - Not a Braille Character!
- * @throws {Error} - Invalid Braille Type!
- * @example
- * const braille = new EightDotBraille("unicode", "⠡");
- * const brailleState = braille.brailleState;
- * @example
- * const braille = new EightDotBraille("braille state", {
- *  Dot1: true,
- *  Dot2: false,
- *  Dot3: false,
- *  Dot7: false,
- *  Dot4: false,
- *  Dot5: false,
- *  Dot6: false,
- *  Dot8: true,
- * });
- * const unicodeBraille = braille.unicodeBraille;
- */
-export class EightDotBraille extends Braille {
-  constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: BrailleState);
-  constructor(
-    type: "unicode" | "braille state",
-    braille: string | BrailleState
-  ) {
-    if (type === "unicode") {
-      super("unicode", braille as string);
-    } else if (type === "braille state") {
-      super("braille state", braille as BrailleState);
-    } else {
-      throw new Error("Invalid Braille Type!");
-    }
   }
 }

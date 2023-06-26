@@ -48,7 +48,7 @@ export default function Tutorial1({
     typedBrailleString,
     setTypedBrailleString,
     setTypedBrailleStringFromString,
-  ] = useTypedBrailleString();
+  ] = useTypedBrailleString(6);
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [goNextQuestion, setGoNextQuestion] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =

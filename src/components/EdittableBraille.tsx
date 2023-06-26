@@ -1,6 +1,86 @@
 import React, { Fragment } from "react";
-import { availableDots } from "@/types/BrailleState";
-import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
+import {
+  BrailleState,
+  type AvailableDot,
+  sixDotBrailleAvailableDots,
+  eightDotBrailleAvailableDots,
+} from "@/models/BrailleState";
+import {
+  type Braille,
+  SixDotBraille,
+  EightDotBraille,
+} from "@/models/BrailleCharacter";
+
+/**
+ * the size of the SVG viewBox for six-dot braille
+ */
+const sixDotBrailleViewBoxSize = "0,0,120,160";
+/**
+ * the size of the SVG viewBox for eight-dot braille
+ */
+const eightDotBrailleViewBoxSize = "0,0,120,200";
+
+/**
+ * list of x coordinates for each dot
+ */
+const xCoordinateList = {
+  dot1: "40",
+  dot2: "40",
+  dot3: "40",
+  dot7: "40",
+  dot4: "80",
+  dot5: "80",
+  dot6: "80",
+  dot8: "80",
+};
+/**
+ * list of y coordinates for each dot
+ */
+const yCoordinateList = {
+  dot1: "40",
+  dot2: "80",
+  dot3: "120",
+  dot7: "160",
+  dot4: "40",
+  dot5: "80",
+  dot6: "120",
+  dot8: "160",
+};
+
+/**
+ * Component for displaying a single braille dot
+ * @param dotNumber the number of the dot
+ * @param shouldFill whether the dot should be filled
+ * @param clicked function to call when the dot is clicked
+ * @returns a single braille dot
+ * @example
+ * <BrailleDot
+ *   dotNumber="dot1"
+ *   shouldFill={true}
+ *   clicked={() => {
+ *     console.log("dot1 clicked");
+ *   }}
+ * />
+ */
+function BrailleDot({
+  dotNumber,
+  shouldFill,
+  clicked,
+}: {
+  dotNumber: AvailableDot;
+  shouldFill: boolean;
+  clicked: () => void;
+}): JSX.Element {
+  return (
+    <circle
+      cx={xCoordinateList[dotNumber]}
+      cy={yCoordinateList[dotNumber]}
+      r="10"
+      fill={shouldFill ? "black" : "#ccc"}
+      onClick={clicked}
+    />
+  );
+}
 
 /**
  * Component for displaying touch-to-change braille
@@ -12,7 +92,7 @@ import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
  * @example
  * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
  *
- * <EdittableBraille<SixDotBraille>
+ * <EdittableBraille
  *   height="100"
  *   width="60"
  *   braille={braille}
@@ -21,9 +101,7 @@ import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
  *   }}
  * />
  */
-export default function EdittableBraille<
-  T extends SixDotBraille | EightDotBraille
->({
+export default function EdittableBraille({
   height,
   width,
   braille,
@@ -31,40 +109,10 @@ export default function EdittableBraille<
 }: {
   height: string;
   width: string;
-  braille: T;
-  updateBraille: (braille: T) => void;
+  braille: Braille;
+  updateBraille: (braille: Braille) => void;
 }): JSX.Element {
-  let brailleState = {
-    ...braille.brailleState,
-  };
-
-  /**
-   * list of x coordinates for each dot
-   */
-  const xCoordinateList = {
-    Dot1: "40",
-    Dot2: "40",
-    Dot3: "40",
-    Dot7: "40",
-    Dot4: "80",
-    Dot5: "80",
-    Dot6: "80",
-    Dot8: "80",
-  };
-
-  /**
-   * list of y coordinates for each dot
-   */
-  const yCoordinateList = {
-    Dot1: "40",
-    Dot2: "80",
-    Dot3: "120",
-    Dot7: "160",
-    Dot4: "40",
-    Dot5: "80",
-    Dot6: "120",
-    Dot8: "160",
-  };
+  let brailleState: BrailleState = braille.brailleState;
 
   return (
     <>
@@ -72,39 +120,66 @@ export default function EdittableBraille<
         xmlns="http://www.w3.org/2000/svg"
         height={height}
         width={width}
-        viewBox={`0,0,120,${
-          braille instanceof EightDotBraille ? "200" : "160"
-        }`}
+        viewBox={
+          braille.brailleDotCount === 6
+            ? sixDotBrailleViewBoxSize
+            : eightDotBrailleViewBoxSize
+        }
       >
-        {Object.values(availableDots).map(
-          (dotNumber) =>
-            (braille instanceof EightDotBraille ||
-              (dotNumber !== "Dot7" && dotNumber !== "Dot8")) && (
-              <Fragment key={dotNumber}>
-                <circle
-                  cx={xCoordinateList[dotNumber]}
-                  cy={yCoordinateList[dotNumber]}
-                  r="10"
-                  fill={brailleState[dotNumber] ? "black" : "#ccc"}
-                  onClick={() => {
-                    brailleState = {
-                      ...brailleState,
+        {braille.brailleDotCount === 6 &&
+          Object.values(sixDotBrailleAvailableDots).map((dotNumber) => (
+            <Fragment key={dotNumber}>
+              <BrailleDot
+                dotNumber={dotNumber}
+                shouldFill={brailleState[dotNumber]}
+                clicked={() => {
+                  brailleState = new BrailleState(
+                    {
+                      dot1: brailleState.dot1,
+                      dot2: brailleState.dot2,
+                      dot3: brailleState.dot3,
+                      dot4: brailleState.dot4,
+                      dot5: brailleState.dot5,
+                      dot6: brailleState.dot6,
                       [dotNumber]: !brailleState[dotNumber],
-                    };
-                    if (braille instanceof SixDotBraille) {
-                      updateBraille(
-                        new SixDotBraille("braille state", brailleState) as T
-                      );
-                    } else if (braille instanceof EightDotBraille) {
-                      updateBraille(
-                        new EightDotBraille("braille state", brailleState) as T
-                      );
-                    }
-                  }}
-                />
-              </Fragment>
-            )
-        )}
+                    },
+                    6
+                  );
+                  updateBraille(
+                    new SixDotBraille("braille state", brailleState)
+                  );
+                }}
+              />
+            </Fragment>
+          ))}
+        {braille.brailleDotCount === 8 &&
+          Object.values(eightDotBrailleAvailableDots).map((dotNumber) => (
+            <Fragment key={dotNumber}>
+              <BrailleDot
+                dotNumber={dotNumber}
+                shouldFill={brailleState[dotNumber]}
+                clicked={() => {
+                  brailleState = new BrailleState(
+                    {
+                      dot1: brailleState.dot1,
+                      dot2: brailleState.dot2,
+                      dot3: brailleState.dot3,
+                      dot7: brailleState.dot7,
+                      dot4: brailleState.dot4,
+                      dot5: brailleState.dot5,
+                      dot6: brailleState.dot6,
+                      dot8: brailleState.dot8,
+                      [dotNumber]: !brailleState[dotNumber],
+                    },
+                    8
+                  );
+                  updateBraille(
+                    new EightDotBraille("braille state", brailleState)
+                  );
+                }}
+              />
+            </Fragment>
+          ))}
       </svg>
     </>
   );

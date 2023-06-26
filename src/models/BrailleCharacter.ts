@@ -12,7 +12,7 @@ import { BrailleState } from "@/models/BrailleState";
  * @param {string | BrailleState} braille - unicode character of braille or the state of braille
  * @throws {Error} - Invalid Type of Braille Set!
  * @example
- * const braille = new Braille("unicode", "⠁");
+ * const braille = new Braille("unicode", "⠁", 6);
  * const brailleState = braille.brailleState;
  * @example
  * const braille = new Braille(

@@ -86,3 +86,41 @@ export class BrailleString {
     return brailleString.every((braille) => braille.brailleDotCount === 8);
   }
 }
+
+/**
+ * SixDotBrailleString class
+ * @class
+ * @classdesc SixDotBrailleString class
+ * @extends BrailleString
+ * @constructor
+ * @param {string} type - type of braille ("unicode" or "braille array")
+ * @param {string | Braille[]} brailleString - unicode string of braille or array of braille
+ * @throws {Error} - Invalid Type of Braille Set!
+ * @example
+ * const brailleString = new BrailleString("unicode", "⠁⠂⠃⠄");
+ * const brailleArray = brailleString.brailleArray;
+ * @example
+ * const brailleString = new BrailleString("braille array", [
+ *   new Braille("unicode", "⠁"),
+ *   new Braille("unicode", "⠂"),
+ *   new Braille("unicode", "⠃"),
+ *   new Braille("unicode", "⠄"),
+ * ]);
+ * const unicodeBrailleString = brailleString.unicodeBrailleString;
+ */
+export class SixDotBrailleString extends BrailleString {
+  constructor(type: "unicode", brailleString: string);
+  constructor(type: "braille array", brailleString: Braille[]);
+  constructor(
+    type: "unicode" | "braille array",
+    brailleString: string | Braille[]
+  ) {
+    if (type === "unicode") {
+      super(type, brailleString as string, 6);
+    } else if (type === "braille array") {
+      super(type, brailleString as Braille[], 6);
+    } else {
+      throw new Error("Invalid Type of Braille Set!");
+    }
+  }
+}

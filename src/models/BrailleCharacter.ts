@@ -6,25 +6,27 @@ import { BrailleState } from "@/models/BrailleState";
  * @classdesc Braille class
  * @property {string} unicodeBraille - unicode character of braille
  * @property {BrailleState} brailleState - the state of braille
+ * @property {6 | 8} brailleDotCount - the number of dots of braille
  * @constructor
- * @param {string} type - type of braille (unicode or braille state)
+ * @param {string} type - type of braille ("unicode" or "braille state")
  * @param {string | BrailleState} braille - unicode character of braille or the state of braille
- * @throws {Error} - Not a Braille Character!
- * @throws {Error} - Invalid Braille Type!
+ * @throws {Error} - Invalid Type of Braille Set!
  * @example
  * const braille = new Braille("unicode", "⠁");
  * const brailleState = braille.brailleState;
  * @example
- * const braille = new Braille("braille state", {
- *  Dot1: true,
- *  Dot2: false,
- *  Dot3: false,
- *  Dot7: false,
- *  Dot4: false,
- *  Dot5: false,
- *  Dot6: false,
- *  Dot8: false,
- * });
+ * const braille = new Braille(
+ *   "braille state",
+ *   {
+ *     dot1: true,
+ *     dot2: false,
+ *     dot3: false,
+ *     dot4: false,
+ *     dot5: false,
+ *     dot6: false,
+ *   },
+ *   6
+ * );
  * const unicodeBraille = braille.unicodeBraille;
  */
 export class Braille {

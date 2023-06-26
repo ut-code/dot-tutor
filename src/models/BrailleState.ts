@@ -173,9 +173,22 @@ export const defaultEightDotBrailleStateValue = new BrailleState(
 );
 
 /**
+ * The type of the available dots
+ */
+export type AvailableDot =
+  | "dot1"
+  | "dot2"
+  | "dot3"
+  | "dot7"
+  | "dot4"
+  | "dot5"
+  | "dot6"
+  | "dot8";
+
+/**
  * The array of the available dots
  */
-export const availableDots = [
+export const availableDots: AvailableDot[] = [
   "dot1",
   "dot2",
   "dot3",
@@ -185,3 +198,37 @@ export const availableDots = [
   "dot6",
   "dot8",
 ];
+
+/**
+ * The type of the available dots of six-dot braille
+ */
+export type SixDotBrailleAvailableDot =
+  | "dot1"
+  | "dot2"
+  | "dot3"
+  | "dot4"
+  | "dot5"
+  | "dot6";
+
+/**
+ * The array of the available dots of six-dot braille
+ */
+export const sixDotBrailleAvailableDots: SixDotBrailleAvailableDot[] = [
+  "dot1",
+  "dot2",
+  "dot3",
+  "dot4",
+  "dot5",
+  "dot6",
+];
+
+/**
+ * The type of the available dots of eight-dot braille
+ */
+export type EightDotBrailleAvailableDot = AvailableDot;
+
+/**
+ * The array of the available dots of eight-dot braille
+ */
+export const eightDotBrailleAvailableDots: EightDotBrailleAvailableDot[] =
+  availableDots;

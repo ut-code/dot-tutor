@@ -1,6 +1,67 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { BrailleState, availableDots } from "@/models/BrailleState";
-import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
+import {
+  BrailleState,
+  type AvailableDot,
+  sixDotBrailleAvailableDots,
+  eightDotBrailleAvailableDots,
+} from "@/models/BrailleState";
+import { Braille } from "@/models/BrailleCharacter";
+
+/**
+ * the size of the SVG viewBox for six-dot braille
+ */
+const sixDotBrailleViewBoxSize = "0,0,120,160";
+/**
+ * the size of the SVG viewBox for eight-dot braille
+ */
+const eightDotBrailleViewBoxSize = "0,0,120,200";
+
+/**
+ * list of x coordinates for each dot
+ */
+const xCoordinateList = {
+  dot1: "40",
+  dot2: "40",
+  dot3: "40",
+  dot7: "40",
+  dot4: "80",
+  dot5: "80",
+  dot6: "80",
+  dot8: "80",
+};
+/**
+ * list of y coordinates for each dot
+ */
+const yCoordinateList = {
+  dot1: "40",
+  dot2: "80",
+  dot3: "120",
+  dot7: "160",
+  dot4: "40",
+  dot5: "80",
+  dot6: "120",
+  dot8: "160",
+};
+
+function BrailleDot({
+  dotNumber,
+  shouldFill,
+  clicked,
+}: {
+  dotNumber: AvailableDot;
+  shouldFill: boolean;
+  clicked: () => void;
+}): JSX.Element {
+  return (
+    <circle
+      cx={xCoordinateList[dotNumber]}
+      cy={yCoordinateList[dotNumber]}
+      r="10"
+      fill={shouldFill ? "black" : "#ccc"}
+      onClick={clicked}
+    />
+  );
+}
 
 /**
  * Component for displaying touch-to-change braille
@@ -21,9 +82,7 @@ import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
  *   }}
  * />
  */
-export default function EdittableBraille<
-  T extends SixDotBraille | EightDotBraille
->({
+export default function EdittableBraille({
   height,
   width,
   braille,
@@ -31,52 +90,21 @@ export default function EdittableBraille<
 }: {
   height: string;
   width: string;
-  braille: T;
-  updateBraille: (braille: T) => void;
+  braille: Braille;
+  updateBraille: (braille: Braille) => void;
 }): JSX.Element {
   const [brailleState, setBrailleState] = useState<BrailleState>(
     braille.brailleState
   );
 
   useEffect(() => {
-    if (braille instanceof SixDotBraille) {
-      updateBraille(new SixDotBraille("braille state", brailleState) as T);
-    } else if (braille instanceof EightDotBraille) {
-      updateBraille(new EightDotBraille("braille state", brailleState) as T);
+    if (braille.brailleDotCount === 6) {
+      updateBraille(new Braille("braille state", brailleState, 6));
+    } else if (braille.brailleDotCount === 8) {
+      updateBraille(new Braille("braille state", brailleState, 8));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);
-
-  /**
-   * list of x coordinates for each dot
-   */
-  const xCoordinateList = {
-    dot1: "40",
-    dot2: "40",
-    dot3: "40",
-    dot7: "40",
-    dot4: "80",
-    dot5: "80",
-    dot6: "80",
-    dot8: "80",
-  };
-
-  /**
-   * list of y coordinates for each dot
-   */
-  const yCoordinateList = {
-    dot1: "40",
-    dot2: "80",
-    dot3: "120",
-    dot7: "160",
-    dot4: "40",
-    dot5: "80",
-    dot6: "120",
-    dot8: "160",
-  };
-
-  const sixDotBrailleViewBox = "0,0,120,160";
-  const eightDotBrailleViewBox = "0,0,120,200";
 
   return (
     <>
@@ -85,28 +113,46 @@ export default function EdittableBraille<
         height={height}
         width={width}
         viewBox={
-          braille instanceof SixDotBraille
-            ? sixDotBrailleViewBox
-            : eightDotBrailleViewBox
+          braille.brailleDotCount === 6
+            ? sixDotBrailleViewBoxSize
+            : eightDotBrailleViewBoxSize
         }
       >
-        {Object.values(availableDots).map(
-          (dotNumber) =>
-            (braille instanceof EightDotBraille ||
-              (dotNumber !== "dot7" && dotNumber !== "dot8")) && (
-              <Fragment key={dotNumber}>
-                <circle
-                  // @ts-expect-error - dotNumber is a valid key
-                  cx={xCoordinateList[dotNumber]}
-                  // @ts-expect-error - dotNumber is a valid key
-                  cy={yCoordinateList[dotNumber]}
-                  r="10"
-                  // @ts-expect-error - dotNumber is a valid key
-                  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                  fill={brailleState[dotNumber] ? "black" : "#ccc"}
-                  onClick={() => {
-                    setBrailleState(
-                      new BrailleState({
+        {braille.brailleDotCount === 6 &&
+          Object.values(sixDotBrailleAvailableDots).map((dotNumber) => (
+            <Fragment key={dotNumber}>
+              <BrailleDot
+                dotNumber={dotNumber}
+                shouldFill={brailleState[dotNumber]}
+                clicked={() => {
+                  setBrailleState(
+                    new BrailleState(
+                      {
+                        dot1: brailleState.dot1,
+                        dot2: brailleState.dot2,
+                        dot3: brailleState.dot3,
+                        dot4: brailleState.dot4,
+                        dot5: brailleState.dot5,
+                        dot6: brailleState.dot6,
+                        [dotNumber]: !brailleState[dotNumber],
+                      },
+                      6
+                    )
+                  );
+                }}
+              />
+            </Fragment>
+          ))}
+        {braille.brailleDotCount === 8 &&
+          Object.values(eightDotBrailleAvailableDots).map((dotNumber) => (
+            <Fragment key={dotNumber}>
+              <BrailleDot
+                dotNumber={dotNumber}
+                shouldFill={brailleState[dotNumber]}
+                clicked={() => {
+                  setBrailleState(
+                    new BrailleState(
+                      {
                         dot1: brailleState.dot1,
                         dot2: brailleState.dot2,
                         dot3: brailleState.dot3,
@@ -115,16 +161,15 @@ export default function EdittableBraille<
                         dot5: brailleState.dot5,
                         dot6: brailleState.dot6,
                         dot8: brailleState.dot8,
-                        // @ts-expect-error - dotNumber is a valid key
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         [dotNumber]: !brailleState[dotNumber],
-                      })
-                    );
-                  }}
-                />
-              </Fragment>
-            )
-        )}
+                      },
+                      8
+                    )
+                  );
+                }}
+              />
+            </Fragment>
+          ))}
       </svg>
     </>
   );

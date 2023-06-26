@@ -128,7 +128,7 @@ export default function Tutorial1({
         <Divider />
         <Box display="flex" sx={{ minHeight: 100 }} p={2}>
           {translatedBrailleString}
-          {goNextQuestion ? <CheckCircleOutlineIcon color="success" /> : ""}
+          {goNextQuestion && <CheckCircleOutlineIcon color="success" />}
         </Box>
       </Paper>
 
@@ -140,6 +140,7 @@ export default function Tutorial1({
             }
             setGoNextQuestion(false);
           }
+          setTypedBrailleStringFromString("");
         }}
         disabled={!goNextQuestion}
         variant="contained"

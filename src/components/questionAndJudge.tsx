@@ -8,7 +8,7 @@ export function makeQuestion(questions: string[]): string {
 export function judge(
   typedBrailleStrings: SixDotBrailleString,
   question: string
-): string {
+): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
 
   let begin = 0;
@@ -32,9 +32,5 @@ export function judge(
 
   typedAnswer = typedAnswer.substring(begin, end);
 
-  if (typedAnswer === question) {
-    return "正解";
-  } else {
-    return "不正解";
-  }
+  return typedAnswer === question;
 }

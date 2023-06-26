@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import translateBraille from "@/utils/translateBraille";
 import { judge, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
-import { Paper, Typography, Divider, Button, Stack } from "@mui/material";
+import { Paper, Typography, Divider, Button, Stack, Box } from "@mui/material";
 import { SixDotBraille } from "@/models/BrailleCharacter";
 import { SixDotBrailleString } from "@/models/BrailleString";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 export default function TouchMain({
@@ -17,13 +18,19 @@ export default function TouchMain({
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
-  const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
+  const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   useEffect(() => {
     setHiraganaStrings(
       translateBraille(new SixDotBrailleString("braille array", brailleStrings))
     );
   }, [brailleStrings]);
+
+  useEffect(() => {
+    judgeAnswer(
+      judge(new SixDotBrailleString("braille array", brailleStrings), question)
+    );
+  }, [brailleStrings, question]);
 
   return (
     <>
@@ -75,19 +82,6 @@ export default function TouchMain({
           />
         ))}
       </Paper>
-      <Button
-        variant="contained"
-        onClick={() => {
-          judgeAnswer(
-            judge(
-              new SixDotBrailleString("braille array", brailleStrings),
-              question
-            )
-          );
-        }}
-      >
-        答え合わせ
-      </Button>
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           墨字
@@ -115,11 +109,17 @@ export default function TouchMain({
           p={2}
           sx={{ minHeight: 100 }}
         >
-          {rightOrWrong}
+          {rightOrWrong ? (
+            <Box display="flex">
+              正解 <CheckCircleOutlineIcon color="success" />
+            </Box>
+          ) : (
+            "不正解"
+          )}
         </Typography>
       </Paper>
 
-      {rightOrWrong === "正解" && (
+      {rightOrWrong && (
         <Button
           variant="contained"
           onClick={() => {
@@ -127,7 +127,7 @@ export default function TouchMain({
             setBrailleStrings(
               brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
             );
-            judgeAnswer("");
+            judgeAnswer(false);
           }}
         >
           次の問題

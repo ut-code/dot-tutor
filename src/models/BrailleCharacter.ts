@@ -176,3 +176,23 @@ export class SixDotBraille extends Braille {
     }
   }
 }
+
+/**
+ * eight-dot braille class
+ */
+export class EightDotBraille extends Braille {
+  constructor(type: "unicode", braille: string);
+  constructor(type: "braille state", braille: BrailleState);
+  constructor(
+    type: "unicode" | "braille state",
+    braille: string | BrailleState
+  ) {
+    if (type === "unicode") {
+      super(type, braille as string, 8);
+    } else if (type === "braille state") {
+      super(type, braille as BrailleState, 8);
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
+  }
+}

@@ -52,26 +52,22 @@ export class Braille {
   ) {
     this.brailleDotCount = brailleDotCount ?? 6;
 
-    let brailleCharacter: string;
     if (type === "unicode") {
-      brailleCharacter = braille as string;
+      this.braille = braille as string;
     } else if (type === "braille state") {
-      brailleCharacter = this.convertBrailleStateToUnicode(
-        braille as BrailleState
-      );
+      this.braille = this.convertBrailleStateToUnicode(braille as BrailleState);
     } else {
       throw new Error("Invalid Braille Type!");
     }
 
-    if (!this.isBraille(brailleCharacter)) {
+    if (!this.isBraille(this.braille)) {
       throw new Error("Not a Braille Character!");
     }
     if (this.brailleDotCount === 6) {
-      if (!this.isSixDotBraille(this.unicodeBraille)) {
+      if (!this.isSixDotBraille(this.braille)) {
         throw new Error("Not a six-dot Braille Character!");
       }
     }
-    this.braille = brailleCharacter;
   }
 
   /**

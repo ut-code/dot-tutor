@@ -15,7 +15,7 @@ export function judge(
   let end = typedAnswer.length;
 
   for (let i = 0; i < typedAnswer.length; i++) {
-    if (typedAnswer[i] === " ") {
+    if (typedAnswer[i] === "　") {
       begin = i;
     } else {
       break;
@@ -23,7 +23,7 @@ export function judge(
   }
 
   for (let i = typedAnswer.length - 1; i >= 0; i--) {
-    if (typedAnswer.charAt(i) === " ") {
+    if (typedAnswer.charAt(i) === "　") {
       end = i;
     } else {
       break;

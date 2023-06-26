@@ -16,9 +16,7 @@ export default function TouchMain({
     [...Array(10)].map((_) => new SixDotBraille("unicode", "⠀"))
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
-  const [question, setQuestion] = useState<string>(
-    makeQuestion(typeOfQuestions)
-  ); // 問題
+  const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
 
   useEffect(() => {
@@ -26,25 +24,6 @@ export default function TouchMain({
       translateBraille(new SixDotBrailleString("braille array", brailleStrings))
     );
   }, [brailleStrings]);
-
-  function NextQuestion(): JSX.Element {
-    if (rightOrWrong === "正解") {
-      return (
-        <Button
-          variant="contained"
-          onClick={() => {
-            setQuestion(makeQuestion(typeOfQuestions));
-            setHiraganaStrings("");
-            judgeAnswer("");
-          }}
-        >
-          次の問題
-        </Button>
-      );
-    } else {
-      return <></>;
-    }
-  }
 
   return (
     <>
@@ -140,7 +119,20 @@ export default function TouchMain({
         </Typography>
       </Paper>
 
-      <NextQuestion />
+      {rightOrWrong === "正解" && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setQuestion(makeQuestion(typeOfQuestions));
+            setBrailleStrings(
+              brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
+            );
+            judgeAnswer("");
+          }}
+        >
+          次の問題
+        </Button>
+      )}
     </>
   );
 }

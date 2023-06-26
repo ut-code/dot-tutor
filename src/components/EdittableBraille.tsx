@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { type BrailleState, availableDots } from "@/types/BrailleState";
+import React, { Fragment } from "react";
+import { availableDots } from "@/types/BrailleState";
 import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
 
 /**
@@ -34,21 +34,9 @@ export default function EdittableBraille<
   braille: T;
   updateBraille: (braille: T) => void;
 }): JSX.Element {
-  const [brailleState, setBrailleState] = useState<BrailleState>({
+  let brailleState = {
     ...braille.brailleState,
-  });
-  useEffect(() => {
-    setBrailleState({ ...braille.brailleState });
-  }, [braille.brailleState]);
-
-  useEffect(() => {
-    if (braille instanceof SixDotBraille) {
-      updateBraille(new SixDotBraille("braille state", brailleState) as T);
-    } else if (braille instanceof EightDotBraille) {
-      updateBraille(new EightDotBraille("braille state", brailleState) as T);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brailleState]);
+  };
 
   /**
    * list of x coordinates for each dot
@@ -99,10 +87,19 @@ export default function EdittableBraille<
                   r="10"
                   fill={brailleState[dotNumber] ? "black" : "#ccc"}
                   onClick={() => {
-                    setBrailleState({
+                    brailleState = {
                       ...brailleState,
                       [dotNumber]: !brailleState[dotNumber],
-                    });
+                    };
+                    if (braille instanceof SixDotBraille) {
+                      updateBraille(
+                        new SixDotBraille("braille state", brailleState) as T
+                      );
+                    } else if (braille instanceof EightDotBraille) {
+                      updateBraille(
+                        new EightDotBraille("braille state", brailleState) as T
+                      );
+                    }
                   }}
                 />
               </Fragment>

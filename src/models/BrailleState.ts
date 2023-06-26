@@ -53,6 +53,7 @@ interface EightDotBrailleStateType {
  *   },
  *   6
  * );
+ * @example
  * const brailleState = new BrailleState(
  *   {
  *     dot1: true,

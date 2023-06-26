@@ -29,7 +29,7 @@ import { BrailleState } from "@/models/BrailleState";
  */
 export class Braille {
   private readonly braille: string;
-  private readonly brailleDotCount: 6 | 8;
+  private readonly _brailleDotCount: 6 | 8;
 
   public get unicodeBraille(): string {
     return this.braille;
@@ -37,6 +37,10 @@ export class Braille {
 
   public get brailleState(): BrailleState {
     return this.convertUnicodeToBrailleState(this.braille);
+  }
+
+  public get brailleDotCount(): 6 | 8 {
+    return this._brailleDotCount;
   }
 
   constructor(type: "unicode", braille: string, brailleDotCount?: 6 | 8);
@@ -50,7 +54,7 @@ export class Braille {
     braille: string | BrailleState,
     brailleDotCount?: 6 | 8
   ) {
-    this.brailleDotCount = brailleDotCount ?? 6;
+    this._brailleDotCount = brailleDotCount ?? 6;
 
     if (type === "unicode") {
       this.braille = braille as string;

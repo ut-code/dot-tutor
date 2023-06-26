@@ -43,6 +43,21 @@ const yCoordinateList = {
   dot8: "160",
 };
 
+/**
+ * Component for displaying a single braille dot
+ * @param dotNumber the number of the dot
+ * @param shouldFill whether the dot should be filled
+ * @param clicked function to call when the dot is clicked
+ * @returns a single braille dot
+ * @example
+ * <BrailleDot
+ *   dotNumber="dot1"
+ *   shouldFill={true}
+ *   clicked={() => {
+ *     console.log("dot1 clicked");
+ *   }}
+ * />
+ */
 function BrailleDot({
   dotNumber,
   shouldFill,

@@ -138,3 +138,41 @@ export class Braille {
     return brailleState;
   }
 }
+
+/**
+ * six-dot braille class
+ * @extends Braille
+ * @constructor
+ * @param {string} type - type of braille
+ * @param {string | BrailleState} braille - unicode character of braille or the state of braille
+ * @throws {Error} - Invalid Type of Braille Set!
+ * @example
+ * const braille = new SixDotBraille("unicode", "⠁");
+ * const brailleState = braille.brailleState;
+ * @example
+ * const braille = new SixDotBraille("braille state", {
+ *   dot1: true,
+ *   dot2: false,
+ *   dot3: false,
+ *   dot4: false,
+ *   dot5: false,
+ *   dot6: false,
+ * });
+ * const unicodeBraille = braille.unicodeBraille;
+ */
+export class SixDotBraille extends Braille {
+  constructor(type: "unicode", braille: string);
+  constructor(type: "braille state", braille: BrailleState);
+  constructor(
+    type: "unicode" | "braille state",
+    braille: string | BrailleState
+  ) {
+    if (type === "unicode") {
+      super(type, braille as string, 6);
+    } else if (type === "braille state") {
+      super(type, braille as BrailleState, 6);
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
+  }
+}

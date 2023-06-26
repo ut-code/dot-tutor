@@ -130,8 +130,6 @@ export const defaultEightDotBrailleStateValue = new BrailleState(
 
 /**
  * The array of the available dots
- * @example
- * const availableDots = ["Dot1", "Dot2", "Dot3", "Dot7", "Dot4", "Dot5", "Dot6", "Dot8"];
  */
 export const availableDots = [
   "dot1",

@@ -115,13 +115,13 @@ export class BrailleState {
     return this._dot8;
   }
 
-  constructor(brailleState: SixDotBrailleStateType, brailleDotCount?: 6);
-  constructor(brailleState: EightDotBrailleStateType, brailleDotCount?: 8);
+  constructor(brailleState: SixDotBrailleStateType, brailleDotCount: 6);
+  constructor(brailleState: EightDotBrailleStateType, brailleDotCount: 8);
   constructor(
     brailleState: SixDotBrailleStateType | EightDotBrailleStateType,
-    brailleDotCount?: 6 | 8
+    brailleDotCount: 6 | 8
   ) {
-    this._brailleDotCount = brailleDotCount ?? 6;
+    this._brailleDotCount = brailleDotCount;
     this._dot1 = brailleState.dot1;
     this._dot2 = brailleState.dot2;
     this._dot3 = brailleState.dot3;

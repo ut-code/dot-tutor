@@ -45,18 +45,18 @@ export class Braille {
     return this._brailleDotCount;
   }
 
-  constructor(type: "unicode", braille: string, brailleDotCount?: 6 | 8);
+  constructor(type: "unicode", braille: string, brailleDotCount: 6 | 8);
   constructor(
     type: "braille state",
     braille: BrailleState,
-    brailleDotCount?: 6 | 8
+    brailleDotCount: 6 | 8
   );
   constructor(
     type: "unicode" | "braille state",
     braille: string | BrailleState,
-    brailleDotCount?: 6 | 8
+    brailleDotCount: 6 | 8
   ) {
-    this._brailleDotCount = brailleDotCount ?? 6;
+    this._brailleDotCount = brailleDotCount;
 
     if (type === "unicode") {
       this.braille = braille as string;
@@ -111,7 +111,8 @@ export class Braille {
     if (brailleState.dot7) codePoint += 2 ** 6;
     if (brailleState.dot8) codePoint += 2 ** 7;
     const unicodeBraille = String.fromCodePoint(codePoint);
-    return new Braille("unicode", unicodeBraille).braille;
+    return new Braille("unicode", unicodeBraille, brailleState.brailleDotCount)
+      .braille;
   }
 
   /**

@@ -41,22 +41,23 @@ export class BrailleString {
     return this.brailleString;
   }
 
-  constructor(type: "unicode", brailleString: string, brailleDotCount?: 6 | 8);
+  constructor(type: "unicode", brailleString: string, brailleDotCount: 6 | 8);
   constructor(
     type: "braille array",
     brailleString: Braille[],
-    brailleDotCount?: 6 | 8
+    brailleDotCount: 6 | 8
   );
   constructor(
     type: "unicode" | "braille array",
     brailleString: string | Braille[],
-    brailleDotCount?: 6 | 8
+    brailleDotCount: 6 | 8
   ) {
-    this.brailleDotCount = brailleDotCount ?? 6;
+    this.brailleDotCount = brailleDotCount;
 
     if (type === "unicode") {
       this.brailleString = Array.from(brailleString as string).map(
-        (brailleCharacter) => new Braille("unicode", brailleCharacter)
+        (brailleCharacter) =>
+          new Braille("unicode", brailleCharacter, brailleDotCount)
       );
     } else if (type === "braille array") {
       this.brailleString = brailleString as Braille[];

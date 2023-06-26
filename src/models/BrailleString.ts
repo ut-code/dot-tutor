@@ -1,4 +1,4 @@
-import { Braille, SixDotBraille } from "@/models/BrailleCharacter";
+import { Braille } from "@/models/BrailleCharacter";
 
 /**
  * BrailleString class
@@ -22,8 +22,9 @@ import { Braille, SixDotBraille } from "@/models/BrailleCharacter";
  * ]);
  * const unicodeBrailleString = brailleString.unicodeBrailleString;
  */
-class BrailleString {
+export class BrailleString {
   private readonly brailleString: Braille[];
+  private readonly brailleDotCount: 6 | 8;
 
   public get unicodeBrailleString(): string {
     return this.brailleString.map((braille) => braille.unicodeBraille).join("");
@@ -33,12 +34,19 @@ class BrailleString {
     return this.brailleString;
   }
 
-  constructor(type: "unicode", brailleString: string);
-  constructor(type: "braille array", brailleString: Braille[]);
+  constructor(type: "unicode", brailleString: string, brailleDotCount?: 6 | 8);
+  constructor(
+    type: "braille array",
+    brailleString: Braille[],
+    brailleDotCount?: 6 | 8
+  );
   constructor(
     type: "unicode" | "braille array",
-    brailleString: string | Braille[]
+    brailleString: string | Braille[],
+    brailleDotCount?: 6 | 8
   ) {
+    this.brailleDotCount = brailleDotCount ?? 6;
+
     if (type === "unicode") {
       this.brailleString = Array.from(brailleString as string).map(
         (brailleCharacter) => new Braille("unicode", brailleCharacter)
@@ -48,64 +56,26 @@ class BrailleString {
     } else {
       throw new Error("Invalid Type of Braille Set!");
     }
-  }
-}
 
-/**
- * SixDotBrailleString class
- * @class
- * @classdesc SixDotBrailleString class
- * @property {string} unicodeBrailleString - six-dot unicode string of braille
- * @property {SixDotBraille[]} brailleArray - array of braille
- * @constructor
- * @param {string} type - type of braille ("unicode" or "braille array")
- * @param {string | SixDotBraille[]} brailleString - unicode string of braille or array of braille
- * @throws {Error} - Invalid Type of Braille Set!
- * @example
- * const brailleString = new SixDotBrailleString("unicode", "⠁⠂⠃⠄");
- * const brailleArray = brailleString.brailleArray;
- * @example
- * const brailleString = new SixDotBrailleString("braille array", [
- *  new SixDotBraille("unicode", "⠁"),
- *  new SixDotBraille("unicode", "⠂"),
- *  new SixDotBraille("unicode", "⠃"),
- *  new SixDotBraille("unicode", "⠄"),
- * ]);
- * const unicodeBrailleString = brailleString.unicodeBrailleString;
- */
-export class SixDotBrailleString {
-  private readonly brailleString: SixDotBraille[];
-
-  public get unicodeBrailleString(): string {
-    return this.brailleString.map((braille) => braille.unicodeBraille).join("");
-  }
-
-  public get brailleArray(): SixDotBraille[] {
-    return this.brailleString;
-  }
-
-  constructor(type: "unicode", brailleString: string);
-  constructor(type: "braille array", brailleString: SixDotBraille[]);
-  constructor(
-    type: "unicode" | "braille array",
-    brailleString: string | SixDotBraille[]
-  ) {
-    if (type === "unicode") {
-      this.brailleString = Array.from(brailleString as string).map(
-        (brailleCharacter) => new SixDotBraille("unicode", brailleCharacter)
-      );
-    } else if (type === "braille array") {
-      this.brailleString = brailleString as SixDotBraille[];
-    } else {
-      throw new Error("Invalid Type of Braille Set!");
+    if (
+      this.brailleDotCount === 6 &&
+      !this.isSixDotBrailleString(this.brailleString)
+    ) {
+      throw new Error("The Braille String is not a Six-dot Braille String!");
+    }
+    if (
+      this.brailleDotCount === 8 &&
+      !this.isEightDotBrailleString(this.brailleString)
+    ) {
+      throw new Error("The Braille String is not a Eight-dot Braille String!");
     }
   }
-}
 
-/**
- * EightDotBrailleString class
- * @class
- * @classdesc EightDotBrailleString class
- * @extends BrailleString
- */
-export class EightDotBrailleString extends BrailleString {}
+  private isSixDotBrailleString(brailleString: Braille[]): boolean {
+    return brailleString.every((braille) => braille.brailleDotCount === 6);
+  }
+
+  private isEightDotBrailleString(brailleString: Braille[]): boolean {
+    return brailleString.every((braille) => braille.brailleDotCount === 8);
+  }
+}

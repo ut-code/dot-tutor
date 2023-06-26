@@ -6,20 +6,27 @@ import { Braille } from "@/models/BrailleCharacter";
  * @classdesc BrailleString class
  * @property {string} unicodeBrailleString - unicode string of braille
  * @property {Braille[]} brailleArray - array of braille
+ * @property {6 | 8} brailleDotCount - the number of dots of braille
  * @constructor
  * @param {string} type - type of braille ("unicode" or "braille array")
  * @param {string | Braille[]} brailleString - unicode string of braille or array of braille
  * @throws {Error} - Invalid Type of Braille Set!
+ * @throws {Error} - The Braille String is not a Six-dot Braille String!
+ * @throws {Error} - The Braille String is not a Eight-dot Braille String!
  * @example
- * const brailleString = new BrailleString("unicode", "⠁⠂⠃⠄");
+ * const brailleString = new BrailleString("unicode", "⠁⠂⠃⠄", 6);
  * const brailleArray = brailleString.brailleArray;
  * @example
- * const brailleString = new BrailleString("braille array", [
- *  new Braille("unicode", "⠁"),
- *  new Braille("unicode", "⠂"),
- *  new Braille("unicode", "⠃"),
- *  new Braille("unicode", "⠄"),
- * ]);
+ * const brailleString = new BrailleString(
+ *   "braille array",
+ *   [
+ *     new Braille("unicode", "⠁"),
+ *     new Braille("unicode", "⠂"),
+ *     new Braille("unicode", "⠃"),
+ *     new Braille("unicode", "⠄"),
+ *   ],
+ *   6
+ * );
  * const unicodeBrailleString = brailleString.unicodeBrailleString;
  */
 export class BrailleString {

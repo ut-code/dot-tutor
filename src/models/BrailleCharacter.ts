@@ -2,6 +2,8 @@ import {
   type BrailleState,
   defaultBrailleStateValue,
 } from "@/types/BrailleState";
+import { type SixDotBrailleState } from "@/types/SixDotBrailleState";
+import { type EightDotBrailleState } from "@/types/EightDotBrailleState";
 
 /**
  * Braille class
@@ -114,9 +116,14 @@ export class Braille {
  * @class
  * @classdesc SixDotBraille class
  * @extends Braille
- * @throws {Error} - Invalid Braille Character!
+ * @property {string} unicodeBraille - unicode character of braille
+ * @property {SixDotBrailleState} brailleState - the state of braille
+ * @constructor
+ * @param {string} type - type of braille (unicode or braille state)
+ * @param {string | SixDotBrailleState} braille - unicode character of braille or the state of braille
+ * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
- * @throws {Error} - Not a 6-dot Braille Character!
+ * @throws {Error} - Not a six-dot Braille Character!
  * @example
  * const braille = new SixDotBraille("unicode", "⠁");
  * const brailleState = braille.brailleState;
@@ -135,20 +142,24 @@ export class Braille {
  */
 export class SixDotBraille extends Braille {
   constructor(type: "unicode", braille: string);
-  constructor(type: "braille state", braille: BrailleState);
+  constructor(type: "braille state", braille: SixDotBrailleState);
   constructor(
     type: "unicode" | "braille state",
-    braille: string | BrailleState
+    braille: string | SixDotBrailleState
   ) {
     if (type === "unicode") {
       super("unicode", braille as string);
     } else if (type === "braille state") {
-      super("braille state", braille as BrailleState);
+      super("braille state", {
+        ...(braille as SixDotBrailleState),
+        Dot7: false,
+        Dot8: false,
+      } satisfies BrailleState);
     } else {
       throw new Error("Invalid Braille Type!");
     }
     if (!this.isSixDotBraille(this.unicodeBraille)) {
-      throw new Error("Not a 6-dot Braille Character!");
+      throw new Error("Not a six-dot Braille Character!");
     }
   }
 
@@ -167,9 +178,13 @@ export class SixDotBraille extends Braille {
  * @class
  * @classdesc EightDotBraille class
  * @extends Braille
- * @throws {Error} - Invalid Braille Character!
+ * @property {string} unicodeBraille - unicode character of braille
+ * @property {EightDotBrailleState} brailleState - the state of braille
+ * @constructor
+ * @param {string} type - type of braille (unicode or braille state)
+ * @param {string | EightDotBrailleState} braille - unicode character of braille or the state of braille
+ * @throws {Error} - Not a Braille Character!
  * @throws {Error} - Invalid Braille Type!
- * @throws {Error} - Not a 8-dot Braille Character!
  * @example
  * const braille = new EightDotBraille("unicode", "⠡");
  * const brailleState = braille.brailleState;
@@ -186,4 +201,19 @@ export class SixDotBraille extends Braille {
  * });
  * const unicodeBraille = braille.unicodeBraille;
  */
-export class EightDotBraille extends Braille {}
+export class EightDotBraille extends Braille {
+  constructor(type: "unicode", braille: string);
+  constructor(type: "braille state", braille: EightDotBrailleState);
+  constructor(
+    type: "unicode" | "braille state",
+    braille: string | EightDotBrailleState
+  ) {
+    if (type === "unicode") {
+      super("unicode", braille as string);
+    } else if (type === "braille state") {
+      super("braille state", braille as BrailleState);
+    } else {
+      throw new Error("Invalid Braille Type!");
+    }
+  }
+}

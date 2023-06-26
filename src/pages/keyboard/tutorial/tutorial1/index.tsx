@@ -42,7 +42,7 @@ export default function Tutorial1({
 }: {
   questionList: QuestionList;
 }): JSX.Element {
-  const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString();
+  const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString(6);
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [goNextQuestion, setGoNextQuestion] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =

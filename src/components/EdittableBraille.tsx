@@ -5,7 +5,11 @@ import {
   sixDotBrailleAvailableDots,
   eightDotBrailleAvailableDots,
 } from "@/models/BrailleState";
-import { Braille } from "@/models/BrailleCharacter";
+import {
+  type Braille,
+  SixDotBraille,
+  EightDotBraille,
+} from "@/models/BrailleCharacter";
 
 /**
  * the size of the SVG viewBox for six-dot braille
@@ -114,9 +118,9 @@ export default function EdittableBraille({
 
   useEffect(() => {
     if (braille.brailleDotCount === 6) {
-      updateBraille(new Braille("braille state", brailleState, 6));
+      updateBraille(new SixDotBraille("braille state", brailleState));
     } else if (braille.brailleDotCount === 8) {
-      updateBraille(new Braille("braille state", brailleState, 8));
+      updateBraille(new EightDotBraille("braille state", brailleState));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brailleState]);

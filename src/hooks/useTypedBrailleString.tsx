@@ -1,6 +1,6 @@
 import { useState, useEffect, type KeyboardEvent } from "react";
-import { type BrailleState } from "@/types/BrailleState";
-import { SixDotBraille } from "@/models/BrailleCharacter";
+import { BrailleState } from "@/models/BrailleState";
+import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
 
 /**
  * The default state of keyboard
@@ -9,9 +9,11 @@ const defaultKeyboardValues = {
   KeyF: false,
   KeyD: false,
   KeyS: false,
+  KeyA: false,
   KeyJ: false,
   KeyK: false,
   KeyL: false,
+  Semicolon: false,
   Space: false,
   Backspace: false,
 };
@@ -29,13 +31,13 @@ type AvailableKey = keyof KeyboardState;
 /**
  * The array of the available keys
  * @example
- * const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyJ", "KeyK", "KeyL", "Space", "Backspace"];
+ * const availableKeys = ["KeyF", "KeyD", "KeyS", "KeyA", "KeyJ", "KeyK", "KeyL", "Semicolon", "Space", "Backspace"];
  */
 const availableKeys = Object.keys(defaultKeyboardValues);
 
 /**
- * Store whether F, D, S, J, K, L, Space, Backspace keys are being pressed or not.
- * @returns [the state of F, D, S, J, K, L, Space, Backspace keys, the function to update the state of F, D, S, J, K, L, Space, Backspace keys]
+ * Store whether F, D, S, A, J, K, L, Semicolon, Space, Backspace keys are being pressed or not.
+ * @returns [the state of F, D, S, A, J, K, L, Semicolon, Space, Backspace keys, the function to update the state of F, D, S, A, J, K, L, Semicolon, Space, Backspace keys]
  * @example
  * const [keyboardState, updateKeyboardState] = useKeyboardState();
  *
@@ -147,79 +149,123 @@ function useTypedKeys(): [
 /**
  * Convert the state of keyboard to the state of braille.
  * @param keyboardState the state of keyboard
+ * @param dotNumber the number of braille dots (6 or 8)
  * @returns the state of braille
  * @example
  * const keyboardState = {
  *  KeyF: true,
  *  KeyD: true,
  *  KeyS: false,
+ *  KeyA: false,
  *  KeyJ: false,
  *  KeyK: false,
  *  KeyL: false,
+ *  Semicolon: false,
  *  Space: false,
  *  Backspace: false,
  * };
- * const brailleState = convertKeyboardStateToBrailleState(keyboardState);
- * // brailleState = {
- * //   Dot1: true,
- * //   Dot2: true,
- * //   Dot3: false,
- * //   Dot7: false,
- * //   Dot4: false,
- * //   Dot5: false,
- * //   Dot6: false,
- * //   Dot8: false,
- * // };
+ * const brailleState = convertKeyboardStateToBrailleState(keyboardState, 8);
+ * brailleState = new BrailleState(
+ *   {
+ *     dot1: true,
+ *     dot2: true,
+ *     dot3: false,
+ *     dot7: false,
+ *     dot4: false,
+ *     dot5: false,
+ *     dot6: false,
+ *     dot8: false,
+ *   },
+ *   8
+ * );
  */
 function convertKeyboardStateToBrailleState(
-  keyboardState: KeyboardState
+  keyboardState: KeyboardState,
+  brailleDotCount: 6 | 8
 ): BrailleState {
-  const brailleState: BrailleState = {
-    Dot1: keyboardState.KeyF,
-    Dot2: keyboardState.KeyD,
-    Dot3: keyboardState.KeyS,
-    Dot7: false,
-    Dot4: keyboardState.KeyJ,
-    Dot5: keyboardState.KeyK,
-    Dot6: keyboardState.KeyL,
-    Dot8: false,
-  };
-  return brailleState;
+  if (brailleDotCount === 6) {
+    const brailleState: BrailleState = new BrailleState(
+      {
+        dot1: keyboardState.KeyF,
+        dot2: keyboardState.KeyD,
+        dot3: keyboardState.KeyS,
+        dot4: keyboardState.KeyJ,
+        dot5: keyboardState.KeyK,
+        dot6: keyboardState.KeyL,
+      },
+      6
+    );
+    return brailleState;
+  } else if (brailleDotCount === 8) {
+    const brailleState: BrailleState = new BrailleState(
+      {
+        dot1: keyboardState.KeyF,
+        dot2: keyboardState.KeyD,
+        dot3: keyboardState.KeyS,
+        dot7: keyboardState.KeyA,
+        dot4: keyboardState.KeyJ,
+        dot5: keyboardState.KeyK,
+        dot6: keyboardState.KeyL,
+        dot8: keyboardState.Semicolon,
+      },
+      8
+    );
+    return brailleState;
+  } else {
+    throw new Error("The Number of Braille Dots Must Be 6 or 8.");
+  }
 }
 
 /**
  * Convert the state of keyboard to the unicode character of braille.
  * @param keyboardState the state of keyboard
+ * @param dotNumber the number of braille dots (6 or 8)
  * @returns the unicode character of braille
  * @example
  * const keyboardState = {
  *  KeyF: true,
  *  KeyD: true,
  *  KeyS: false,
+ *  KeyA: false,
  *  KeyJ: false,
  *  KeyK: false,
  *  KeyL: false,
+ *  Semicolon: false,
  *  Space: false,
  *  Backspace: false,
  * };
  * const braille = convertKeyboardStateToBraille(keyboardState);
  * // braille = "⠃"
  */
-function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
+function convertKeyboardStateToBraille(
+  keyboardState: KeyboardState,
+  brailleDotCount: 6 | 8
+): string {
   if (keyboardState.Backspace) {
     return "\b"; // Return backspace character.
   } else {
-    const brailleState = convertKeyboardStateToBrailleState(keyboardState);
-    const braille = new SixDotBraille("braille state", brailleState);
-    return braille.unicodeBraille;
+    const brailleState = convertKeyboardStateToBrailleState(
+      keyboardState,
+      brailleDotCount
+    );
+    if (brailleDotCount === 6) {
+      const braille = new SixDotBraille("braille state", brailleState);
+      return braille.unicodeBraille;
+    } else if (brailleDotCount === 8) {
+      const braille = new EightDotBraille("braille state", brailleState);
+      return braille.unicodeBraille;
+    } else {
+      throw new Error("The Number of Braille Dots Must Be 6 or 8.");
+    }
   }
 }
 
 /**
  * Store the string of typed braille.
+ * @param brailleDotCount the number of braille dots (6 or 8)
  * @returns [the string of typed braille, the function to update the state]
  * @example
- * const [typedBrailleString, updateTypedBrailleString] = useTypedBrailleString();
+ * const [typedBrailleString, updateTypedBrailleString] = useTypedBrailleString(6);
  * <input
  *   type="text"
  *   value={typedBrailleString}
@@ -232,7 +278,9 @@ function convertKeyboardStateToBraille(keyboardState: KeyboardState): string {
  * />
  * {typedBrailleString}
  */
-export default function useTypedBrailleString(): [
+export default function useTypedBrailleString(
+  brailleDotCount: 6 | 8
+): [
   typedBrailleString: string,
   updateTypedBrailleString: (e: KeyboardEvent) => void
 ] {
@@ -247,7 +295,10 @@ export default function useTypedBrailleString(): [
   useEffect(() => {
     // If the `typedKeys` is not empty, convert the `typedKeys` to the unicode character of braille and add it to the `typedBrailleString`.
     if (!Object.values(typedKeys).every((value: boolean) => !value)) {
-      const typedBraille = convertKeyboardStateToBraille(typedKeys);
+      const typedBraille = convertKeyboardStateToBraille(
+        typedKeys,
+        brailleDotCount
+      );
       if (typedBraille === "\b" && typedBrailleString.length !== 0) {
         // If the typed braille is backspace and the `typedBrailleString` is not empty, remove the last character.
         setTypedBrailleString((typedBrailleString) =>

@@ -8,14 +8,14 @@ export function makeQuestion(questions: string[]): string {
 export function judge(
   typedBrailleStrings: SixDotBrailleString,
   question: string
-): string {
+): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
 
   let begin = 0;
   let end = typedAnswer.length;
 
   for (let i = 0; i < typedAnswer.length; i++) {
-    if (typedAnswer[i] === " ") {
+    if (typedAnswer[i] === "　") {
       begin = i;
     } else {
       break;
@@ -23,7 +23,7 @@ export function judge(
   }
 
   for (let i = typedAnswer.length - 1; i >= 0; i--) {
-    if (typedAnswer.charAt(i) === " ") {
+    if (typedAnswer.charAt(i) === "　") {
       end = i;
     } else {
       break;
@@ -32,9 +32,5 @@ export function judge(
 
   typedAnswer = typedAnswer.substring(begin, end);
 
-  if (typedAnswer === question) {
-    return "正解";
-  } else {
-    return "不正解";
-  }
+  return typedAnswer === question;
 }

@@ -17,7 +17,7 @@ export default function PracticeTouch({
   const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
     [...Array(length)].map((_) => new SixDotBraille("unicode", "⠀"))
   );
-  const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
+  const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   return (
     <>

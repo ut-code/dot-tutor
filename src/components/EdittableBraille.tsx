@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import {
   BrailleState,
   type AvailableDot,
@@ -112,18 +112,7 @@ export default function EdittableBraille({
   braille: Braille;
   updateBraille: (braille: Braille) => void;
 }): JSX.Element {
-  const [brailleState, setBrailleState] = useState<BrailleState>(
-    braille.brailleState
-  );
-
-  useEffect(() => {
-    if (braille.brailleDotCount === 6) {
-      updateBraille(new SixDotBraille("braille state", brailleState));
-    } else if (braille.brailleDotCount === 8) {
-      updateBraille(new EightDotBraille("braille state", brailleState));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brailleState]);
+  let brailleState: BrailleState = braille.brailleState;
 
   return (
     <>
@@ -144,19 +133,20 @@ export default function EdittableBraille({
                 dotNumber={dotNumber}
                 shouldFill={brailleState[dotNumber]}
                 clicked={() => {
-                  setBrailleState(
-                    new BrailleState(
-                      {
-                        dot1: brailleState.dot1,
-                        dot2: brailleState.dot2,
-                        dot3: brailleState.dot3,
-                        dot4: brailleState.dot4,
-                        dot5: brailleState.dot5,
-                        dot6: brailleState.dot6,
-                        [dotNumber]: !brailleState[dotNumber],
-                      },
-                      6
-                    )
+                  brailleState = new BrailleState(
+                    {
+                      dot1: brailleState.dot1,
+                      dot2: brailleState.dot2,
+                      dot3: brailleState.dot3,
+                      dot4: brailleState.dot4,
+                      dot5: brailleState.dot5,
+                      dot6: brailleState.dot6,
+                      [dotNumber]: !brailleState[dotNumber],
+                    },
+                    6
+                  );
+                  updateBraille(
+                    new SixDotBraille("braille state", brailleState)
                   );
                 }}
               />
@@ -169,21 +159,22 @@ export default function EdittableBraille({
                 dotNumber={dotNumber}
                 shouldFill={brailleState[dotNumber]}
                 clicked={() => {
-                  setBrailleState(
-                    new BrailleState(
-                      {
-                        dot1: brailleState.dot1,
-                        dot2: brailleState.dot2,
-                        dot3: brailleState.dot3,
-                        dot7: brailleState.dot7,
-                        dot4: brailleState.dot4,
-                        dot5: brailleState.dot5,
-                        dot6: brailleState.dot6,
-                        dot8: brailleState.dot8,
-                        [dotNumber]: !brailleState[dotNumber],
-                      },
-                      8
-                    )
+                  brailleState = new BrailleState(
+                    {
+                      dot1: brailleState.dot1,
+                      dot2: brailleState.dot2,
+                      dot3: brailleState.dot3,
+                      dot7: brailleState.dot7,
+                      dot4: brailleState.dot4,
+                      dot5: brailleState.dot5,
+                      dot6: brailleState.dot6,
+                      dot8: brailleState.dot8,
+                      [dotNumber]: !brailleState[dotNumber],
+                    },
+                    8
+                  );
+                  updateBraille(
+                    new EightDotBraille("braille state", brailleState)
                   );
                 }}
               />

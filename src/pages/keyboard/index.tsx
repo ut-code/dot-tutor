@@ -30,6 +30,7 @@ export default function Keyboard(): JSX.Element {
               },
             ],
             content: <Tutorial1 questionList={questionList1} />,
+            hasHintHiraganaTable: true,
           },
           {
             dialog: [
@@ -39,6 +40,7 @@ export default function Keyboard(): JSX.Element {
               },
             ],
             content: <Tutorial1 questionList={questionList2} />,
+            hasHintHiraganaTable: true,
           },
           {
             dialog: [
@@ -48,6 +50,7 @@ export default function Keyboard(): JSX.Element {
               },
             ],
             content: <Tutorial1 questionList={questionList3} />,
+            hasHintHiraganaTable: true,
           },
           {
             dialog: [
@@ -57,12 +60,14 @@ export default function Keyboard(): JSX.Element {
               },
             ],
             content: <Tutorial1 questionList={questionList4} />,
+            hasHintHiraganaTable: false,
           },
           {
             dialog: [
               { title: "記号を含む文字列", content: <Tutorial1Dialog5 /> },
             ],
             content: <Tutorial1 questionList={questionList5} />,
+            hasHintHiraganaTable: true,
           },
         ]}
       />

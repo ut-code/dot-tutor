@@ -23,12 +23,14 @@ export default function Touch(): JSX.Element {
               { title: "母音を打ってみよう", content: <Tutorial1Dialog2 /> },
             ],
             content: <Practice1 />,
+            hasHintHiraganaTable: false,
           },
           {
             dialog: [
               { title: "五十音を打ってみよう", content: <Tutorial1Dialog3 /> },
             ],
             content: <Practice2 />,
+            hasHintHiraganaTable: false,
           },
           {
             dialog: [
@@ -38,6 +40,7 @@ export default function Touch(): JSX.Element {
               },
             ],
             content: <Practice3 />,
+            hasHintHiraganaTable: false,
           },
           {
             dialog: [
@@ -47,6 +50,7 @@ export default function Touch(): JSX.Element {
               },
             ],
             content: <Practice4 />,
+            hasHintHiraganaTable: false,
           },
           {
             dialog: [
@@ -56,6 +60,7 @@ export default function Touch(): JSX.Element {
               },
             ],
             content: <Practice5 />,
+            hasHintHiraganaTable: false,
           },
         ]}
       />

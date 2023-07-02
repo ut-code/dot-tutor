@@ -89,7 +89,7 @@ function BrailleDot({
  * @param height height of the SVG
  * @param width width of the SVG
  * @param braille braille instance to display
- * @param updateBraille function to update the braille instance when braille has been changed
+ * @param setBraille function to update the braille instance when braille has been changed
  * @returns touch-to-change SVG braille
  * @example
  * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
@@ -98,7 +98,7 @@ function BrailleDot({
  *   height="100"
  *   width="60"
  *   braille={braille}
- *   updateBraille={(braille) => {
+ *   setBraille={(braille) => {
  *     setBraille(braille);
  *   }}
  * />
@@ -107,12 +107,12 @@ export default function EdittableBraille({
   height,
   width,
   braille,
-  updateBraille,
+  setBraille,
 }: {
   height: string;
   width: string;
   braille: Braille;
-  updateBraille: (braille: Braille) => void;
+  setBraille: (braille: Braille) => void;
 }): JSX.Element {
   const toggleSixDotBrailleDot = useCallback(
     (dotNumber: SixDotBrailleAvailableDot) => {
@@ -128,9 +128,9 @@ export default function EdittableBraille({
         },
         6
       );
-      updateBraille(new SixDotBraille("braille state", newBrailleState));
+      setBraille(new SixDotBraille("braille state", newBrailleState));
     },
-    [braille, updateBraille]
+    [braille, setBraille]
   );
   const toggleEightDotBrailleDot = useCallback(
     (dotNumber: EightDotBrailleAvailableDot) => {
@@ -148,9 +148,9 @@ export default function EdittableBraille({
         },
         8
       );
-      updateBraille(new EightDotBraille("braille state", newBrailleState));
+      setBraille(new EightDotBraille("braille state", newBrailleState));
     },
-    [braille, updateBraille]
+    [braille, setBraille]
   );
 
   return (

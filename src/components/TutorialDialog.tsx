@@ -22,72 +22,70 @@ export default function TutorialDialog(props: {
     setSelectedStep(0);
   }
   return (
-    <>
-      <Dialog
-        open={props.open}
-        onClose={() => {
-          closeDialog();
-        }}
-        scroll="paper"
-        fullWidth
-        maxWidth={false}
-        PaperProps={{
-          sx: {
-            height: "100%",
-          },
-        }}
-      >
-        <DialogTitle m={0} p={2}>
-          <Typography variant="h4" component="div" color="inherit">
-            {props.tutorialDialogSteps[selectedStep].title}
-          </Typography>
-          <IconButton
-            sx={{ position: "absolute", right: 8, top: 8 }}
+    <Dialog
+      open={props.open}
+      onClose={() => {
+        closeDialog();
+      }}
+      scroll="paper"
+      fullWidth
+      maxWidth={false}
+      PaperProps={{
+        sx: {
+          height: "100%",
+        },
+      }}
+    >
+      <DialogTitle m={0} p={2}>
+        <Typography variant="h4" component="div" color="inherit">
+          {props.tutorialDialogSteps[selectedStep].title}
+        </Typography>
+        <IconButton
+          sx={{ position: "absolute", right: 8, top: 8 }}
+          onClick={() => {
+            closeDialog();
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent dividers={true}>
+        {props.tutorialDialogSteps[selectedStep].content}
+      </DialogContent>
+      <DialogActions>
+        <Button
+          variant="outlined"
+          disabled={selectedStep === 0}
+          onClick={() => {
+            if (selectedStep > 0) {
+              setSelectedStep(selectedStep - 1);
+            }
+          }}
+        >
+          前へ
+        </Button>
+        <Button
+          variant="outlined"
+          disabled={selectedStep === props.tutorialDialogSteps.length - 1}
+          onClick={() => {
+            if (selectedStep < props.tutorialDialogSteps.length - 1) {
+              setSelectedStep(selectedStep + 1);
+            }
+          }}
+        >
+          次へ
+        </Button>
+        {selectedStep === props.tutorialDialogSteps.length - 1 && (
+          <Button
+            variant="contained"
             onClick={() => {
               closeDialog();
             }}
           >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers={true}>
-          {props.tutorialDialogSteps[selectedStep].content}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            disabled={selectedStep === 0}
-            onClick={() => {
-              if (selectedStep > 0) {
-                setSelectedStep(selectedStep - 1);
-              }
-            }}
-          >
-            前へ
+            はじめる
           </Button>
-          <Button
-            variant="outlined"
-            disabled={selectedStep === props.tutorialDialogSteps.length - 1}
-            onClick={() => {
-              if (selectedStep < props.tutorialDialogSteps.length - 1) {
-                setSelectedStep(selectedStep + 1);
-              }
-            }}
-          >
-            次へ
-          </Button>
-          {selectedStep === props.tutorialDialogSteps.length - 1 && (
-            <Button
-              variant="contained"
-              onClick={() => {
-                closeDialog();
-              }}
-            >
-              はじめる
-            </Button>
-          )}
-        </DialogActions>
-      </Dialog>
-    </>
+        )}
+      </DialogActions>
+    </Dialog>
   );
 }

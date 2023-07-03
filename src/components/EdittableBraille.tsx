@@ -1,14 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import {
   BrailleState,
   type AvailableDot,
   sixDotBrailleAvailableDots,
   eightDotBrailleAvailableDots,
+  type SixDotBrailleAvailableDot,
+  type EightDotBrailleAvailableDot,
 } from "@/models/BrailleState";
 import {
   type Braille,
-  SixDotBraille,
   EightDotBraille,
+  SixDotBraille,
 } from "@/models/BrailleCharacter";
 
 /**
@@ -87,7 +89,7 @@ function BrailleDot({
  * @param height height of the SVG
  * @param width width of the SVG
  * @param braille braille instance to display
- * @param updateBraille function to update the braille instance when braille has been changed
+ * @param setBraille function to update the braille instance when braille has been changed
  * @returns touch-to-change SVG braille
  * @example
  * const [braille, setBraille] = useState<Braille>(new Braille("unicode", "⠀"));
@@ -96,7 +98,7 @@ function BrailleDot({
  *   height="100"
  *   width="60"
  *   braille={braille}
- *   updateBraille={(braille) => {
+ *   setBraille={(braille) => {
  *     setBraille(braille);
  *   }}
  * />
@@ -105,14 +107,51 @@ export default function EdittableBraille({
   height,
   width,
   braille,
-  updateBraille,
+  setBraille,
 }: {
   height: string;
   width: string;
   braille: Braille;
-  updateBraille: (braille: Braille) => void;
+  setBraille: (braille: Braille) => void;
 }): JSX.Element {
-  let brailleState: BrailleState = braille.brailleState;
+  const toggleSixDotBrailleDot = useCallback(
+    (dotNumber: SixDotBrailleAvailableDot) => {
+      const newBrailleState = new BrailleState(
+        {
+          dot1: braille.brailleState.dot1,
+          dot2: braille.brailleState.dot2,
+          dot3: braille.brailleState.dot3,
+          dot4: braille.brailleState.dot4,
+          dot5: braille.brailleState.dot5,
+          dot6: braille.brailleState.dot6,
+          [dotNumber]: !braille.brailleState[dotNumber],
+        },
+        6
+      );
+      setBraille(new SixDotBraille("braille state", newBrailleState));
+    },
+    [braille, setBraille]
+  );
+  const toggleEightDotBrailleDot = useCallback(
+    (dotNumber: EightDotBrailleAvailableDot) => {
+      const newBrailleState = new BrailleState(
+        {
+          dot1: braille.brailleState.dot1,
+          dot2: braille.brailleState.dot2,
+          dot3: braille.brailleState.dot3,
+          dot7: braille.brailleState.dot7,
+          dot4: braille.brailleState.dot4,
+          dot5: braille.brailleState.dot5,
+          dot6: braille.brailleState.dot6,
+          dot8: braille.brailleState.dot8,
+          [dotNumber]: !braille.brailleState[dotNumber],
+        },
+        8
+      );
+      setBraille(new EightDotBraille("braille state", newBrailleState));
+    },
+    [braille, setBraille]
+  );
 
   return (
     <svg
@@ -130,21 +169,9 @@ export default function EdittableBraille({
           <Fragment key={dotNumber}>
             <BrailleDot
               dotNumber={dotNumber}
-              shouldFill={brailleState[dotNumber]}
+              shouldFill={braille.brailleState[dotNumber]}
               clicked={() => {
-                brailleState = new BrailleState(
-                  {
-                    dot1: brailleState.dot1,
-                    dot2: brailleState.dot2,
-                    dot3: brailleState.dot3,
-                    dot4: brailleState.dot4,
-                    dot5: brailleState.dot5,
-                    dot6: brailleState.dot6,
-                    [dotNumber]: !brailleState[dotNumber],
-                  },
-                  6
-                );
-                updateBraille(new SixDotBraille("braille state", brailleState));
+                toggleSixDotBrailleDot(dotNumber);
               }}
             />
           </Fragment>
@@ -154,25 +181,9 @@ export default function EdittableBraille({
           <Fragment key={dotNumber}>
             <BrailleDot
               dotNumber={dotNumber}
-              shouldFill={brailleState[dotNumber]}
+              shouldFill={braille.brailleState[dotNumber]}
               clicked={() => {
-                brailleState = new BrailleState(
-                  {
-                    dot1: brailleState.dot1,
-                    dot2: brailleState.dot2,
-                    dot3: brailleState.dot3,
-                    dot7: brailleState.dot7,
-                    dot4: brailleState.dot4,
-                    dot5: brailleState.dot5,
-                    dot6: brailleState.dot6,
-                    dot8: brailleState.dot8,
-                    [dotNumber]: !brailleState[dotNumber],
-                  },
-                  8
-                );
-                updateBraille(
-                  new EightDotBraille("braille state", brailleState)
-                );
+                toggleEightDotBrailleDot(dotNumber);
               }}
             />
           </Fragment>

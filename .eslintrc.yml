@@ -13,7 +13,7 @@ parserOptions:
   project: tsconfig.json
 plugins:
   - react
-rules: {}
+rules: { "react/jsx-no-useless-fragment": "error" }
 settings:
   react:
     version: detect

@@ -197,10 +197,8 @@ const components = {
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <>
-      <MDXProvider components={components}>
-        <Component {...pageProps} />
-      </MDXProvider>
-    </>
+    <MDXProvider components={components}>
+      <Component {...pageProps} />
+    </MDXProvider>
   );
 }

@@ -15,9 +15,9 @@ export default function HiraganaTableDialog(): JSX.Element {
   const [isHiraganaTableOpen, setIsHiraganaTableOpen] =
     useState<boolean>(false);
   return (
-    <>
+    <Box paddingTop={2}>
       {isHiraganaTableOpen ? (
-        <Box paddingTop={2}>
+        <>
           <Button
             color="inherit"
             variant="outlined"
@@ -141,20 +141,18 @@ export default function HiraganaTableDialog(): JSX.Element {
               </Table>
             </Paper>
           </Box>
-        </Box>
+        </>
       ) : (
-        <Box paddingTop={2}>
-          <Button
-            color="inherit"
-            variant="outlined"
-            onClick={() => {
-              setIsHiraganaTableOpen(true);
-            }}
-          >
-            点字⇔ひらがな表を確認する
-          </Button>
-        </Box>
+        <Button
+          color="inherit"
+          variant="outlined"
+          onClick={() => {
+            setIsHiraganaTableOpen(true);
+          }}
+        >
+          点字⇔ひらがな表を確認する
+        </Button>
       )}
-    </>
+    </Box>
   );
 }

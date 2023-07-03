@@ -115,72 +115,68 @@ export default function EdittableBraille({
   let brailleState: BrailleState = braille.brailleState;
 
   return (
-    <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height={height}
-        width={width}
-        viewBox={
-          braille.brailleDotCount === 6
-            ? sixDotBrailleViewBoxSize
-            : eightDotBrailleViewBoxSize
-        }
-      >
-        {braille.brailleDotCount === 6 &&
-          Object.values(sixDotBrailleAvailableDots).map((dotNumber) => (
-            <Fragment key={dotNumber}>
-              <BrailleDot
-                dotNumber={dotNumber}
-                shouldFill={brailleState[dotNumber]}
-                clicked={() => {
-                  brailleState = new BrailleState(
-                    {
-                      dot1: brailleState.dot1,
-                      dot2: brailleState.dot2,
-                      dot3: brailleState.dot3,
-                      dot4: brailleState.dot4,
-                      dot5: brailleState.dot5,
-                      dot6: brailleState.dot6,
-                      [dotNumber]: !brailleState[dotNumber],
-                    },
-                    6
-                  );
-                  updateBraille(
-                    new SixDotBraille("braille state", brailleState)
-                  );
-                }}
-              />
-            </Fragment>
-          ))}
-        {braille.brailleDotCount === 8 &&
-          Object.values(eightDotBrailleAvailableDots).map((dotNumber) => (
-            <Fragment key={dotNumber}>
-              <BrailleDot
-                dotNumber={dotNumber}
-                shouldFill={brailleState[dotNumber]}
-                clicked={() => {
-                  brailleState = new BrailleState(
-                    {
-                      dot1: brailleState.dot1,
-                      dot2: brailleState.dot2,
-                      dot3: brailleState.dot3,
-                      dot7: brailleState.dot7,
-                      dot4: brailleState.dot4,
-                      dot5: brailleState.dot5,
-                      dot6: brailleState.dot6,
-                      dot8: brailleState.dot8,
-                      [dotNumber]: !brailleState[dotNumber],
-                    },
-                    8
-                  );
-                  updateBraille(
-                    new EightDotBraille("braille state", brailleState)
-                  );
-                }}
-              />
-            </Fragment>
-          ))}
-      </svg>
-    </>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height={height}
+      width={width}
+      viewBox={
+        braille.brailleDotCount === 6
+          ? sixDotBrailleViewBoxSize
+          : eightDotBrailleViewBoxSize
+      }
+    >
+      {braille.brailleDotCount === 6 &&
+        Object.values(sixDotBrailleAvailableDots).map((dotNumber) => (
+          <Fragment key={dotNumber}>
+            <BrailleDot
+              dotNumber={dotNumber}
+              shouldFill={brailleState[dotNumber]}
+              clicked={() => {
+                brailleState = new BrailleState(
+                  {
+                    dot1: brailleState.dot1,
+                    dot2: brailleState.dot2,
+                    dot3: brailleState.dot3,
+                    dot4: brailleState.dot4,
+                    dot5: brailleState.dot5,
+                    dot6: brailleState.dot6,
+                    [dotNumber]: !brailleState[dotNumber],
+                  },
+                  6
+                );
+                updateBraille(new SixDotBraille("braille state", brailleState));
+              }}
+            />
+          </Fragment>
+        ))}
+      {braille.brailleDotCount === 8 &&
+        Object.values(eightDotBrailleAvailableDots).map((dotNumber) => (
+          <Fragment key={dotNumber}>
+            <BrailleDot
+              dotNumber={dotNumber}
+              shouldFill={brailleState[dotNumber]}
+              clicked={() => {
+                brailleState = new BrailleState(
+                  {
+                    dot1: brailleState.dot1,
+                    dot2: brailleState.dot2,
+                    dot3: brailleState.dot3,
+                    dot7: brailleState.dot7,
+                    dot4: brailleState.dot4,
+                    dot5: brailleState.dot5,
+                    dot6: brailleState.dot6,
+                    dot8: brailleState.dot8,
+                    [dotNumber]: !brailleState[dotNumber],
+                  },
+                  8
+                );
+                updateBraille(
+                  new EightDotBraille("braille state", brailleState)
+                );
+              }}
+            />
+          </Fragment>
+        ))}
+    </svg>
   );
 }

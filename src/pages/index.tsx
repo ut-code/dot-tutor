@@ -11,7 +11,12 @@ import {
   Grid,
 } from "@mui/material";
 
-function NavigationCard(props: {
+function NavigationCard({
+  title,
+  linkUrl,
+  imgPath,
+  description,
+}: {
   title: string;
   linkUrl: string;
   imgPath: string;
@@ -22,15 +27,15 @@ function NavigationCard(props: {
     <Card sx={{ maxWidth: 400 }}>
       <CardActionArea
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onClick={async () => await router.push(props.linkUrl)}
+        onClick={async () => await router.push(linkUrl)}
       >
-        <CardMedia component="img" image={props.imgPath} />
+        <CardMedia component="img" image={imgPath} />
         <CardContent>
           <Typography variant="h5" component="div">
-            {props.title}
+            {title}
           </Typography>
           <Typography variant="body1" component="div" p={1}>
-            {props.description}
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>

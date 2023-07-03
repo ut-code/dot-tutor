@@ -1,7 +1,9 @@
 import TopBar from "@/components/TopBar";
 import { Toolbar, Box } from "@mui/material";
 
-export default function Layout(props: {
+export default function Layout({
+  children,
+}: {
   children: React.ReactNode;
 }): JSX.Element {
   return (
@@ -9,7 +11,7 @@ export default function Layout(props: {
       <TopBar />
       <Toolbar />
       <Box m={2}>
-        <main>{props.children}</main>
+        <main>{children}</main>
       </Box>
     </>
   );

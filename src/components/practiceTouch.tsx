@@ -20,41 +20,39 @@ export default function PracticeTouch({
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   return (
-    <>
-      <div>
-        {question}
-        <br />
-        {brailleStrings.map((brailleChar, i) => (
-          <EdittableBraille
-            key={i}
-            height={"100"}
-            width={"60"}
-            braille={brailleChar}
-            setBraille={(braille) => {
-              setBrailleStrings(
-                brailleStrings.map((_, j) => (j === i ? braille : _))
-              );
-            }}
-          />
-        ))}
-
-        <br />
-        <Button
-          variant="contained"
-          onClick={() => {
-            judgeAnswer(
-              judge(
-                new SixDotBrailleString("braille array", brailleStrings),
-                answer
-              )
+    <div>
+      {question}
+      <br />
+      {brailleStrings.map((brailleChar, i) => (
+        <EdittableBraille
+          key={i}
+          height={"100"}
+          width={"60"}
+          braille={brailleChar}
+          setBraille={(braille) => {
+            setBrailleStrings(
+              brailleStrings.map((_, j) => (j === i ? braille : _))
             );
           }}
-        >
-          答え合わせ
-        </Button>
+        />
+      ))}
 
-        {rightOrWrong}
-      </div>
-    </>
+      <br />
+      <Button
+        variant="contained"
+        onClick={() => {
+          judgeAnswer(
+            judge(
+              new SixDotBrailleString("braille array", brailleStrings),
+              answer
+            )
+          );
+        }}
+      >
+        答え合わせ
+      </Button>
+
+      {rightOrWrong}
+    </div>
   );
 }

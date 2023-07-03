@@ -154,42 +154,40 @@ export default function EdittableBraille({
   );
 
   return (
-    <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height={height}
-        width={width}
-        viewBox={
-          braille.brailleDotCount === 6
-            ? sixDotBrailleViewBoxSize
-            : eightDotBrailleViewBoxSize
-        }
-      >
-        {braille.brailleDotCount === 6 &&
-          Object.values(sixDotBrailleAvailableDots).map((dotNumber) => (
-            <Fragment key={dotNumber}>
-              <BrailleDot
-                dotNumber={dotNumber}
-                shouldFill={braille.brailleState[dotNumber]}
-                clicked={() => {
-                  toggleSixDotBrailleDot(dotNumber);
-                }}
-              />
-            </Fragment>
-          ))}
-        {braille.brailleDotCount === 8 &&
-          Object.values(eightDotBrailleAvailableDots).map((dotNumber) => (
-            <Fragment key={dotNumber}>
-              <BrailleDot
-                dotNumber={dotNumber}
-                shouldFill={braille.brailleState[dotNumber]}
-                clicked={() => {
-                  toggleEightDotBrailleDot(dotNumber);
-                }}
-              />
-            </Fragment>
-          ))}
-      </svg>
-    </>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height={height}
+      width={width}
+      viewBox={
+        braille.brailleDotCount === 6
+          ? sixDotBrailleViewBoxSize
+          : eightDotBrailleViewBoxSize
+      }
+    >
+      {braille.brailleDotCount === 6 &&
+        Object.values(sixDotBrailleAvailableDots).map((dotNumber) => (
+          <Fragment key={dotNumber}>
+            <BrailleDot
+              dotNumber={dotNumber}
+              shouldFill={braille.brailleState[dotNumber]}
+              clicked={() => {
+                toggleSixDotBrailleDot(dotNumber);
+              }}
+            />
+          </Fragment>
+        ))}
+      {braille.brailleDotCount === 8 &&
+        Object.values(eightDotBrailleAvailableDots).map((dotNumber) => (
+          <Fragment key={dotNumber}>
+            <BrailleDot
+              dotNumber={dotNumber}
+              shouldFill={braille.brailleState[dotNumber]}
+              clicked={() => {
+                toggleEightDotBrailleDot(dotNumber);
+              }}
+            />
+          </Fragment>
+        ))}
+    </svg>
   );
 }

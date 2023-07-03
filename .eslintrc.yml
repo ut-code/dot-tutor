@@ -2,6 +2,7 @@ env:
   browser: true
   es2021: true
 extends:
+  - airbnb
   - plugin:react/recommended
   - standard-with-typescript
   - next/core-web-vitals
@@ -13,7 +14,31 @@ parserOptions:
   project: tsconfig.json
 plugins:
   - react
-rules: { "react/jsx-no-useless-fragment": "error" }
+rules:
+  {
+    "react/jsx-no-useless-fragment": "error",
+    "no-else-return": "off",
+    "prefer-template": "off",
+    "no-shadow": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": "off",
+    "react/destructuring-assignment": "off",
+    "no-return-await": "off",
+    "react/jsx-props-no-spreading": "off",
+    "class-methods-use-this": "off",
+    "max-classes-per-file": "off",
+    "no-underscore-dangle": "off",
+    "no-bitwise": "off",
+    "no-plusplus": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "react/no-array-index-key": "off",
+    "react/jsx-boolean-value": "off",
+    "react/self-closing-comp": "off",
+    "react/require-default-props": "off",
+    "import/order": "off",
+    "prefer-destructuring": "off",
+  }
 settings:
   react:
     version: detect

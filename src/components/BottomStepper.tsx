@@ -2,7 +2,11 @@ import { type Dispatch, type SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { BottomNavigation, Button, MobileStepper } from "@mui/material";
 
-export default function BottomStepper(props: {
+export default function BottomStepper({
+  selectedStep,
+  setSelectedStep,
+  length,
+}: {
   selectedStep: number;
   setSelectedStep: Dispatch<SetStateAction<number>>;
   length: number;
@@ -12,16 +16,16 @@ export default function BottomStepper(props: {
     <BottomNavigation>
       <MobileStepper
         variant="progress"
-        steps={props.length}
+        steps={length}
         position="bottom"
-        activeStep={props.selectedStep}
+        activeStep={selectedStep}
         backButton={
           <Button
             variant="contained"
-            disabled={props.selectedStep === 0}
+            disabled={selectedStep === 0}
             onClick={() => {
-              if (props.selectedStep > 0) {
-                props.setSelectedStep(props.selectedStep - 1);
+              if (selectedStep > 0) {
+                setSelectedStep(selectedStep - 1);
               }
             }}
           >
@@ -29,13 +33,13 @@ export default function BottomStepper(props: {
           </Button>
         }
         nextButton={
-          props.selectedStep !== props.length - 1 ? (
+          selectedStep !== length - 1 ? (
             <Button
               variant="contained"
-              disabled={props.selectedStep === props.length - 1}
+              disabled={selectedStep === length - 1}
               onClick={() => {
-                if (props.selectedStep < props.length - 1) {
-                  props.setSelectedStep(props.selectedStep + 1);
+                if (selectedStep < length - 1) {
+                  setSelectedStep(selectedStep + 1);
                 }
               }}
             >

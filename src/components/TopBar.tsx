@@ -16,13 +16,15 @@ import {
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-export default function TopBar(props: {
+export default function TopBar({
+  tutorialDialogSteps,
+}: {
   tutorialDialogSteps?: TutorialDialogSteps;
 }): JSX.Element {
   const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(true);
   useEffect(() => {
     setIsTutorialOpen(true);
-  }, [props.tutorialDialogSteps]);
+  }, [tutorialDialogSteps]);
   return (
     <>
       <Head>
@@ -45,7 +47,7 @@ export default function TopBar(props: {
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
-            {props.tutorialDialogSteps !== undefined && (
+            {tutorialDialogSteps !== undefined && (
               <>
                 <Button
                   color="inherit"
@@ -59,7 +61,7 @@ export default function TopBar(props: {
                 <TutorialDialog
                   open={isTutorialOpen}
                   setOpen={setIsTutorialOpen}
-                  tutorialDialogSteps={props.tutorialDialogSteps}
+                  tutorialDialogSteps={tutorialDialogSteps}
                 />
               </>
             )}

@@ -11,19 +11,23 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function TutorialDialog(props: {
+export default function TutorialDialog({
+  open,
+  setOpen,
+  tutorialDialogSteps,
+}: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   tutorialDialogSteps: TutorialDialogSteps;
 }): JSX.Element {
   const [selectedStep, setSelectedStep] = useState<number>(0);
   function closeDialog(): void {
-    props.setOpen(false);
+    setOpen(false);
     setSelectedStep(0);
   }
   return (
     <Dialog
-      open={props.open}
+      open={open}
       onClose={() => {
         closeDialog();
       }}
@@ -38,7 +42,7 @@ export default function TutorialDialog(props: {
     >
       <DialogTitle m={0} p={2}>
         <Typography variant="h4" component="div" color="inherit">
-          {props.tutorialDialogSteps[selectedStep].title}
+          {tutorialDialogSteps[selectedStep].title}
         </Typography>
         <IconButton
           sx={{ position: "absolute", right: 8, top: 8 }}
@@ -50,7 +54,7 @@ export default function TutorialDialog(props: {
         </IconButton>
       </DialogTitle>
       <DialogContent dividers={true}>
-        {props.tutorialDialogSteps[selectedStep].content}
+        {tutorialDialogSteps[selectedStep].content}
       </DialogContent>
       <DialogActions>
         <Button
@@ -66,16 +70,16 @@ export default function TutorialDialog(props: {
         </Button>
         <Button
           variant="outlined"
-          disabled={selectedStep === props.tutorialDialogSteps.length - 1}
+          disabled={selectedStep === tutorialDialogSteps.length - 1}
           onClick={() => {
-            if (selectedStep < props.tutorialDialogSteps.length - 1) {
+            if (selectedStep < tutorialDialogSteps.length - 1) {
               setSelectedStep(selectedStep + 1);
             }
           }}
         >
           次へ
         </Button>
-        {selectedStep === props.tutorialDialogSteps.length - 1 && (
+        {selectedStep === tutorialDialogSteps.length - 1 && (
           <Button
             variant="contained"
             onClick={() => {

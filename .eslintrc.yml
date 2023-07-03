@@ -7,40 +7,37 @@ extends:
   - airbnb-typescript
   - next/core-web-vitals
   - prettier
-overrides: []
 parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: latest
   sourceType: module
   project: tsconfig.eslint.json
 rules:
-  {
-    "no-else-return": "off",
-    "prefer-template": "off",
-    "no-shadow": "off",
-    "import/extensions": "off",
-    "import/prefer-default-export": "off",
-    "react/jsx-filename-extension": "off",
-    "react/destructuring-assignment": "off",
-    "no-return-await": "off",
-    "react/jsx-props-no-spreading": "off",
-    "class-methods-use-this": "off",
-    "max-classes-per-file": "off",
-    "no-underscore-dangle": "off",
-    "no-bitwise": "off",
-    "no-plusplus": "off",
-    "react/jsx-curly-brace-presence": "off",
-    "react/no-array-index-key": "off",
-    "react/jsx-boolean-value": "off",
-    "react/self-closing-comp": "off",
-    "react/require-default-props": "off",
-    "import/order": "off",
-    "prefer-destructuring": "off",
-    "@typescript-eslint/no-shadow": "off",
-    "@typescript-eslint/return-await": "off",
-    "@typescript-eslint/lines-between-class-members": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-  }
+  no-else-return: off
+  prefer-template: off
+  no-shadow: off
+  import/extensions: off
+  import/prefer-default-export: off
+  react/jsx-filename-extension: off
+  react/destructuring-assignment: off
+  no-return-await: off
+  react/jsx-props-no-spreading: off
+  class-methods-use-this: off
+  max-classes-per-file: off
+  no-underscore-dangle: off
+  no-bitwise: off
+  no-plusplus: off
+  react/jsx-curly-brace-presence: off
+  react/no-array-index-key: off
+  react/jsx-boolean-value: off
+  react/self-closing-comp: off
+  react/require-default-props: off
+  import/order: off
+  prefer-destructuring: off
+  "@typescript-eslint/no-shadow": off
+  "@typescript-eslint/return-await": off
+  "@typescript-eslint/lines-between-class-members": off
+  "@typescript-eslint/no-unused-vars": off
 settings:
   react:
     version: detect

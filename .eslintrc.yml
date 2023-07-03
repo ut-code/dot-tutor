@@ -17,7 +17,6 @@ plugins:
   - react
 rules:
   {
-    "react/jsx-no-useless-fragment": "error",
     "no-else-return": "off",
     "prefer-template": "off",
     "no-shadow": "off",

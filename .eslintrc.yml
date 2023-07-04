@@ -13,7 +13,6 @@ parserOptions:
   sourceType: module
   project: tsconfig.eslint.json
 rules:
-  no-else-return: off
   prefer-template: off
   no-shadow: off
   import/extensions: off

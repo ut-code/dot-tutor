@@ -53,7 +53,7 @@ export default function TutorialDialog({
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent dividers={true}>
+      <DialogContent dividers>
         {tutorialDialogSteps[selectedStep].content}
       </DialogContent>
       <DialogActions>

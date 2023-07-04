@@ -49,7 +49,9 @@ export default function BottomStepper({
             <Button
               variant="contained"
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onClick={async () => await router.push("/")}
+              onClick={async () => {
+                await router.push("/");
+              }}
             >
               終了
             </Button>

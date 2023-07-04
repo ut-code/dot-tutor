@@ -18,7 +18,6 @@ rules:
   import/extensions: off
   import/prefer-default-export: off
   react/jsx-filename-extension: off
-  no-return-await: off
   react/jsx-props-no-spreading: off
   class-methods-use-this: off
   max-classes-per-file: off

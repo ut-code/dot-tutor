@@ -17,7 +17,7 @@ export function judge(
   let begin = 0;
   let end = typedAnswer.length;
 
-  for (let i = 0; i < typedAnswer.length; i++) {
+  for (let i = 0; i < typedAnswer.length; i += 1) {
     if (typedAnswer[i] === "　") {
       begin = i;
     } else {
@@ -25,7 +25,7 @@ export function judge(
     }
   }
 
-  for (let i = typedAnswer.length - 1; i >= 0; i--) {
+  for (let i = typedAnswer.length - 1; i >= 0; i -= 1) {
     if (typedAnswer.charAt(i) === "　") {
       end = i;
     } else {
@@ -47,7 +47,7 @@ export function eightJudge(
   let begin = 0;
   let end = typedAnswer.length;
 
-  for (let i = 0; i < typedAnswer.length; i++) {
+  for (let i = 0; i < typedAnswer.length; i += 1) {
     if (typedAnswer[i] === "　") {
       begin = i;
     } else {
@@ -55,7 +55,7 @@ export function eightJudge(
     }
   }
 
-  for (let i = typedAnswer.length - 1; i >= 0; i--) {
+  for (let i = typedAnswer.length - 1; i >= 0; i -= 1) {
     if (typedAnswer.charAt(i) === "　") {
       end = i;
     } else {

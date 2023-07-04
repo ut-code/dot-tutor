@@ -23,7 +23,6 @@ rules:
   max-classes-per-file: off
   no-underscore-dangle: off
   no-bitwise: off
-  no-plusplus: off
   react/no-array-index-key: off
   react/jsx-boolean-value: off
   react/self-closing-comp: off

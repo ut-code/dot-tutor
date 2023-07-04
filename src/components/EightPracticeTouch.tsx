@@ -26,8 +26,8 @@ export default function EightPracticeTouch({
       {brailleStrings.map((brailleChar, i) => (
         <EdittableBraille
           key={i}
-          height={"100"}
-          width={"60"}
+          height="100"
+          width="60"
           braille={brailleChar}
           setBraille={(braille) => {
             setBrailleStrings(

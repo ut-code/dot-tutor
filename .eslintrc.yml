@@ -31,7 +31,6 @@ rules:
   react/jsx-boolean-value: off
   react/self-closing-comp: off
   react/require-default-props: off
-  import/order: off
   prefer-destructuring: off
   "@typescript-eslint/no-shadow": off
   "@typescript-eslint/return-await": off

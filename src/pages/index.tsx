@@ -26,7 +26,6 @@ function NavigationCard({
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardActionArea
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onClick={async () => {
           await router.push(linkUrl);
         }}

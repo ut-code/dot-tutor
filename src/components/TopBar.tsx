@@ -4,7 +4,6 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { url } from "@/utils/config";
 import TutorialDialog from "@/components/TutorialDialog";
-import { type TutorialDialogSteps } from "../types/Tutorial";
 import {
   AppBar,
   Toolbar,
@@ -15,6 +14,7 @@ import {
   IconButton,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { type TutorialDialogSteps } from "../types/Tutorial";
 
 export default function TopBar({
   tutorialDialogSteps,

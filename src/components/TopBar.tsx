@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
 import Image from "next/image";
-import { url } from "@/utils/config";
+import url from "@/utils/config";
 import TutorialDialog from "@/components/TutorialDialog";
 import {
   AppBar,

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
-import { url } from "@/utils/config";
+import url from "@/utils/config";
 import {
   Card,
   CardActionArea,

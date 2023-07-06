@@ -14,7 +14,6 @@ parserOptions:
   project: tsconfig.eslint.json
 rules:
   prefer-template: off
-  no-shadow: off
   import/extensions: off
   import/prefer-default-export: off
   react/jsx-filename-extension: off

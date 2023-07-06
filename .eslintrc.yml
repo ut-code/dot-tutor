@@ -14,9 +14,6 @@ parserOptions:
   project: tsconfig.eslint.json
 rules:
   prefer-template: off
-  no-shadow: off
-  import/extensions: off
-  react/jsx-filename-extension: off
   react/jsx-props-no-spreading: off
   class-methods-use-this: off
   max-classes-per-file: off

@@ -48,7 +48,7 @@ function App() {
   }
 
   useEffect(() => {
-    source2wakati(sourceText).then((data) => {
+    source2wakati(sourceText.replace(/\n/g, "\\n")).then((data) => {
       setWakatiText(data.wakatiText);
       setDisplayWakatiText(data.wakatiText);
       setWakatiReference(data.wakatiText);
@@ -56,7 +56,7 @@ function App() {
   }, [sourceText]);
 
   useEffect(() => {
-    wakati2target(wakatiText).then((data) => {
+    wakati2target(wakatiText.replace(/\n/g, "\\n")).then((data) => {
       setTargetText(data.targetText);
       //setDisplayTargetText(data.targetText);
     });

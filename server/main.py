@@ -37,12 +37,13 @@ def source2wakati(source):
 """
 
 
-def source2wakati(source): #改行に対応
-    lines = source.split('\\n')
+def source2wakati(source):  # 改行に対応
+    lines = source.split("\\n")
     target = []
     for line in lines:
         target.append(source2wakati_byLines(line))
     return "\n".join(target)
+
 
 def source2wakati_byLines(source):
     tagger = MeCab.Tagger()
@@ -158,14 +159,16 @@ def Jp_trans_func(char, prechar, pre_num, target):
     if char == "　":
         target.append("⠀")
 
-def wakati2target(source): #改行に対応
-    lines = source.split('\\n')
+
+def wakati2target(source):  # 改行に対応
+    lines = source.split("\\n")
     target = []
     for line in lines:
         target.append(wakati2target_byLines(line))
     return "\n".join(target)
 
-def wakati2target_byLines(source): 
+
+def wakati2target_byLines(source):
     letter = [_ for _ in source]
     target = []
     pre_num = False  # 前が数字か

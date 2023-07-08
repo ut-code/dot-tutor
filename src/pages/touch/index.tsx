@@ -21,6 +21,15 @@ export default function Touch(): JSX.Element {
         tutorialSteps={[
           {
             dialog: [
+              {
+                title: "点字を読んでみよう",
+                content: <Tutorial1Dialog7 />,
+              },
+            ],
+            content: <Practice6 />,
+          },
+          {
+            dialog: [
               { title: "点字を打ってみよう", content: <Tutorial1Dialog1 /> },
               { title: "母音を打ってみよう", content: <Tutorial1Dialog2 /> },
             ],
@@ -58,15 +67,6 @@ export default function Touch(): JSX.Element {
               },
             ],
             content: <Practice5 />,
-          },
-          {
-            dialog: [
-              {
-                title: "点字を読んでみよう",
-                content: <Tutorial1Dialog7 />,
-              },
-            ],
-            content: <Practice6 />,
           },
         ]}
       />

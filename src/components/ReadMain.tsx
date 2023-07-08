@@ -37,6 +37,13 @@ export default function ReadMain({
             setQuestion(makeQuestion(typeOfQuestions));
             setQuestionInBraille(translateSumiji(question));
             judgeAnswer("");
+            console.log("updated", question);
+            console.log(
+              "updated",
+              translateSumiji(
+                new SixDotBrailleString("braille array", questionInBraille)
+              )
+            );
           }}
         >
           次の問題
@@ -49,9 +56,11 @@ export default function ReadMain({
 
   return (
     <>
+      {console.log("first", question)}
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           問題
+          {question}
         </Typography>
         <Divider />
         {questionInBraille.map((brailleChar, i) => (

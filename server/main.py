@@ -69,11 +69,11 @@ def source2wakati_byLines(source):
                     if (len(par[1].split(",")) > 9)
                     else parse.split()[0]
                 )  # 中段に出る文字
-                kana_normal = (
-                    par[1].split(",")[6]
-                    if (len(par[1].split(",")) > 6)
-                    else parse.split()[0]
-                )  # そのまま
+            kana_normal = (
+                par[1].split(",")[6]
+                if (len(par[1].split(",")) > 6)
+                else parse.split()[0]
+            )  # そのまま
 
             letter = [_ for _ in kana]
             letter_normal = [_ for _ in kana_normal]

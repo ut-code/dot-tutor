@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import translateBraille from "@/utils/translateBraille";
+import React, { useState } from "react";
 import translateSumiji from "@/utils/translateSumiji";
-import {
-  judge,
-  judge_for_read,
-  makeQuestion,
-} from "@/components/questionAndJudge";
-import EdittableBraille from "@/components/EdittableBraille";
+import { judgeForRead, makeQuestion } from "@/components/questionAndJudge";
 import {
   Paper,
   Typography,
@@ -15,8 +9,6 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import { SixDotBraille } from "@/models/BrailleCharacter";
-import { SixDotBrailleString } from "@/models/BrailleString";
 
 export default function ReadMain({
   typeOfQuestions,
@@ -35,7 +27,6 @@ export default function ReadMain({
         <Button
           variant="contained"
           onClick={() => {
-            let next = makeQuestion(typeOfQuestions);
             setQuestion(makeQuestion(typeOfQuestions));
             judgeAnswer("");
           }}
@@ -53,14 +44,13 @@ export default function ReadMain({
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           問題
-          {question}
         </Typography>
         <Divider />
         {translateSumiji(question)}
       </Paper>
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
-          解答
+          解答（ひらがな）
         </Typography>
         <Divider />
         <Box sx={{ minHeight: 100 }} p={2}>
@@ -77,11 +67,14 @@ export default function ReadMain({
       <Button
         variant="contained"
         onClick={() => {
-          judgeAnswer(judge_for_read(typedAns, question));
+          judgeAnswer(judgeForRead(typedAns, question));
         }}
       >
         答え合わせ
       </Button>
+      <br />
+      {rightOrWrong}
+      <br />
       <NextQuestion />
     </>
   );

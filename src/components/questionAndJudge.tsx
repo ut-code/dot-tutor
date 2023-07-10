@@ -39,7 +39,7 @@ export function judge(
   }
 }
 
-export function judge_for_read(typedAns: string, question: string): string {
+export function judgeForRead(typedAns: string, question: string): string {
   if (typedAns === question) {
     return "正解";
   } else {

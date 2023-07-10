@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import translateBraille from "@/utils/translateBraille";
 import translateSumiji from "@/utils/translateSumiji";
-import { judge, makeQuestion } from "@/components/questionAndJudge";
+import {
+  judge,
+  judge_for_read,
+  makeQuestion,
+} from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import {
   Paper,
@@ -22,9 +26,6 @@ export default function ReadMain({
   const [question, setQuestion] = useState<string>(
     makeQuestion(typeOfQuestions)
   ); // 問題
-  const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
-    translateSumiji(question)
-  ); // 問題
   const [typedAns, setTypedAns] = useState<string>("");
   const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
 
@@ -34,16 +35,9 @@ export default function ReadMain({
         <Button
           variant="contained"
           onClick={() => {
+            let next = makeQuestion(typeOfQuestions);
             setQuestion(makeQuestion(typeOfQuestions));
-            setQuestionInBraille(translateSumiji(question));
             judgeAnswer("");
-            console.log("updated", question);
-            console.log(
-              "updated",
-              translateSumiji(
-                new SixDotBrailleString("braille array", questionInBraille)
-              )
-            );
           }}
         >
           次の問題
@@ -56,22 +50,13 @@ export default function ReadMain({
 
   return (
     <>
-      {console.log("first", question)}
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
           問題
           {question}
         </Typography>
         <Divider />
-        {questionInBraille.map((brailleChar, i) => (
-          <EdittableBraille
-            key={i}
-            height={"100"}
-            width={"60"}
-            braille={brailleChar}
-            updateBraille={(braille) => {}}
-          />
-        ))}
+        {translateSumiji(question)}
       </Paper>
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
@@ -92,12 +77,7 @@ export default function ReadMain({
       <Button
         variant="contained"
         onClick={() => {
-          judgeAnswer(
-            judge(
-              new SixDotBrailleString("braille array", questionInBraille),
-              typedAns
-            )
-          );
+          judgeAnswer(judge_for_read(typedAns, question));
         }}
       >
         答え合わせ

@@ -38,3 +38,11 @@ export function judge(
     return "不正解";
   }
 }
+
+export function judge_for_read(typedAns: string, question: string): string {
+  if (typedAns === question) {
+    return "正解";
+  } else {
+    return "不正解";
+  }
+}

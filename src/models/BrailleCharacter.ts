@@ -66,7 +66,7 @@ export class Braille {
       throw new Error("Invalid Braille Type!");
     }
 
-    if (!this.isBraille(this.braille)) {
+    if (!this.isValidBraille(this.braille)) {
       throw new Error("Not a Braille Character!");
     }
     if (this.brailleDotCount === 6) {
@@ -81,7 +81,7 @@ export class Braille {
    * @param braille unicode character of braille
    * @returns boolean
    */
-  private isBraille(braille: string): boolean {
+  private isValidBraille(braille: string): boolean {
     return braille.match(/[⠀-⣿]/) !== null;
   }
 

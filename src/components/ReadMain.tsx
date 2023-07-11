@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import translateBraille from "@/utils/translateBraille";
 import translateSumiji from "@/utils/translateSumiji";
 import { judgeForRead, makeQuestion } from "@/components/questionAndJudge";
+import EdittableBraille from "@/components/EdittableBraille";
 import {
   Paper,
   Typography,
   Divider,
   Button,
+  Stack,
   Box,
   TextField,
 } from "@mui/material";
+import { SixDotBraille } from "@/models/BrailleCharacter";
+import { SixDotBrailleString } from "@/models/BrailleString";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
+export function toSixDotBrailleArray(question: string): SixDotBraille[] {
+  let brailleQuestion: SixDotBraille[] = [];
+  Array.prototype.forEach.call(question, (s) => {
+    brailleQuestion.push(new SixDotBraille("unicode", s));
+  });
+  return brailleQuestion;
+}
 
 export default function ReadMain({
   typeOfQuestions,
@@ -18,26 +32,15 @@ export default function ReadMain({
   const [question, setQuestion] = useState<string>(
     makeQuestion(typeOfQuestions)
   ); // 問題
+  const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
+    toSixDotBrailleArray(translateSumiji(question))
+  );
   const [typedAns, setTypedAns] = useState<string>("");
-  const [rightOrWrong, judgeAnswer] = useState<string>(); // 正誤
+  const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
-  function NextQuestion(): JSX.Element {
-    if (rightOrWrong === "正解") {
-      return (
-        <Button
-          variant="contained"
-          onClick={() => {
-            setQuestion(makeQuestion(typeOfQuestions));
-            judgeAnswer("");
-          }}
-        >
-          次の問題
-        </Button>
-      );
-    } else {
-      return <></>;
-    }
-  }
+  useEffect(() => {
+    setQuestionInBraille(toSixDotBrailleArray(translateSumiji(question)));
+  }, [question]);
 
   return (
     <>
@@ -46,7 +49,15 @@ export default function ReadMain({
           問題
         </Typography>
         <Divider />
-        {translateSumiji(question)}
+        {questionInBraille.map((brailleChar, i) => (
+          <EdittableBraille
+            key={i}
+            height="100"
+            width="60"
+            braille={brailleChar}
+            setBraille={(braille) => {}}
+          />
+        ))}
       </Paper>
       <Paper elevation={2} sx={{ my: 2 }}>
         <Typography variant="h6" component="h2" color="inherit" p={2}>
@@ -72,10 +83,39 @@ export default function ReadMain({
       >
         答え合わせ
       </Button>
-      <br />
-      {rightOrWrong}
-      <br />
-      <NextQuestion />
+      <Paper elevation={2} sx={{ my: 2 }}>
+        <Typography variant="h6" component="h2" color="inherit" p={2}>
+          正誤
+        </Typography>
+        <Divider />
+        <Typography
+          variant="body1"
+          component="div"
+          color="inherit"
+          p={2}
+          sx={{ minHeight: 100 }}
+        >
+          {rightOrWrong ? (
+            <Box display="flex">
+              正解 <CheckCircleOutlineIcon color="success" />
+            </Box>
+          ) : (
+            "不正解"
+          )}
+        </Typography>
+      </Paper>
+
+      {rightOrWrong && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setQuestion(makeQuestion(typeOfQuestions));
+            judgeAnswer(false);
+          }}
+        >
+          次の問題
+        </Button>
+      )}
     </>
   );
 }

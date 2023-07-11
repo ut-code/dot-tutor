@@ -68,10 +68,10 @@ export function eightJudge(
   return typedAnswer === question;
 }
 
-export function judgeForRead(typedAns: string, question: string): string {
+export function judgeForRead(typedAns: string, question: string): boolean {
   if (typedAns === question) {
-    return "正解";
+    return true;
   } else {
-    return "不正解";
+    return false;
   }
 }

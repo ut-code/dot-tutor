@@ -10,7 +10,7 @@ export function makeQuestion(questions: string[]): string {
 
 export function judge(
   typedBrailleStrings: SixDotBrailleString,
-  question: string
+  question: string,
 ): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
 
@@ -40,7 +40,7 @@ export function judge(
 
 export function eightJudge(
   typedBrailleStrings: EightDotBrailleString,
-  question: string
+  question: string,
 ): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
 

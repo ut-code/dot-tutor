@@ -1,4 +1,4 @@
-import EightTouchMain from "@/components/EightTouchMain";
+import TouchMain from "@/components/TouchMain";
 
 export const kanjiQuestions = [
   "雨天",
@@ -13,5 +13,5 @@ export const kanjiQuestions = [
 ]; // 濁音、半濁音が含まれる言葉
 
 export default function Practice3(): JSX.Element {
-  return <EightTouchMain typeOfQuestions={kanjiQuestions} />;
+  return <TouchMain typeOfQuestions={kanjiQuestions} brailleDotCount={8} />;
 }

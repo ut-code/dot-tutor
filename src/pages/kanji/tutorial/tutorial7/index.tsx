@@ -1,4 +1,4 @@
-import EightTouchMain from "@/components/EightTouchMain";
+import TouchMain from "@/components/TouchMain";
 import { Card, Typography } from "@mui/material";
 
 export const advancedkanjiQuestions = ["神", "検", "言論", "訳", "凧あげ"]; // 濁音、半濁音が含まれる言葉
@@ -17,7 +17,7 @@ export default function Practice3(): JSX.Element {
           「倫理」⡃⠺⣗⠮ 「風」⣳⠬ 「帆」⢧⣈ 「討」⠗⢮ 「訓」⡥⢊
         </Typography>
       </Card>
-      <EightTouchMain typeOfQuestions={advancedkanjiQuestions} />
+      <TouchMain typeOfQuestions={advancedkanjiQuestions} brailleDotCount={8} />
     </>
   );
 }

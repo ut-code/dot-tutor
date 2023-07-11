@@ -17,5 +17,5 @@ export const gojyuonQuestions1 = [
 ]; // 「あいうえおかきくけこ」で構成される
 
 export default function Practice2(): JSX.Element {
-  return <TouchMain typeOfQuestions={gojyuonQuestions1} />;
+  return <TouchMain typeOfQuestions={gojyuonQuestions1} brailleDotCount={6} />;
 }

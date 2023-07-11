@@ -12,5 +12,5 @@ export const vowelQuestions = [
 ];
 
 export default function Practice1(): JSX.Element {
-  return <TouchMain typeOfQuestions={vowelQuestions} />;
+  return <TouchMain typeOfQuestions={vowelQuestions} brailleDotCount={6} />;
 }

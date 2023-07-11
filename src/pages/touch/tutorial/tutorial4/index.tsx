@@ -28,5 +28,7 @@ export const contractionQuestions = [
 ]; // 拗音が含まれる言葉
 
 export default function Practice4(): JSX.Element {
-  return <TouchMain typeOfQuestions={contractionQuestions} />;
+  return (
+    <TouchMain typeOfQuestions={contractionQuestions} brailleDotCount={6} />
+  );
 }

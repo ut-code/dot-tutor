@@ -65,9 +65,12 @@ export default function translateSumiji(sumijiString: string): SixDotBraille[] {
   let brailleString: SixDotBraille[] = [];
 
   Array.prototype.forEach.call(sumijiString, (sumijiChar) => {
-    let brailleChar: string;
-    brailleChar = matchedBrailleChar(reversedHiraganaTable, sumijiChar);
-    brailleString.push(new SixDotBraille("unicode", brailleChar));
+    brailleString.push(
+      new SixDotBraille(
+        "unicode",
+        matchedBrailleChar(reversedHiraganaTable, sumijiChar)
+      )
+    );
   });
 
   return brailleString;

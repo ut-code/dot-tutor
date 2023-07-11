@@ -71,7 +71,6 @@ export function eightJudge(
 export function judgeForRead(typedAns: string, question: string): boolean {
   if (typedAns === question) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }

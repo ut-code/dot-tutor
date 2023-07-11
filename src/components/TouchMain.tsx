@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import translateBraille from "@/utils/translateBraille";
-import { judge, makeQuestion } from "@/components/questionAndJudge";
+import { judge, eightJudge, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Paper, Typography, Divider, Button, Stack, Box } from "@mui/material";
 import { BrailleString } from "@/models/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import * as tenji from "tenji";
 
 export default function TouchMain({
   typeOfQuestions,
@@ -26,12 +27,25 @@ export default function TouchMain({
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   useEffect(() => {
-    setHiraganaStrings(translateBraille(brailleStrings));
-  }, [brailleStrings]);
+    setHiraganaStrings(
+      brailleDotCount === 6
+        ? translateBraille(brailleStrings)
+        : tenji.fromTenji(
+            brailleStrings.brailleArray
+              .map((braille) => braille.unicodeBraille)
+              .join(""),
+            { kanji: true }
+          )
+    );
+  }, [brailleDotCount, brailleStrings]);
 
   useEffect(() => {
-    judgeAnswer(judge(brailleStrings, question));
-  }, [brailleStrings, question]);
+    judgeAnswer(
+      brailleDotCount === 6
+        ? judge(brailleStrings, question)
+        : eightJudge(brailleStrings, question)
+    );
+  }, [brailleDotCount, brailleStrings, question]);
 
   return (
     <>

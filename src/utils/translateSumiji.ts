@@ -62,7 +62,7 @@ function matchedBrailleChar(tableType: object, sumijiChar: string): string {
 }
 
 export default function translateSumiji(sumijiString: string): SixDotBraille[] {
-  let brailleString: SixDotBraille[] = [];
+  const brailleString: SixDotBraille[] = [];
 
   Array.prototype.forEach.call(sumijiString, (sumijiChar) => {
     brailleString.push(

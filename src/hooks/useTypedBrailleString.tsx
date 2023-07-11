@@ -309,7 +309,7 @@ export default function useTypedBrailleString(
       } else {
         // If the typed braille is not backspace, add it.
         setTypedBrailleString(
-          (typedBrailleString) => `${typedBrailleString}${typedBraille}`
+          (typedBrailleString) => `${typedBrailleString}${typedBraille},`
         );
       }
     }

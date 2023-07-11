@@ -155,7 +155,7 @@ function App() {
               value={targetText}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 //setDisplayTargetText(e.target.value)
-                setTargetText(e.target.value);
+                setTargetText(e.target.value.replace(/\n/g, "\\n"));
               }}
             />
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -168,7 +168,7 @@ function App() {
               </Button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button onClick={() => {const buffer = unicodeToBes(targetText);
+              <Button onClick={() => {const buffer = unicodeToBes(targetText.replace(/\n/g, "\\n"));
               const blob = new Blob([buffer], { type: "text/plain" });
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a");

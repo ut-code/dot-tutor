@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import translateBraille from "@/utils/translateBraille";
 import translateSumiji from "@/utils/translateSumiji";
 import { judgeForRead, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
@@ -8,21 +7,11 @@ import {
   Typography,
   Divider,
   Button,
-  Stack,
   Box,
   TextField,
 } from "@mui/material";
 import { SixDotBraille } from "@/models/BrailleCharacter";
-import { SixDotBrailleString } from "@/models/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-
-export function toSixDotBrailleArray(question: string): SixDotBraille[] {
-  let brailleQuestion: SixDotBraille[] = [];
-  Array.prototype.forEach.call(question, (s) => {
-    brailleQuestion.push(new SixDotBraille("unicode", s));
-  });
-  return brailleQuestion;
-}
 
 export default function ReadMain({
   typeOfQuestions,
@@ -33,13 +22,13 @@ export default function ReadMain({
     makeQuestion(typeOfQuestions)
   ); // 問題
   const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
-    toSixDotBrailleArray(translateSumiji(question))
+    translateSumiji(question)
   );
   const [typedAns, setTypedAns] = useState<string>("");
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   useEffect(() => {
-    setQuestionInBraille(toSixDotBrailleArray(translateSumiji(question)));
+    setQuestionInBraille(translateSumiji(question));
   }, [question]);
 
   return (

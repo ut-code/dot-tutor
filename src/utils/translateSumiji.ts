@@ -61,24 +61,6 @@ function matchedBrailleChar(tableType: object, sumijiChar: string): string {
   return brailleChar;
 }
 
-export default function translateSumiji(sumijiString: string): string {
-  let brailleString: string = "";
-
-  Array.prototype.forEach.call(sumijiString, (sumijiChar) => {
-    brailleString += matchedBrailleChar(reversedHiraganaTable, sumijiChar);
-  });
-
-  return brailleString;
-}
-
-/* function matchedBrailleChar(tableType: object, sumijiChar: string): string {
-  let brailleChar: string = "";
-  brailleChar = (Object.keys(tableType) as Array<keyof typeof tableType>)
-    .filter((brailleChar) => tableType[brailleChar] === sumijiChar)
-    .join("");
-  return brailleChar;
-}
-
 export default function translateSumiji(sumijiString: string): SixDotBraille[] {
   let brailleString: SixDotBraille[] = [];
 
@@ -89,4 +71,4 @@ export default function translateSumiji(sumijiString: string): SixDotBraille[] {
   });
 
   return brailleString;
-} */
+}

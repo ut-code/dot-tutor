@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SixDotBraille } from "@/models/BrailleCharacter";
-import { SixDotBrailleString } from "@/models/BrailleString";
+import { BrailleString } from "@/models/BrailleString";
 import { judge } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
@@ -9,13 +9,19 @@ export default function PracticeTouch({
   question,
   answer,
   length,
+  brailleDotCount,
 }: {
   question: string;
   answer: string;
   length: number;
+  brailleDotCount: 6 | 8;
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
-    [...Array(length)].map((_) => new SixDotBraille("unicode", "⠀"))
+  const [brailleStrings, setBrailleStrings] = useState<BrailleString>(
+    new BrailleString(
+      "unicode",
+      [...Array(length)].map((_) => "⠀").join(""),
+      brailleDotCount
+    )
   );
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
@@ -23,7 +29,7 @@ export default function PracticeTouch({
     <div>
       {question}
       <br />
-      {brailleStrings.map((brailleChar, i) => (
+      {brailleStrings.brailleArray.map((brailleChar, i) => (
         <EdittableBraille
           key={i}
           height="100"
@@ -31,7 +37,13 @@ export default function PracticeTouch({
           braille={brailleChar}
           setBraille={(braille) => {
             setBrailleStrings(
-              brailleStrings.map((_, j) => (j === i ? braille : _))
+              new BrailleString(
+                "braille array",
+                brailleStrings.brailleArray.map((_, j) =>
+                  j === i ? braille : _
+                ),
+                brailleDotCount
+              )
             );
           }}
         />
@@ -41,12 +53,7 @@ export default function PracticeTouch({
       <Button
         variant="contained"
         onClick={() => {
-          judgeAnswer(
-            judge(
-              new SixDotBrailleString("braille array", brailleStrings),
-              answer
-            )
-          );
+          judgeAnswer(judge(brailleStrings, answer));
         }}
       >
         答え合わせ

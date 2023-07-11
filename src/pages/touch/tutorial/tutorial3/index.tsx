@@ -14,5 +14,7 @@ export const dakuonHandakuonQuestions = [
 ]; // 濁音、半濁音が含まれる言葉
 
 export default function Practice3(): JSX.Element {
-  return <TouchMain typeOfQuestions={dakuonHandakuonQuestions} />;
+  return (
+    <TouchMain typeOfQuestions={dakuonHandakuonQuestions} brailleDotCount={6} />
+  );
 }

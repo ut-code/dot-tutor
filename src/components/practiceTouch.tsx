@@ -64,7 +64,7 @@ export default function PracticeTouch({
             setVisible(false);
           }}
         >
-          答え合わせ
+          答え非表示
         </Button>
       ) : (
         <Button
@@ -78,7 +78,7 @@ export default function PracticeTouch({
             setVisible(true);
           }}
         >
-          答え非表示
+          答え合わせ
         </Button>
       )}
       {visible === true && answerMsg}

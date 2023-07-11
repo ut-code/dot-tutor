@@ -3,7 +3,6 @@ import translateBraille from "@/utils/translateBraille";
 import { judge, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Paper, Typography, Divider, Button, Stack, Box } from "@mui/material";
-import { SixDotBraille } from "@/models/BrailleCharacter";
 import { SixDotBrailleString } from "@/models/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";

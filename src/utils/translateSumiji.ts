@@ -68,8 +68,8 @@ export default function translateSumiji(sumijiString: string): SixDotBraille[] {
     brailleString.push(
       new SixDotBraille(
         "unicode",
-        matchedBrailleChar(reversedHiraganaTable, sumijiChar)
-      )
+        matchedBrailleChar(reversedHiraganaTable, sumijiChar),
+      ),
     );
   });
 

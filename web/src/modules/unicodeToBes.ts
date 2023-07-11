@@ -13,12 +13,18 @@ unicodeToBes(unicode: string): Uint8Array {
     for (var i = 0; i < (511 - 4); i++) {
         output.push(0x20);
     }
-    const header = [0xff, 0xc1, 0x00, 0xfd];
+
+    var header = [0xff, 0x00, 0x00, 0xfd];
+    // 2つ目,3つ目はBESファイルの文字数を表す
+
     for (var i = 0; i < 4; i++) {
         output.push(header[i]);
+        console.log(output.length);
     }
+    var all_letters = 0;
     for (var i = 0; i < 27; i++) {
         output.push(0xa0);
+        all_letters += 1;
     }
     output.push(0xfe);
     var letters = 0;
@@ -31,10 +37,16 @@ unicodeToBes(unicode: string): Uint8Array {
         if (codePoint >= 0x2800 && codePoint <= 0x28ff) {
           output.push(codePoint - 0x2800 + 0xa0);
           letters += 1;
+          all_letters += 1;
         }
       }
-      if (letters == 32 || char == "n") {
+      if (char == "n") {
         output.push(0x0d);
+        output.push(0xfe);
+        lines += 1;
+        letters = 0;
+      }
+      if (letters == 32) {
         output.push(0xfe);
         lines += 1;
         letters = 0;
@@ -54,5 +66,11 @@ unicodeToBes(unicode: string): Uint8Array {
       output.push(0xfe);
     }
     output.push(0xff);
+    
+    // 文字数を代入
+    var letters_num = 0x1a + all_letters;
+    output[1025] = letters_num % 255 + 12;
+    output[1026] = Math.floor(letters_num / 255);
+
     return new Uint8Array(output);
   }

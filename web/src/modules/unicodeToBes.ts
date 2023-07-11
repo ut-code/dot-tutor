@@ -34,6 +34,7 @@ unicodeToBes(unicode: string): Uint8Array {
         }
       }
       if (letters == 32 || char == "n") {
+        output.push(0x0d);
         output.push(0xfe);
         lines += 1;
         letters = 0;

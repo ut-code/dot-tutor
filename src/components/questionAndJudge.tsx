@@ -54,7 +54,7 @@ export function eightJudge(
   let end = typedAnswer.length;
 
   for (let i = 0; i < typedAnswer.length; i += 1) {
-    if (typedAnswer[i] === "　") {
+    if (typedAnswer[i] === " ") {
       begin = i;
     } else {
       break;
@@ -62,7 +62,7 @@ export function eightJudge(
   }
 
   for (let i = typedAnswer.length - 1; i >= 0; i -= 1) {
-    if (typedAnswer.charAt(i) === "　") {
+    if (typedAnswer.charAt(i) === " ") {
       end = i;
     } else {
       break;

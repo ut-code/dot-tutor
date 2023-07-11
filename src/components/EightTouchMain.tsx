@@ -3,8 +3,8 @@ import translateBraille from "@/utils/translateBraille";
 import { judge, makeQuestion } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Paper, Typography, Divider, Button, Stack, Box } from "@mui/material";
-import { SixDotBraille } from "@/models/BrailleCharacter";
-import { SixDotBrailleString } from "@/models/BrailleString";
+import { EightDotBraille } from "@/models/BrailleCharacter";
+import { EightDotBrailleString } from "@/models/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
@@ -13,8 +13,8 @@ export default function TouchMain({
 }: {
   typeOfQuestions: string[];
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
-    [...Array(10)].map((_) => new SixDotBraille("unicode", "⠀"))
+  const [brailleStrings, setBrailleStrings] = useState<EightDotBraille[]>(
+    [...Array(10)].map((_) => new EightDotBraille("unicode", "⠀"))
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
@@ -22,13 +22,18 @@ export default function TouchMain({
 
   useEffect(() => {
     setHiraganaStrings(
-      translateBraille(new SixDotBrailleString("braille array", brailleStrings))
+      translateBraille(
+        new EightDotBrailleString("braille array", brailleStrings)
+      )
     );
   }, [brailleStrings]);
 
   useEffect(() => {
     judgeAnswer(
-      judge(new SixDotBrailleString("braille array", brailleStrings), question)
+      judge(
+        new EightDotBrailleString("braille array", brailleStrings),
+        question
+      )
     );
   }, [brailleStrings, question]);
 
@@ -59,7 +64,7 @@ export default function TouchMain({
             variant="outlined"
             onClick={() => {
               setBrailleStrings(
-                brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
+                brailleStrings.map((_) => new EightDotBraille("unicode", "⠀"))
               );
             }}
             startIcon={<RefreshIcon />}
@@ -125,7 +130,7 @@ export default function TouchMain({
           onClick={() => {
             setQuestion(makeQuestion(typeOfQuestions));
             setBrailleStrings(
-              brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
+              brailleStrings.map((_) => new EightDotBraille("unicode", "⠀"))
             );
             judgeAnswer(false);
           }}

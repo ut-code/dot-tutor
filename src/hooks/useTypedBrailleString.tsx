@@ -196,7 +196,8 @@ function convertKeyboardStateToBrailleState(
       6
     );
     return brailleState;
-  } else if (brailleDotCount === 8) {
+  }
+  if (brailleDotCount === 8) {
     const brailleState: BrailleState = new BrailleState(
       {
         dot1: keyboardState.KeyF,
@@ -211,9 +212,8 @@ function convertKeyboardStateToBrailleState(
       8
     );
     return brailleState;
-  } else {
-    throw new Error("The Number of Braille Dots Must Be 6 or 8.");
   }
+  throw new Error("The Number of Braille Dots Must Be 6 or 8.");
 }
 
 /**
@@ -243,21 +243,20 @@ function convertKeyboardStateToBraille(
 ): string {
   if (keyboardState.Backspace) {
     return "\b"; // Return backspace character.
-  } else {
-    const brailleState = convertKeyboardStateToBrailleState(
-      keyboardState,
-      brailleDotCount
-    );
-    if (brailleDotCount === 6) {
-      const braille = new SixDotBraille("braille state", brailleState);
-      return braille.unicodeBraille;
-    } else if (brailleDotCount === 8) {
-      const braille = new EightDotBraille("braille state", brailleState);
-      return braille.unicodeBraille;
-    } else {
-      throw new Error("The Number of Braille Dots Must Be 6 or 8.");
-    }
   }
+  const brailleState = convertKeyboardStateToBrailleState(
+    keyboardState,
+    brailleDotCount
+  );
+  if (brailleDotCount === 6) {
+    const braille = new SixDotBraille("braille state", brailleState);
+    return braille.unicodeBraille;
+  }
+  if (brailleDotCount === 8) {
+    const braille = new EightDotBraille("braille state", brailleState);
+    return braille.unicodeBraille;
+  }
+  throw new Error("The Number of Braille Dots Must Be 6 or 8.");
 }
 
 /**
@@ -282,7 +281,8 @@ export default function useTypedBrailleString(
   brailleDotCount: 6 | 8
 ): [
   typedBrailleString: string,
-  updateTypedBrailleString: (e: KeyboardEvent) => void
+  updateTypedBrailleString: (e: KeyboardEvent) => void,
+  setTypedBrailleStringFromString: (value: string) => void
 ] {
   const [typedKeys, setTypedKeys] = useTypedKeys();
   const [typedBrailleString, setTypedBrailleString] = useState<string>("");
@@ -315,5 +315,5 @@ export default function useTypedBrailleString(
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedKeys, setTypedBrailleString]);
-  return [typedBrailleString, updateTypedBrailleString];
+  return [typedBrailleString, updateTypedBrailleString, setTypedBrailleString];
 }

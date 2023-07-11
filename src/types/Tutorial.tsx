@@ -17,6 +17,7 @@ export type TutorialDialogSteps = TutorialDialogStep[];
 interface TutorialStep {
   dialog: TutorialDialogSteps;
   content: JSX.Element;
+  hasHintHiraganaTable: boolean;
 }
 
 /**

@@ -320,16 +320,19 @@ export default function translateBraille(
       if (brailleStrings.unicodeBrailleString[i] === "⠠" && alphabetCapital) {
         alphabetCapitalSuccession = true;
         return;
-      } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+      }
+      if (brailleStrings.unicodeBrailleString[i] === "⠠") {
         alphabetCapital = true;
         alphabet = true;
         return;
-      } else if (brailleStrings.unicodeBrailleString[i] === "⠴") {
+      }
+      if (brailleStrings.unicodeBrailleString[i] === "⠴") {
         alphabet = false;
         alphabetCapital = false;
         alphabetCapitalSuccession = false;
         return;
-      } else if (alphabetCapitalSuccession) {
+      }
+      if (alphabetCapitalSuccession) {
         // 二重大文字符の中の場合
         sumijiChar = matchedChar(
           alphabetCapitalTable,

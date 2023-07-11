@@ -7,10 +7,12 @@ import {
   TextField,
   Typography,
   Button,
+  Stack,
 } from "@mui/material";
 import { SixDotBrailleString } from "@/models/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 interface Question {
   question: string;
@@ -42,7 +44,11 @@ export default function Tutorial1({
 }: {
   questionList: QuestionList;
 }): JSX.Element {
-  const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString(6);
+  const [
+    typedBrailleString,
+    setTypedBrailleString,
+    setTypedBrailleStringFromString,
+  ] = useTypedBrailleString(6);
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [goNextQuestion, setGoNextQuestion] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =
@@ -85,9 +91,20 @@ export default function Tutorial1({
       </Paper>
 
       <Paper elevation={2} sx={{ my: 2 }}>
-        <Typography variant="h6" component="h2" color="inherit" p={2}>
-          点字を入力
-        </Typography>
+        <Stack direction="row" p={2} spacing={2}>
+          <Typography variant="h6" component="h2" color="inherit">
+            点字を入力
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setTypedBrailleStringFromString("");
+            }}
+            startIcon={<RefreshIcon />}
+          >
+            リセット
+          </Button>
+        </Stack>
         <Divider />
         <Box sx={{ minHeight: 100 }} p={2}>
           <TextField
@@ -111,7 +128,7 @@ export default function Tutorial1({
         <Divider />
         <Box display="flex" sx={{ minHeight: 100 }} p={2}>
           {translatedBrailleString}
-          {goNextQuestion ? <CheckCircleOutlineIcon color="success" /> : ""}
+          {goNextQuestion && <CheckCircleOutlineIcon color="success" />}
         </Box>
       </Paper>
 
@@ -123,6 +140,7 @@ export default function Tutorial1({
             }
             setGoNextQuestion(false);
           }
+          setTypedBrailleStringFromString("");
         }}
         disabled={!goNextQuestion}
         variant="contained"

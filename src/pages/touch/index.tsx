@@ -16,60 +16,64 @@ import Tutorial1Dialog7 from "./tutorial/tutorial6/dialog/7_read_vowel.mdx";
 
 export default function Touch(): JSX.Element {
   return (
-    <>
-      <Tutorial
-        tutorialSteps={[
-          {
-            dialog: [
-              { title: "点字を打ってみよう", content: <Tutorial1Dialog1 /> },
-              { title: "母音を打ってみよう", content: <Tutorial1Dialog2 /> },
-            ],
-            content: <Practice1 />,
-          },
-          {
-            dialog: [
-              { title: "五十音を打ってみよう", content: <Tutorial1Dialog3 /> },
-            ],
-            content: <Practice2 />,
-          },
-          {
-            dialog: [
-              {
-                title: "濁音、半濁音を打ってみよう",
-                content: <Tutorial1Dialog4 />,
-              },
-            ],
-            content: <Practice3 />,
-          },
-          {
-            dialog: [
-              {
-                title: "拗音を打ってみよう",
-                content: <Tutorial1Dialog5 />,
-              },
-            ],
-            content: <Practice4 />,
-          },
-          {
-            dialog: [
-              {
-                title: "その他のひらがなを学んで、色々な文字を打ってみよう",
-                content: <Tutorial1Dialog6 />,
-              },
-            ],
-            content: <Practice5 />,
-          },
-          {
-            dialog: [
-              {
-                title: "点字を読んでみよう",
-                content: <Tutorial1Dialog7 />,
-              },
-            ],
-            content: <Practice6 />,
-          },
-        ]}
-      />
-    </>
+    <Tutorial
+      tutorialSteps={[
+        {
+          dialog: [
+            { title: "点字を打ってみよう", content: <Tutorial1Dialog1 /> },
+            { title: "母音を打ってみよう", content: <Tutorial1Dialog2 /> },
+          ],
+          content: <Practice1 />,
+          hasHintHiraganaTable: false,
+        },
+        {
+          dialog: [
+            { title: "五十音を打ってみよう", content: <Tutorial1Dialog3 /> },
+          ],
+          content: <Practice2 />,
+          hasHintHiraganaTable: false,
+        },
+        {
+          dialog: [
+            {
+              title: "濁音、半濁音を打ってみよう",
+              content: <Tutorial1Dialog4 />,
+            },
+          ],
+          content: <Practice3 />,
+          hasHintHiraganaTable: false,
+        },
+        {
+          dialog: [
+            {
+              title: "拗音を打ってみよう",
+              content: <Tutorial1Dialog5 />,
+            },
+          ],
+          content: <Practice4 />,
+          hasHintHiraganaTable: false,
+        },
+        {
+          dialog: [
+            {
+              title: "その他のひらがなを学んで、色々な文字を打ってみよう",
+              content: <Tutorial1Dialog6 />,
+            },
+          ],
+          content: <Practice5 />,
+          hasHintHiraganaTable: false,
+        },
+        {
+          dialog: [
+            {
+              title: "点字を読んでみよう",
+              content: <Tutorial1Dialog7 />,
+            },
+          ],
+          content: <Practice6 />,
+          hasHintHiraganaTable: false,
+        },
+      ]}
+    />
   );
 }

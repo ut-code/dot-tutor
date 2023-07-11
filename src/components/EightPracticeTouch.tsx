@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { SixDotBraille } from "@/models/BrailleCharacter";
-import { SixDotBrailleString } from "@/models/BrailleString";
-import { judge } from "@/components/questionAndJudge";
+import { EightDotBraille } from "@/models/BrailleCharacter";
+import { EightDotBrailleString } from "@/models/BrailleString";
+import { eightJudge } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
 
-export default function PracticeTouch({
+export default function EightPracticeTouch({
   question,
   answer,
   length,
@@ -14,8 +14,8 @@ export default function PracticeTouch({
   answer: string;
   length: number;
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
-    [...Array(length)].map((_) => new SixDotBraille("unicode", "⠀"))
+  const [brailleStrings, setBrailleStrings] = useState<EightDotBraille[]>(
+    [...Array(length)].map((_) => new EightDotBraille("unicode", "⠀"))
   );
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
@@ -42,8 +42,8 @@ export default function PracticeTouch({
         variant="contained"
         onClick={() => {
           judgeAnswer(
-            judge(
-              new SixDotBrailleString("braille array", brailleStrings),
+            eightJudge(
+              new EightDotBrailleString("braille array", brailleStrings),
               answer
             )
           );

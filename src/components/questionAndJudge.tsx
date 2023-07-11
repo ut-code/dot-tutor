@@ -1,4 +1,7 @@
-import { type SixDotBrailleString } from "@/models/BrailleString";
+import {
+  type SixDotBrailleString,
+  type EightDotBrailleString,
+} from "@/models/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 
 export function makeQuestion(questions: string[]): string {
@@ -8,22 +11,22 @@ export function makeQuestion(questions: string[]): string {
 export function judge(
   typedBrailleStrings: SixDotBrailleString,
   question: string
-): string {
+): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
 
   let begin = 0;
   let end = typedAnswer.length;
 
-  for (let i = 0; i < typedAnswer.length; i++) {
-    if (typedAnswer[i] === " ") {
+  for (let i = 0; i < typedAnswer.length; i += 1) {
+    if (typedAnswer[i] === "　") {
       begin = i;
     } else {
       break;
     }
   }
 
-  for (let i = typedAnswer.length - 1; i >= 0; i--) {
-    if (typedAnswer.charAt(i) === " ") {
+  for (let i = typedAnswer.length - 1; i >= 0; i -= 1) {
+    if (typedAnswer.charAt(i) === "　") {
       end = i;
     } else {
       break;
@@ -32,11 +35,37 @@ export function judge(
 
   typedAnswer = typedAnswer.substring(begin, end);
 
-  if (typedAnswer === question) {
-    return "正解";
-  } else {
-    return "不正解";
+  return typedAnswer === question;
+}
+
+export function eightJudge(
+  typedBrailleStrings: EightDotBrailleString,
+  question: string
+): boolean {
+  let typedAnswer = translateBraille(typedBrailleStrings);
+
+  let begin = 0;
+  let end = typedAnswer.length;
+
+  for (let i = 0; i < typedAnswer.length; i += 1) {
+    if (typedAnswer[i] === "　") {
+      begin = i;
+    } else {
+      break;
+    }
   }
+
+  for (let i = typedAnswer.length - 1; i >= 0; i -= 1) {
+    if (typedAnswer.charAt(i) === "　") {
+      end = i;
+    } else {
+      break;
+    }
+  }
+
+  typedAnswer = typedAnswer.substring(begin, end);
+
+  return typedAnswer === question;
 }
 
 export function judgeForRead(typedAns: string, question: string): string {

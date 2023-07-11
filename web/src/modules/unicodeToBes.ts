@@ -33,18 +33,29 @@ export function unicodeToBes(unicode: string): Uint8Array {
   var letters = 0;
   var lines = 0;
   var pages = 0;
+  var separate_pos = 0; // 単語区切りの空白の位置
   for (const char of unicode) {
-    if (lines == 21) {
-      /*for (var i = 0; i < 27; i++) {
-        output.push(0xa0);
-        all_letters += 1;
-      }
-      output.push(0xfe);*/
+    const codePoint = char.codePointAt(0);
+
+    if (lines == 21) { // ページをまたぐとき
       lines = 0;
       pages += 1;
     }
-    const codePoint = char.codePointAt(0);
-    console.log(char + " letters: " + letters);
+    if (letters == 33) { // 文字が1行におさまらず改行
+      if (codePoint == 0x2800) { 
+        output.push(0xfe);
+        lines += 1;
+        letters = 0;
+      } else { // 次の文字が空白でないとき、単語区切りに戻って改行
+        output.splice(separate_pos, 0, 0xfe)
+        lines += 1;
+        letters = output.length - separate_pos - 1;
+      }
+    }
+
+    if (codePoint == 0x2800) {
+      separate_pos = output.length;
+    }
     if (codePoint != null) {
       if (codePoint >= 0x2800 && codePoint <= 0x28ff) {
         output.push(codePoint - 0x2800 + 0xa0);
@@ -52,17 +63,11 @@ export function unicodeToBes(unicode: string): Uint8Array {
         all_letters += 1;
       }
     }
-    if (char == "n") {
+    if (char == "n") { // "\n"で改行
       output.push(0x0d);
       output.push(0xfe);
       lines += 1;
       letters = 0;
-    }
-    if (letters == 32) {
-      output.push(0xfe);
-      lines += 1;
-      letters = 0;
-      console.log("fe");
     }
   }
   output[31] = 0x30 + pages;

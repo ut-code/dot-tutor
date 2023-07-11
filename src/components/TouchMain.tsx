@@ -13,23 +13,19 @@ export default function TouchMain({
 }: {
   typeOfQuestions: string[];
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<SixDotBraille[]>(
-    [...Array(10)].map((_) => new SixDotBraille("unicode", "⠀"))
+  const [brailleStrings, setBrailleStrings] = useState<SixDotBrailleString>(
+    new SixDotBrailleString("unicode", [...Array(10)].map((_) => "⠀").join(""))
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   useEffect(() => {
-    setHiraganaStrings(
-      translateBraille(new SixDotBrailleString("braille array", brailleStrings))
-    );
+    setHiraganaStrings(translateBraille(brailleStrings));
   }, [brailleStrings]);
 
   useEffect(() => {
-    judgeAnswer(
-      judge(new SixDotBrailleString("braille array", brailleStrings), question)
-    );
+    judgeAnswer(judge(brailleStrings, question));
   }, [brailleStrings, question]);
 
   return (
@@ -59,7 +55,10 @@ export default function TouchMain({
             variant="outlined"
             onClick={() => {
               setBrailleStrings(
-                brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
+                new SixDotBrailleString(
+                  "unicode",
+                  [...Array(10)].map((_) => "⠀").join("")
+                )
               );
             }}
             startIcon={<RefreshIcon />}
@@ -68,7 +67,7 @@ export default function TouchMain({
           </Button>
         </Stack>
         <Divider />
-        {brailleStrings.map((brailleChar, i) => (
+        {brailleStrings.brailleArray.map((brailleChar, i) => (
           <EdittableBraille
             key={i}
             height="100"
@@ -76,7 +75,12 @@ export default function TouchMain({
             braille={brailleChar}
             setBraille={(braille) => {
               setBrailleStrings(
-                brailleStrings.map((_, j) => (j === i ? braille : _))
+                new SixDotBrailleString(
+                  "braille array",
+                  brailleStrings.brailleArray.map((_, j) =>
+                    j === i ? braille : _
+                  )
+                )
               );
             }}
           />
@@ -125,7 +129,10 @@ export default function TouchMain({
           onClick={() => {
             setQuestion(makeQuestion(typeOfQuestions));
             setBrailleStrings(
-              brailleStrings.map((_) => new SixDotBraille("unicode", "⠀"))
+              new SixDotBrailleString(
+                "unicode",
+                [...Array(10)].map((_) => "⠀").join("")
+              )
             );
             judgeAnswer(false);
           }}

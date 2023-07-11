@@ -19,10 +19,10 @@ export default function ReadMain({
   typeOfQuestions: string[];
 }): JSX.Element {
   const [question, setQuestion] = useState<string>(
-    makeQuestion(typeOfQuestions)
+    makeQuestion(typeOfQuestions),
   ); // 問題
   const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
-    translateSumiji(question)
+    translateSumiji(question),
   );
   const [typedAns, setTypedAns] = useState<string>("");
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤

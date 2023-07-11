@@ -18,7 +18,7 @@ export default function PracticeField({
     useState<string>("");
   useEffect(() => {
     setTranslatedBrailleString(
-      translateBraille(new SixDotBrailleString("unicode", typedBrailleString))
+      translateBraille(new SixDotBrailleString("unicode", typedBrailleString)),
     );
   }, [typedBrailleString]);
 

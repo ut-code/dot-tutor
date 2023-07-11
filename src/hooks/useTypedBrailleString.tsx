@@ -54,7 +54,7 @@ const availableKeys = Object.keys(defaultKeyboardValues);
  */
 function useKeyboardState(): [
   keyboardState: KeyboardState,
-  updateKeyboardState: (e: KeyboardEvent) => void
+  updateKeyboardState: (e: KeyboardEvent) => void,
 ] {
   const [keyboardState, setKeyboardState] = useState<KeyboardState>({
     ...defaultKeyboardValues,
@@ -110,7 +110,7 @@ function useKeyboardState(): [
  */
 function useTypedKeys(): [
   typedKey: KeyboardState,
-  updateTypedKeys: (e: KeyboardEvent) => void
+  updateTypedKeys: (e: KeyboardEvent) => void,
 ] {
   const [keyboardState, setKeyboardState] = useKeyboardState();
   const [pressedKeys, setPressedKeys] = useState<KeyboardState>({
@@ -135,8 +135,8 @@ function useTypedKeys(): [
     else {
       const newPressedKeys = Object.fromEntries(
         Object.entries(pressedKeys).map(([key, value]) =>
-          keyboardState[key as AvailableKey] ? [key, true] : [key, value]
-        )
+          keyboardState[key as AvailableKey] ? [key, true] : [key, value],
+        ),
       ) as KeyboardState;
       setPressedKeys(newPressedKeys);
     }
@@ -181,7 +181,7 @@ function useTypedKeys(): [
  */
 function convertKeyboardStateToBrailleState(
   keyboardState: KeyboardState,
-  brailleDotCount: 6 | 8
+  brailleDotCount: 6 | 8,
 ): BrailleState {
   if (brailleDotCount === 6) {
     const brailleState: BrailleState = new BrailleState(
@@ -193,7 +193,7 @@ function convertKeyboardStateToBrailleState(
         dot5: keyboardState.KeyK,
         dot6: keyboardState.KeyL,
       },
-      6
+      6,
     );
     return brailleState;
   }
@@ -209,7 +209,7 @@ function convertKeyboardStateToBrailleState(
         dot6: keyboardState.KeyL,
         dot8: keyboardState.Semicolon,
       },
-      8
+      8,
     );
     return brailleState;
   }
@@ -239,14 +239,14 @@ function convertKeyboardStateToBrailleState(
  */
 function convertKeyboardStateToBraille(
   keyboardState: KeyboardState,
-  brailleDotCount: 6 | 8
+  brailleDotCount: 6 | 8,
 ): string {
   if (keyboardState.Backspace) {
     return "\b"; // Return backspace character.
   }
   const brailleState = convertKeyboardStateToBrailleState(
     keyboardState,
-    brailleDotCount
+    brailleDotCount,
   );
   if (brailleDotCount === 6) {
     const braille = new SixDotBraille("braille state", brailleState);
@@ -278,11 +278,11 @@ function convertKeyboardStateToBraille(
  * {typedBrailleString}
  */
 export default function useTypedBrailleString(
-  brailleDotCount: 6 | 8
+  brailleDotCount: 6 | 8,
 ): [
   typedBrailleString: string,
   updateTypedBrailleString: (e: KeyboardEvent) => void,
-  setTypedBrailleStringFromString: (value: string) => void
+  setTypedBrailleStringFromString: (value: string) => void,
 ] {
   const [typedKeys, setTypedKeys] = useTypedKeys();
   const [typedBrailleString, setTypedBrailleString] = useState<string>("");
@@ -297,19 +297,19 @@ export default function useTypedBrailleString(
     if (!Object.values(typedKeys).every((value: boolean) => !value)) {
       const typedBraille = convertKeyboardStateToBraille(
         typedKeys,
-        brailleDotCount
+        brailleDotCount,
       );
       if (typedBraille === "\b" && typedBrailleString.length !== 0) {
         // If the typed braille is backspace and the `typedBrailleString` is not empty, remove the last character.
         setTypedBrailleString((typedBrailleString) =>
-          typedBrailleString.slice(0, -1)
+          typedBrailleString.slice(0, -1),
         );
       } else if (typedBraille === "\b") {
         // If the `typedBrailleString` is empty, do nothing.
       } else {
         // If the typed braille is not backspace, add it.
         setTypedBrailleString(
-          (typedBrailleString) => `${typedBrailleString}${typedBraille},`
+          (typedBrailleString) => `${typedBrailleString}${typedBraille},`,
         );
       }
     }

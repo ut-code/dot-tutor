@@ -20,8 +20,8 @@ export default function PracticeTouch({
     new BrailleString(
       "unicode",
       [...Array(length)].map((_) => "⠀").join(""),
-      brailleDotCount
-    )
+      brailleDotCount,
+    ),
   );
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
@@ -40,10 +40,10 @@ export default function PracticeTouch({
               new BrailleString(
                 "braille array",
                 brailleStrings.brailleArray.map((_, j) =>
-                  j === i ? braille : _
+                  j === i ? braille : _,
                 ),
-                brailleDotCount
-              )
+                brailleDotCount,
+              ),
             );
           }}
         />

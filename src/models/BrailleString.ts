@@ -45,19 +45,19 @@ export class BrailleString {
   constructor(
     type: "braille array",
     brailleString: Braille[],
-    brailleDotCount: 6 | 8
+    brailleDotCount: 6 | 8,
   );
   constructor(
     type: "unicode" | "braille array",
     brailleString: string | Braille[],
-    brailleDotCount: 6 | 8
+    brailleDotCount: 6 | 8,
   ) {
     this.brailleDotCount = brailleDotCount;
 
     if (type === "unicode") {
       this.brailleString = Array.from(brailleString as string).map(
         (brailleCharacter) =>
-          new Braille("unicode", brailleCharacter, brailleDotCount)
+          new Braille("unicode", brailleCharacter, brailleDotCount),
       );
     } else if (type === "braille array") {
       this.brailleString = brailleString as Braille[];
@@ -114,7 +114,7 @@ export class SixDotBrailleString extends BrailleString {
   constructor(type: "braille array", brailleString: Braille[]);
   constructor(
     type: "unicode" | "braille array",
-    brailleString: string | Braille[]
+    brailleString: string | Braille[],
   ) {
     if (type === "unicode") {
       super(type, brailleString as string, 6);
@@ -134,7 +134,7 @@ export class EightDotBrailleString extends BrailleString {
   constructor(type: "braille array", brailleString: Braille[]);
   constructor(
     type: "unicode" | "braille array",
-    brailleString: string | Braille[]
+    brailleString: string | Braille[],
   ) {
     if (type === "unicode") {
       super(type, brailleString as string, 8);

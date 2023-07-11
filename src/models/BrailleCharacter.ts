@@ -49,12 +49,12 @@ export class Braille {
   constructor(
     type: "braille state",
     braille: BrailleState,
-    brailleDotCount: 6 | 8
+    brailleDotCount: 6 | 8,
   );
   constructor(
     type: "unicode" | "braille state",
     braille: string | BrailleState,
-    brailleDotCount: 6 | 8
+    brailleDotCount: 6 | 8,
   ) {
     this._brailleDotCount = brailleDotCount;
 
@@ -134,7 +134,7 @@ export class Braille {
         dot7: Boolean((codePoint - 0x2800) & (2 ** 6)),
         dot8: Boolean((codePoint - 0x2800) & (2 ** 7)),
       },
-      8
+      8,
     );
     return brailleState;
   }
@@ -166,7 +166,7 @@ export class SixDotBraille extends Braille {
   constructor(type: "braille state", braille: BrailleState);
   constructor(
     type: "unicode" | "braille state",
-    braille: string | BrailleState
+    braille: string | BrailleState,
   ) {
     if (type === "unicode") {
       super(type, braille as string, 6);
@@ -186,7 +186,7 @@ export class EightDotBraille extends Braille {
   constructor(type: "braille state", braille: BrailleState);
   constructor(
     type: "unicode" | "braille state",
-    braille: string | BrailleState
+    braille: string | BrailleState,
   ) {
     if (type === "unicode") {
       super(type, braille as string, 8);

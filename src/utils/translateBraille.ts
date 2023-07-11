@@ -254,7 +254,7 @@ function matchedChar(tableType: object, brailleChar: string): string {
 }
 
 export default function translateBraille(
-  brailleStrings: SixDotBrailleString
+  brailleStrings: SixDotBrailleString,
 ): string {
   let sumijiStrings: string = "";
   let dakuon: boolean = false; // 濁音
@@ -299,7 +299,7 @@ export default function translateBraille(
     if (number) {
       sumijiChar = matchedChar(
         numberTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
 
       if (sumijiChar === "") {
@@ -336,20 +336,20 @@ export default function translateBraille(
         // 二重大文字符の中の場合
         sumijiChar = matchedChar(
           alphabetCapitalTable,
-          brailleStrings.unicodeBrailleString[i]
+          brailleStrings.unicodeBrailleString[i],
         );
       } else if (alphabetCapital) {
         // 大文字符の中の場合
         sumijiChar = matchedChar(
           alphabetCapitalTable,
-          brailleStrings.unicodeBrailleString[i]
+          brailleStrings.unicodeBrailleString[i],
         );
         alphabetCapital = false;
       } else {
         // 外字符の中の場合
         sumijiChar = matchedChar(
           alphabetTable,
-          brailleStrings.unicodeBrailleString[i]
+          brailleStrings.unicodeBrailleString[i],
         );
       }
 
@@ -368,57 +368,57 @@ export default function translateBraille(
     if (dakuon) {
       sumijiChar = matchedChar(
         dakuonHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       dakuon = false;
     } else if (handakuon) {
       sumijiChar = matchedChar(
         handakuonHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       handakuon = false;
     } else if (contraction) {
       sumijiChar = matchedChar(
         contractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       contraction = false;
     } else if (dakuonContraction) {
       sumijiChar = matchedChar(
         dakuonContractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       dakuonContraction = false;
     } else if (handakuonContraction) {
       sumijiChar = matchedChar(
         handakuonContractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       handakuonContraction = false;
     } else if (special) {
       sumijiChar = matchedChar(
         specialHiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       sumijiStrings = sumijiStrings.slice(0, -1); // 現在の点字が"⠀"でない場合は、特殊音なのでsumijiStringsの最後の文字である「？」を削除する
       special = false;
     } else if (special1) {
       sumijiChar = matchedChar(
         specialHiraganaTable1,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       sumijiStrings = sumijiStrings.slice(0, -1); // 現在の点字が"⠀"でない場合は、特殊音なのでsumijiStringsの最後の文字である「。」を削除する
       special1 = false;
     } else if (special2) {
       sumijiChar = matchedChar(
         specialHiraganaTable2,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
       special2 = false;
     } else {
       sumijiChar = matchedChar(
         hiraganaTable,
-        brailleStrings.unicodeBrailleString[i]
+        brailleStrings.unicodeBrailleString[i],
       );
     }
 

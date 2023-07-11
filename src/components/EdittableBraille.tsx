@@ -126,11 +126,11 @@ export default function EdittableBraille({
           dot6: braille.brailleState.dot6,
           [dotNumber]: !braille.brailleState[dotNumber],
         },
-        6
+        6,
       );
       setBraille(new SixDotBraille("braille state", newBrailleState));
     },
-    [braille, setBraille]
+    [braille, setBraille],
   );
   const toggleEightDotBrailleDot = useCallback(
     (dotNumber: EightDotBrailleAvailableDot) => {
@@ -146,11 +146,11 @@ export default function EdittableBraille({
           dot8: braille.brailleState.dot8,
           [dotNumber]: !braille.brailleState[dotNumber],
         },
-        8
+        8,
       );
       setBraille(new EightDotBraille("braille state", newBrailleState));
     },
-    [braille, setBraille]
+    [braille, setBraille],
   );
 
   return (

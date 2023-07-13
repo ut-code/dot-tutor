@@ -1,5 +1,4 @@
 import React, { use, useState } from "react";
-import { SixDotBraille } from "@/models/BrailleCharacter";
 import { BrailleString } from "@/models/BrailleString";
 import { judge, eightJudge } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";

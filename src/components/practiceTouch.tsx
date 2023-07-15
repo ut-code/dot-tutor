@@ -19,8 +19,8 @@ export default function PracticeTouch({
     new BrailleString(
       "unicode",
       [...Array(length)].map((_) => "⠀").join(""),
-      brailleDotCount
-    )
+      brailleDotCount,
+    ),
   );
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
   const [visible, setVisible] = useState<boolean>(false); // 正誤の可視化
@@ -41,10 +41,10 @@ export default function PracticeTouch({
               new BrailleString(
                 "braille array",
                 brailleStrings.brailleArray.map((_, j) =>
-                  j === i ? braille : _
+                  j === i ? braille : _,
                 ),
-                brailleDotCount
-              )
+                brailleDotCount,
+              ),
             );
           }}
         />
@@ -58,7 +58,7 @@ export default function PracticeTouch({
             judgeAnswer(
               brailleDotCount === 6
                 ? judge(brailleStrings, answer)
-                : eightJudge(brailleStrings, answer)
+                : eightJudge(brailleStrings, answer),
             );
             setVisible(false);
           }}
@@ -72,7 +72,7 @@ export default function PracticeTouch({
             judgeAnswer(
               brailleDotCount === 6
                 ? judge(brailleStrings, answer)
-                : eightJudge(brailleStrings, answer)
+                : eightJudge(brailleStrings, answer),
             );
             setVisible(true);
           }}

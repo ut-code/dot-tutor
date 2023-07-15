@@ -55,18 +55,18 @@ export default function Tutorial1({
     useState<string>("");
   useEffect(() => {
     setTranslatedBrailleString(
-      translateBraille(new SixDotBrailleString("unicode", typedBrailleString))
+      translateBraille(new SixDotBrailleString("unicode", typedBrailleString)),
     );
   }, [typedBrailleString]);
   useEffect(() => {
     if (questionList !== undefined && questionIndex < questionList.length) {
       if ("answer" in questionList[questionIndex]) {
         setGoNextQuestion(
-          translatedBrailleString === questionList[questionIndex].answer
+          translatedBrailleString === questionList[questionIndex].answer,
         );
       } else {
         setGoNextQuestion(
-          translatedBrailleString === questionList[questionIndex].question
+          translatedBrailleString === questionList[questionIndex].question,
         );
       }
     }

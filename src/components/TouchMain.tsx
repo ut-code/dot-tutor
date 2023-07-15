@@ -19,8 +19,8 @@ export default function TouchMain({
     new BrailleString(
       "unicode",
       [...Array(10)].map((_) => "⠀").join(""),
-      brailleDotCount
-    )
+      brailleDotCount,
+    ),
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
@@ -34,8 +34,8 @@ export default function TouchMain({
             brailleStrings.brailleArray
               .map((braille) => braille.unicodeBraille)
               .join(""),
-            { kanji: true }
-          )
+            { kanji: true },
+          ),
     );
   }, [brailleDotCount, brailleStrings]);
 
@@ -43,7 +43,7 @@ export default function TouchMain({
     judgeAnswer(
       brailleDotCount === 6
         ? judge(brailleStrings, question)
-        : eightJudge(brailleStrings, question)
+        : eightJudge(brailleStrings, question),
     );
   }, [brailleDotCount, brailleStrings, question]);
 
@@ -77,8 +77,8 @@ export default function TouchMain({
                 new BrailleString(
                   "unicode",
                   [...Array(10)].map((_) => "⠀").join(""),
-                  brailleDotCount
-                )
+                  brailleDotCount,
+                ),
               );
             }}
             startIcon={<RefreshIcon />}
@@ -98,10 +98,10 @@ export default function TouchMain({
                 new BrailleString(
                   "braille array",
                   brailleStrings.brailleArray.map((_, j) =>
-                    j === i ? braille : _
+                    j === i ? braille : _,
                   ),
-                  brailleDotCount
-                )
+                  brailleDotCount,
+                ),
               );
             }}
           />
@@ -153,8 +153,8 @@ export default function TouchMain({
               new BrailleString(
                 "unicode",
                 [...Array(10)].map((_) => "⠀").join(""),
-                brailleDotCount
-              )
+                brailleDotCount,
+              ),
             );
             judgeAnswer(false);
           }}

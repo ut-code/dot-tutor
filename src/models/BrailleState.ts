@@ -119,7 +119,7 @@ export class BrailleState {
   constructor(brailleState: EightDotBrailleStateType, brailleDotCount: 8);
   constructor(
     brailleState: SixDotBrailleStateType | EightDotBrailleStateType,
-    brailleDotCount: 6 | 8
+    brailleDotCount: 6 | 8,
   ) {
     this._brailleDotCount = brailleDotCount;
     this._dot1 = brailleState.dot1;
@@ -152,7 +152,7 @@ export const defaultSixDotBrailleStateValue = new BrailleState(
     dot5: false,
     dot6: false,
   },
-  6
+  6,
 );
 
 /**
@@ -169,7 +169,7 @@ export const defaultEightDotBrailleStateValue = new BrailleState(
     dot6: false,
     dot8: false,
   },
-  8
+  8,
 );
 
 /**

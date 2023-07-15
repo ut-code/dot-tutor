@@ -11,7 +11,7 @@ export function makeQuestion(questions: string[]): string {
 
 export function judge(
   typedBrailleStrings: SixDotBrailleString,
-  question: string
+  question: string,
 ): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
 
@@ -41,13 +41,13 @@ export function judge(
 
 export function eightJudge(
   typedBrailleStrings: EightDotBrailleString,
-  question: string
+  question: string,
 ): boolean {
   let typedAnswer = tenji.fromTenji(
     typedBrailleStrings.brailleArray
       .map((braille) => braille.unicodeBraille)
       .join(""),
-    { kanji: true }
+    { kanji: true },
   );
 
   let begin = 0;
@@ -72,4 +72,11 @@ export function eightJudge(
   typedAnswer = typedAnswer.substring(begin, end);
 
   return typedAnswer === question;
+}
+
+export function judgeForRead(typedAns: string, question: string): boolean {
+  if (typedAns === question) {
+    return true;
+  }
+  return false;
 }

@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { BrailleString } from "@/models/BrailleString";
 import { judge, eightJudge } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";

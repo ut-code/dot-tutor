@@ -24,7 +24,7 @@ export default function PracticeTouch({
   );
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
   const [visible, setVisible] = useState<boolean>(false); // 正誤の可視化
-  const answerMsg = rightOrWrong ? "正解" : "不正解";
+  const answerMessage = rightOrWrong ? "正解" : "不正解";
 
   return (
     <>
@@ -51,36 +51,20 @@ export default function PracticeTouch({
       ))}
 
       <br />
-      {visible ? (
-        <Button
-          variant="contained"
-          onClick={() => {
-            judgeAnswer(
-              brailleDotCount === 6
-                ? judge(brailleStrings, answer)
-                : eightJudge(brailleStrings, answer),
-            );
-            setVisible(false);
-          }}
-        >
-          答え非表示
-        </Button>
-      ) : (
-        <Button
-          variant="contained"
-          onClick={() => {
-            judgeAnswer(
-              brailleDotCount === 6
-                ? judge(brailleStrings, answer)
-                : eightJudge(brailleStrings, answer),
-            );
-            setVisible(true);
-          }}
-        >
-          答え合わせ
-        </Button>
-      )}
-      {visible === true && answerMsg}
+      <Button
+        variant="contained"
+        onClick={() => {
+          judgeAnswer(
+            brailleDotCount === 6
+              ? judge(brailleStrings, answer)
+              : eightJudge(brailleStrings, answer),
+          );
+          setVisible(!visible);
+        }}
+      >
+        {visible ? "答え非表示" : "答え合わせ"}
+      </Button>
+      {visible === true && answerMessage}
     </>
   );
 }

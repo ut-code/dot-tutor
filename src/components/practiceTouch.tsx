@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { SixDotBraille } from "@/models/BrailleCharacter";
 import { BrailleString } from "@/models/BrailleString";
-import { judge } from "@/components/questionAndJudge";
+import { judge, eightJudge } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
 
@@ -24,9 +23,11 @@ export default function PracticeTouch({
     ),
   );
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
+  const [visible, setVisible] = useState<boolean>(false); // 正誤の可視化
+  const answerMessage = rightOrWrong ? "正解" : "不正解";
 
   return (
-    <div>
+    <>
       {question}
       <br />
       {brailleStrings.brailleArray.map((brailleChar, i) => (
@@ -53,13 +54,17 @@ export default function PracticeTouch({
       <Button
         variant="contained"
         onClick={() => {
-          judgeAnswer(judge(brailleStrings, answer));
+          judgeAnswer(
+            brailleDotCount === 6
+              ? judge(brailleStrings, answer)
+              : eightJudge(brailleStrings, answer),
+          );
+          setVisible(!visible);
         }}
       >
-        答え合わせ
+        {visible ? "答え非表示" : "答え合わせ"}
       </Button>
-
-      {rightOrWrong}
-    </div>
+      {visible === true && answerMessage}
+    </>
   );
 }

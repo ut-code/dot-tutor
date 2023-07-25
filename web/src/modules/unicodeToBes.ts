@@ -37,17 +37,20 @@ export function unicodeToBes(unicode: string): Uint8Array {
   for (const char of unicode) {
     const codePoint = char.codePointAt(0);
 
-    if (lines == 21) { // ページをまたぐとき
+    if (lines == 21) {
+      // ページをまたぐとき
       lines = 0;
       pages += 1;
     }
-    if (letters == 33) { // 文字が1行におさまらず改行
-      if (codePoint == 0x2800) { 
+    if (letters == 33) {
+      // 文字が1行におさまらず改行
+      if (codePoint == 0x2800) {
         output.push(0xfe);
         lines += 1;
         letters = 0;
-      } else { // 次の文字が空白でないとき、単語区切りに戻って改行
-        output.splice(separate_pos, 0, 0xfe)
+      } else {
+        // 次の文字が空白でないとき、単語区切りに戻って改行
+        output.splice(separate_pos, 0, 0xfe);
         lines += 1;
         letters = output.length - separate_pos - 1;
       }
@@ -63,7 +66,8 @@ export function unicodeToBes(unicode: string): Uint8Array {
         all_letters += 1;
       }
     }
-    if (char == "n") { // "\n"で改行
+    if (char == "n") {
+      // "\n"で改行
       output.push(0x0d);
       output.push(0xfe);
       lines += 1;

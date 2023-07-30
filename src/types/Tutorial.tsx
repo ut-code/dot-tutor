@@ -18,6 +18,7 @@ interface TutorialStep {
   dialog: TutorialDialogSteps;
   content: JSX.Element;
   hasHintHiraganaTable: boolean;
+  hasHintAlphabetTable: boolean;
 }
 
 /**

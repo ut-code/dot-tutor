@@ -4,6 +4,7 @@ import { type TutorialSteps } from "@/types/Tutorial";
 import TopBar from "@/components/TopBar";
 import BottomStepper from "@/components/BottomStepper";
 import HiraganaTableDialog from "./HiraganaTableDialog";
+import AlphabetTableDialog from "./AlphabetTableDialog";
 
 export default function Tutorial({
   tutorialSteps,
@@ -19,6 +20,9 @@ export default function Tutorial({
         <main>{tutorialSteps[selectedStep].content}</main>
         {tutorialSteps[selectedStep].hasHintHiraganaTable && (
           <HiraganaTableDialog />
+        )}
+        {tutorialSteps[selectedStep].hasHintAlphabetTable && (
+          <AlphabetTableDialog />
         )}
       </Box>
       <BottomStepper

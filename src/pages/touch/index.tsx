@@ -25,6 +25,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice1 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
         {
           dialog: [
@@ -32,6 +33,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice2 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
         {
           dialog: [
@@ -42,6 +44,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice3 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
         {
           dialog: [
@@ -52,6 +55,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice4 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
         {
           dialog: [
@@ -62,6 +66,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice5 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
         {
           dialog: [
@@ -72,6 +77,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice6 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
       ]}
     />

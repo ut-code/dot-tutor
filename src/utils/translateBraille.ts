@@ -184,7 +184,7 @@ const numberTable = {
   "0": "⠚",
 };
 
-const alphabetTable = {
+export const alphabetTable = {
   a: "⠁",
   b: "⠃",
   c: "⠉",

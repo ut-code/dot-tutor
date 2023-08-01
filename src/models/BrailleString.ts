@@ -31,6 +31,7 @@ import { Braille } from "@/models/BrailleCharacter";
  */
 export class BrailleString {
   private readonly brailleString: Braille[];
+
   private readonly brailleDotCount: 6 | 8;
 
   public get unicodeBrailleString(): string {

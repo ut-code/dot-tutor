@@ -70,13 +70,21 @@ interface EightDotBrailleStateType {
  */
 export class BrailleState {
   private readonly _brailleDotCount: 6 | 8;
+
   private readonly _dot1: boolean;
+
   private readonly _dot2: boolean;
+
   private readonly _dot3: boolean;
+
   private readonly _dot7: boolean;
+
   private readonly _dot4: boolean;
+
   private readonly _dot5: boolean;
+
   private readonly _dot6: boolean;
+
   private readonly _dot8: boolean;
 
   public get brailleDotCount(): 6 | 8 {

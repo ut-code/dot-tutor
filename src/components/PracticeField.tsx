@@ -11,7 +11,8 @@ export default function PracticeField({
   question: string;
   answer: string;
 }): JSX.Element {
-  const [typedBrailleString, setTypedBrailleString] = useTypedBrailleString(6);
+  const [typedBrailleString, updateTypedBrailleString] =
+    useTypedBrailleString(6);
   const [answered, setAnswered] = useState<boolean>(false);
   const [correctOrNot, setCorrectOrNot] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =
@@ -30,10 +31,10 @@ export default function PracticeField({
           variant="outlined"
           value={typedBrailleString}
           onKeyDown={(e) => {
-            setTypedBrailleString(e);
+            updateTypedBrailleString(e);
           }}
           onKeyUp={(e) => {
-            setTypedBrailleString(e);
+            updateTypedBrailleString(e);
           }}
         />
         <Typography style={{ color: "gray", fontSize: "75%" }} m={1}>

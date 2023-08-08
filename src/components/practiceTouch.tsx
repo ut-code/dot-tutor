@@ -3,6 +3,7 @@ import { BrailleString } from "@/models/BrailleString";
 import { judge, eightJudge } from "@/components/questionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
+import { SixDotBraille } from "@/models/BrailleCharacter";
 
 export default function PracticeTouch({
   question,
@@ -66,5 +67,22 @@ export default function PracticeTouch({
       </Button>
       {visible === true && answerMessage}
     </>
+  );
+}
+
+export function TouchPlayground(): JSX.Element {
+  const [brailleChar, setBrailleChar] = useState<SixDotBraille>(
+    new SixDotBraille("unicode", "⠀"),
+  );
+
+  return (
+    <EdittableBraille
+      height="100"
+      width="60"
+      braille={brailleChar}
+      setBraille={(braille) => {
+        setBrailleChar(braille);
+      }}
+    />
   );
 }

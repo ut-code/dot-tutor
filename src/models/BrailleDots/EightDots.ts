@@ -1,10 +1,7 @@
 import AbstractBrailleDots from "./AbstractBrailleDots";
-import { EightDotPosition, EightDotsType } from "./types";
+import { EightDotsType } from "./types";
 
 /**
  * A class representing the information of the eight braille dots.
  */
-export default class EightDots extends AbstractBrailleDots<
-  EightDotsType,
-  EightDotPosition
-> {}
+export default class EightDots extends AbstractBrailleDots<EightDotsType> {}

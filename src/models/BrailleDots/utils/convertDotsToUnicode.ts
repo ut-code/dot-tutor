@@ -1,4 +1,3 @@
-import BrailleError from "../../../errors/BrailleError";
 import { SixDotsType, EightDotsType } from "../types";
 
 /**
@@ -9,10 +8,6 @@ import { SixDotsType, EightDotsType } from "../types";
 export default function convertDotsToUnicode(
   dots: SixDotsType | EightDotsType,
 ): string {
-  if (dots.length !== 6 && dots.length !== 8) {
-    throw new BrailleError("Invalid Number of Dots! Must be 6 or 8.");
-  }
-
   // See the Unicode table at https://www.unicode.org/charts/PDF/U2800.pdf
   let codePoint = 0x2800;
   // If the dot is true, add 2 ** i to codePoint.

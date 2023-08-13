@@ -18,6 +18,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice6 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
         {
           dialog: [
@@ -28,6 +29,7 @@ export default function Touch(): JSX.Element {
           ],
           content: <Practice7 />,
           hasHintHiraganaTable: false,
+          hasHintAlphabetTable: false,
         },
       ]}
     />

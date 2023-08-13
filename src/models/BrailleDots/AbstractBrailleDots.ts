@@ -6,14 +6,17 @@ import {
 } from "./types";
 import convertDotsToUnicode from "./utils/convertDotsToUnicode";
 
+type DotsType = SixDotsType | EightDotsType;
+type DotPositionType<Dots extends DotsType> = Dots extends SixDotsType
+  ? SixDotPosition
+  : EightDotPosition;
+
 /**
  * A class representing the information of the braille dots.
  */
 export default class AbstractBrailleDots<
-  Dots extends SixDotsType | EightDotsType,
-  DotPosition extends Dots extends SixDotsType
-    ? SixDotPosition
-    : EightDotPosition,
+  Dots extends DotsType,
+  DotPosition extends DotPositionType<Dots>,
 > {
   private readonly dots: Dots;
 

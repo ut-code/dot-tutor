@@ -1,8 +1,10 @@
-import { EightDotsType, SixDotsType } from "./types";
+import {
+  EightDotPosition,
+  EightDotsType,
+  SixDotPosition,
+  SixDotsType,
+} from "./types";
 import convertDotsToUnicode from "./utils/convertDotsToUnicode";
-
-type SixDotPosition = 1 | 2 | 3 | 4 | 5 | 6;
-type EightDotPosition = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /**
  * A class representing the information of the braille dots.

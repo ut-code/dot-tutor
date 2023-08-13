@@ -1,14 +1,14 @@
 import { SixDotsType, EightDotsType } from "../types";
 
 /**
- * Convert 6-dot or 8-dot braille array to the corresponding Unicode character.
- * @param dots the dots of braille (6 or 8 dots)
- * @returns the Unicode character of braille
+ * Converts 6-dot or 8-dot braille dots to the Unicode character corresponding to the braille dots.
+ * @param dots the braille dots (6 or 8 dots)
+ * @returns the Unicode character corresponding to the braille dots
  */
 export default function convertDotsToUnicode(
   dots: SixDotsType | EightDotsType,
 ): string {
-  // See the Unicode table at https://www.unicode.org/charts/PDF/U2800.pdf
+  // See the Unicode patterns at https://www.unicode.org/charts/PDF/U2800.pdf
   let codePoint = 0x2800;
   // If the dot is true, add 2 ** i to codePoint.
   for (let i = 0; i < dots.length; i += 1) {

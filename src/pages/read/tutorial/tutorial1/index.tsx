@@ -1,16 +1,7 @@
-import TouchMain from "@/components/TouchMain";
+import ReadMain from "@/components/ReadMain";
 
-export const vowelQuestions = [
-  "あい",
-  "あう",
-  "あお",
-  "いう",
-  "いえ",
-  "おい",
-  "おう",
-  "おお",
-];
+export const vowelQuestions = ["あ", "い"];
 
 export default function Practice1(): JSX.Element {
-  return <TouchMain typeOfQuestions={vowelQuestions} brailleDotCount={6} />;
+  return <ReadMain typeOfQuestions={vowelQuestions} />;
 }

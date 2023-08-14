@@ -80,6 +80,14 @@ export default function Home(): JSX.Element {
             description="点字の漢字バージョンを「Web点字器」の形式で学びます。"
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <NavigationCard
+            title="点字読みコーナー"
+            linkUrl="/read"
+            imgPath={url("/logo.svg")}
+            description="点字の読み方をクイズで学びます。"
+          />
+        </Grid>
       </Grid>
     </Layout>
   );

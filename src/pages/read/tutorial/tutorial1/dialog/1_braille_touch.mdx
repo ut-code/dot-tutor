@@ -1,0 +1,44 @@
+import EdittableBraille from "../../../../../components/EdittableBraille";
+import PracticeTouch, {
+  TouchPlayground,
+} from "../../../../../components/practiceTouch";
+
+### 参考文献
+
+このチュートリアルは自立活動指導書 別冊１ 点字研修資料 (広島県立広島中央特別支援学校) (https://www.hiroshima-sb.hiroshima-c.ed.jp/kenkyu_kensyu/jiritukatudou_sidousyo/additional%20volume1/2-1.pdf 2023 年 3 月 27 日閲覧)を元に作成されました。
+
+<br />
+
+### 実際に入力しよう！
+
+ここでは、点字を実際に入力してみましょう。
+
+点字の点をクリックすることで、点字を入力することができます。
+
+下のマスを使って自由に点字をうってみよう。
+
+<TouchPlayground />
+
+### 6 つの点
+
+点字は 6 つの点が 1 つのマスを構成しています。
+
+左上の点が 1, 左真ん中の点が 2、左下の点が 3、右側も同様に上から 4~6 まで名前がついています。
+
+todo: 図をいれる
+
+### 練習しよう！
+
+<PracticeTouch
+  question="Q1 「め」(⠿)を入力してください。"
+  answer="め"
+  length={1}
+  brailleDotCount={6}
+/>
+<br />
+<PracticeTouch
+  question="Q2 「てんじ」(⠟⠴⠐⠳)を入力してください。"
+  answer="てんじ"
+  length={4}
+  brailleDotCount={6}
+/>

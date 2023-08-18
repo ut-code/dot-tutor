@@ -1,5 +1,4 @@
 import TouchMain from "@/components/TouchMain";
-import { Card, Typography } from "@mui/material";
 
 export const advancedkanjiQuestions = [
   "俳優",

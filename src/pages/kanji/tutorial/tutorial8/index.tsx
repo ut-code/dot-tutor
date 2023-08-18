@@ -1,5 +1,4 @@
 import TouchMain from "@/components/TouchMain";
-import { Card, Typography } from "@mui/material";
 
 export const advancedkanjiQuestions = ["続編", "談話", "住宅", "安定"]; // 濁音、半濁音が含まれる言葉
 

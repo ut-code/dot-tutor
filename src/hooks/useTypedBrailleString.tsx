@@ -282,7 +282,7 @@ export default function useTypedBrailleString(
 ): [
   typedBrailleString: string,
   updateTypedBrailleString: (e: KeyboardEvent) => void,
-  setTypedBrailleStringFromString: (value: string) => void,
+  setTypedBrailleString: (value: string) => void,
 ] {
   const [typedKeys, setTypedKeys] = useTypedKeys();
   const [typedBrailleString, setTypedBrailleString] = useState<string>("");

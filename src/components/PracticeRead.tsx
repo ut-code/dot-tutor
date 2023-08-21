@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button, TextField } from "@mui/material";
 import translateSumiji from "@/utils/translateSumiji";
-import { judgeForRead } from "@/components/questionAndJudge";
+import { judgeForRead } from "@/components/QuestionAndJudge";
 
 export default function PracticeRead({
   question,

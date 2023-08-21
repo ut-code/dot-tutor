@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import translateSumiji from "@/utils/translateSumiji";
-import { judgeForRead, makeQuestion } from "@/components/questionAndJudge";
+import { judgeForRead, makeQuestion } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import {
   Paper,

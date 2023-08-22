@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import translateSumiji from "@/utils/translateSumiji";
 import { judgeForRead, makeQuestion } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import {
@@ -12,6 +11,7 @@ import {
 } from "@mui/material";
 import { SixDotBraille } from "@/models/BrailleCharacter";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import * as tenji from "tenji";
 
 export default function ReadMain({
   typeOfQuestions,
@@ -21,14 +21,20 @@ export default function ReadMain({
   const [question, setQuestion] = useState<string>(
     makeQuestion(typeOfQuestions),
   ); // 問題
-  const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
-    translateSumiji(question),
+  const [questionInBraille1, setQuestionInBraille1] = useState<SixDotBraille[]>(
+    Array.from(question).map(
+      (sumijiChar) => new SixDotBraille("unicode", tenji.toTenji(sumijiChar)),
+    ),
   );
   const [typedAns, setTypedAns] = useState<string>("");
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
 
   useEffect(() => {
-    setQuestionInBraille(translateSumiji(question));
+    setQuestionInBraille1(
+      Array.from(question).map(
+        (sumijiChar) => new SixDotBraille("unicode", tenji.toTenji(sumijiChar)),
+      ),
+    );
   }, [question]);
 
   return (
@@ -38,7 +44,7 @@ export default function ReadMain({
           問題
         </Typography>
         <Divider />
-        {questionInBraille.map((brailleChar, i) => (
+        {questionInBraille1.map((brailleChar, i) => (
           <EdittableBraille
             key={i}
             height="100"

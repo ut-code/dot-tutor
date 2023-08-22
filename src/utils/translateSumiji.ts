@@ -1,5 +1,6 @@
 import { SixDotBrailleString } from "@/models/BrailleString";
 import { SixDotBraille } from "@/models/BrailleCharacter";
+import * as tenji from "tenji";
 
 const reversedHiraganaTable = {
   "⠀": "　",
@@ -65,12 +66,7 @@ export default function translateSumiji(sumijiString: string): SixDotBraille[] {
   const brailleString: SixDotBraille[] = [];
 
   Array.prototype.forEach.call(sumijiString, (sumijiChar) => {
-    brailleString.push(
-      new SixDotBraille(
-        "unicode",
-        matchedBrailleChar(reversedHiraganaTable, sumijiChar),
-      ),
-    );
+    brailleString.push(new SixDotBraille("unicode", tenji.toTenji(sumijiChar)));
   });
 
   return brailleString;

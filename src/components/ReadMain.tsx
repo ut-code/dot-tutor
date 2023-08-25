@@ -17,10 +17,8 @@ export default function ReadMain({
   typeOfQuestions,
 }: {
   typeOfQuestions: string[];
-}): JSX.Element {
-  const [question, setQuestion] = useState<string>(
-    makeQuestion(typeOfQuestions),
-  ); // 問題
+}): JSX.Element | null {
+  const [question, setQuestion] = useState<string>(""); // 問題
   const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
     translateSumiji(question),
   );
@@ -30,6 +28,11 @@ export default function ReadMain({
   useEffect(() => {
     setQuestionInBraille(translateSumiji(question));
   }, [question]);
+
+  if (question === "") {
+    setQuestion(makeQuestion(typeOfQuestions));
+    return null;
+  }
 
   return (
     <>

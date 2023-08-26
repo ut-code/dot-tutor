@@ -36,7 +36,7 @@
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-next": "^13.4.9",
     "eslint-config-prettier": "^8.8.0",
-    "serve": "^14.2.0",
+    "serve": "^14.2.1",
     "typescript": "^5.2.2"
   }
 }

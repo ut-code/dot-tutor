@@ -1,48 +1,12 @@
 {
-  "name": "learn-braille",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "serve": "serve out",
-    "type-check": "tsc --noEmit",
-    "lint": "next lint",
     "format": "prettier --write .",
     "prepare": "husky install"
   },
-  "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mdx-js/loader": "^2.3.0",
-    "@mdx-js/react": "^2.3.0",
-    "@mui/icons-material": "^5.13.7",
-    "@mui/material": "^5.13.7",
-    "@next/mdx": "^13.4.9",
-    "next": "^13.4.9",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "remark-gfm": "^3.0.1",
-    "tenji": "^1.0.3"
-  },
   "devDependencies": {
-    "@types/node": "^20.4.2",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.1.0",
-    "eslint-config-next": "^13.4.9",
-    "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "prettier": "^3.0.0",
-    "serve": "^14.2.0",
-    "typescript": "^5.1.6"
+    "prettier": "^3.0.0"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

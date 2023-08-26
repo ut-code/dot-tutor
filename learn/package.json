@@ -10,9 +10,7 @@
     "export": "next export",
     "serve": "serve out",
     "type-check": "tsc --noEmit",
-    "lint": "next lint",
-    "format": "prettier --write .",
-    "prepare": "husky install"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -40,8 +38,5 @@
     "eslint-config-prettier": "^8.8.0",
     "serve": "^14.2.0",
     "typescript": "^5.1.6"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
   }
 }

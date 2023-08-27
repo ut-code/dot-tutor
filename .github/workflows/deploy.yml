@@ -1,0 +1,62 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: write
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: learn
+        shell: bash
+
+      - name: Make BASE_URL
+        uses: actions/github-script@v6
+        id: base-url
+        with:
+          script: |
+            const githubRepositoryName = "${{ github.event.repository.name }}"; // repo
+            const baseUrl = `/${githubRepositoryName}`;
+            return baseUrl;
+          result-encoding: string
+
+      - name: Build
+        run: npm run build
+        working-directory: learn
+        env:
+          BASE_URL: ${{ steps.base-url.outputs.result }}
+        shell: bash
+
+      - name: Export
+        run: npm run export
+        working-directory: learn
+        shell: bash
+
+      - name: Add nojekill
+        run: touch out/.nojekyll
+        working-directory: learn
+        shell: bash
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          clean-exclude: pr-preview/
+          folder: learn/out

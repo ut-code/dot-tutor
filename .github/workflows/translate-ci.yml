@@ -1,0 +1,70 @@
+name: CI for Translate Braille
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: cd translate && npm ci
+        shell: bash
+
+      - name: Build
+        run: cd translate && npm run build
+        shell: bash
+
+  black:
+    name: Black
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install Python Packages
+        run: pip install -r translate-backend/requirements.txt
+        shell: bash
+
+      - name: Black
+        run: black --check .
+        shell: bash
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: cd translate && npm ci
+        shell: bash
+
+      - name: Type Check
+        run: cd translate && npm run type-check
+        shell: bash

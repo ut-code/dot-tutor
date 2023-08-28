@@ -1,4 +1,7 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "typescript.tsdk": "learn/node_modules/typescript/lib"
+  "typescript.tsdk": "learn/node_modules/typescript/lib",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }

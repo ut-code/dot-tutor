@@ -22,10 +22,10 @@ import { unicodeToBes } from "./modules/unicodeToBes";
 
 function App() {
   const [displaySourceText, setDisplaySourceText] = useState(
-    "今日の天気は晴天ですね。\n今日の天気は晴天ですね。"
+    "今日の天気は晴天ですね。\n今日の天気は晴天ですね。",
   );
   const [sourceText, setSourceText] = useState(
-    "今日の天気は晴天ですね。\n今日の天気は晴天ですね。"
+    "今日の天気は晴天ですね。\n今日の天気は晴天ですね。",
   );
   const [displayWakatiText, setDisplayWakatiText] = useState("");
   const [wakatiText, setWakatiText] = useState("");
@@ -37,7 +37,7 @@ function App() {
 
   async function source2wakati(text: string) {
     const response = await fetch(
-      `${API_ENDPOINT}/source2wakati?sourceText=` + text
+      `${API_ENDPOINT}/source2wakati?sourceText=` + text,
     );
     const data = await response.json();
     return data;
@@ -45,7 +45,7 @@ function App() {
 
   async function wakati2target(text: string) {
     const response = await fetch(
-      `${API_ENDPOINT}/wakati2target?wakatiText=` + text
+      `${API_ENDPOINT}/wakati2target?wakatiText=` + text,
     );
     const data = await response.json();
     return data;

@@ -25,6 +25,7 @@ jobs:
 
       - name: Install Node Packages
         run: npm ci
+        working-directory: learn
         shell: bash
 
       - name: Make BASE_URL
@@ -39,20 +40,23 @@ jobs:
 
       - name: Build
         run: npm run build
+        working-directory: learn
         env:
           BASE_URL: ${{ steps.base-url.outputs.result }}
         shell: bash
 
       - name: Export
         run: npm run export
+        working-directory: learn
         shell: bash
 
       - name: Add nojekill
         run: touch out/.nojekyll
+        working-directory: learn
         shell: bash
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           clean-exclude: pr-preview/
-          folder: out
+          folder: learn/out

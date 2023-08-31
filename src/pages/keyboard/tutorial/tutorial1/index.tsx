@@ -17,6 +17,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 interface Question {
   question: string;
   answer?: string;
+  hint?: string;
 }
 type QuestionList = Question[];
 export const questionList1: QuestionList = [
@@ -25,7 +26,11 @@ export const questionList1: QuestionList = [
   { question: "じ" },
 ];
 export const questionList2: QuestionList = [
-  { question: "弟は 算数を 習う", answer: "おとーとわ さんすーを ならう" },
+  {
+    question: "弟は 算数を 習う",
+    answer: "おとーとわ さんすーを ならう",
+    hint: "「弟は」は「オトートワ」と入力します。また、「算数」は「サンスー」と入力します。",
+  },
 ];
 export const questionList3: QuestionList = [
   { question: "2023" },
@@ -128,6 +133,20 @@ export default function Tutorial1({
           {goNextQuestion && <CheckCircleOutlineIcon color="success" />}
         </Box>
       </Paper>
+
+      {questionList !== undefined &&
+        questionList[questionIndex] !== undefined &&
+        questionList[questionIndex].hint !== undefined && (
+          <Paper elevation={2} sx={{ my: 2 }}>
+            <Typography variant="h6" component="h2" color="inherit" p={2}>
+              ヒント
+            </Typography>
+            <Divider />
+            <Typography sx={{ minHeight: 100 }} p={2}>
+              {questionList[questionIndex].hint}
+            </Typography>
+          </Paper>
+        )}
 
       <Button
         onClick={() => {

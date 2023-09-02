@@ -30,6 +30,7 @@ jobs:
 
       - name: Install Node Packages
         run: npm ci
+        working-directory: learn
         shell: bash
 
       - name: Make BASE_URL
@@ -45,19 +46,22 @@ jobs:
 
       - name: Build
         run: npm run build
+        working-directory: learn
         env:
           BASE_URL: ${{ steps.base-url.outputs.result }}
         shell: bash
 
       - name: Export
         run: npm run export
+        working-directory: learn
         shell: bash
 
       - name: Add nojekill
         run: touch out/.nojekyll
+        working-directory: learn
         shell: bash
 
       - name: Deploy Preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: out
+          source-dir: learn/out

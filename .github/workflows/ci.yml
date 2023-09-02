@@ -21,16 +21,19 @@ jobs:
 
       - name: Install Node Packages
         run: npm ci
+        working-directory: learn
         shell: bash
 
       - name: Build
         run: npm run build
+        working-directory: learn
         env:
           BASE_URL: ""
         shell: bash
 
       - name: Export
         run: npm run export
+        working-directory: learn
         shell: bash
 
   eslint:
@@ -48,10 +51,12 @@ jobs:
 
       - name: Install Node Packages
         run: npm ci
+        working-directory: learn
         shell: bash
 
       - name: Run ESLint
         run: npx eslint --max-warnings 0 .
+        working-directory: learn
 
   prettier:
     name: Prettier
@@ -89,8 +94,10 @@ jobs:
 
       - name: Install Node Packages
         run: npm ci
+        working-directory: learn
         shell: bash
 
       - name: Type Check
         run: npm run type-check
+        working-directory: learn
         shell: bash

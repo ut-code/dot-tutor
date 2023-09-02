@@ -1,14 +1,11 @@
-import IBrailleDots, { DotPosition, DotsType } from "./IBrailleDots";
-
-import convertDotsToUnicode from "./utils/convertDotsToUnicode";
-
 /**
  * A class representing the information of the braille dots.
  */
-export default class AbstractBrailleDots<Dots extends DotsType>
-  implements IBrailleDots<Dots>
-{
-  private readonly dots: Dots;
+export default abstract class AbstractBrailleDots<
+  Dots extends boolean[],
+  DotPosition extends number,
+> {
+  protected readonly dots: Dots;
 
   /**
    * Constructs a new instance with the given braille dots.
@@ -18,29 +15,50 @@ export default class AbstractBrailleDots<Dots extends DotsType>
     this.dots = dots;
   }
 
+  /**
+   * Gets the braille dots.
+   * @returns the braille dots
+   */
   getDots(): Dots {
     return this.dots;
   }
 
-  getUnicode(): string {
-    return convertDotsToUnicode(this.dots);
-  }
+  /**
+   * Gets the Unicode character corresponding to the braille dots.
+   * @returns the Unicode character corresponding to the braille dots
+   */
+  abstract getUnicode(): string;
 
-  equals(other: AbstractBrailleDots<Dots>): boolean {
+  /**
+   * Checks if the braille dots are equal to the other.
+   * @param other the other braille dots
+   * @returns true if the braille dots are equal to the other, false otherwise
+   */
+  equals(other: AbstractBrailleDots<Dots, DotPosition>): boolean {
     return this.dots.every((dot, index) => dot === other.dots[index]);
   }
 
+  /**
+   * Converts the braille dots to a string.
+   * @returns a string representation of the braille dots
+   */
   toString(): string {
     return this.dots.map((dot) => (dot ? "1" : "0")).join("");
   }
 
-  toggleDot(dotPosition: DotPosition<Dots>): AbstractBrailleDots<Dots> {
-    const toggledDots: Dots = [...this.dots];
-    toggledDots[dotPosition - 1] = !toggledDots[dotPosition - 1];
-    return new AbstractBrailleDots(toggledDots);
-  }
+  /**
+   * Toggles a braille dot and returns a new instance with the dot at the specified position toggled.
+   * @param dotPosition the position of the dot to toggle
+   * @returns a new instance with the dot at the specified position toggled
+   */
+  abstract toggleDot(
+    dotPosition: DotPosition,
+  ): AbstractBrailleDots<Dots, DotPosition>;
 
-  getDot(dotPosition: DotPosition<Dots>): boolean {
-    return this.dots[dotPosition - 1];
-  }
+  /**
+   * Gets a specific braille dot.
+   * @param dotPosition the position of the dot to get
+   * @returns the state of the dot at the specified position
+   */
+  abstract getDot(dotPosition: DotPosition): boolean;
 }

@@ -8,11 +8,15 @@ import {
   Typography,
   Button,
   Stack,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
 import { SixDotBrailleString } from "@/models/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface Question {
   question: string;
@@ -138,13 +142,17 @@ export default function Tutorial1({
         questionList[questionIndex] !== undefined &&
         questionList[questionIndex].hint !== undefined && (
           <Paper elevation={2} sx={{ my: 2 }}>
-            <Typography variant="h6" component="h2" color="inherit" p={2}>
-              ヒント
-            </Typography>
-            <Divider />
-            <Typography sx={{ minHeight: 100 }} p={2}>
-              {questionList[questionIndex].hint}
-            </Typography>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h6" component="h2" color="inherit">
+                  ヒント
+                </Typography>
+                <Divider />
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{questionList[questionIndex].hint}</Typography>
+              </AccordionDetails>
+            </Accordion>
           </Paper>
         )}
 

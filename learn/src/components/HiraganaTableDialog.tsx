@@ -122,7 +122,7 @@ export default function HiraganaTableDialog(): JSX.Element {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell></TableCell>
+                    <TableCell> </TableCell>
                     <TableCell>き</TableCell>
                     <TableCell>し</TableCell>
                     <TableCell>ち</TableCell>

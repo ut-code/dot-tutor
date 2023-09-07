@@ -64,7 +64,7 @@ export type SixDotBrailleCharacterType =
   | "⠾"
   | "⠿";
 
-type EightDotBrailleCharacterType =
+export type EightDotBrailleCharacterType =
   | SixDotBrailleCharacterType
   | "⡀"
   | "⡁"

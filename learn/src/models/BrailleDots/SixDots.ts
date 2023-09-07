@@ -1,3 +1,4 @@
+import BrailleError from "@/errors/BrailleError";
 import AbstractBrailleDots from "./AbstractBrailleDots";
 import { SixDotsType, SixDotPosition } from "./types";
 import convertDotsToUnicode from "./utils/convertDotsToUnicode";
@@ -9,6 +10,24 @@ export default class SixDots extends AbstractBrailleDots<
   SixDotsType,
   SixDotPosition
 > {
+  /**
+   * Constructs a new instance with the given braille dots.
+   * @param dots the braille dots
+   */
+  constructor(dots: SixDotsType) {
+    if (dots.length !== 6) {
+      throw new BrailleError(
+        "Invalid number of dots! The number of dots must be 6.",
+      );
+    }
+    if (!dots.every((dot) => typeof dot === "boolean")) {
+      throw new BrailleError(
+        "Invalid type of dots! The type of dots must be boolean.",
+      );
+    }
+    super(dots);
+  }
+
   getUnicode(): string {
     return convertDotsToUnicode(this.dots);
   }

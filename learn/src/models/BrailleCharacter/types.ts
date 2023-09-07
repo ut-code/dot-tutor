@@ -1,4 +1,4 @@
-type SixDotBrailleCharacterType =
+export type SixDotBrailleCharacterType =
   | "⠀"
   | "⠁"
   | "⠂"

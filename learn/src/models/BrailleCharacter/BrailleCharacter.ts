@@ -28,14 +28,13 @@ export default class BrailleCharacter<
       throw new BrailleError(
         "Not a six-dot braille character! The input must be a Unicode character of six-dot braille.",
       );
-    } else if (
-      dotCount === 8 &&
-      !isValidEightDotBrailleCharacter(brailleCharacter)
-    ) {
+    }
+    if (dotCount === 8 && !isValidEightDotBrailleCharacter(brailleCharacter)) {
       throw new BrailleError(
         "Not a eight-dot braille character! The input must be a Unicode character of eight-dot braille.",
       );
-    } else if (dotCount !== 6 && dotCount !== 8) {
+    }
+    if (dotCount !== 6 && dotCount !== 8) {
       throw new BrailleError(
         "Invalid number of dots! The number of dots must be either 6 or 8.",
       );

@@ -1,5 +1,5 @@
 /**
- * A class representing the information of the braille character.
+ * A class representing the information of a braille character.
  */
 export default abstract class AbstractBrailleCharacter<
   BrailleCharacterType extends string,
@@ -10,7 +10,7 @@ export default abstract class AbstractBrailleCharacter<
 
   /**
    * Constructs a new instance with the given braille character.
-   * @param brailleCharacter the braille character
+   * @param brailleCharacter a braille character
    * @param dotCount the number of dots based on the type of braille
    */
   constructor(brailleCharacter: BrailleCharacterType, dotCount: number) {

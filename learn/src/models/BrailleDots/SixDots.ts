@@ -5,7 +5,7 @@ import { convertSixDotsToUnicode } from "./utils/convertDotsToUnicode";
 import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
 
 /**
- * A class representing the information of the six-dot braille dots.
+ * A class representing the information of a six-dot braille dots.
  */
 export default class SixDots extends AbstractBrailleDots<
   SixDotsType,
@@ -13,7 +13,7 @@ export default class SixDots extends AbstractBrailleDots<
 > {
   /**
    * Constructs a new instance with the given braille dots.
-   * @param dots the braille dots
+   * @param dots braille dots
    */
   constructor(dots: SixDotsType) {
     if (dots.length !== 6) {

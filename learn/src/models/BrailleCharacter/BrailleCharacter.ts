@@ -10,14 +10,14 @@ import {
 } from "./utils/isValidBrailleCharacter";
 
 /**
- * A class representing the information of the braille character.
+ * A class representing the information of a braille character.
  */
 export default class BrailleCharacter extends AbstractBrailleCharacter<
   SixDotBrailleCharacterType | EightDotBrailleCharacterType
 > {
   /**
    * Constructs a new instance with the given braille character.
-   * @param brailleCharacter the braille character
+   * @param brailleCharacter a braille character
    */
   constructor(brailleCharacter: SixDotBrailleCharacterType, dotCount: 6);
   constructor(brailleCharacter: EightDotBrailleCharacterType, dotCount: 8);

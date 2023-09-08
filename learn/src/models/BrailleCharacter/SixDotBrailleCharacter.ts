@@ -4,12 +4,12 @@ import { SixDotBrailleCharacterType } from "./types";
 import { isValidSixDotBrailleCharacter } from "./utils/isValidBrailleCharacter";
 
 /**
- * A class representing the information of the six-dot braille character.
+ * A class representing the information of a six-dot braille character.
  */
 export default class SixDotBrailleCharacter extends AbstractBrailleCharacter<SixDotBrailleCharacterType> {
   /**
    * Constructs a new instance with the given braille character.
-   * @param brailleCharacter the braille character
+   * @param brailleCharacter a braille character
    */
   constructor(brailleCharacter: SixDotBrailleCharacterType) {
     if (!isValidSixDotBrailleCharacter(brailleCharacter)) {

@@ -1,7 +1,7 @@
 import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
 
 /**
- * A class representing the information of the braille dots.
+ * A class representing the information of braille dots.
  */
 export default abstract class AbstractBrailleDots<
   Dots extends boolean[],
@@ -11,7 +11,7 @@ export default abstract class AbstractBrailleDots<
 
   /**
    * Constructs a new instance with the given braille dots.
-   * @param dots the braille dots
+   * @param dots braille dots
    */
   constructor(dots: Dots) {
     this.dots = dots;

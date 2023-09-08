@@ -5,7 +5,7 @@ import { convertEightDotsToUnicode } from "./utils/convertDotsToUnicode";
 import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
 
 /**
- * A class representing the information of the eight-dot braille dots.
+ * A class representing the information of an eight-dot braille dots.
  */
 export default class EightDots extends AbstractBrailleDots<
   EightDotsType,
@@ -13,7 +13,7 @@ export default class EightDots extends AbstractBrailleDots<
 > {
   /**
    * Constructs a new instance with the given braille dots.
-   * @param dots the braille dots
+   * @param dots braille dots
    */
   constructor(dots: EightDotsType) {
     if (dots.length !== 8) {

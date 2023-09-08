@@ -1,7 +1,7 @@
 /**
- * Checks if the braille character matches any character between ⠀ and ⠿
- * @param brailleCharacter the braille character
- * @returns true if the braille character is a valid six-dot braille character, false otherwise
+ * Checks if a braille character matches any character between ⠀ and ⠿
+ * @param brailleCharacter a braille character
+ * @returns true if a braille character is a valid six-dot braille character, false otherwise
  */
 export function isValidSixDotBrailleCharacter(
   brailleCharacter: string,
@@ -10,9 +10,9 @@ export function isValidSixDotBrailleCharacter(
 }
 
 /**
- * Checks if the braille character matches any character between ⠀ and ⣿
- * @param brailleCharacter the braille character
- * @returns true if the braille character is a valid eight-dot braille character, false otherwise
+ * Checks if a braille character matches any character between ⠀ and ⣿
+ * @param brailleCharacter a braille character
+ * @returns true if a braille character is a valid eight-dot braille character, false otherwise
  */
 export function isValidEightDotBrailleCharacter(
   brailleCharacter: string,

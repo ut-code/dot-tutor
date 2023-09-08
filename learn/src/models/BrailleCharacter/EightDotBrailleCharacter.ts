@@ -1,8 +1,6 @@
-import ValidationError from "./validations/ValidationError";
 import AbstractBrailleCharacter from "./AbstractBrailleCharacter";
 import { EightDotBrailleCharacterType } from "./types";
-import { isValidEightDotBrailleCharacter } from "./utils/isValidBrailleCharacter";
-import validationMessages from "./validations/validationMessages";
+import Validator from "./validations/Validator";
 
 /**
  * A class representing the information of an eight-dot braille character.
@@ -13,9 +11,7 @@ export default class EightDotBrailleCharacter extends AbstractBrailleCharacter<E
    * @param brailleCharacter a braille character
    */
   constructor(brailleCharacter: EightDotBrailleCharacterType) {
-    if (!isValidEightDotBrailleCharacter(brailleCharacter)) {
-      throw new ValidationError(validationMessages.NOT_EIGHT_DOT);
-    }
+    Validator.validateEightDotBrailleCharacter(brailleCharacter);
     super(brailleCharacter, 8);
   }
 }

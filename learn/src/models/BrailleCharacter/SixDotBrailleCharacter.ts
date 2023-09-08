@@ -1,8 +1,6 @@
-import ValidationError from "./validations/ValidationError";
 import AbstractBrailleCharacter from "./AbstractBrailleCharacter";
 import { SixDotBrailleCharacterType } from "./types";
-import { isValidSixDotBrailleCharacter } from "./utils/isValidBrailleCharacter";
-import validationMessages from "./validations/validationMessages";
+import Validator from "./validations/Validator";
 
 /**
  * A class representing the information of a six-dot braille character.
@@ -13,9 +11,7 @@ export default class SixDotBrailleCharacter extends AbstractBrailleCharacter<Six
    * @param brailleCharacter a braille character
    */
   constructor(brailleCharacter: SixDotBrailleCharacterType) {
-    if (!isValidSixDotBrailleCharacter(brailleCharacter)) {
-      throw new ValidationError(validationMessages.NOT_SIX_DOT);
-    }
+    Validator.validateSixDotBrailleCharacter(brailleCharacter);
     super(brailleCharacter, 6);
   }
 }

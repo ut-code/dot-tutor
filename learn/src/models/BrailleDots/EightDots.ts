@@ -1,7 +1,8 @@
 import BrailleError from "@/errors/BrailleError";
 import AbstractBrailleDots from "./AbstractBrailleDots";
 import { EightDotsType, EightDotPosition } from "./types";
-import convertDotsToUnicode from "./utils/convertDotsToUnicode";
+import { convertEightDotsToUnicode } from "./utils/convertDotsToUnicode";
+import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
 
 /**
  * A class representing the information of the eight-dot braille dots.
@@ -28,8 +29,8 @@ export default class EightDots extends AbstractBrailleDots<
     super(dots);
   }
 
-  getUnicode(): string {
-    return convertDotsToUnicode(this.dots);
+  getCharacter(): BrailleCharacter {
+    return convertEightDotsToUnicode(this.dots);
   }
 
   toggleDot(dotPosition: EightDotPosition): EightDots {

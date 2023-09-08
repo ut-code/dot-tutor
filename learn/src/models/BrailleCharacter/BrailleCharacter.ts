@@ -12,18 +12,19 @@ import {
 /**
  * A class representing the information of the braille character.
  */
-export default class BrailleCharacter<
-  BrailleCharacterType extends
-    | SixDotBrailleCharacterType
-    | EightDotBrailleCharacterType,
-> extends AbstractBrailleCharacter<BrailleCharacterType> {
+export default class BrailleCharacter extends AbstractBrailleCharacter<
+  SixDotBrailleCharacterType | EightDotBrailleCharacterType
+> {
   /**
    * Constructs a new instance with the given braille character.
    * @param brailleCharacter the braille character
    */
   constructor(brailleCharacter: SixDotBrailleCharacterType, dotCount: 6);
   constructor(brailleCharacter: EightDotBrailleCharacterType, dotCount: 8);
-  constructor(brailleCharacter: BrailleCharacterType, dotCount: 6 | 8) {
+  constructor(
+    brailleCharacter: SixDotBrailleCharacterType | EightDotBrailleCharacterType,
+    dotCount: 6 | 8,
+  ) {
     if (dotCount === 6 && !isValidSixDotBrailleCharacter(brailleCharacter)) {
       throw new BrailleError(
         "Not a six-dot braille character! The input must be a Unicode character of six-dot braille.",

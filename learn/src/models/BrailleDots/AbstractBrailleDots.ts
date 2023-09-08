@@ -1,3 +1,5 @@
+import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
+
 /**
  * A class representing the information of the braille dots.
  */
@@ -24,10 +26,10 @@ export default abstract class AbstractBrailleDots<
   }
 
   /**
-   * Gets the Unicode character corresponding to the braille dots.
-   * @returns the Unicode character corresponding to the braille dots
+   * Gets the braille character corresponding to the braille dots.
+   * @returns the braille character corresponding to the braille dots
    */
-  abstract getUnicode(): string;
+  abstract getCharacter(): BrailleCharacter;
 
   /**
    * Checks if the braille dots are equal to the other.

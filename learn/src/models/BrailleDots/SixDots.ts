@@ -1,7 +1,8 @@
 import BrailleError from "@/errors/BrailleError";
 import AbstractBrailleDots from "./AbstractBrailleDots";
 import { SixDotsType, SixDotPosition } from "./types";
-import convertDotsToUnicode from "./utils/convertDotsToUnicode";
+import { convertSixDotsToUnicode } from "./utils/convertDotsToUnicode";
+import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
 
 /**
  * A class representing the information of the six-dot braille dots.
@@ -28,8 +29,8 @@ export default class SixDots extends AbstractBrailleDots<
     super(dots);
   }
 
-  getUnicode(): string {
-    return convertDotsToUnicode(this.dots);
+  getCharacter(): BrailleCharacter {
+    return convertSixDotsToUnicode(this.dots);
   }
 
   toggleDot(dotPosition: SixDotPosition): SixDots {

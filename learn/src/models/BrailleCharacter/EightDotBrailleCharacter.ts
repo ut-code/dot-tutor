@@ -1,4 +1,4 @@
-import BrailleError from "@/errors/BrailleError";
+import ValidationError from "./validations/ValidationError";
 import AbstractBrailleCharacter from "./AbstractBrailleCharacter";
 import { EightDotBrailleCharacterType } from "./types";
 import { isValidEightDotBrailleCharacter } from "./utils/isValidBrailleCharacter";
@@ -13,7 +13,7 @@ export default class EightDotBrailleCharacter extends AbstractBrailleCharacter<E
    */
   constructor(brailleCharacter: EightDotBrailleCharacterType) {
     if (!isValidEightDotBrailleCharacter(brailleCharacter)) {
-      throw new BrailleError(
+      throw new ValidationError(
         "Not a eight-dot braille character! The input must be a Unicode character of eight-dot braille.",
       );
     }

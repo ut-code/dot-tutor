@@ -1,4 +1,4 @@
-import BrailleError from "@/errors/BrailleError";
+import ValidationError from "./validations/ValidationError";
 import AbstractBrailleCharacter from "./AbstractBrailleCharacter";
 import { SixDotBrailleCharacterType } from "./types";
 import { isValidSixDotBrailleCharacter } from "./utils/isValidBrailleCharacter";
@@ -13,7 +13,7 @@ export default class SixDotBrailleCharacter extends AbstractBrailleCharacter<Six
    */
   constructor(brailleCharacter: SixDotBrailleCharacterType) {
     if (!isValidSixDotBrailleCharacter(brailleCharacter)) {
-      throw new BrailleError(
+      throw new ValidationError(
         "Not a six-dot braille character! The input must be a Unicode character of six-dot braille.",
       );
     }

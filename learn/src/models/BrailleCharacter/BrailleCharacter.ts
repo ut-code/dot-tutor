@@ -8,6 +8,7 @@ import {
   isValidEightDotBrailleCharacter,
   isValidSixDotBrailleCharacter,
 } from "./utils/isValidBrailleCharacter";
+import validationMessages from "./validations/validationMessages";
 
 /**
  * A class representing the information of a braille character.
@@ -26,19 +27,13 @@ export default class BrailleCharacter extends AbstractBrailleCharacter<
     dotCount: 6 | 8,
   ) {
     if (dotCount === 6 && !isValidSixDotBrailleCharacter(brailleCharacter)) {
-      throw new ValidationError(
-        "Not a six-dot braille character! The input must be a Unicode character of six-dot braille.",
-      );
+      throw new ValidationError(validationMessages.NOT_SIX_DOT);
     }
     if (dotCount === 8 && !isValidEightDotBrailleCharacter(brailleCharacter)) {
-      throw new ValidationError(
-        "Not a eight-dot braille character! The input must be a Unicode character of eight-dot braille.",
-      );
+      throw new ValidationError(validationMessages.NOT_EIGHT_DOT);
     }
     if (dotCount !== 6 && dotCount !== 8) {
-      throw new ValidationError(
-        "Invalid number of dots! The number of dots must be either 6 or 8.",
-      );
+      throw new ValidationError(validationMessages.INVALID_DOT_COUNT);
     }
     super(brailleCharacter, dotCount);
   }

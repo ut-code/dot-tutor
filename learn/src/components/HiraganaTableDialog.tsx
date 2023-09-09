@@ -117,6 +117,71 @@ export default function HiraganaTableDialog(): JSX.Element {
             </Paper>
             <Paper elevation={2} sx={{ my: 2 }}>
               <Typography variant="h6" component="h2" color="inherit" p={2}>
+                拗音の対応表
+              </Typography>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell> </TableCell>
+                    <TableCell>き</TableCell>
+                    <TableCell>し</TableCell>
+                    <TableCell>ち</TableCell>
+                    <TableCell>ひ</TableCell>
+                    <TableCell>み</TableCell>
+                    <TableCell>り</TableCell>
+                    <TableCell>ぎ</TableCell>
+                    <TableCell>じ</TableCell>
+                    <TableCell>ぢ</TableCell>
+                    <TableCell>び</TableCell>
+                    <TableCell>ぴ</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableRow>
+                  <TableCell>ゃ</TableCell>
+                  <TableCell>⠈⠡</TableCell>
+                  <TableCell>⠈⠱</TableCell>
+                  <TableCell>⠈⠕</TableCell>
+                  <TableCell>⠈⠥</TableCell>
+                  <TableCell>⠈⠵</TableCell>
+                  <TableCell>⠈⠑</TableCell>
+                  <TableCell>⠘⠡</TableCell>
+                  <TableCell>⠘⠱</TableCell>
+                  <TableCell>⠘⠕</TableCell>
+                  <TableCell>⠘⠥</TableCell>
+                  <TableCell>⠨⠥</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>ゅ</TableCell>
+                  <TableCell>⠈⠩</TableCell>
+                  <TableCell>⠈⠹</TableCell>
+                  <TableCell>⠈⠝</TableCell>
+                  <TableCell>⠈⠭</TableCell>
+                  <TableCell>⠈⠽</TableCell>
+                  <TableCell>⠈⠙</TableCell>
+                  <TableCell>⠘⠩</TableCell>
+                  <TableCell>⠘⠹</TableCell>
+                  <TableCell>⠘⠝</TableCell>
+                  <TableCell>⠘⠭</TableCell>
+                  <TableCell>⠨⠭</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>ょ</TableCell>
+                  <TableCell>⠈⠪</TableCell>
+                  <TableCell>⠈⠺</TableCell>
+                  <TableCell>⠈⠞</TableCell>
+                  <TableCell>⠈⠮</TableCell>
+                  <TableCell>⠈⠾</TableCell>
+                  <TableCell>⠈⠚</TableCell>
+                  <TableCell>⠘⠪</TableCell>
+                  <TableCell>⠘⠺</TableCell>
+                  <TableCell>⠘⠞</TableCell>
+                  <TableCell>⠘⠮</TableCell>
+                  <TableCell>⠨⠮</TableCell>
+                </TableRow>
+              </Table>
+            </Paper>
+            <Paper elevation={2} sx={{ my: 2 }}>
+              <Typography variant="h6" component="h2" color="inherit" p={2}>
                 その他の対応表
               </Typography>
               <Table>

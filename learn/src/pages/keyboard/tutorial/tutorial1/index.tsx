@@ -32,19 +32,19 @@ export const questionList1: QuestionList = [
 export const questionList2: QuestionList = [
   {
     question: "弟は 算数を 習う",
-    answer: "おとーとわ さんすーを ならう",
+    answer: "おとーとわ　さんすーを　ならう",
     hint: "「弟は」は「オトートワ」と入力します。また、「算数」は「サンスー」と入力します。",
   },
 ];
 export const questionList3: QuestionList = [
   { question: "2023" },
-  { question: "9と 4分の3番 線", answer: "9と 4ぶんの3ばん せん" },
+  { question: "9と 4分の3番 線", answer: "9と　4ぶんの3ばん　せん" },
 ];
 export const questionList4: QuestionList = [{ question: "Tokyo" }];
 export const questionList5: QuestionList = [
   {
     question: "今日の 天気は、 雨 のち 曇りです。",
-    answer: "きょーの てんきわ、 あめ のち くもりです。",
+    answer: "きょーの　てんきわ、　あめ　のち　くもりです。",
   },
 ];
 

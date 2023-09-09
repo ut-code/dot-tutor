@@ -8,6 +8,7 @@ import Tutorial1, {
 } from "./tutorial/tutorial1";
 import Tutorial1Dialog1 from "./tutorial/tutorial1/dialog/1_braille_6dots.mdx";
 import Tutorial1Dialog2 from "./tutorial/tutorial1/dialog/2_write_hiragana.mdx";
+import Tutorial1Dialog7 from "./tutorial/tutorial1/dialog/3_youon.mdx";
 import Tutorial1Dialog3 from "./tutorial/tutorial1/dialog/3_kanadukai.mdx";
 import Tutorial1Dialog6 from "./tutorial/tutorial1/dialog/3_number.mdx";
 import Tutorial1Dialog4 from "./tutorial/tutorial1/dialog/4_alphabet.mdx";
@@ -34,6 +35,10 @@ export default function Keyboard(): JSX.Element {
         },
         {
           dialog: [
+            {
+              title: "拗音の入力",
+              content: <Tutorial1Dialog7 />,
+            },
             {
               title: "かなづかいの例外ルール",
               content: <Tutorial1Dialog3 />,

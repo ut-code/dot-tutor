@@ -1,6 +1,7 @@
 import BrailleBase from "../BrailleBase/BrailleBase";
 import { CharacterType, DotCountType } from "../BrailleBase/types";
 import { DotPositionType, DotsType } from "./types";
+import convertBrailleToDots from "./utils/convertBrailleToDots";
 import convertDotsToBraille from "./utils/convertDotsToBraille";
 import Validator from "./validations/Validator";
 
@@ -13,15 +14,22 @@ export default class BrailleDots<
   Character extends CharacterType,
   DotCount extends DotCountType,
 > {
-  protected readonly dots: Dots;
+  private readonly braille: BrailleBase<Character, DotCount>;
 
   /**
    * Constructs a new instance with the given braille dots.
    * @param dots braille dots
    */
-  constructor(dots: Dots) {
-    Validator.validateDots(dots);
-    this.dots = dots;
+  constructor(dots: Dots);
+  constructor(braille: BrailleBase<Character, DotCount>);
+  constructor(dotsOrBraille: Dots | BrailleBase<Character, DotCount>) {
+    if (Array.isArray(dotsOrBraille)) {
+      Validator.validateDots(dotsOrBraille);
+      this.braille = convertDotsToBraille(dotsOrBraille);
+    } else {
+      Validator.validateBrailleBase(dotsOrBraille);
+      this.braille = dotsOrBraille;
+    }
   }
 
   /**
@@ -29,15 +37,15 @@ export default class BrailleDots<
    * @returns the braille dots
    */
   getDots(): Dots {
-    return this.dots;
+    return convertBrailleToDots(this.braille);
   }
 
   /**
-   * Gets the braille character corresponding to the braille dots.
-   * @returns the braille character corresponding to the braille dots
+   * Gets the braille corresponding to the braille dots.
+   * @returns the braille corresponding to the braille dots
    */
-  getBrailleBase(): BrailleBase<Character, DotCount> {
-    return convertDotsToBraille(this.dots);
+  getBraille(): BrailleBase<Character, DotCount> {
+    return this.braille;
   }
 
   /**
@@ -46,7 +54,7 @@ export default class BrailleDots<
    * @returns true if the braille dots are equal to the other, false otherwise
    */
   equals(other: this): boolean {
-    return this.dots.every((dot, index) => dot === other.dots[index]);
+    return this.braille.equals(other.braille);
   }
 
   /**
@@ -54,7 +62,9 @@ export default class BrailleDots<
    * @returns a string representation of the braille dots
    */
   toString(): string {
-    return this.dots.map((dot) => (dot ? "1" : "0")).join("");
+    return this.getDots()
+      .map((dot) => (dot ? "1" : "0"))
+      .join("");
   }
 
   /**
@@ -65,7 +75,7 @@ export default class BrailleDots<
   toggleDot(
     dotPosition: DotPosition,
   ): BrailleDots<Dots, DotPosition, Character, DotCount> {
-    const toggledDots: Dots = [...this.dots];
+    const toggledDots: Dots = [...this.getDots()];
     toggledDots[dotPosition - 1] = !toggledDots[dotPosition - 1];
     return new BrailleDots(toggledDots);
   }
@@ -76,6 +86,6 @@ export default class BrailleDots<
    * @returns the state of the dot at the specified position
    */
   getDot(dotPosition: DotPosition): boolean {
-    return this.dots[dotPosition - 1];
+    return this.getDots()[dotPosition - 1];
   }
 }

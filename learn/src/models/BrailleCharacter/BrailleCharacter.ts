@@ -1,32 +1,37 @@
 import AbstractBrailleCharacter from "./AbstractBrailleCharacter";
 import {
+  CharacterType,
+  DotCountType,
   EightDotBrailleCharacterType,
+  EightDotBrailleDotCountType,
   SixDotBrailleCharacterType,
-} from "./types";
-import Validator from "./validations/Validator";
+  SixDotBrailleDotCountType,
+} from "../BrailleBase/types";
+import Validator from "../BrailleBase/validations/Validator";
 
 /**
  * A class representing the information of a braille character.
  */
-export default class BrailleCharacter extends AbstractBrailleCharacter<
-  SixDotBrailleCharacterType | EightDotBrailleCharacterType
-> {
+export default class BrailleCharacter<
+  Character extends CharacterType,
+  DotCount extends DotCountType,
+> extends AbstractBrailleCharacter<Character, DotCount> {
   /**
    * Constructs a new instance with the given braille character.
-   * @param brailleCharacter a braille character
+   * @param character a braille character
+   * @param dotCount the number of dots based on the type of braille
    */
-  constructor(brailleCharacter: SixDotBrailleCharacterType, dotCount: 6);
-  constructor(brailleCharacter: EightDotBrailleCharacterType, dotCount: 8);
   constructor(
-    brailleCharacter: SixDotBrailleCharacterType | EightDotBrailleCharacterType,
-    dotCount: 6 | 8,
-  ) {
+    character: SixDotBrailleCharacterType,
+    dotCount: SixDotBrailleDotCountType,
+  );
+  constructor(
+    character: EightDotBrailleCharacterType,
+    dotCount: EightDotBrailleDotCountType,
+  );
+  constructor(character: Character, dotCount: DotCount) {
     Validator.validateDotCount(dotCount);
-    if (dotCount === 6) {
-      Validator.validateSixDotBrailleCharacter(brailleCharacter);
-    } else {
-      Validator.validateEightDotBrailleCharacter(brailleCharacter);
-    }
-    super(brailleCharacter, dotCount);
+    Validator.validateBrailleCharacter(character, dotCount);
+    super(character, dotCount);
   }
 }

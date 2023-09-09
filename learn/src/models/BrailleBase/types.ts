@@ -259,4 +259,14 @@ export type EightDotBrailleCharacterType =
   | "⣾"
   | "⣿";
 
-type BrailleCharacterType = EightDotBrailleCharacterType;
+export type CharacterType =
+  | SixDotBrailleCharacterType
+  | EightDotBrailleCharacterType;
+
+export type SixDotBrailleDotCountType = 6;
+
+export type EightDotBrailleDotCountType = 8;
+
+export type DotCountType =
+  | SixDotBrailleDotCountType
+  | EightDotBrailleDotCountType;

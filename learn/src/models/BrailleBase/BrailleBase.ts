@@ -1,22 +1,27 @@
-import BrailleBase from "../BrailleBase/BrailleBase";
-import { CharacterType, DotCountType } from "../BrailleBase/types";
+import { CharacterType, DotCountType } from "./types";
+import Validator from "./validations/Validator";
 
 /**
- * A class representing the information of a braille character.
+ * A class representing the base information of a braille.
  */
-export default abstract class AbstractBrailleCharacter<
+export default class BrailleBase<
   Character extends CharacterType,
   DotCount extends DotCountType,
 > {
-  private readonly braille: BrailleBase<Character, DotCount>;
+  private readonly character: Character;
+
+  private readonly dotCount: DotCount;
 
   /**
-   * Constructs a new instance with the given braille character.
-   * @param character a braille character
+   * Constructs a new instance.
+   * @param braille a braille character
    * @param dotCount the number of dots based on the type of braille
    */
-  constructor(character: Character, dotCount: DotCount) {
-    this.braille = new BrailleBase(character, dotCount);
+  constructor(brailleCharacter: Character, dotCount: DotCount) {
+    Validator.validateDotCount(dotCount);
+    this.dotCount = dotCount;
+    Validator.validateBrailleCharacter(brailleCharacter, dotCount);
+    this.character = brailleCharacter;
   }
 
   /**
@@ -24,7 +29,7 @@ export default abstract class AbstractBrailleCharacter<
    * @returns the Unicode of the braille character
    */
   getUnicode(): Character {
-    return this.braille.getUnicode();
+    return this.character;
   }
 
   /**
@@ -32,7 +37,7 @@ export default abstract class AbstractBrailleCharacter<
    * @returns the number of dots based on the type of braille
    */
   getDotCount(): DotCount {
-    return this.braille.getDotCount();
+    return this.dotCount;
   }
 
   /**
@@ -41,6 +46,6 @@ export default abstract class AbstractBrailleCharacter<
    * @returns true if the braille character is equal to the other, false otherwise
    */
   equals(other: this): boolean {
-    return this.braille.equals(other.braille);
+    return this.character === other.character;
   }
 }

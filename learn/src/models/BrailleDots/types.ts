@@ -6,7 +6,7 @@ export type SixDotsType = [
   boolean,
   boolean,
 ];
-export type SixDotPosition = 1 | 2 | 3 | 4 | 5 | 6;
+export type SixDotPositionType = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type EightDotsType = [
   boolean,
@@ -18,4 +18,8 @@ export type EightDotsType = [
   boolean,
   boolean,
 ];
-export type EightDotPosition = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type EightDotPositionType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export type DotsType = SixDotsType | EightDotsType;
+
+export type DotPositionType = SixDotPositionType | EightDotPositionType;

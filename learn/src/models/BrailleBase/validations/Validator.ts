@@ -24,26 +24,6 @@ function isValidEightDotBrailleCharacter(brailleCharacter: string): boolean {
  */
 export default class Validator {
   /**
-   * Checks if a braille character is a valid six-dot braille character.
-   * @param brailleCharacter a braille character
-   */
-  static validateSixDotBrailleCharacter(brailleCharacter: string) {
-    if (!isValidSixDotBrailleCharacter(brailleCharacter)) {
-      throw new ValidationError(validationMessages.NOT_SIX_DOT);
-    }
-  }
-
-  /**
-   * Checks if a braille character is a valid eight-dot braille character.
-   * @param brailleCharacte a braille character
-   */
-  static validateEightDotBrailleCharacter(brailleCharacter: string) {
-    if (!isValidEightDotBrailleCharacter(brailleCharacter)) {
-      throw new ValidationError(validationMessages.NOT_EIGHT_DOT);
-    }
-  }
-
-  /**
    * Checks if the number of dots is valid.
    * @param dotCount the number of dots
    */
@@ -51,5 +31,23 @@ export default class Validator {
     if (dotCount !== 6 && dotCount !== 8) {
       throw new ValidationError(validationMessages.INVALID_DOT_COUNT);
     }
+  }
+
+  /**
+   * Checks if a braille character is valid.
+   * @param character a braille character
+   */
+  static validateBrailleCharacter(character: string, dotCount: number) {
+    if (dotCount === 6) {
+      if (!isValidSixDotBrailleCharacter(character)) {
+        throw new ValidationError(validationMessages.NOT_SIX_DOT);
+      }
+    }
+    if (dotCount === 8) {
+      if (!isValidEightDotBrailleCharacter(character)) {
+        throw new ValidationError(validationMessages.NOT_EIGHT_DOT);
+      }
+    }
+    throw new ValidationError(validationMessages.INVALID_DOT_COUNT);
   }
 }

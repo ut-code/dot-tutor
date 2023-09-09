@@ -42,12 +42,12 @@ export default class Validator {
       if (!isValidSixDotBrailleCharacter(character)) {
         throw new ValidationError(validationMessages.NOT_SIX_DOT);
       }
-    }
-    if (dotCount === 8) {
+    } else if (dotCount === 8) {
       if (!isValidEightDotBrailleCharacter(character)) {
         throw new ValidationError(validationMessages.NOT_EIGHT_DOT);
       }
+    } else {
+      throw new ValidationError(validationMessages.INVALID_DOT_COUNT);
     }
-    throw new ValidationError(validationMessages.INVALID_DOT_COUNT);
   }
 }

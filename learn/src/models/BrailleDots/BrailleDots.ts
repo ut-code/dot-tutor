@@ -1,7 +1,7 @@
 import BrailleBase from "../BrailleBase/BrailleBase";
 import { CharacterType, DotCountType } from "../BrailleBase/types";
 import { DotPositionType, DotsType } from "./types";
-import convertDotsToUnicode from "./utils/convertDotsToUnicode";
+import convertDotsToBraille from "./utils/convertDotsToBraille";
 import Validator from "./validations/Validator";
 
 /**
@@ -37,8 +37,7 @@ export default class BrailleDots<
    * @returns the braille character corresponding to the braille dots
    */
   getBrailleBase(): BrailleBase<Character, DotCount> {
-    const unicode = convertDotsToUnicode(this.dots);
-    return new BrailleBase(unicode as Character, this.dots.length as DotCount);
+    return convertDotsToBraille(this.dots);
   }
 
   /**

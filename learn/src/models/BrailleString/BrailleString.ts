@@ -5,27 +5,21 @@ import Validator from "./validations/Validator";
 /**
  * A class representing the information of braille text.
  */
-export default class BrailleString<
-  Character extends CharacterType,
-  DotCount extends DotCountType,
-> {
-  private readonly brailleArray: BrailleBase<Character, DotCount>[];
+export default class BrailleString {
+  private readonly brailleArray: BrailleBase[];
 
   /**
    * Constructs a new instance with the given braille text.
    * @param text braille text
    * @param dotCount the number of dots based on the type of braille
    */
-  constructor(text: string, dotCount: DotCount);
+  constructor(text: string, dotCount: number);
   /**
    * Constructs a new instance with the given braille array.
    * @param brailleArray braille array
    */
-  constructor(brailleArray: BrailleBase<Character, DotCount>[]);
-  constructor(
-    textOrBrailleArray: string | BrailleBase<Character, DotCount>[],
-    dotCount?: DotCount,
-  ) {
+  constructor(brailleArray: BrailleBase[]);
+  constructor(textOrBrailleArray: string | BrailleBase[], dotCount?: number) {
     if (typeof textOrBrailleArray === "string") {
       if (dotCount === undefined) {
         throw new Error("The dot count is undefined.");
@@ -33,11 +27,7 @@ export default class BrailleString<
       Validator.validateDotCount(dotCount);
       Validator.validateText(textOrBrailleArray, dotCount);
       this.brailleArray = Array.from(textOrBrailleArray).map(
-        (character) =>
-          new BrailleBase<Character, DotCount>(
-            character as Character,
-            dotCount,
-          ),
+        (character) => new BrailleBase(character, dotCount),
       );
     } else {
       Validator.validateBrailleArray(textOrBrailleArray);
@@ -57,7 +47,7 @@ export default class BrailleString<
    * Gets the number of dots based on the type of braille.
    * @returns the number of dots based on the type of braille
    */
-  getDotCount(): DotCount {
+  getDotCount(): number {
     return this.brailleArray[0].getDotCount();
   }
 
@@ -77,7 +67,7 @@ export default class BrailleString<
    * @param index the index
    * @returns the braille at the specified index
    */
-  get(index: number): BrailleString<Character, DotCount> {
+  get(index: number): BrailleString {
     if (index < 0 || this.brailleArray.length <= index) {
       throw new Error("Index out of range.");
     }
@@ -90,10 +80,7 @@ export default class BrailleString<
    * @param braille the braille to set
    * @returns a new instance with the braille at the specified index set
    */
-  set(
-    index: number,
-    braille: BrailleBase<Character, DotCount>,
-  ): BrailleString<Character, DotCount> {
+  set(index: number, braille: BrailleBase): BrailleString {
     return new BrailleString(
       this.brailleArray.map((brailleCharacter, i) =>
         i === index ? braille : brailleCharacter,
@@ -106,9 +93,7 @@ export default class BrailleString<
    * @param braille the braille to push
    * @returns a new instance with the braille pushed
    */
-  push(
-    braille: BrailleBase<Character, DotCount>,
-  ): BrailleString<Character, DotCount> {
+  push(braille: BrailleBase): BrailleString {
     return new BrailleString([...this.brailleArray, braille]);
   }
 

@@ -1,6 +1,5 @@
 import BrailleBase from "../BrailleBase/BrailleBase";
-import { CharacterType, DotCountType } from "../BrailleBase/types";
-import { DotPositionType, DotsType } from "./types";
+import { DotsType } from "./types";
 import convertBrailleToDots from "./utils/convertBrailleToDots";
 import convertDotsToBraille from "./utils/convertDotsToBraille";
 import Validator from "./validations/Validator";
@@ -8,21 +7,16 @@ import Validator from "./validations/Validator";
 /**
  * A class representing the information of braille dots.
  */
-export default class BrailleDots<
-  Dots extends DotsType,
-  DotPosition extends DotPositionType,
-  Character extends CharacterType,
-  DotCount extends DotCountType,
-> {
-  private readonly braille: BrailleBase<Character, DotCount>;
+export default class BrailleDots {
+  private readonly braille: BrailleBase;
 
   /**
    * Constructs a new instance with the given braille dots.
    * @param dots braille dots
    */
-  constructor(dots: Dots);
-  constructor(braille: BrailleBase<Character, DotCount>);
-  constructor(dotsOrBraille: Dots | BrailleBase<Character, DotCount>) {
+  constructor(dots: DotsType);
+  constructor(braille: BrailleBase);
+  constructor(dotsOrBraille: DotsType | BrailleBase) {
     if (Array.isArray(dotsOrBraille)) {
       Validator.validateDots(dotsOrBraille);
       this.braille = convertDotsToBraille(dotsOrBraille);
@@ -36,7 +30,7 @@ export default class BrailleDots<
    * Gets the braille dots.
    * @returns the braille dots
    */
-  getDots(): Dots {
+  getDots(): DotsType {
     return convertBrailleToDots(this.braille);
   }
 
@@ -44,7 +38,7 @@ export default class BrailleDots<
    * Gets the braille corresponding to the braille dots.
    * @returns the braille corresponding to the braille dots
    */
-  getBraille(): BrailleBase<Character, DotCount> {
+  getBraille(): BrailleBase {
     return this.braille;
   }
 
@@ -72,10 +66,8 @@ export default class BrailleDots<
    * @param dotPosition the position of the dot to toggle
    * @returns a new instance with the dot at the specified position toggled
    */
-  toggleDot(
-    dotPosition: DotPosition,
-  ): BrailleDots<Dots, DotPosition, Character, DotCount> {
-    const toggledDots: Dots = [...this.getDots()];
+  toggleDot(dotPosition: number): BrailleDots {
+    const toggledDots: DotsType = [...this.getDots()];
     toggledDots[dotPosition - 1] = !toggledDots[dotPosition - 1];
     return new BrailleDots(toggledDots);
   }
@@ -85,7 +77,7 @@ export default class BrailleDots<
    * @param dotPosition the position of the dot to get
    * @returns the state of the dot at the specified position
    */
-  getDot(dotPosition: DotPosition): boolean {
+  getDot(dotPosition: number): boolean {
     return this.getDots()[dotPosition - 1];
   }
 }

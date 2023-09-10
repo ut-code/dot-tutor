@@ -1,23 +1,19 @@
-import { CharacterType, DotCountType } from "./types";
 import Validator from "./validations/Validator";
 
 /**
  * A class representing the base information of a braille.
  */
-export default class BrailleBase<
-  Character extends CharacterType,
-  DotCount extends DotCountType,
-> {
-  private readonly character: Character;
+export default class BrailleBase {
+  private readonly character: string;
 
-  private readonly dotCount: DotCount;
+  private readonly dotCount: number;
 
   /**
    * Constructs a new instance.
    * @param braille a braille character
    * @param dotCount the number of dots based on the type of braille
    */
-  constructor(brailleCharacter: Character, dotCount: DotCount) {
+  constructor(brailleCharacter: string, dotCount: number) {
     Validator.validateDotCount(dotCount);
     this.dotCount = dotCount;
     Validator.validateBrailleCharacter(brailleCharacter, dotCount);
@@ -28,7 +24,7 @@ export default class BrailleBase<
    * Gets the Unicode of the braille character.
    * @returns the Unicode of the braille character
    */
-  getUnicode(): Character {
+  getUnicode(): string {
     return this.character;
   }
 
@@ -36,7 +32,7 @@ export default class BrailleBase<
    * Gets the number of dots based on the type of braille.
    * @returns the number of dots based on the type of braille
    */
-  getDotCount(): DotCount {
+  getDotCount(): number {
     return this.dotCount;
   }
 

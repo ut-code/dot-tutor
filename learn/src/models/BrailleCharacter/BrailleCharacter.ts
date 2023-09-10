@@ -11,11 +11,8 @@ import {
 /**
  * A class representing the information of a braille character.
  */
-export default abstract class BrailleCharacter<
-  Character extends CharacterType,
-  DotCount extends DotCountType,
-> {
-  private readonly braille: BrailleBase<Character, DotCount>;
+export default abstract class BrailleCharacter {
+  private readonly braille: BrailleBase;
 
   /**
    * Constructs a new instance with the given braille character.
@@ -30,7 +27,7 @@ export default abstract class BrailleCharacter<
     character: EightDotBrailleCharacterType,
     dotCount: EightDotBrailleDotCountType,
   );
-  constructor(character: Character, dotCount: DotCount) {
+  constructor(character: CharacterType, dotCount: DotCountType) {
     this.braille = new BrailleBase(character, dotCount);
   }
 
@@ -38,7 +35,7 @@ export default abstract class BrailleCharacter<
    * Gets the Unicode of the braille character.
    * @returns the Unicode of the braille character
    */
-  getUnicode(): Character {
+  getUnicode(): string {
     return this.braille.getUnicode();
   }
 
@@ -46,7 +43,7 @@ export default abstract class BrailleCharacter<
    * Gets the number of dots based on the type of braille.
    * @returns the number of dots based on the type of braille
    */
-  getDotCount(): DotCount {
+  getDotCount(): number {
     return this.braille.getDotCount();
   }
 

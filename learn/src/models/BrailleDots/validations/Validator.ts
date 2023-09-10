@@ -1,5 +1,4 @@
 import BrailleBase from "@/models/BrailleBase/BrailleBase";
-import { CharacterType, DotCountType } from "@/models/BrailleBase/types";
 import { DotsType } from "../types";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
@@ -24,10 +23,7 @@ export default class Validator {
   /**
    * Checks if a braille base is valid.
    */
-  static validateBrailleBase<
-    Character extends CharacterType,
-    DotCount extends DotCountType,
-  >(braille: BrailleBase<Character, DotCount>) {
+  static validateBrailleBase(braille: BrailleBase) {
     if (braille instanceof BrailleBase === false) {
       throw new ValidationError(validationMessages.NOT_BRAILLE_BASE);
     }

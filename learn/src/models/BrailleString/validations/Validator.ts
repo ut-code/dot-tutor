@@ -1,4 +1,3 @@
-import { CharacterType, DotCountType } from "@/models/BrailleBase/types";
 import BrailleBase from "@/models/BrailleBase/BrailleBase";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
@@ -33,10 +32,7 @@ export default class Validator {
    * Checks if braille array is valid.
    * @param brailleArray braille array
    */
-  static validateBrailleArray<
-    Character extends CharacterType,
-    DotCount extends DotCountType,
-  >(brailleArray: BrailleBase<Character, DotCount>[]) {
+  static validateBrailleArray(brailleArray: BrailleBase[]) {
     // Check if all braille bases are valid
     brailleArray.forEach((braille) => {
       BrailleDotsValidator.validateBrailleBase(braille);

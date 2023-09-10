@@ -1,4 +1,3 @@
-import { CharacterType, DotCountType } from "@/models/BrailleBase/types";
 import BrailleBase from "@/models/BrailleBase/BrailleBase";
 import { DotsType } from "../types";
 
@@ -7,11 +6,7 @@ import { DotsType } from "../types";
  * @param character a braille
  * @returns the braille dots corresponding to the braille
  */
-export default function convertBrailleToDots<
-  Character extends CharacterType,
-  DotCount extends DotCountType,
-  Dots extends DotsType,
->(braille: BrailleBase<Character, DotCount>): Dots {
+export default function convertBrailleToDots(braille: BrailleBase): DotsType {
   const codePoint = braille.getUnicode().codePointAt(0);
   if (codePoint === undefined) {
     throw new Error("The code point of the character is undefined.");
@@ -22,5 +17,5 @@ export default function convertBrailleToDots<
     // If the i-th bit is 1, push true to dots.
     dots.push(Boolean((codePoint - 0x2800) & (2 ** i)));
   }
-  return dots as Dots;
+  return dots as DotsType;
 }

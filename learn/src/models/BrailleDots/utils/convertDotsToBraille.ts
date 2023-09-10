@@ -23,13 +23,10 @@ function convertDotsToUnicode(dots: boolean[]): string {
  * @param dots braille dots
  * @returns the braille corresponding to the braille dots
  */
-export default function convertDotsToBraille<
-  Character extends CharacterType,
-  DotCount extends DotCountType,
->(dots: DotsType): BrailleBase<Character, DotCount> {
+export default function convertDotsToBraille(dots: DotsType): BrailleBase {
   Validator.validateDots(dots);
 
   const unicode = convertDotsToUnicode(dots);
 
-  return new BrailleBase(unicode as Character, dots.length as DotCount);
+  return new BrailleBase(unicode, dots.length);
 }

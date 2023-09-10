@@ -9,7 +9,7 @@ import {
 } from "../BrailleValue/types";
 import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
 import BrailleDots from "../BrailleDots/BrailleDots";
-import { DotsType } from "../BrailleDots/types";
+import { DotsObjectType, DotsArrayType } from "../BrailleDots/types";
 
 /**
  * Represents braille.
@@ -35,11 +35,16 @@ export default class Braille extends BrailleBase {
   );
   /**
    * Constructs a new instance with the given braille dots.
-   * @param dots braille dots
+   * @param dots an array of braille dots with values as booleans
    */
-  constructor(dots: DotsType);
+  constructor(dots: DotsArrayType);
+  /**
+   * Constructs a new instance with the given braille dots.
+   * @param dots an object of braille dots with keys as dot positions and values as booleans
+   */
+  constructor(dots: DotsObjectType);
   constructor(
-    characterOrDots: CharacterType | DotsType,
+    characterOrDots: CharacterType | DotsArrayType | DotsObjectType,
     dotCount?: DotCountType,
   ) {
     if (dotCount === 6) {
@@ -56,8 +61,10 @@ export default class Braille extends BrailleBase {
           dotCount,
         ).getBraille(),
       );
+    } else if (Array.isArray(characterOrDots)) {
+      super(new BrailleDots(characterOrDots as DotsArrayType).getBraille());
     } else {
-      super(new BrailleDots(characterOrDots as DotsType).getBraille());
+      super(new BrailleDots(characterOrDots as DotsObjectType).getBraille());
     }
   }
 
@@ -70,11 +77,19 @@ export default class Braille extends BrailleBase {
   }
 
   /**
-   * Gets the braille dots.
-   * @returns the braille dots
+   * Gets the array of braille dots.
+   * @returns the array of braille dots
    */
-  getDots(): boolean[] {
-    return new BrailleDots(this.getBraille()).getDots();
+  getDotsArray(): boolean[] {
+    return new BrailleDots(this.getBraille()).getDotsArray();
+  }
+
+  /**
+   * Gets the object of braille dots.
+   * @returns the object of braille dots
+   */
+  getDotsObject(): DotsObjectType {
+    return new BrailleDots(this.getBraille()).getDotsObject();
   }
 
   /**
@@ -86,7 +101,7 @@ export default class Braille extends BrailleBase {
     return new Braille(
       new BrailleDots(this.getBraille())
         .toggleDot(dotPosition)
-        .getDots() as DotsType,
+        .getDotsArray() as DotsArrayType,
     );
   }
 

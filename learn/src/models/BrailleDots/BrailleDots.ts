@@ -1,8 +1,14 @@
 import BrailleBase from "../BrailleBase/BrailleBase";
 import BrailleValue from "../BrailleValue/BrailleValue";
-import { DotsType } from "./types";
-import convertBrailleToDots from "./utils/convertBrailleToDots";
-import convertDotsToBraille from "./utils/convertDotsToBraille";
+import { DotsObjectType, DotsArrayType } from "./types";
+import {
+  convertBrailleToDotsArray,
+  convertBrailleToDotsObject,
+} from "./utils/convertBrailleToDotsArray";
+import {
+  convertDotsArrayToBraille,
+  convertDotsObjectToBraille,
+} from "./utils/convertDotsArrayToBraille";
 import Validator from "./validations/Validator";
 
 /**
@@ -11,29 +17,45 @@ import Validator from "./validations/Validator";
 export default class BrailleDots extends BrailleBase {
   /**
    * Constructs a new instance with the given braille dots.
-   * @param dots braille dots
+   * @param dots an array of braille dots with values as booleans
    */
-  constructor(dots: DotsType);
+  constructor(dots: DotsArrayType);
+  /**
+   * Constructs a new instance with the given braille dots.
+   * @param dots an object of braille dots with keys as dot positions and values as booleans
+   */
+  constructor(dots: DotsObjectType);
   /**
    * Constructs a new instance with the given braille.
    * @param braille a braille
    */
   constructor(braille: BrailleValue);
-  constructor(dotsOrBraille: DotsType | BrailleValue) {
+  constructor(dotsOrBraille: DotsArrayType | DotsObjectType | BrailleValue) {
     if (Array.isArray(dotsOrBraille)) {
-      Validator.validateDots(dotsOrBraille);
-      super(convertDotsToBraille(dotsOrBraille));
+      Validator.validateDotsArray(dotsOrBraille);
+      super(convertDotsArrayToBraille(dotsOrBraille));
+    } else if (typeof dotsOrBraille === "object") {
+      Validator.validateDotsObject(dotsOrBraille as DotsObjectType);
+      super(convertDotsObjectToBraille(dotsOrBraille as DotsObjectType));
     } else {
       super(dotsOrBraille);
     }
   }
 
   /**
-   * Gets the braille dots.
-   * @returns the braille dots
+   * Gets the array of braille dots.
+   * @returns the array of braille dots
    */
-  getDots(): boolean[] {
-    return convertBrailleToDots(this.getBraille());
+  getDotsArray(): boolean[] {
+    return convertBrailleToDotsArray(this.getBraille());
+  }
+
+  /**
+   * Gets the object of braille dots.
+   * @returns the object of braille dots
+   */
+  getDotsObject(): DotsObjectType {
+    return convertBrailleToDotsObject(this.getBraille());
   }
 
   /**
@@ -42,9 +64,9 @@ export default class BrailleDots extends BrailleBase {
    * @returns a new instance with the dot at the specified position toggled
    */
   toggleDot(dotPosition: number): BrailleDots {
-    const toggledDots = [...this.getDots()];
+    const toggledDots = [...this.getDotsArray()];
     toggledDots[dotPosition - 1] = !toggledDots[dotPosition - 1];
-    return new BrailleDots(toggledDots as DotsType);
+    return new BrailleDots(toggledDots as DotsArrayType);
   }
 
   /**
@@ -53,6 +75,6 @@ export default class BrailleDots extends BrailleBase {
    * @returns the state of the dot at the specified position
    */
   getDot(dotPosition: number): boolean {
-    return this.getDots()[dotPosition - 1];
+    return this.getDotsArray()[dotPosition - 1];
   }
 }

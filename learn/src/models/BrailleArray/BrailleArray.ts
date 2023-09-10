@@ -1,4 +1,4 @@
-import { DotsType } from "../BrailleDots/types";
+import { DotsArrayType } from "../BrailleDots/types";
 import Braille from "../Braille/Braille";
 import Validator from "./validations/Validator";
 import {
@@ -22,8 +22,8 @@ export default class BrailleArray extends Array<Braille> {
    * Constructs a new instance with the given array of braille dots.
    * @param dotsArray an array of braille dots
    */
-  constructor(dots: DotsType[]);
-  constructor(textOrDotsArray: string | DotsType[], dotCount?: number) {
+  constructor(dots: DotsArrayType[]);
+  constructor(textOrDotsArray: string | DotsArrayType[], dotCount?: number) {
     const brailleArray = ((textOrDotsArray) => {
       if (typeof textOrDotsArray === "string") {
         if (dotCount === undefined) {

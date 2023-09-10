@@ -17,6 +17,17 @@ export default class BrailleArrayBase {
   }
 
   /**
+   * Gets the number of dots.
+   * @returns the number of dots based on the type of braille
+   */
+  getDotCount(): number {
+    if (this.brailleArray.length === 0) {
+      throw new Error("The array of braille is empty.");
+    }
+    return this.brailleArray[0].getDotCount();
+  }
+
+  /**
    * Gets the braille array.
    * @returns the braille array
    */

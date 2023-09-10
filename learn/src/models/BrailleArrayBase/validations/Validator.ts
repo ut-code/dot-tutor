@@ -21,6 +21,10 @@ export default class Validator {
    * @param brailleArray braille array
    */
   static validateBrailleArray(brailleArray: BrailleBase[]) {
+    // Check if the input is an array
+    if (Array.isArray(brailleArray) === false) {
+      throw new ValidationError(validationMessages.INVALID_ARRAY);
+    }
     // Check if all instances of BrailleBase are valid
     for (const braille of brailleArray) {
       Validator.validateBrailleBase(braille);

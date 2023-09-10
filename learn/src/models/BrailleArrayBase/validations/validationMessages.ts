@@ -3,6 +3,10 @@
  */
 const validationMessages = {
   /**
+   * A message that is displayed when an array is invalid.
+   */
+  INVALID_ARRAY: "Invalid array! The input must be an array.",
+  /**
    * A message that is displayed when an instance of BrailleBase is invalid.
    */
   INVALID_BRAILLE_BASE:

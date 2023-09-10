@@ -1,4 +1,4 @@
-import BrailleBase from "@/models/BrailleBase/BrailleBase";
+import BrailleValue from "@/models/BrailleValue/BrailleValue";
 import Validator from "../validations/Validator";
 
 /**
@@ -21,8 +21,8 @@ function convertDotsToCharacter(dots: boolean[]): string {
  * @param dots braille dots
  * @returns the braille corresponding to the braille dots
  */
-export default function convertDotsToBraille(dots: boolean[]): BrailleBase {
+export default function convertDotsToBraille(dots: boolean[]): BrailleValue {
   Validator.validateDots(dots);
   const unicode = convertDotsToCharacter(dots);
-  return new BrailleBase(unicode, dots.length);
+  return new BrailleValue(unicode, dots.length);
 }

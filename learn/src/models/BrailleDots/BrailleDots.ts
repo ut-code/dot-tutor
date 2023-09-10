@@ -1,4 +1,5 @@
 import BrailleBase from "../BrailleBase/BrailleBase";
+import BrailleValue from "../BrailleValue/BrailleValue";
 import { DotsType } from "./types";
 import convertBrailleToDots from "./utils/convertBrailleToDots";
 import convertDotsToBraille from "./utils/convertDotsToBraille";
@@ -7,9 +8,7 @@ import Validator from "./validations/Validator";
 /**
  * Represents braille dots.
  */
-export default class BrailleDots {
-  private readonly braille: BrailleBase;
-
+export default class BrailleDots extends BrailleBase {
   /**
    * Constructs a new instance with the given braille dots.
    * @param dots braille dots
@@ -19,14 +18,13 @@ export default class BrailleDots {
    * Constructs a new instance with the given braille.
    * @param braille a braille
    */
-  constructor(braille: BrailleBase);
-  constructor(dotsOrBraille: DotsType | BrailleBase) {
+  constructor(braille: BrailleValue);
+  constructor(dotsOrBraille: DotsType | BrailleValue) {
     if (Array.isArray(dotsOrBraille)) {
       Validator.validateDots(dotsOrBraille);
-      this.braille = convertDotsToBraille(dotsOrBraille);
+      super(convertDotsToBraille(dotsOrBraille));
     } else {
-      Validator.validateBrailleBase(dotsOrBraille);
-      this.braille = dotsOrBraille;
+      super(dotsOrBraille);
     }
   }
 
@@ -35,32 +33,7 @@ export default class BrailleDots {
    * @returns the braille dots
    */
   getDots(): boolean[] {
-    return convertBrailleToDots(this.braille);
-  }
-
-  /**
-   * Gets the number of dots.
-   * @returns the number of dots based on the type of braille
-   */
-  getDotCount(): number {
-    return this.braille.getDotCount();
-  }
-
-  /**
-   * Gets the braille.
-   * @returns the braille
-   */
-  getBraille(): BrailleBase {
-    return this.braille;
-  }
-
-  /**
-   * Checks if the braille dots are equal to the other.
-   * @param other the other braille dots
-   * @returns true if the braille dots are equal to the other, false otherwise
-   */
-  equals(other: this): boolean {
-    return this.braille.equals(other.braille);
+    return convertBrailleToDots(this.getBraille());
   }
 
   /**

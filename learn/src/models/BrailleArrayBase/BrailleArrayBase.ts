@@ -1,17 +1,17 @@
-import BrailleBase from "../BrailleBase/BrailleBase";
+import BrailleValue from "../BrailleValue/BrailleValue";
 import Validator from "./validations/Validator";
 
 /**
  * Represents a base information of braille array.
  */
 export default class BrailleArrayBase {
-  private readonly brailleArray: BrailleBase[];
+  private readonly brailleArray: BrailleValue[];
 
   /**
    * Constructs a new instance.
    * @param brailleArray braille array
    */
-  constructor(brailleArray: BrailleBase[]) {
+  constructor(brailleArray: BrailleValue[]) {
     Validator.validateBrailleArray(brailleArray);
     this.brailleArray = brailleArray;
   }
@@ -31,7 +31,7 @@ export default class BrailleArrayBase {
    * Gets the braille array.
    * @returns the braille array
    */
-  getBrailleArray(): BrailleBase[] {
+  getBrailleArray(): BrailleValue[] {
     return this.brailleArray;
   }
 

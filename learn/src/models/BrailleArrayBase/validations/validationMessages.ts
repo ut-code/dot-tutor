@@ -7,11 +7,6 @@ const validationMessages = {
    */
   INVALID_ARRAY: "Invalid array! The input must be an array.",
   /**
-   * A message that is displayed when an instance of BrailleBase is invalid.
-   */
-  INVALID_BRAILLE_BASE:
-    "Invalid instance of BrailleBase! The instance must be an instance of BrailleBase.",
-  /**
    * A message that is displayed when the number of dots is inconsistent.
    */
   INCONSISTENT_DOT_COUNT:

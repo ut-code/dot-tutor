@@ -1,35 +1,34 @@
-import BrailleBase from "../../BrailleBase/BrailleBase";
+import BrailleValue from "@/models/BrailleValue/BrailleValue";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
+import BrailleBaseValidator from "../../BrailleBase/validations/Validator";
 
 /**
  * Contains static methods that validate the input of the BrailleArrayBase class.
  */
 export default class Validator {
   /**
-   * Checks if an instance of BrailleBase is valid.
-   * @param braille an instance of BrailleBase
+   * Checks if an instance of BrailleValue is valid.
+   * @param braille an instance of BrailleValue
    */
-  static validateBrailleBase(braille: BrailleBase) {
-    if (braille instanceof BrailleBase === false) {
-      throw new ValidationError(validationMessages.INVALID_BRAILLE_BASE);
-    }
+  static validateBrailleValue(braille: BrailleValue) {
+    BrailleBaseValidator.validateBrailleValue(braille);
   }
 
   /**
-   * Checks if braille array is valid.
-   * @param brailleArray braille array
+   * Checks if array of braille is valid.
+   * @param brailleArray array of braille
    */
-  static validateBrailleArray(brailleArray: BrailleBase[]) {
+  static validateBrailleArray(brailleArray: BrailleValue[]) {
     // Check if the input is an array
     if (Array.isArray(brailleArray) === false) {
       throw new ValidationError(validationMessages.INVALID_ARRAY);
     }
-    // Check if all instances of BrailleBase are valid
+    // Check if all instances of BrailleValue are valid
     for (const braille of brailleArray) {
-      Validator.validateBrailleBase(braille);
+      Validator.validateBrailleValue(braille);
     }
-    // Check if all instances of BrailleBase have the same number of dots
+    // Check if all instances of BrailleValue have the same number of dots
     if (
       brailleArray.length > 0 &&
       !brailleArray.every(

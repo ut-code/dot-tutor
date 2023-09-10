@@ -6,7 +6,7 @@ import {
   EightDotBrailleDotCountType,
   SixDotBrailleCharacterType,
   SixDotBrailleDotCountType,
-} from "./BrailleBase/types";
+} from "./BrailleValue/types";
 import BrailleCharacter from "./BrailleCharacter/BrailleCharacter";
 import BrailleDots from "./BrailleDots/BrailleDots";
 import { DotsType } from "./BrailleDots/types";
@@ -14,9 +14,7 @@ import { DotsType } from "./BrailleDots/types";
 /**
  * Represents braille.
  */
-export default class Braille {
-  private readonly braille: BrailleBase;
-
+export default class Braille extends BrailleBase {
   /**
    * Constructs a new instance with the given six-dot braille character.
    * @param character a braille character
@@ -45,26 +43,22 @@ export default class Braille {
     dotCount?: DotCountType,
   ) {
     if (dotCount === 6) {
-      this.braille = new BrailleCharacter(
-        characterOrDots as SixDotBrailleCharacterType,
-        dotCount,
-      ).getBraille();
+      super(
+        new BrailleCharacter(
+          characterOrDots as SixDotBrailleCharacterType,
+          dotCount,
+        ).getBraille(),
+      );
     } else if (dotCount === 8) {
-      this.braille = new BrailleCharacter(
-        characterOrDots as EightDotBrailleCharacterType,
-        dotCount,
-      ).getBraille();
+      super(
+        new BrailleCharacter(
+          characterOrDots as EightDotBrailleCharacterType,
+          dotCount,
+        ).getBraille(),
+      );
     } else {
-      this.braille = new BrailleDots(characterOrDots as DotsType).getBraille();
+      super(new BrailleDots(characterOrDots as DotsType).getBraille());
     }
-  }
-
-  /**
-   * Gets the number of dots.
-   * @returns the number of dots based on the type of braille
-   */
-  getDotCount(): number {
-    return this.braille.getDotCount();
   }
 
   /**
@@ -72,7 +66,7 @@ export default class Braille {
    * @returns the braille character
    */
   getCharacter(): string {
-    return this.braille.getCharacter();
+    return this.getBraille().getCharacter();
   }
 
   /**
@@ -80,16 +74,7 @@ export default class Braille {
    * @returns the braille dots
    */
   getDots(): boolean[] {
-    return new BrailleDots(this.braille).getDots();
-  }
-
-  /**
-   * Checks if the braille is equal to the other.
-   * @param other the other braille
-   * @returns true if the braille is equal to the other, false otherwise
-   */
-  equals(other: this): boolean {
-    return this.braille.equals(other.braille);
+    return new BrailleDots(this.getBraille()).getDots();
   }
 
   /**
@@ -99,7 +84,7 @@ export default class Braille {
    */
   toggleDot(dotPosition: number): Braille {
     return new Braille(
-      new BrailleDots(this.braille)
+      new BrailleDots(this.getBraille())
         .toggleDot(dotPosition)
         .getDots() as DotsType,
     );
@@ -111,6 +96,6 @@ export default class Braille {
    * @returns the state of the dot at the specified position
    */
   getDot(dotPosition: number): boolean {
-    return new BrailleDots(this.braille).getDot(dotPosition);
+    return new BrailleDots(this.getBraille()).getDot(dotPosition);
   }
 }

@@ -1,6 +1,6 @@
 import BrailleBase from "@/models/BrailleBase/BrailleBase";
 import BrailleBaseValidator from "@/models/BrailleBase/validations/Validator";
-import BrailleCharacterValidator from "@/models/BrailleCharacter/validations/Validator";
+import BrailleArrayBaseValidator from "@/models/BrailleArrayBase/validations/Validator";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
 
@@ -24,7 +24,7 @@ export default class Validator {
    * @param braille an instance of BrailleBase
    */
   static validateBrailleBase(braille: BrailleBase) {
-    BrailleCharacterValidator.validateBrailleBase(braille);
+    BrailleArrayBaseValidator.validateBrailleBase(braille);
   }
 
   /**

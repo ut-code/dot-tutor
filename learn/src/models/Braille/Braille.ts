@@ -1,4 +1,4 @@
-import BrailleBase from "./BrailleBase/BrailleBase";
+import BrailleBase from "../BrailleBase/BrailleBase";
 import {
   CharacterType,
   DotCountType,
@@ -6,10 +6,10 @@ import {
   EightDotBrailleDotCountType,
   SixDotBrailleCharacterType,
   SixDotBrailleDotCountType,
-} from "./BrailleValue/types";
-import BrailleCharacter from "./BrailleCharacter/BrailleCharacter";
-import BrailleDots from "./BrailleDots/BrailleDots";
-import { DotsType } from "./BrailleDots/types";
+} from "../BrailleValue/types";
+import BrailleCharacter from "../BrailleCharacter/BrailleCharacter";
+import BrailleDots from "../BrailleDots/BrailleDots";
+import { DotsType } from "../BrailleDots/types";
 
 /**
  * Represents braille.

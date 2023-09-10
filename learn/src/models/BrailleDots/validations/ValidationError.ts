@@ -1,5 +1,5 @@
 /**
- * A class that represents a validation error for braille dots.
+ * Represents a validation error thrown by the BrailleDots class.
  */
 export default class ValidationError extends Error {
   constructor(message: string) {

@@ -1,18 +1,16 @@
 import BrailleBase from "@/models/BrailleBase/BrailleBase";
-import { CharacterType, DotCountType } from "@/models/BrailleBase/types";
-import { DotsType } from "../types";
 import Validator from "../validations/Validator";
 
 /**
- * Converts braille dots to the Unicode character corresponding to the braille dots.
+ * Converts braille dots to the braille character corresponding to the braille dots.
  * @param dots braille dots
- * @returns the Unicode character corresponding to the braille dots
+ * @returns the braille character corresponding to the braille dots
  */
-function convertDotsToUnicode(dots: boolean[]): string {
+function convertDotsToCharacter(dots: boolean[]): string {
   // See the Unicode patterns at https://www.unicode.org/charts/PDF/U2800.pdf
   let codePoint = 0x2800;
-  // If a dot is true, add 2 ** i to codePoint.
   for (let i = 0; i < dots.length; i += 1) {
+    // If a dot is true, add 2 ** i to codePoint.
     if (dots[i]) codePoint += 2 ** i;
   }
   return String.fromCodePoint(codePoint);
@@ -23,10 +21,8 @@ function convertDotsToUnicode(dots: boolean[]): string {
  * @param dots braille dots
  * @returns the braille corresponding to the braille dots
  */
-export default function convertDotsToBraille(dots: DotsType): BrailleBase {
+export default function convertDotsToBraille(dots: boolean[]): BrailleBase {
   Validator.validateDots(dots);
-
-  const unicode = convertDotsToUnicode(dots);
-
+  const unicode = convertDotsToCharacter(dots);
   return new BrailleBase(unicode, dots.length);
 }

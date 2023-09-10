@@ -5,7 +5,7 @@ import convertDotsToBraille from "./utils/convertDotsToBraille";
 import Validator from "./validations/Validator";
 
 /**
- * A class representing the information of braille dots.
+ * Represents braille dots.
  */
 export default class BrailleDots {
   private readonly braille: BrailleBase;
@@ -15,6 +15,10 @@ export default class BrailleDots {
    * @param dots braille dots
    */
   constructor(dots: DotsType);
+  /**
+   * Constructs a new instance with the given braille.
+   * @param braille a braille
+   */
   constructor(braille: BrailleBase);
   constructor(dotsOrBraille: DotsType | BrailleBase) {
     if (Array.isArray(dotsOrBraille)) {
@@ -30,13 +34,21 @@ export default class BrailleDots {
    * Gets the braille dots.
    * @returns the braille dots
    */
-  getDots(): DotsType {
+  getDots(): boolean[] {
     return convertBrailleToDots(this.braille);
   }
 
   /**
-   * Gets the braille corresponding to the braille dots.
-   * @returns the braille corresponding to the braille dots
+   * Gets the number of dots.
+   * @returns the number of dots based on the type of braille
+   */
+  getDotCount(): number {
+    return this.braille.getDotCount();
+  }
+
+  /**
+   * Gets the braille.
+   * @returns the braille
    */
   getBraille(): BrailleBase {
     return this.braille;
@@ -52,24 +64,14 @@ export default class BrailleDots {
   }
 
   /**
-   * Converts the braille dots to a string.
-   * @returns a string representation of the braille dots
-   */
-  toString(): string {
-    return this.getDots()
-      .map((dot) => (dot ? "1" : "0"))
-      .join("");
-  }
-
-  /**
    * Toggles a braille dot and returns a new instance with the dot at the specified position toggled.
    * @param dotPosition the position of the dot to toggle
    * @returns a new instance with the dot at the specified position toggled
    */
   toggleDot(dotPosition: number): BrailleDots {
-    const toggledDots: DotsType = [...this.getDots()];
+    const toggledDots = [...this.getDots()];
     toggledDots[dotPosition - 1] = !toggledDots[dotPosition - 1];
-    return new BrailleDots(toggledDots);
+    return new BrailleDots(toggledDots as DotsType);
   }
 
   /**

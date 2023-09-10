@@ -1,5 +1,4 @@
 import BrailleBase from "../BrailleBase/BrailleBase";
-import { CharacterType, DotCountType } from "../BrailleBase/types";
 import Validator from "./validations/Validator";
 
 /**
@@ -22,10 +21,8 @@ export default class BrailleString {
   constructor(textOrBrailleArray: string | BrailleBase[], dotCount?: number) {
     if (typeof textOrBrailleArray === "string") {
       if (dotCount === undefined) {
-        throw new Error("The dot count is undefined.");
+        throw new Error("The dotCount is undefined.");
       }
-      Validator.validateDotCount(dotCount);
-      Validator.validateText(textOrBrailleArray, dotCount);
       this.brailleArray = Array.from(textOrBrailleArray).map(
         (character) => new BrailleBase(character, dotCount),
       );
@@ -36,11 +33,11 @@ export default class BrailleString {
   }
 
   /**
-   * Gets the Unicode text.
-   * @returns the Unicode text
+   * Gets the braille text.
+   * @returns the braille text
    */
-  toString(): string {
-    return this.brailleArray.map((braille) => braille.getUnicode()).join("");
+  getText(): string {
+    return this.brailleArray.map((braille) => braille.getCharacter()).join("");
   }
 
   /**
@@ -49,6 +46,14 @@ export default class BrailleString {
    */
   getDotCount(): number {
     return this.brailleArray[0].getDotCount();
+  }
+
+  /**
+   * Gets the braille array corresponding to the braille text.
+   * @returns the braille array corresponding to the braille text
+   */
+  getBrailleArray(): BrailleBase[] {
+    return this.brailleArray;
   }
 
   /**
@@ -82,8 +87,8 @@ export default class BrailleString {
    */
   set(index: number, braille: BrailleBase): BrailleString {
     return new BrailleString(
-      this.brailleArray.map((brailleCharacter, i) =>
-        i === index ? braille : brailleCharacter,
+      this.brailleArray.map((currentBraille, i) =>
+        i === index ? braille : currentBraille,
       ),
     );
   }
@@ -109,6 +114,11 @@ export default class BrailleString {
    * @returns an iterator for the braille array
    */
   [Symbol.iterator]() {
-    return this.brailleArray[Symbol.iterator]();
+    function* generator(brailleArray: BrailleBase[]) {
+      for (const braille of brailleArray) {
+        yield new BrailleString([braille]);
+      }
+    }
+    return generator(this.brailleArray);
   }
 }

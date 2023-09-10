@@ -1,31 +1,38 @@
 import BrailleBase from "@/models/BrailleBase/BrailleBase";
-import { DotsType } from "../types";
+import BrailleBaseValidator from "@/models/BrailleBase/validations/Validator";
+import BrailleCharacterValidator from "@/models/BrailleCharacter/validations/Validator";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
 
 /**
- * A class that contains static methods for validating braille dots.
+ * Contains static methods that validate the input of the BrailleDots class.
  */
 export default class Validator {
   /**
    * Checks if braille dots are valid.
    * @param dots braille dots
    */
-  static validateDots(dots: DotsType) {
-    if (dots.length !== 6 && dots.length !== 8) {
-      throw new ValidationError(validationMessages.INVALID_DOT_COUNT);
-    }
+  static validateDots(dots: boolean[]) {
+    BrailleBaseValidator.validateDotCount(dots.length);
     if (!dots.every((dot) => typeof dot === "boolean")) {
-      throw new ValidationError(validationMessages.NOT_BOOLEAN);
+      throw new ValidationError(validationMessages.INVALID_DOTS);
     }
   }
 
   /**
-   * Checks if a braille base is valid.
+   * Checks if an instance of BrailleBase is valid.
+   * @param braille an instance of BrailleBase
    */
   static validateBrailleBase(braille: BrailleBase) {
-    if (braille instanceof BrailleBase === false) {
-      throw new ValidationError(validationMessages.NOT_BRAILLE_BASE);
-    }
+    BrailleCharacterValidator.validateBrailleBase(braille);
+  }
+
+  /**
+   * Checks if a braille character is valid.
+   * @param character a braille character
+   * @param dotCount the number of dots based on the type of braille
+   */
+  static validateCharacter(character: string, dotCount: number) {
+    BrailleBaseValidator.validateCharacter(character, dotCount);
   }
 }

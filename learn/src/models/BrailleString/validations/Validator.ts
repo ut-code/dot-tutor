@@ -9,37 +9,17 @@ import BrailleDotsValidator from "../../BrailleDots/validations/Validator";
  */
 export default class Validator {
   /**
-   * Checks if the number of dots is valid.
-   * @param dotCount the number of dots
-   */
-  static validateDotCount(dotCount: number) {
-    BrailleBaseValidator.validateDotCount(dotCount);
-  }
-
-  /**
-   * Checks if braille text is valid.
-   * @param text braille text
-   * @param dotCount the number of dots based on the type of braille
-   */
-  static validateText(text: string, dotCount: number) {
-    // Check if all characters are valid braille characters
-    Array.from(text).forEach((character) => {
-      BrailleBaseValidator.validateBrailleCharacter(character, dotCount);
-    });
-  }
-
-  /**
    * Checks if braille array is valid.
    * @param brailleArray braille array
    */
   static validateBrailleArray(brailleArray: BrailleBase[]) {
     // Check if all braille bases are valid
-    brailleArray.forEach((braille) => {
+    for (const braille of brailleArray) {
       BrailleDotsValidator.validateBrailleBase(braille);
-    });
+    }
     // Check if all braille bases have the same dot count
     if (
-      brailleArray.every(
+      !brailleArray.every(
         (braille) => braille.getDotCount() === brailleArray[0].getDotCount(),
       )
     ) {

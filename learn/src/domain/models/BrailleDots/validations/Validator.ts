@@ -1,4 +1,4 @@
-import BrailleValueValidator from "@/models/BrailleValue/validations/Validator";
+import BrailleValueValidator from "@/domain/models/BrailleValue/validations/Validator";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
 import { DotsObjectType } from "../types";

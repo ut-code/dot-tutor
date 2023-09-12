@@ -9,7 +9,7 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-import { SixDotBrailleString } from "@/models/BrailleString";
+import { SixDotBrailleString } from "@/domain/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";

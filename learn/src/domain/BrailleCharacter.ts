@@ -1,4 +1,4 @@
-import { BrailleState } from "@/models/BrailleState";
+import { BrailleState } from "@/domain/BrailleState";
 
 /**
  * Braille class

@@ -10,7 +10,7 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import { SixDotBraille } from "@/models/BrailleCharacter";
+import { SixDotBraille } from "@/domain/BrailleCharacter";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 export default function ReadMain({

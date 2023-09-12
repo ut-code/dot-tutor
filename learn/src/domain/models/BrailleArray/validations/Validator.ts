@@ -1,4 +1,4 @@
-import Braille from "@/models/Braille/Braille";
+import Braille from "@/domain/models/Braille/Braille";
 import ValidationError from "./ValidationError";
 import validationMessages from "./validationMessages";
 

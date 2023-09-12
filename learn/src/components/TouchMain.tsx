@@ -3,7 +3,7 @@ import translateBraille from "@/utils/translateBraille";
 import { judge, eightJudge, makeQuestion } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Paper, Typography, Divider, Button, Stack, Box } from "@mui/material";
-import { BrailleString } from "@/models/BrailleString";
+import { BrailleString } from "@/domain/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import * as tenji from "tenji";

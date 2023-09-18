@@ -1,5 +1,5 @@
 import useTypedBrailleString from "@/hooks/useTypedBrailleString";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Paper,
   Divider,
@@ -17,6 +17,7 @@ import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import TenjiInput from "@/components/TenjiInput";
 
 interface Question {
   question: string;
@@ -53,17 +54,21 @@ export default function Tutorial1({
 }: {
   questionList: QuestionList;
 }): JSX.Element {
-  const [typedBrailleString, updateTypedBrailleString, setTypedBrailleString] =
-    useTypedBrailleString(6);
+  const [typedBraille, setTypedBraille] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null!);
+  const resetInput = () => {
+    inputRef.current.value = "";
+    setTypedBraille("");
+  };
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [goNextQuestion, setGoNextQuestion] = useState<boolean>(false);
   const [translatedBrailleString, setTranslatedBrailleString] =
     useState<string>("");
   useEffect(() => {
     setTranslatedBrailleString(
-      translateBraille(new SixDotBrailleString("unicode", typedBrailleString)),
+      translateBraille(new SixDotBrailleString("unicode", typedBraille)),
     );
-  }, [typedBrailleString]);
+  }, [typedBraille]);
   useEffect(() => {
     if (questionList !== undefined && questionIndex < questionList.length) {
       if ("answer" in questionList[questionIndex]) {
@@ -103,9 +108,7 @@ export default function Tutorial1({
           </Typography>
           <Button
             variant="outlined"
-            onClick={() => {
-              setTypedBrailleString("");
-            }}
+            onClick={resetInput}
             startIcon={<RefreshIcon />}
           >
             リセット
@@ -113,16 +116,10 @@ export default function Tutorial1({
         </Stack>
         <Divider />
         <Box sx={{ minHeight: 100 }} p={2}>
-          <TextField
-            variant="outlined"
-            value={typedBrailleString}
-            onKeyDown={(e) => {
-              updateTypedBrailleString(e);
-            }}
-            onKeyUp={(e) => {
-              updateTypedBrailleString(e);
-            }}
-            style={{ width: "100%" }}
+          <TenjiInput
+            brailleDotCount={6}
+            inputRef={inputRef}
+            setValue={setTypedBraille}
           />
         </Box>
       </Paper>
@@ -164,7 +161,7 @@ export default function Tutorial1({
             }
             setGoNextQuestion(false);
           }
-          setTypedBrailleString("");
+          resetInput();
         }}
         disabled={!goNextQuestion}
         variant="contained"

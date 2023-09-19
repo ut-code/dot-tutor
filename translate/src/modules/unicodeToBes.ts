@@ -143,6 +143,7 @@ export function unicodeToBes(unicode: string): Uint8Array {
       output[num_pos + 1] = Math.floor(letters_num / 255);
       console.log("Page: ", pages, num_pos, Math.floor(letters_num / 255));
       num_pos = output.length;
+      console.log("sep", num_pos);
       output.push(0x00);
       // console.log(output.length);
       output.push(0x00);
@@ -173,6 +174,34 @@ export function unicodeToBes(unicode: string): Uint8Array {
         lines += 1;
         letters = output.length - separate_pos - 1;
       }
+      if (lines === 21) {
+        // ページをまたぐとき
+        lines = 0;
+        pages += 1;
+        letters_on_page = letters_on_page - letters;
+        letters_num = 0x19 + letters_on_page;
+        output[num_pos] = (letters_num % 255) - Math.floor(letters_num / 255);
+        output[num_pos + 1] = Math.floor(letters_num / 255);
+        console.log("Page: ", pages, num_pos, Math.floor(letters_num / 255));
+        num_pos = separate_pos + 1;
+        console.log("con", num_pos);
+        output.splice(separate_pos + 1, 0, 0x00);
+        output.splice(separate_pos + 2, 0, 0x00);
+        output.splice(separate_pos + 3, 0, 0xfd);
+        letters_on_page = letters;
+        for (var i = 0; i < 27; i++) {
+          output.splice(separate_pos + i + 4, 0, 0xa0);
+          letters_on_page += 1;
+        }
+        output.splice(separate_pos + 31, 0, 0xdc);
+        num = mapping_num[String(pages + 1)];
+        num_codePoint = num.codePointAt(0);
+        if (num_codePoint != null) {
+          output.splice(separate_pos + 32, 0, num_codePoint - 0x2800 + 0xa0);
+        }
+        letters_on_page += 2;
+        output.splice(separate_pos + 33, 0, 0xfe);
+      }
     }
 
     if (codePoint === 0x2800) {
@@ -182,7 +211,6 @@ export function unicodeToBes(unicode: string): Uint8Array {
       if (codePoint >= 0x2800 && codePoint <= 0x28ff) {
         output.push(codePoint - 0x2800 + 0xa0);
         letters += 1;
-        console.log(codePoint);
         letters_on_page += 1;
       }
     }
@@ -202,6 +230,13 @@ export function unicodeToBes(unicode: string): Uint8Array {
   output.push(0xff);
 
   letters_num = 0x19 + letters_on_page;
+  console.log(
+    "Page: ",
+    pages,
+    num_pos,
+    letters_num % 255,
+    Math.floor(letters_num / 255),
+  );
   output[num_pos] = letters_num % 255;
   output[num_pos + 1] = Math.floor(letters_num / 255);
 

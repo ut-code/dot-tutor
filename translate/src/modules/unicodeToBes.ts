@@ -154,12 +154,17 @@ export function unicodeToBes(unicode: string): Uint8Array {
         letters_on_page += 1;
       }
       output.push(0xdc);
-      num = mapping_num[String(pages + 1)];
-      num_codePoint = num.codePointAt(0);
-      if (num_codePoint != null) {
-        output.push(num_codePoint - 0x2800 + 0xa0);
+      letters_on_page += 1;
+      const num_str = String(pages + 1);
+      for (var i = 0; i < num_str.length; i++) {
+        num = mapping_num[num_str[i]];
+        console.log(i, num_str, num);
+        num_codePoint = num.codePointAt(0);
+        if (num_codePoint != null) {
+          output.push(num_codePoint - 0x2800 + 0xa0);
+        }
+        letters_on_page += 1;
       }
-      letters_on_page += 2;
       output.push(0xfe);
     }
     if (letters === 33) {
@@ -178,6 +183,7 @@ export function unicodeToBes(unicode: string): Uint8Array {
         // ページをまたぐとき
         lines = 0;
         pages += 1;
+        // 次ページに移った文字数を引く
         letters_on_page = letters_on_page - letters;
         letters_num = 0x19 + letters_on_page;
         output[num_pos] = (letters_num % 255) - Math.floor(letters_num / 255);
@@ -194,13 +200,21 @@ export function unicodeToBes(unicode: string): Uint8Array {
           letters_on_page += 1;
         }
         output.splice(separate_pos + 31, 0, 0xdc);
-        num = mapping_num[String(pages + 1)];
-        num_codePoint = num.codePointAt(0);
-        if (num_codePoint != null) {
-          output.splice(separate_pos + 32, 0, num_codePoint - 0x2800 + 0xa0);
+        letters_on_page += 1;
+        const num_str = String(pages + 1);
+        for (var i = 0; i < num_str.length; i++) {
+          num = mapping_num[num_str[i]];
+          num_codePoint = num.codePointAt(0);
+          if (num_codePoint != null) {
+            output.splice(
+              separate_pos + 32 + i,
+              0,
+              num_codePoint - 0x2800 + 0xa0,
+            );
+          }
+          letters_on_page += 1;
         }
-        letters_on_page += 2;
-        output.splice(separate_pos + 33, 0, 0xfe);
+        output.splice(separate_pos + 32 + num_str.length, 0, 0xfe);
       }
     }
 
@@ -214,7 +228,7 @@ export function unicodeToBes(unicode: string): Uint8Array {
         letters_on_page += 1;
       }
     }
-    if (char == "n") {
+    if (char === "n") {
       // "\n"で改行
       output.push(0x0d);
       letters_on_page += 1;
@@ -223,20 +237,20 @@ export function unicodeToBes(unicode: string): Uint8Array {
       letters = 0;
     }
   }
-  output[31] = 0x30 + pages;
+
+  if (pages < 10) {
+    output[31] = 0x30 + pages;
+  } else {
+    output[31] = 0x30 + Math.floor(pages / 10);
+    output[32] = 0x30 + (pages % 10);
+  }
+
   for (var i = 0; i + lines < 21; i++) {
     output.push(0xfe);
   }
   output.push(0xff);
 
   letters_num = 0x19 + letters_on_page;
-  console.log(
-    "Page: ",
-    pages,
-    num_pos,
-    letters_num % 255,
-    Math.floor(letters_num / 255),
-  );
   output[num_pos] = letters_num % 255;
   output[num_pos + 1] = Math.floor(letters_num / 255);
 

@@ -14,6 +14,8 @@ import {
   IconButton,
   Typography,
   TextField,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
@@ -166,6 +168,19 @@ function App() {
               >
                 Copy
               </Button>
+            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    onChange={(e) => {
+                      navigator.clipboard.writeText(targetText);
+                    }}
+                  />
+                }
+                label="ページ番号あり"
+                labelPlacement="start"
+              />
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button

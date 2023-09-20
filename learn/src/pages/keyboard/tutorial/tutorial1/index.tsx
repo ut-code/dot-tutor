@@ -1,10 +1,8 @@
-import useTypedBrailleString from "@/hooks/useTypedBrailleString";
 import React, { useState, useEffect, useRef } from "react";
 import {
   Paper,
   Divider,
   Box,
-  TextField,
   Typography,
   Button,
   Stack,
@@ -66,7 +64,12 @@ export default function Tutorial1({
     useState<string>("");
   useEffect(() => {
     setTranslatedBrailleString(
-      translateBraille(new SixDotBrailleString("unicode", typedBraille)),
+      translateBraille(
+        new SixDotBrailleString(
+          "unicode",
+          (typedBraille.match(/[⠀-⣿]/g) ?? [""]).join(""),
+        ),
+      ),
     );
   }, [typedBraille]);
   useEffect(() => {

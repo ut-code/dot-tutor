@@ -1,4 +1,4 @@
-import { useState, useRef, type KeyboardEvent } from "react";
+import { useRef, type KeyboardEvent } from "react";
 import {
   AvailableKey,
   convertKeyboardStateToBraille,
@@ -11,7 +11,7 @@ export default function TenjiInput(props: {
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }): JSX.Element {
   const { brailleDotCount, inputRef, setValue } = props;
-  const keys = ["a", "s", "d", "f", "j", "k", "l", ";"];
+  const keys = ["a", "s", "d", "f", "j", "k", "l", ";", " "];
   const shouldHandleKeyboardEvent = (e: KeyboardEvent) =>
     !e.ctrlKey && !e.altKey && !e.metaKey && keys.includes(e.key.toLowerCase());
   const pressedKeysRef = useRef(new Set<string>());
@@ -19,7 +19,9 @@ export default function TenjiInput(props: {
   return (
     <input
       ref={inputRef}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) =>
+        setValue((e.target.value.match(/[⠀-⣿]/g) ?? [""]).join(""))
+      }
       onKeyDown={(e) => {
         if (!shouldHandleKeyboardEvent(e)) return;
         const pressedKey = e.code;
@@ -53,11 +55,15 @@ export default function TenjiInput(props: {
             selectionStart !== null &&
             selectionEnd !== null
           ) {
-            e.currentTarget.value = [
-              e.currentTarget.value.slice(0, selectionStart),
-              typedBraille,
-              e.currentTarget.value.slice(selectionEnd),
-            ].join("");
+            e.currentTarget.value = (
+              [
+                e.currentTarget.value.slice(0, selectionStart),
+                typedBraille,
+                e.currentTarget.value.slice(selectionEnd),
+              ]
+                .join("")
+                .match(/[⠀-⣿]/g) ?? [""]
+            ).join("");
             e.currentTarget.setSelectionRange(
               selectionStart + 1,
               selectionStart + 1,
@@ -67,6 +73,13 @@ export default function TenjiInput(props: {
         }
         setValue(e.currentTarget.value);
         e.preventDefault();
+      }}
+      style={{
+        width: "100%",
+        fontSize: "150%",
+        lineHeight: "2em",
+        borderRadius: "5px",
+        borderColor: "whitesmoke",
       }}
     />
   );

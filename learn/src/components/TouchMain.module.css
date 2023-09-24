@@ -1,0 +1,7 @@
+.wrapper {
+  border-left: 1px solid #eee;
+  font-size: 50px;
+}
+.messages {
+  padding: 15px;
+}

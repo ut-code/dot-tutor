@@ -17,6 +17,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import * as tenji from "tenji";
 import { Height } from "@mui/icons-material";
+import styles from "./TouchMain.module.css";
 
 export const CustomButton = styled(Button)({
   backgroundColor: "blue",
@@ -67,6 +68,8 @@ export default function TouchMain({
 
   return (
     <>
+      <div className={styles.wrapper}>test in progress</div>
+
       <Box
         sx={{
           bgcolor: "background.paper",

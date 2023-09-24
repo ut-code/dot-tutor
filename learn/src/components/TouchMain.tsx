@@ -19,13 +19,6 @@ import * as tenji from "tenji";
 import { Height } from "@mui/icons-material";
 import styles from "./TouchMain.module.css";
 
-export const CustomButton = styled(Button)({
-  backgroundColor: "blue",
-  color: "white",
-  width: "100%",
-  Height: "100%",
-});
-
 export default function TouchMain({
   typeOfQuestions,
   brailleDotCount,
@@ -36,7 +29,7 @@ export default function TouchMain({
   const [brailleStrings, setBrailleStrings] = useState<BrailleString>(
     new BrailleString(
       "unicode",
-      [...Array(10)].map((_) => "⠀").join(""),
+      [...Array(8)].map((_) => "⠀").join(""),
       brailleDotCount,
     ),
   );
@@ -68,112 +61,54 @@ export default function TouchMain({
 
   return (
     <>
-      <div className={styles.wrapper}>test in progress</div>
-
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          pt: 8,
-          pb: 6,
-          maxWidth: "50%",
-          width: 10000,
-          mx: "auto",
-        }}
-      >
-        <Typography
-          variant="h5"
-          align="center"
-          color="text.secondary"
-          paragraph
-        >
-          「{question}」を点字に直してください。
-        </Typography>
-        <Typography>
-          {brailleStrings.brailleArray.map((brailleChar, i) => (
-            <EdittableBraille
-              key={i}
-              height="100"
-              width="60"
-              braille={brailleChar}
-              setBraille={(braille) => {
-                setBrailleStrings(
-                  new BrailleString(
-                    "braille array",
-                    brailleStrings.brailleArray.map((_, j) =>
-                      j === i ? braille : _,
-                    ),
-                    brailleDotCount,
+      <div className={styles.question}>
+        「{question}」を点字に直してください。
+      </div>
+      <div className={styles.touch_field}>
+        {brailleStrings.brailleArray.map((brailleChar, i) => (
+          <EdittableBraille
+            key={i}
+            height="150"
+            width="90"
+            braille={brailleChar}
+            setBraille={(braille) => {
+              setBrailleStrings(
+                new BrailleString(
+                  "braille array",
+                  brailleStrings.brailleArray.map((_, j) =>
+                    j === i ? braille : _,
                   ),
-                );
-              }}
-            />
-          ))}
-        </Typography>
-      </Box>
+                  brailleDotCount,
+                ),
+              );
+            }}
+          />
+        ))}
+      </div>
 
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          pt: 8,
-          pb: 6,
-          display: "flex",
-          flexDirection: "row",
-          maxWidth: "50%",
-          width: 10000,
-          mx: "auto",
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            pt: 8,
-            pb: 6,
-            maxWidth: "60%",
-            width: 6000,
-          }}
-        >
+      <div className={styles.judge_and_next_question}>
+        <div className={styles.judge}>
           {afterJudgeAnswer === true ? (
             rightOrWrong === true ? (
-              <Typography
-                variant="h5"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                正解
-              </Typography>
+              <p>正解</p>
             ) : (
-              <Typography
-                variant="h5"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                不正解
-              </Typography>
+              <p>不正解</p>
             )
           ) : null}
-        </Box>
+        </div>
 
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            pt: 3,
-            pb: 6,
-            maxWidth: "40%",
-            width: 4000,
-          }}
-        >
+        <div className={styles.next_question}>
           {afterJudgeAnswer === true ? (
             rightOrWrong === true ? (
-              <CustomButton
-                variant="contained"
+              <button
+                className={styles.next_question_button}
+                type="button"
                 onClick={() => {
                   setQuestion(makeQuestion(typeOfQuestions));
                   setBrailleStrings(
                     new BrailleString(
                       "unicode",
-                      [...Array(10)].map((_) => "⠀").join(""),
+                      [...Array(8)].map((_) => "⠀").join(""),
                       brailleDotCount,
                     ),
                   );
@@ -182,16 +117,17 @@ export default function TouchMain({
                 }}
               >
                 次の問題へ
-              </CustomButton>
+              </button>
             ) : (
-              <CustomButton
-                variant="contained"
+              <button
+                className={styles.next_question_button}
+                type="button"
                 onClick={() => {
                   setQuestion(makeQuestion(typeOfQuestions));
                   setBrailleStrings(
                     new BrailleString(
                       "unicode",
-                      [...Array(10)].map((_) => "⠀").join(""),
+                      [...Array(8)].map((_) => "⠀").join(""),
                       brailleDotCount,
                     ),
                   );
@@ -200,11 +136,12 @@ export default function TouchMain({
                 }}
               >
                 次の問題へ
-              </CustomButton>
+              </button>
             )
           ) : (
-            <CustomButton
-              variant="contained"
+            <button
+              className={styles.next_question_button}
+              type="button"
               onClick={() => {
                 judgeAnswer(
                   brailleDotCount === 6
@@ -215,10 +152,10 @@ export default function TouchMain({
               }}
             >
               答え合わせ
-            </CustomButton>
+            </button>
           )}
-        </Box>
-      </Box>
+        </div>
+      </div>
     </>
   );
 }

@@ -10,11 +10,20 @@ import {
   Stack,
   Box,
   Container,
+  styled,
 } from "@mui/material";
 import { BrailleString } from "@/models/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import * as tenji from "tenji";
+import { Height } from "@mui/icons-material";
+
+export const CustomButton = styled(Button)({
+  backgroundColor: "blue",
+  color: "white",
+  width: "100%",
+  Height: "100%",
+});
 
 export default function TouchMain({
   typeOfQuestions,
@@ -63,6 +72,9 @@ export default function TouchMain({
           bgcolor: "background.paper",
           pt: 8,
           pb: 6,
+          maxWidth: "50%",
+          width: 10000,
+          mx: "auto",
         }}
       >
         <Typography
@@ -101,84 +113,109 @@ export default function TouchMain({
           bgcolor: "background.paper",
           pt: 8,
           pb: 6,
+          display: "flex",
+          flexDirection: "row",
+          maxWidth: "50%",
+          width: 10000,
+          mx: "auto",
         }}
       >
-        {afterJudgeAnswer === true ? (
-          rightOrWrong === true ? (
-            <Button
-              variant="contained"
-              onClick={() => {
-                setQuestion(makeQuestion(typeOfQuestions));
-                setBrailleStrings(
-                  new BrailleString(
-                    "unicode",
-                    [...Array(10)].map((_) => "⠀").join(""),
-                    brailleDotCount,
-                  ),
-                );
-                judgeAnswer(false);
-                setAfterJudgeAnswer(false);
-              }}
-            >
-              次の問題へ
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              onClick={() => {
-                setQuestion(makeQuestion(typeOfQuestions));
-                setBrailleStrings(
-                  new BrailleString(
-                    "unicode",
-                    [...Array(10)].map((_) => "⠀").join(""),
-                    brailleDotCount,
-                  ),
-                );
-                judgeAnswer(false);
-                setAfterJudgeAnswer(false);
-              }}
-            >
-              次の問題へ
-            </Button>
-          )
-        ) : (
-          <Button
-            variant="contained"
-            onClick={() => {
-              judgeAnswer(
-                brailleDotCount === 6
-                  ? judge(brailleStrings, question)
-                  : eightJudge(brailleStrings, question),
-              );
-              setAfterJudgeAnswer(true);
-            }}
-          >
-            答え合わせ
-          </Button>
-        )}
-      </Box>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            pt: 8,
+            pb: 6,
+            maxWidth: "60%",
+            width: 6000,
+          }}
+        >
+          {afterJudgeAnswer === true ? (
+            rightOrWrong === true ? (
+              <Typography
+                variant="h5"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                正解
+              </Typography>
+            ) : (
+              <Typography
+                variant="h5"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                不正解
+              </Typography>
+            )
+          ) : null}
+        </Box>
 
-      {afterJudgeAnswer === true ? (
-        rightOrWrong === true ? (
-          <Typography
-            variant="h5"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            正解
-          </Typography>
-        ) : (
-          <Typography
-            variant="h5"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            不正解
-          </Typography>
-        )
-      ) : null}
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            pt: 3,
+            pb: 6,
+            maxWidth: "40%",
+            width: 4000,
+          }}
+        >
+          {afterJudgeAnswer === true ? (
+            rightOrWrong === true ? (
+              <CustomButton
+                variant="contained"
+                onClick={() => {
+                  setQuestion(makeQuestion(typeOfQuestions));
+                  setBrailleStrings(
+                    new BrailleString(
+                      "unicode",
+                      [...Array(10)].map((_) => "⠀").join(""),
+                      brailleDotCount,
+                    ),
+                  );
+                  judgeAnswer(false);
+                  setAfterJudgeAnswer(false);
+                }}
+              >
+                次の問題へ
+              </CustomButton>
+            ) : (
+              <CustomButton
+                variant="contained"
+                onClick={() => {
+                  setQuestion(makeQuestion(typeOfQuestions));
+                  setBrailleStrings(
+                    new BrailleString(
+                      "unicode",
+                      [...Array(10)].map((_) => "⠀").join(""),
+                      brailleDotCount,
+                    ),
+                  );
+                  judgeAnswer(false);
+                  setAfterJudgeAnswer(false);
+                }}
+              >
+                次の問題へ
+              </CustomButton>
+            )
+          ) : (
+            <CustomButton
+              variant="contained"
+              onClick={() => {
+                judgeAnswer(
+                  brailleDotCount === 6
+                    ? judge(brailleStrings, question)
+                    : eightJudge(brailleStrings, question),
+                );
+                setAfterJudgeAnswer(true);
+              }}
+            >
+              答え合わせ
+            </CustomButton>
+          )}
+        </Box>
+      </Box>
     </>
   );
 }

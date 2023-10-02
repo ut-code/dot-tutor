@@ -5,7 +5,7 @@ import { SixDotBraille, EightDotBraille } from "@/models/BrailleCharacter";
 /**
  * The default state of keyboard
  */
-const defaultKeyboardValues = {
+export const defaultKeyboardValues = {
   KeyF: false,
   KeyD: false,
   KeyS: false,
@@ -26,7 +26,7 @@ type KeyboardState = typeof defaultKeyboardValues;
 /**
  * The type of the available keys
  */
-type AvailableKey = keyof KeyboardState;
+export type AvailableKey = keyof KeyboardState;
 
 /**
  * The array of the available keys
@@ -237,7 +237,7 @@ function convertKeyboardStateToBrailleState(
  * const braille = convertKeyboardStateToBraille(keyboardState);
  * // braille = "⠃"
  */
-function convertKeyboardStateToBraille(
+export function convertKeyboardStateToBraille(
   keyboardState: KeyboardState,
   brailleDotCount: 6 | 8,
 ): string {

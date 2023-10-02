@@ -40,14 +40,6 @@ export default function TouchMain({
     );
   }, [brailleDotCount, brailleStrings]);
 
-  // useEffect(() => {
-  //   judgeAnswer(
-  //     brailleDotCount === 6
-  //       ? judge(brailleStrings, question)
-  //       : eightJudge(brailleStrings, question),
-  //   );
-  // }, [brailleDotCount, brailleStrings, question]);
-
   return (
     <>
       <div className={styles.question}>
@@ -76,80 +68,93 @@ export default function TouchMain({
       </div>
 
       <div className={styles.judge_and_next_question}>
-        <div className={styles.judge}>
-          {afterJudgeAnswer === true ? (
-            rightOrWrong === true ? (
-              <>
+        {(() => {
+          if (afterJudgeAnswer === true && rightOrWrong === true) {
+            return (
+              <div className={styles.judge}>
                 <CheckCircleOutlineIcon className={styles.judge_icon} />
                 <p className={styles.judge_text}>正解!!</p>
-              </>
-            ) : (
-              <>
+              </div>
+            );
+          }
+          if (afterJudgeAnswer === true && rightOrWrong === false) {
+            return (
+              <div className={styles.judge}>
                 <CancelOutlinedIcon className={styles.judge_icon} />
                 <p className={styles.judge_text}>不正解</p>
-              </>
-            )
-          ) : null}
-        </div>
-
-        <div className={styles.next_question}>
-          {afterJudgeAnswer === true ? (
-            rightOrWrong === true ? (
+              </div>
+            );
+          }
+          return <div className={styles.judge}> </div>;
+        })()}
+        {(() => {
+          if (afterJudgeAnswer === true && rightOrWrong === true) {
+            return (
+              <div className={styles.next_question}>
+                <button
+                  className={styles.next_question_button}
+                  type="button"
+                  onClick={() => {
+                    setQuestion(makeQuestion(typeOfQuestions));
+                    setBrailleStrings(
+                      new BrailleString(
+                        "unicode",
+                        [...Array(8)].map((_) => "⠀").join(""),
+                        brailleDotCount,
+                      ),
+                    );
+                    judgeAnswer(false);
+                    setAfterJudgeAnswer(false);
+                  }}
+                >
+                  次の問題へ
+                </button>
+              </div>
+            );
+          }
+          if (afterJudgeAnswer === true && rightOrWrong === false) {
+            return (
+              <div className={styles.next_question}>
+                <button
+                  className={styles.next_question_button}
+                  type="button"
+                  onClick={() => {
+                    setQuestion(makeQuestion(typeOfQuestions));
+                    setBrailleStrings(
+                      new BrailleString(
+                        "unicode",
+                        [...Array(8)].map((_) => "⠀").join(""),
+                        brailleDotCount,
+                      ),
+                    );
+                    judgeAnswer(false);
+                    setAfterJudgeAnswer(false);
+                  }}
+                >
+                  次の問題へ
+                </button>
+              </div>
+            );
+          }
+          return (
+            <div className={styles.next_question}>
               <button
                 className={styles.next_question_button}
                 type="button"
                 onClick={() => {
-                  setQuestion(makeQuestion(typeOfQuestions));
-                  setBrailleStrings(
-                    new BrailleString(
-                      "unicode",
-                      [...Array(8)].map((_) => "⠀").join(""),
-                      brailleDotCount,
-                    ),
+                  judgeAnswer(
+                    brailleDotCount === 6
+                      ? judge(brailleStrings, question)
+                      : eightJudge(brailleStrings, question),
                   );
-                  judgeAnswer(false);
-                  setAfterJudgeAnswer(false);
+                  setAfterJudgeAnswer(true);
                 }}
               >
-                次の問題へ
+                答え合わせ
               </button>
-            ) : (
-              <button
-                className={styles.next_question_button}
-                type="button"
-                onClick={() => {
-                  setQuestion(makeQuestion(typeOfQuestions));
-                  setBrailleStrings(
-                    new BrailleString(
-                      "unicode",
-                      [...Array(8)].map((_) => "⠀").join(""),
-                      brailleDotCount,
-                    ),
-                  );
-                  judgeAnswer(false);
-                  setAfterJudgeAnswer(false);
-                }}
-              >
-                次の問題へ
-              </button>
-            )
-          ) : (
-            <button
-              className={styles.next_question_button}
-              type="button"
-              onClick={() => {
-                judgeAnswer(
-                  brailleDotCount === 6
-                    ? judge(brailleStrings, question)
-                    : eightJudge(brailleStrings, question),
-                );
-                setAfterJudgeAnswer(true);
-              }}
-            >
-              答え合わせ
-            </button>
-          )}
-        </div>
+            </div>
+          );
+        })()}
       </div>
     </>
   );

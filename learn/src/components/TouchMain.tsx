@@ -2,21 +2,10 @@ import React, { useEffect, useState } from "react";
 import translateBraille from "@/utils/translateBraille";
 import { judge, eightJudge, makeQuestion } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
-import {
-  Paper,
-  Typography,
-  Divider,
-  Button,
-  Stack,
-  Box,
-  Container,
-  styled,
-} from "@mui/material";
 import { BrailleString } from "@/models/BrailleString";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import * as tenji from "tenji";
-import { Height } from "@mui/icons-material";
 import styles from "./TouchMain.module.css";
 
 export default function TouchMain({
@@ -51,13 +40,13 @@ export default function TouchMain({
     );
   }, [brailleDotCount, brailleStrings]);
 
-  useEffect(() => {
-    judgeAnswer(
-      brailleDotCount === 6
-        ? judge(brailleStrings, question)
-        : eightJudge(brailleStrings, question),
-    );
-  }, [brailleDotCount, brailleStrings, question]);
+  // useEffect(() => {
+  //   judgeAnswer(
+  //     brailleDotCount === 6
+  //       ? judge(brailleStrings, question)
+  //       : eightJudge(brailleStrings, question),
+  //   );
+  // }, [brailleDotCount, brailleStrings, question]);
 
   return (
     <>
@@ -90,9 +79,15 @@ export default function TouchMain({
         <div className={styles.judge}>
           {afterJudgeAnswer === true ? (
             rightOrWrong === true ? (
-              <p>正解</p>
+              <>
+                <CheckCircleOutlineIcon className={styles.judge_icon} />
+                <p className={styles.judge_text}>正解!!</p>
+              </>
             ) : (
-              <p>不正解</p>
+              <>
+                <CancelOutlinedIcon className={styles.judge_icon} />
+                <p className={styles.judge_text}>不正解</p>
+              </>
             )
           ) : null}
         </div>

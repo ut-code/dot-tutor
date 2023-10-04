@@ -72,7 +72,9 @@ export default function TouchMain({
           if (afterJudgeAnswer === true && rightOrWrong === true) {
             return (
               <div className={styles.judge}>
-                <CheckCircleOutlineIcon className={styles.judge_icon} />
+                <CheckCircleOutlineIcon
+                  className={`${styles.judge_icon} ${styles.right_icon}`}
+                />
                 <p className={styles.judge_text}>正解!!</p>
               </div>
             );
@@ -80,7 +82,9 @@ export default function TouchMain({
           if (afterJudgeAnswer === true && rightOrWrong === false) {
             return (
               <div className={styles.judge}>
-                <CancelOutlinedIcon className={styles.judge_icon} />
+                <CancelOutlinedIcon
+                  className={`${styles.judge_icon} ${styles.wrong_icon}`}
+                />
                 <p className={styles.judge_text}>不正解</p>
               </div>
             );
@@ -88,35 +92,15 @@ export default function TouchMain({
           return <div className={styles.judge}> </div>;
         })()}
         {(() => {
-          if (afterJudgeAnswer === true && rightOrWrong === true) {
+          if (afterJudgeAnswer === true) {
             return (
               <div className={styles.next_question}>
                 <button
-                  className={styles.next_question_button}
-                  type="button"
-                  onClick={() => {
-                    setQuestion(makeQuestion(typeOfQuestions));
-                    setBrailleStrings(
-                      new BrailleString(
-                        "unicode",
-                        [...Array(8)].map((_) => "⠀").join(""),
-                        brailleDotCount,
-                      ),
-                    );
-                    judgeAnswer(false);
-                    setAfterJudgeAnswer(false);
-                  }}
-                >
-                  次の問題へ
-                </button>
-              </div>
-            );
-          }
-          if (afterJudgeAnswer === true && rightOrWrong === false) {
-            return (
-              <div className={styles.next_question}>
-                <button
-                  className={styles.next_question_button}
+                  className={
+                    rightOrWrong
+                      ? `${styles.btn} ${styles.right_next_btn}`
+                      : `${styles.btn}  ${styles.wrong_next_btn}`
+                  }
                   type="button"
                   onClick={() => {
                     setQuestion(makeQuestion(typeOfQuestions));
@@ -139,7 +123,7 @@ export default function TouchMain({
           return (
             <div className={styles.next_question}>
               <button
-                className={styles.next_question_button}
+                className={`${styles.btn} ${styles.judge_btn}`}
                 type="button"
                 onClick={() => {
                   judgeAnswer(

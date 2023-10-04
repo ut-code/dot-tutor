@@ -50,8 +50,15 @@
   margin-top: auto;
   margin-bottom: auto;
   font-size: 60px;
-  color: red;
   /* width: 100px; */
+}
+
+.right_icon {
+  color: rgba(130, 211, 102, 1);
+}
+
+.wrong_icon {
+  color: rgba(228, 99, 99, 1);
 }
 
 .judge_text {
@@ -71,12 +78,9 @@
   flex-basis: 40%;
 }
 
-.next_question_button {
+.btn {
   border-radius: 0.5rem;
   color: white;
-  background-color: rgba(96, 188, 255, 1);
-  border-bottom: 5px solid rgba(4, 138, 235, 1);
-  border-right: 5px solid rgba(4, 138, 235, 1);
   border-top: none;
   border-left: none;
   transition: 0.3s;
@@ -90,9 +94,40 @@
   font-weight: bold;
 }
 
-.next_question_button:hover {
-  border-bottom: 2px solid rgba(4, 138, 235, 1);
-  border-right: 2px solid rgba(4, 138, 235, 1);
+.btn:hover {
   margin-top: 3px;
   margin-left: 3px;
+}
+
+.judge_btn {
+  background-color: rgba(96, 188, 255, 1);
+  border-bottom: 5px solid rgba(4, 138, 235, 1);
+  border-right: 5px solid rgba(4, 138, 235, 1);
+}
+
+.judge_btn:hover {
+  border-bottom: 2px solid rgba(4, 138, 235, 1);
+  border-right: 2px solid rgba(4, 138, 235, 1);
+}
+
+.right_next_btn {
+  background-color: rgba(130, 211, 102, 1);
+  border-bottom: 5px solid rgba(99, 155, 79, 1);
+  border-right: 5px solid rgba(99, 155, 79, 1);
+}
+
+.right_next_btn:hover {
+  border-bottom: 2px solid rgba(99, 155, 79, 1);
+  border-right: 2px solid rgba(99, 155, 79, 1);
+}
+
+.wrong_next_btn {
+  background-color: rgba(228, 99, 99, 1);
+  border-bottom: 5px solid rgba(155, 79, 79, 1);
+  border-right: 5px solid rgba(155, 79, 79, 1);
+}
+
+.wrong_next_btn:hover {
+  border-bottom: 2px solid rgba(155, 79, 79, 1);
+  border-right: 2px solid rgba(155, 79, 79, 1);
 }

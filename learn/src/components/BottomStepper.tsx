@@ -29,7 +29,7 @@ export default function BottomStepper({
               }
             }}
           >
-            前へ
+            前のステップへ
           </Button>
         }
         nextButton={
@@ -43,7 +43,7 @@ export default function BottomStepper({
                 }
               }}
             >
-              次へ
+              次のステップへ
             </Button>
           ) : (
             <Button

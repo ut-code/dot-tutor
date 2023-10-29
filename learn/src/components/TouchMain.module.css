@@ -3,10 +3,21 @@
   font-size: 50px;
 }
 
+.show_chart {
+  /* background-color: antiquewhite; */
+  display: inline-block;
+  width: 60%;
+}
+
+.hide_chart {
+  /* background-color: antiquewhite; */
+  width: 100%;
+}
+
 .question {
   padding-top: 8px;
   padding-bottom: 6px;
-  max-width: 75%;
+  max-width: 100%;
   width: 800px;
   margin-top: 150px;
   margin-left: auto;
@@ -16,15 +27,15 @@
   font-size: 40px;
 }
 
-.question.show {
+/* .question.show {
   width: 400px;
-}
+} */
 
 .touch_field {
   /* background-color: gray; */
   padding-top: 8px;
   padding-bottom: 6px;
-  max-width: 75%;
+  max-width: 100%;
   width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -35,7 +46,7 @@
   /* padding-top: 8px;
   padding-bottom: 6px; */
   height: 60px;
-  max-width: 75%;
+  max-width: 100%;
   width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -134,4 +145,9 @@
 .wrong_next_btn:hover {
   border-bottom: 2px solid rgba(155, 79, 79, 1);
   border-right: 2px solid rgba(155, 79, 79, 1);
+}
+
+.chart {
+  display: inline-block;
+  width: 40%;
 }

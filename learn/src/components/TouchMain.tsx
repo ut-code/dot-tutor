@@ -7,6 +7,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import * as tenji from "tenji";
 import styles from "./TouchMain.module.css";
+import HiraganaTableDialog from "./HiraganaTableDialog";
 
 export default function TouchMain({
   typeOfQuestions,
@@ -43,119 +44,123 @@ export default function TouchMain({
 
   return (
     <>
-      <div
-        className={
-          showBrailleChart
-            ? `${styles.question} ${styles.show}`
-            : `${styles.question}`
-        }
-      >
-        「{question}」を点字に直してください。
-      </div>
-      <div className={styles.touch_field}>
-        {brailleStrings.brailleArray.map((brailleChar, i) => (
-          <EdittableBraille
-            key={i}
-            height="150"
-            width="90"
-            braille={brailleChar}
-            setBraille={(braille) => {
-              setBrailleStrings(
-                new BrailleString(
-                  "braille array",
-                  brailleStrings.brailleArray.map((_, j) =>
-                    j === i ? braille : _,
+      <div className={showBrailleChart ? styles.show_chart : styles.hide_chart}>
+        <div className={styles.question}>
+          「{question}」を点字に直してください。
+        </div>
+        <div className={styles.touch_field}>
+          {brailleStrings.brailleArray.map((brailleChar, i) => (
+            <EdittableBraille
+              key={i}
+              height="150"
+              width="90"
+              braille={brailleChar}
+              setBraille={(braille) => {
+                setBrailleStrings(
+                  new BrailleString(
+                    "braille array",
+                    brailleStrings.brailleArray.map((_, j) =>
+                      j === i ? braille : _,
+                    ),
+                    brailleDotCount,
                   ),
-                  brailleDotCount,
-                ),
-              );
-            }}
-          />
-        ))}
-      </div>
+                );
+              }}
+            />
+          ))}
+        </div>
 
-      <div className={styles.judge_and_next_question}>
-        {(() => {
-          if (afterJudgeAnswer === true && rightOrWrong === true) {
-            return (
-              <div className={styles.judge}>
-                <CheckCircleOutlineIcon
-                  className={`${styles.judge_icon} ${styles.right_icon}`}
-                />
-                <p className={styles.judge_text}>正解!!</p>
-              </div>
-            );
-          }
-          if (afterJudgeAnswer === true && rightOrWrong === false) {
-            return (
-              <div className={styles.judge}>
-                <CancelOutlinedIcon
-                  className={`${styles.judge_icon} ${styles.wrong_icon}`}
-                />
-                <p className={styles.judge_text}>不正解</p>
-              </div>
-            );
-          }
-          return <div className={styles.judge}> </div>;
-        })()}
-        {(() => {
-          if (afterJudgeAnswer === true) {
+        <div className={styles.judge_and_next_question}>
+          {(() => {
+            if (afterJudgeAnswer === true && rightOrWrong === true) {
+              return (
+                <div className={styles.judge}>
+                  <CheckCircleOutlineIcon
+                    className={`${styles.judge_icon} ${styles.right_icon}`}
+                  />
+                  <p className={styles.judge_text}>正解!!</p>
+                </div>
+              );
+            }
+            if (afterJudgeAnswer === true && rightOrWrong === false) {
+              return (
+                <div className={styles.judge}>
+                  <CancelOutlinedIcon
+                    className={`${styles.judge_icon} ${styles.wrong_icon}`}
+                  />
+                  <p className={styles.judge_text}>不正解</p>
+                </div>
+              );
+            }
+            return <div className={styles.judge}> </div>;
+          })()}
+          {(() => {
+            if (afterJudgeAnswer === true) {
+              return (
+                <div className={styles.next_question}>
+                  <button
+                    className={
+                      rightOrWrong
+                        ? `${styles.btn} ${styles.right_next_btn}`
+                        : `${styles.btn}  ${styles.wrong_next_btn}`
+                    }
+                    type="button"
+                    onClick={() => {
+                      setQuestion(makeQuestion(typeOfQuestions));
+                      setBrailleStrings(
+                        new BrailleString(
+                          "unicode",
+                          [...Array(8)].map((_) => "⠀").join(""),
+                          brailleDotCount,
+                        ),
+                      );
+                      judgeAnswer(false);
+                      setAfterJudgeAnswer(false);
+                    }}
+                  >
+                    次の問題へ
+                  </button>
+                </div>
+              );
+            }
             return (
               <div className={styles.next_question}>
                 <button
-                  className={
-                    rightOrWrong
-                      ? `${styles.btn} ${styles.right_next_btn}`
-                      : `${styles.btn}  ${styles.wrong_next_btn}`
-                  }
+                  className={`${styles.btn} ${styles.judge_btn}`}
                   type="button"
                   onClick={() => {
-                    setQuestion(makeQuestion(typeOfQuestions));
-                    setBrailleStrings(
-                      new BrailleString(
-                        "unicode",
-                        [...Array(8)].map((_) => "⠀").join(""),
-                        brailleDotCount,
-                      ),
+                    judgeAnswer(
+                      brailleDotCount === 6
+                        ? judge(brailleStrings, question)
+                        : eightJudge(brailleStrings, question),
                     );
-                    judgeAnswer(false);
-                    setAfterJudgeAnswer(false);
+                    setAfterJudgeAnswer(true);
                   }}
                 >
-                  次の問題へ
+                  答え合わせ
                 </button>
               </div>
             );
-          }
+          })()}
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setShowBrailleChart(!showBrailleChart);
+          }}
+        >
+          setShowBrailleChart
+        </button>
+      </div>
+      {(() => {
+        if (showBrailleChart === true) {
           return (
-            <div className={styles.next_question}>
-              <button
-                className={`${styles.btn} ${styles.judge_btn}`}
-                type="button"
-                onClick={() => {
-                  judgeAnswer(
-                    brailleDotCount === 6
-                      ? judge(brailleStrings, question)
-                      : eightJudge(brailleStrings, question),
-                  );
-                  setAfterJudgeAnswer(true);
-                }}
-              >
-                答え合わせ
-              </button>
+            <div className={styles.chart}>
+              <HiraganaTableDialog />
             </div>
           );
-        })()}
-      </div>
-      <button
-        type="button"
-        onClick={() => {
-          setShowBrailleChart(!showBrailleChart);
-        }}
-      >
-        setShowBrailleChart
-      </button>
-      {console.log(showBrailleChart)}
+        }
+      })()}
     </>
   );
 }

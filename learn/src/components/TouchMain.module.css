@@ -16,6 +16,10 @@
   font-size: 40px;
 }
 
+.question.show {
+  width: 400px;
+}
+
 .touch_field {
   /* background-color: gray; */
   padding-top: 8px;

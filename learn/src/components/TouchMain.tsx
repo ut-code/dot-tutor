@@ -26,6 +26,7 @@ export default function TouchMain({
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
   const [rightOrWrong, judgeAnswer] = useState<boolean>(false); // 正誤
   const [afterJudgeAnswer, setAfterJudgeAnswer] = useState<boolean>(false); // 正誤
+  const [showBrailleChart, setShowBrailleChart] = useState<boolean>(false);
 
   useEffect(() => {
     setHiraganaStrings(
@@ -42,7 +43,13 @@ export default function TouchMain({
 
   return (
     <>
-      <div className={styles.question}>
+      <div
+        className={
+          showBrailleChart
+            ? `${styles.question} ${styles.show}`
+            : `${styles.question}`
+        }
+      >
         「{question}」を点字に直してください。
       </div>
       <div className={styles.touch_field}>
@@ -140,6 +147,15 @@ export default function TouchMain({
           );
         })()}
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          setShowBrailleChart(!showBrailleChart);
+        }}
+      >
+        setShowBrailleChart
+      </button>
+      {console.log(showBrailleChart)}
     </>
   );
 }

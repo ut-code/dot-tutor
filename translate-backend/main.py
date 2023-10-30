@@ -105,8 +105,13 @@ def source2wakati_byLines(source):
             elif kana == "*":
                 pass
             elif hinshi == "補助記号":
-                target.append(kana)
+                if hinshi_specific == "括弧開":
+                    target.append("　" + kana) 
+                else:
+                    target.append(kana)
             elif target == []:
+                target.append(kana)
+            elif prehinshi_specific == "括弧開":
                 target.append(kana)
             else:
                 target.append("　" + kana)

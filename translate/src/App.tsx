@@ -207,19 +207,6 @@ function App() {
               />
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    onChange={(e) => {
-                      navigator.clipboard.writeText(targetText);
-                    }}
-                  />
-                }
-                label="ページ番号あり"
-                labelPlacement="start"
-              />
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
                 onClick={() => {
                   const buffer = unicodeToBes(

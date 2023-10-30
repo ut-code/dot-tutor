@@ -105,6 +105,8 @@ def source2wakati_byLines(source):
                 target.append(kana)
             elif prehinshi_specific == "数詞" and hinshi == "名詞":  # 数字と単位の間は空けない
                 target.append(kana)
+            elif hinshi == "形状詞" and kana == "ヨー": # 「そのような」は1語
+                target.append(kana)
             elif kana == "*":
                 pass
             elif hinshi == "補助記号":

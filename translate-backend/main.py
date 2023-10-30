@@ -91,6 +91,9 @@ def source2wakati_byLines(source):
                 if letter_default[num] == "ー":  # 長音は長音のまま
                     letter[num] = letter_default[num]
             kana = "".join(letter)
+            for num in range(min(len(letter), len(letter_normal))):
+                if letter[num] == "ー" and (hinshi == "動詞"):
+                    kana = kana_normal
             if (
                 letter_default[0] in mapping.mapping_alpha
                 or letter_default[0] in mapping.mapping_alpha_CAP

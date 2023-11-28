@@ -41,7 +41,12 @@ export default function TutorialDialog({
       }}
     >
       <DialogTitle m={0} p={2}>
-        <Typography variant="h4" component="div" color="inherit">
+        <Typography
+          variant="h4"
+          component="div"
+          color="inherit"
+          sx={{ fontWeight: "bold" }}
+        >
           {tutorialDialogSteps[selectedStep].title}
         </Typography>
         <IconButton

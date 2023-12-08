@@ -71,7 +71,7 @@ export default function Home(): JSX.Element {
           </Typography>
         </Box>
         <Grid container spacing={10}>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <NavigationCard
               title="点字キーボード"
               linkUrl="/keyboard"
@@ -79,7 +79,7 @@ export default function Home(): JSX.Element {
               description="パソコンのキーボードを用いて ⠿ のような 6 点式点字を入力する練習ツールです。"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <NavigationCard
               title="Web 点字器"
               linkUrl="/touch"
@@ -87,7 +87,7 @@ export default function Home(): JSX.Element {
               description="点字から墨字（ひらがな表記）への翻訳をクイズを通して学びます。"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <NavigationCard
               title="漢点字学習コーナー"
               linkUrl="/kanji"
@@ -95,7 +95,7 @@ export default function Home(): JSX.Element {
               description="点字の漢字バージョンを「Web点字器」の形式で学びます。"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <NavigationCard
               title="点字読みコーナー"
               linkUrl="/read"

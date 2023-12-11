@@ -1,11 +1,17 @@
+.wrapper {
+  background-color: white;
+}
 .show_chart {
-  display: inline-block;
+  margin-top: auto;
+  margin-bottom: auto;
+  float: left;
+  margin-top: 150px;
   width: 60%;
 }
 
 .hide_chart {
-  display: inline-block;
-  margin-top: 100px;
+  float: left;
+  margin-top: 150px;
   width: 90%;
 }
 
@@ -130,7 +136,8 @@
 }
 
 .chart {
-  display: inline-block;
+  /* display: inline-block; */
+  float: left;
   left: 60%;
   width: 40%;
   height: 600px;
@@ -138,7 +145,8 @@
 }
 
 .hidden_chart {
-  display: inline-block;
+  /* display: inline-block; */
+  float: left;
   position: fixed;
   left: 100%;
   width: 40%;

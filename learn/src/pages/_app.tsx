@@ -15,7 +15,14 @@ import NextLink from "next/link";
 
 function H1(props: any): JSX.Element {
   return (
-    <Typography variant="h3" component="h1" color="inherit" my={2} {...props} />
+    <Typography
+      variant="h3"
+      component="h1"
+      color="inherit"
+      my={2}
+      sx={{ fontWeight: "bold" }}
+      {...props}
+    />
   );
 }
 
@@ -26,6 +33,7 @@ function H2(props: any): JSX.Element {
       component="h2"
       color="inherit"
       my={1.5}
+      sx={{ fontWeight: "bold" }}
       {...props}
     />
   );
@@ -33,13 +41,27 @@ function H2(props: any): JSX.Element {
 
 function H3(props: any): JSX.Element {
   return (
-    <Typography variant="h5" component="h3" color="inherit" my={1} {...props} />
+    <Typography
+      variant="h5"
+      component="h3"
+      color="inherit"
+      my={1}
+      sx={{ fontWeight: "bold" }}
+      {...props}
+    />
   );
 }
 
 function H4(props: any): JSX.Element {
   return (
-    <Typography variant="h6" component="h4" color="inherit" my={1} {...props} />
+    <Typography
+      variant="h6"
+      component="h4"
+      color="inherit"
+      my={1}
+      sx={{ fontWeight: "bold" }}
+      {...props}
+    />
   );
 }
 
@@ -50,6 +72,7 @@ function H5(props: any): JSX.Element {
       component="h5"
       color="inherit"
       my={1}
+      sx={{ fontWeight: "bold" }}
       {...props}
     />
   );
@@ -62,6 +85,7 @@ function H6(props: any): JSX.Element {
       component="h6"
       color="inherit"
       my={1}
+      sx={{ fontWeight: "bold" }}
       {...props}
     />
   );

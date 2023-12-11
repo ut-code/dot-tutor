@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   Grid,
+  Container,
 } from "@mui/material";
 
 function NavigationCard({
@@ -24,17 +25,30 @@ function NavigationCard({
 }): JSX.Element {
   const router = useRouter();
   return (
-    <Card sx={{ maxWidth: 400 }}>
+    <Card sx={{ height: "100%" }}>
       <CardActionArea
         onClick={async () => {
           await router.push(linkUrl);
         }}
+        sx={{ height: "100%" }}
       >
-        <CardMedia component="img" image={imgPath} />
-        <CardContent>
-          <Typography variant="h5" component="div">
-            {title}
-          </Typography>
+        <CardContent sx={{ padding: "50px" }}>
+          <Box
+            sx={{ display: "flex", marginBottom: "40px", alignItems: "center" }}
+          >
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: "bold" }}
+            >
+              {title}
+            </Typography>
+            <CardMedia
+              component="img"
+              image={imgPath}
+              sx={{ width: 100, marginLeft: "auto" }}
+            />
+          </Box>
           <Typography variant="body1" component="div" p={1}>
             {description}
           </Typography>
@@ -47,48 +61,50 @@ function NavigationCard({
 export default function Home(): JSX.Element {
   return (
     <Layout>
-      <Box m={2}>
-        <Typography variant="h5" component="h1">
-          ようこそ
-        </Typography>
-        <Typography variant="body1" component="p">
-          ここでは、チュートリアル形式で点字について学ぶことができます。
-        </Typography>
-      </Box>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <NavigationCard
-            title="点字キーボード"
-            linkUrl="/keyboard"
-            imgPath={url("/logo.svg")}
-            description="パソコンのキーボードを用いて ⠿ のような 6 点式点字を入力する練習ツールです。"
-          />
+      <Container sx={{ width: "75%", maxWidth: "1000px" }}>
+        <Box m={2}>
+          <Typography variant="h5" component="h1">
+            ようこそ
+          </Typography>
+          <Typography variant="body1" component="p">
+            ここでは、チュートリアル形式で点字について学ぶことができます。
+          </Typography>
+        </Box>
+        <Grid container spacing={10}>
+          <Grid item xs={12} lg={6}>
+            <NavigationCard
+              title="Web点字器"
+              linkUrl="/touch"
+              imgPath={url("/logo_touch.svg")}
+              description="平仮名から点字への翻訳を、画面上で点を打つ練習を通して学べます。"
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <NavigationCard
+              title="点字を読む"
+              linkUrl="/read"
+              imgPath={url("/logo_read.svg")}
+              description="点字から平仮名への翻訳を練習しながら学べます。"
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <NavigationCard
+              title="点字キーボード"
+              linkUrl="/keyboard"
+              imgPath={url("/logo_keyboard.svg")}
+              description="点字の訳や文法を学びながら、パソコンのキーボードで6点式点字を入力する練習ができます。"
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <NavigationCard
+              title="漢点字を書く"
+              linkUrl="/kanji"
+              imgPath={url("/logo_kanji.svg")}
+              description="漢字から漢点字への翻訳を実際に画面上で点を打つ練習を通して学べます。"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <NavigationCard
-            title="Web 点字器"
-            linkUrl="/touch"
-            imgPath={url("/logo.svg")}
-            description="点字から墨字（ひらがな表記）への翻訳をクイズを通して学びます。"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <NavigationCard
-            title="漢点字学習コーナー"
-            linkUrl="/kanji"
-            imgPath={url("/logo.svg")}
-            description="点字の漢字バージョンを「Web点字器」の形式で学びます。"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <NavigationCard
-            title="点字読みコーナー"
-            linkUrl="/read"
-            imgPath={url("/logo.svg")}
-            description="点字の読み方をクイズで学びます。"
-          />
-        </Grid>
-      </Grid>
+      </Container>
     </Layout>
   );
 }

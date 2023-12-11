@@ -143,16 +143,8 @@ export default function TouchMain({
             );
           })()}
         </div>
-        <button
-          type="button"
-          onClick={() => {
-            setShowBrailleChart(!showBrailleChart);
-          }}
-        >
-          setShowBrailleChart
-        </button>
       </div>
-      {(() => {
+      {/* {(() => {
         if (showBrailleChart === true) {
           return (
             <div className={styles.chart}>
@@ -160,7 +152,19 @@ export default function TouchMain({
             </div>
           );
         }
-      })()}
+      })()} */}
+      <div className={showBrailleChart ? styles.chart : styles.hidden_chart}>
+        <HiraganaTableDialog />
+      </div>
+      <button
+        className={styles.chart_btn}
+        type="button"
+        onClick={() => {
+          setShowBrailleChart(!showBrailleChart);
+        }}
+      >
+        点字表
+      </button>
     </>
   );
 }

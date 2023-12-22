@@ -1,6 +1,7 @@
 {
   "scripts": {
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepare": "husky install"
   },
   "devDependencies": {

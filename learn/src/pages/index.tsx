@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
-import url from "@/utils/config";
 import {
   Card,
   CardActionArea,
@@ -75,7 +74,7 @@ export default function Home(): JSX.Element {
             <NavigationCard
               title="Web点字器"
               linkUrl="/touch"
-              imgPath={url("/logo_touch.svg")}
+              imgPath="/logo_touch.svg"
               description="平仮名から点字への翻訳を、画面上で点を打つ練習を通して学べます。"
             />
           </Grid>
@@ -83,7 +82,7 @@ export default function Home(): JSX.Element {
             <NavigationCard
               title="点字を読む"
               linkUrl="/read"
-              imgPath={url("/logo_read.svg")}
+              imgPath="/logo_read.svg"
               description="点字から平仮名への翻訳を練習しながら学べます。"
             />
           </Grid>
@@ -91,7 +90,7 @@ export default function Home(): JSX.Element {
             <NavigationCard
               title="点字キーボード"
               linkUrl="/keyboard"
-              imgPath={url("/logo_keyboard.svg")}
+              imgPath="/logo_keyboard.svg"
               description="点字の訳や文法を学びながら、パソコンのキーボードで6点式点字を入力する練習ができます。"
             />
           </Grid>
@@ -99,7 +98,7 @@ export default function Home(): JSX.Element {
             <NavigationCard
               title="漢点字を書く"
               linkUrl="/kanji"
-              imgPath={url("/logo_kanji.svg")}
+              imgPath="/logo_kanji.svg"
               description="漢字から漢点字への翻訳を実際に画面上で点を打つ練習を通して学べます。"
             />
           </Grid>

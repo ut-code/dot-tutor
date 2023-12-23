@@ -1,11 +1,4 @@
-import { useEffect, useState } from "react";
-import React from "react";
-import {
-  ThumbUpOffAlt,
-  ThumbDownOffAlt,
-  ThumbUpAlt,
-  ThumbDownAlt,
-} from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -31,9 +24,6 @@ function App() {
   const [wakatiText, setWakatiText] = useState("");
   //const [displayTargetText, setDisplayTargetText] = useState("");
   const [targetText, setTargetText] = useState("");
-  const [wakatiReference, setWakatiReference] = useState("");
-  const [thumbup, setThumbup] = React.useState(false);
-  const [thumbdown, setThumbdown] = React.useState(false);
 
   async function source2wakati(text: string) {
     const response = await fetch(
@@ -55,7 +45,6 @@ function App() {
     source2wakati(sourceText.replace(/\n/g, "\\n")).then((data) => {
       setWakatiText(data.wakatiText);
       setDisplayWakatiText(data.wakatiText);
-      setWakatiReference(data.wakatiText);
     });
   }, [sourceText]);
 
@@ -79,13 +68,12 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <div className="px-5 bg-gray-100">
+      <div>
         <Box sx={{ justifyContent: "space-around" }}>
           <Box sx={{ mx: 2.5, pt: 1.5 }}>
             <Typography align="center" variant="h6" gutterBottom>
               翻訳元のテキスト
             </Typography>
-            {/* set background color of TextField to white */}
             <TextField
               style={{ backgroundColor: "white" }}
               multiline

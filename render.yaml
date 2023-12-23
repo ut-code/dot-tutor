@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: dot-tutor-backend
+    env: python
+    region: singapore
+    plan: free
+    rootDir: translate-backend
+    buildCommand: pip install -r requirements.txt && python -m unidic download
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: WEB_ORIGIN
+        value: https://translate.dot-tutor.com

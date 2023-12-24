@@ -10,7 +10,8 @@
     "export": "next export",
     "serve": "serve out",
     "type-check": "tsc --noEmit",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:check": "eslint --max-warnings 0 ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

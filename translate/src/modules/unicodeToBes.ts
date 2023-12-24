@@ -25,14 +25,15 @@ export function unicodeToBes(
     output.push(0x20);
   }
   const semiheader = [0xff, 0xff, 0xff, 0x54];
-  for (var i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     output.push(semiheader[i]);
   }
-  for (var i = 0; i < 511 - 4; i++) {
+  for (let i = 0; i < 511 - 4; i++) {
     output.push(0x20);
   }
 
-  var header = [0xff, 0x00, 0x00, 0xfd];
+  const header = [0xff, 0x00, 0x00, 0xfd];
+
   // 2つ目,3つ目はBESファイルの文字数を表す
 
   /***ページ番号なし
@@ -40,16 +41,16 @@ export function unicodeToBes(
     output.push(header[i]);
     console.log(output.length);
   }
-  var all_letters = 0;
-  for (var i = 0; i < 27; i++) {
+  let all_letters = 0;
+  for (let i = 0; i < 27; i++) {
     output.push(0xa0);
     all_letters += 1;
   }
   output.push(0xfe);
-  var letters = 0;
-  var lines = 0;
-  var pages = 0;
-  var separate_pos = 0; // 単語区切りの空白の位置
+  let letters = 0;
+  let lines = 0;
+  let pages = 0;
+  let separate_pos = 0; // 単語区切りの空白の位置
   for (const char of unicode) {
     const codePoint = char.codePointAt(0);
 
@@ -91,13 +92,13 @@ export function unicodeToBes(
     }
   }
   output[31] = 0x30 + pages;
-  for (var i = 0; i + lines < 21; i++) {
+  for (let i = 0; i + lines < 21; i++) {
     output.push(0xfe);
   }
   output.push(0xff);
 
   // 文字数を代入
-  var letters_num = 0x1a + all_letters;
+  const letters_num = 0x1a + all_letters;
   output[1025] = (letters_num % 255) + 12;
   output[1026] = Math.floor(letters_num / 255);
   */

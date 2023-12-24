@@ -1,48 +1,88 @@
-name: Build and Deploy
+name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [main, master]
 
-permissions:
-  contents: write
-
-concurrency: ci-${{ github.ref }}
+concurrency:
+  group: "cloudflare-pages"
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build-website:
+    name: Build Website
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: npm
 
-      - name: Install Node Packages
+      - name: Install Packages
+        run: npm ci
+        working-directory: website
+        shell: bash
+
+      - name: Build
+        run: npm run build
+        working-directory: website
+        shell: bash
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: website/dist
+
+  deploy-website:
+    name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    needs: build-website
+    steps:
+      - name: Dowload Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: website/dist
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: dot-tutor-website
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          workingDirectory: website
+          wranglerVersion: "3"
+
+  build-learn:
+    name: Build Learn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Packages
         run: npm ci
         working-directory: learn
         shell: bash
 
-      - name: Make BASE_URL
-        uses: actions/github-script@v6
-        id: base-url
-        with:
-          script: |
-            const githubRepositoryName = "${{ github.event.repository.name }}"; // repo
-            const baseUrl = `/${githubRepositoryName}`;
-            return baseUrl;
-          result-encoding: string
-
       - name: Build
         run: npm run build
         working-directory: learn
-        env:
-          BASE_URL: ${{ steps.base-url.outputs.result }}
         shell: bash
 
       - name: Export
@@ -50,13 +90,89 @@ jobs:
         working-directory: learn
         shell: bash
 
-      - name: Add nojekill
-        run: touch out/.nojekyll
-        working-directory: learn
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: learn
+          path: learn/out
+
+  deploy-learn:
+    name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    needs: build-learn
+    steps:
+      - name: Dowload Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: learn
+          path: learn/out
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: dot-tutor-learn
+          directory: out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          workingDirectory: learn
+          wranglerVersion: "3"
+
+  build-translate:
+    name: Build Translate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Packages
+        run: npm ci
+        working-directory: translate
         shell: bash
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Build
+        run: npm run build
+        working-directory: translate
+        shell: bash
+        env:
+          VITE_API_ENDPOINT: "https://dot-tutor-backend.onrender.com"
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          clean-exclude: pr-preview/
-          folder: learn/out
+          name: translate
+          path: translate/dist
+
+  deploy-translate:
+    name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    needs: build-translate
+    steps:
+      - name: Dowload Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: translate
+          path: translate/dist
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: dot-tutor-translate
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          workingDirectory: translate
+          wranglerVersion: "3"

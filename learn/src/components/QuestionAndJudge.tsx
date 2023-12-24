@@ -1,7 +1,7 @@
 import {
   type SixDotBrailleString,
   type EightDotBrailleString,
-} from "@/models/BrailleString";
+} from "@/domain/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import * as tenji from "tenji";
 

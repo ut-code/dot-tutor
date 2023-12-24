@@ -2,19 +2,42 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: main
   pull_request:
 
 jobs:
-  build:
-    name: Build
+  build-website:
+    name: Build Website
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: website
+        shell: bash
+
+      - name: Build
+        run: npm run build
+        working-directory: website
+        shell: bash
+
+  build-learn:
+    name: Build Learn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: npm
@@ -27,24 +50,138 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: learn
+        shell: bash
         env:
           BASE_URL: ""
-        shell: bash
 
       - name: Export
         run: npm run export
         working-directory: learn
         shell: bash
 
-  eslint:
-    name: ESLint
+  build-translate:
+    name: Build Translate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: translate
+        shell: bash
+
+      - name: Build
+        run: npm run build
+        working-directory: translate
+        shell: bash
+
+  type-check-website:
+    name: Type Check Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: website
+        shell: bash
+
+      - name: Type Check
+        run: npm run type-check
+        working-directory: website
+        shell: bash
+
+  type-check-learn:
+    name: Type Check Learn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: learn
+        shell: bash
+
+      - name: Type Check
+        run: npm run type-check
+        working-directory: learn
+        shell: bash
+
+  type-check-translate:
+    name: Type Check Translate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: translate
+        shell: bash
+
+      - name: Type Check
+        run: npm run type-check
+        working-directory: translate
+        shell: bash
+
+  eslint-website:
+    name: ESLint Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: website
+        shell: bash
+
+      - name: Run ESLint
+        run: npm run lint:check
+        working-directory: website
+
+  eslint-learn:
+    name: ESLint Learn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: npm
@@ -63,10 +200,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: npm
@@ -76,28 +213,26 @@ jobs:
         shell: bash
 
       - name: Prettier
-        run: npx prettier --check .
+        run: npm run format:check
         shell: bash
 
-  type-check:
-    name: Type Check
+  black:
+    name: Black
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          node-version: latest
-          cache: npm
+          python-version: "3.10"
+          cache: pip
 
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: learn
+      - name: Install Python Packages
+        run: pip install -r translate-backend/requirements.txt
         shell: bash
 
-      - name: Type Check
-        run: npm run type-check
-        working-directory: learn
+      - name: Black
+        run: black --check .
         shell: bash

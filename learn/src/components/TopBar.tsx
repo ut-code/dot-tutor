@@ -27,22 +27,32 @@ export default function TopBar({
   return (
     <>
       <Head>
-        <title>点字学習ソフトウェア</title>
-        <meta name="description" content="点字学習ソフトウェアです。" />
+        <title>Dot Tutor Learn</title>
+        <meta
+          name="description"
+          content="チュートリアルを通して点字について学ぶことのできる、体験型点字学習ソフトウェアです。"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="/favicon-learn.svg" />
       </Head>
       <AppBar component="nav">
         <Toolbar>
           <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
             <Image
-              src="/logo-black-background.svg"
+              src="/learn-logo-blue.svg"
               alt="ロゴ"
-              width="150"
+              width="40"
               height="40"
             />
-            <Typography variant="h5" component="div">
-              点字学習ソフトウェア
+            <Typography variant="h5" component="div" sx={{ fontWeight: 550 }}>
+              <Link
+                href="/"
+                component={NextLink}
+                color="inherit"
+                underline="hover"
+              >
+                Dot Tutor Learn
+              </Link>
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
@@ -64,15 +74,6 @@ export default function TopBar({
                 />
               </>
             )}
-            <Link
-              href="/"
-              component={NextLink}
-              color="inherit"
-              underline="hover"
-              sx={{ fontSize: "large" }}
-            >
-              Home
-            </Link>
             <IconButton
               color="inherit"
               href="https://github.com/ut-code/learn-braille"

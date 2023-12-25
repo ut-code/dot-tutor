@@ -48,7 +48,7 @@ function NavigationCard({
               sx={{ width: 100, marginLeft: "auto" }}
             />
           </Box>
-          <Typography variant="body1" component="div" p={1}>
+          <Typography variant="body1" component="div">
             {description}
           </Typography>
         </CardContent>
@@ -63,7 +63,7 @@ export default function Home(): JSX.Element {
       <Container sx={{ width: "75%", maxWidth: "1000px" }}>
         <Box m={2}>
           <Typography variant="h5" component="h1">
-            ようこそ
+            Dot Tutor Learn へようこそ！
           </Typography>
           <Typography variant="body1" component="p">
             ここでは、チュートリアル形式で点字について学ぶことができます。

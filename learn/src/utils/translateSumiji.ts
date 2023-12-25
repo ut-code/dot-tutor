@@ -1,5 +1,5 @@
-import { SixDotBrailleString } from "@/models/BrailleString";
-import { SixDotBraille } from "@/models/BrailleCharacter";
+import { SixDotBrailleString } from "@/domain/BrailleString";
+import { SixDotBraille } from "@/domain/BrailleCharacter";
 
 const reversedHiraganaTable = {
   "⠀": "　",

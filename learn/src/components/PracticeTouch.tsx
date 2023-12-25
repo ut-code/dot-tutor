@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { BrailleString } from "@/models/BrailleString";
+import { BrailleString } from "@/domain/BrailleString";
 import { judge, eightJudge } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
-import { SixDotBraille } from "@/models/BrailleCharacter";
+import { SixDotBraille } from "@/domain/BrailleCharacter";
 
 export default function PracticeTouch({
   question,

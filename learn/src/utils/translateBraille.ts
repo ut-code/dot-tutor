@@ -1,4 +1,4 @@
-import { type SixDotBrailleString } from "@/models/BrailleString";
+import { type SixDotBrailleString } from "@/domain/BrailleString";
 
 export const hiraganaTable = {
   "　": "⠀",

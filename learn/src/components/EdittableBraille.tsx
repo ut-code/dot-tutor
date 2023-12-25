@@ -6,12 +6,12 @@ import {
   eightDotBrailleAvailableDots,
   type SixDotBrailleAvailableDot,
   type EightDotBrailleAvailableDot,
-} from "@/models/BrailleState";
+} from "@/domain/BrailleState";
 import {
   type Braille,
   EightDotBraille,
   SixDotBraille,
-} from "@/models/BrailleCharacter";
+} from "@/domain/BrailleCharacter";
 
 /**
  * the size of the SVG viewBox for six-dot braille

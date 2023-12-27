@@ -91,7 +91,7 @@ function App() {
               <ToggleButtonGroup
                 value={translateTextToDot}
                 exclusive
-                onChange={(event, value) => setTranslateTextToDot(value)}
+                onChange={(_, value) => setTranslateTextToDot(value)}
                 aria-label="input type"
                 size="small"
               >
@@ -158,7 +158,7 @@ function App() {
               <ToggleButtonGroup
                 value={translateTextToDot}
                 exclusive
-                onChange={(event, value) => setTranslateTextToDot(value)}
+                onChange={(_, value) => setTranslateTextToDot(value)}
                 aria-label="output type"
                 size="small"
               >

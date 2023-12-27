@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
   TextField,
+  Stack,
+  IconButton,
+  Grid,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import { API_ENDPOINT } from "./commons/config";
 import { unicodeToBes } from "./modules/unicodeToBes";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+import DownloadIcon from "@mui/icons-material/Download";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 function App() {
-  const [displaySourceText, setDisplaySourceText] = useState(
-    "今日の天気は晴天ですね。\n今日の天気は晴天ですね。",
-  );
-  const [sourceText, setSourceText] = useState(
-    "今日の天気は晴天ですね。\n今日の天気は晴天ですね。",
-  );
+  const [displaySourceText, setDisplaySourceText] =
+    useState("今日の天気は晴天ですね。");
+  const [sourceText, setSourceText] = useState("今日の天気は晴天ですね。");
   const [displayWakatiText, setDisplayWakatiText] = useState("");
+  const [translateTextToDot, setTranslateTextToDot] = useState(true);
   const [wakatiText, setWakatiText] = useState("");
-  //const [displayTargetText, setDisplayTargetText] = useState("");
+  const [displayTargetText, setDisplayTargetText] = useState("");
   const [targetText, setTargetText] = useState("");
 
   async function source2wakati(text: string) {
@@ -44,136 +48,178 @@ function App() {
   useEffect(() => {
     source2wakati(sourceText.replace(/\n/g, "\\n")).then((data) => {
       setWakatiText(data.wakatiText);
-      setDisplayWakatiText(data.wakatiText);
+      if (translateTextToDot) {
+        setDisplayWakatiText(data.wakatiText);
+      }
     });
-  }, [sourceText]);
+  }, [sourceText, translateTextToDot]);
 
   useEffect(() => {
     wakati2target(wakatiText.replace(/\n/g, "\\n")).then((data) => {
       setTargetText(data.targetText);
-      //setDisplayTargetText(data.targetText);
+      if (translateTextToDot) {
+        setDisplayTargetText(data.targetText);
+      }
     });
-  }, [wakatiText]);
+  }, [wakatiText, translateTextToDot]);
 
   const theme = useTheme();
   return (
-    <div className="App">
+    <Box className="App">
       <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            ut.code(); 点字翻訳アプリ
-          </Typography>
+        <Toolbar>
+          <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
+            <img src="/logo-translate.svg" alt="ロゴ" width="40" height="40" />
+            <Typography variant="h5" component="div" sx={{ fontWeight: 550 }}>
+              Dot Tutor Translate
+            </Typography>
+          </Stack>
+          <Stack>
+            <IconButton
+              color="inherit"
+              href="https://github.com/ut-code/learn-braille"
+            >
+              <GitHubIcon fontSize="large" />
+            </IconButton>
+          </Stack>
         </Toolbar>
       </AppBar>
-      <div>
-        <Box sx={{ justifyContent: "space-around" }}>
-          <Box sx={{ mx: 2.5, pt: 1.5 }}>
-            <Typography align="center" variant="h6" gutterBottom>
-              翻訳元のテキスト
-            </Typography>
-            <TextField
-              style={{ backgroundColor: "white" }}
-              multiline
-              variant="outlined"
-              rows={6}
-              fullWidth
-              value={displaySourceText}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setDisplaySourceText(e.target.value);
-                setSourceText(e.target.value.replace(/\n/g, "\\n"));
-              }}
-            />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => {
-                  navigator.clipboard.writeText(sourceText);
-                }}
+      <Box>
+        <Box pt={5} sx={{ justifyContent: "space-around" }}>
+          <Grid container spacing={1} sx={{ width: "80%", margin: "auto" }}>
+            <Grid item xs={12} lg={5.75}>
+              <ToggleButtonGroup
+                value={translateTextToDot}
+                exclusive
+                onChange={(event, value) => setTranslateTextToDot(value)}
+                aria-label="input type"
+                size="small"
               >
-                Copy
-              </Button>
-            </div>{" "}
-          </Box>
+                <ToggleButton
+                  value={true}
+                  aria-label="text"
+                  selected={translateTextToDot}
+                >
+                  墨字
+                </ToggleButton>
+                <ToggleButton
+                  value={false}
+                  aria-label="dots"
+                  selected={!translateTextToDot}
+                >
+                  点字
+                </ToggleButton>
+              </ToggleButtonGroup>
+              <Box
+                mt={1}
+                p={2}
+                sx={{ borderRadius: "10px", border: "1px solid darkgray" }}
+              >
+                <TextField
+                  autoFocus
+                  style={{ backgroundColor: "white" }}
+                  multiline
+                  variant="standard"
+                  rows={4}
+                  value={displaySourceText}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setDisplaySourceText(e.target.value);
+                    setSourceText(e.target.value.replace(/\n/g, "\\n"));
+                  }}
+                  sx={{ width: "100%" }}
+                />
+                {/* <TextField sx={{mt: 2}} style={{backgroundColor: theme.palette.secondary.main}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} /> */}
+                <TextField
+                  style={{ backgroundColor: "white" }}
+                  multiline
+                  variant="standard"
+                  label="分かち書き"
+                  rows={4}
+                  value={displayWakatiText}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setDisplayWakatiText(e.target.value);
+                    setWakatiText(e.target.value.replace(/\n/g, "\\n"));
+                  }}
+                  sx={{ width: "100%", borderTop: "1px solid gainsboro" }}
+                />
+              </Box>
+            </Grid>
 
-          <Box sx={{ mx: 2.5 }}>
-            <Box>
-              {/* <TextField sx={{mt: 2}} style={{backgroundColor: theme.palette.secondary.main}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} /> */}
+            <Grid item xs={12} lg={0.5}>
+              <IconButton
+                aria-label="reverse"
+                onClick={() => setTranslateTextToDot(!translateTextToDot)}
+              >
+                <SwapHorizIcon />
+              </IconButton>
+            </Grid>
 
-              <Typography align="center" variant="h6" gutterBottom>
-                分かち書きのテキスト
-              </Typography>
-              <TextField
-                style={{ backgroundColor: "white" }}
-                multiline
-                variant="outlined"
-                rows={6}
-                fullWidth
-                value={displayWakatiText}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setDisplayWakatiText(e.target.value);
-                  setWakatiText(e.target.value.replace(/\n/g, "\\n"));
-                }}
-              />
-            </Box>
-            <Box></Box>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => {
-                  navigator.clipboard.writeText(wakatiText);
+            <Grid item xs={12} lg={5.75}>
+              <ToggleButtonGroup
+                value={translateTextToDot}
+                exclusive
+                onChange={(event, value) => setTranslateTextToDot(value)}
+                aria-label="output type"
+                size="small"
+              >
+                <ToggleButton value={true} aria-label="dots">
+                  点字
+                </ToggleButton>
+                <ToggleButton value={false} aria-label="text">
+                  墨字
+                </ToggleButton>
+              </ToggleButtonGroup>
+              <Box
+                mt={1}
+                p={2}
+                sx={{
+                  borderRadius: "10px",
+                  border: "1px solid darkgray",
+                  backgroundColor: theme.palette.secondary.main,
                 }}
               >
-                Copy
-              </Button>
-            </div>
-          </Box>
-
-          <Box sx={{ mx: 2.5, pb: 6 }}>
-            <Typography align="center" variant="h6" gutterBottom>
-              翻訳後のテキスト
-            </Typography>
-            <TextField
-              style={{ backgroundColor: theme.palette.secondary.main }}
-              label="readonly"
-              multiline
-              variant="outlined"
-              rows={6}
-              fullWidth
-              value={targetText}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                //setDisplayTargetText(e.target.value)
-                setTargetText(e.target.value.replace(/\n/g, "\\n"));
-              }}
-            />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => {
-                  navigator.clipboard.writeText(targetText);
-                }}
-              >
-                Copy
-              </Button>
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => {
-                  const buffer = unicodeToBes(targetText.replace(/\n/g, "\\n"));
-                  const blob = new Blob([buffer], { type: "text/plain" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = "output.BES";
-                  a.click();
-                }}
-              >
-                Output
-              </Button>
-            </div>
-          </Box>
+                <TextField
+                  label="翻訳"
+                  multiline
+                  variant="standard"
+                  rows={7}
+                  value={displayTargetText}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    //setDisplayTargetText(e.target.value)
+                    setTargetText(e.target.value.replace(/\n/g, "\\n"));
+                  }}
+                  sx={{ width: "100%" }}
+                />
+                <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <IconButton
+                    onClick={() => {
+                      navigator.clipboard.writeText(targetText);
+                    }}
+                  >
+                    <ContentCopyIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      const buffer = unicodeToBes(
+                        targetText.replace(/\n/g, "\\n"),
+                      );
+                      const blob = new Blob([buffer], { type: "text/plain" });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement("a");
+                      a.href = url;
+                      a.download = "output.BES";
+                      a.click();
+                    }}
+                  >
+                    <DownloadIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

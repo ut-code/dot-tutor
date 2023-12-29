@@ -18,6 +18,9 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import DownloadIcon from "@mui/icons-material/Download";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import translateBraille from "./utils/translateBraille";
+import { SixDotBrailleString } from "./domain/BrailleString";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function App() {
   const [displaySourceText, setDisplaySourceText] =
@@ -59,9 +62,18 @@ function App() {
       setTargetText(data.targetText);
       if (translateTextToDot) {
         setDisplayTargetText(data.targetText);
+      } else {
+        setDisplayTargetText(
+          translateBraille(
+            new SixDotBrailleString(
+              "unicode",
+              (sourceText.match(/[⠀-⣿]/g) ?? [""]).join(""),
+            ),
+          ),
+        );
       }
     });
-  }, [wakatiText, translateTextToDot]);
+  }, [sourceText, wakatiText, translateTextToDot]);
 
   const theme = useTheme();
   return (
@@ -115,33 +127,45 @@ function App() {
                 p={2}
                 sx={{ borderRadius: "10px", border: "1px solid darkgray" }}
               >
-                <TextField
-                  autoFocus
-                  style={{ backgroundColor: "white" }}
-                  multiline
-                  variant="standard"
-                  rows={4}
-                  value={displaySourceText}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setDisplaySourceText(e.target.value);
-                    setSourceText(e.target.value.replace(/\n/g, "\\n"));
-                  }}
-                  sx={{ width: "100%" }}
-                />
+                <Box sx={{ display: "flex", alignItems: "flex-start" }}>
+                  <TextField
+                    autoFocus
+                    style={{ backgroundColor: "white" }}
+                    multiline
+                    variant="standard"
+                    rows={4}
+                    value={displaySourceText}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setDisplaySourceText(e.target.value);
+                      setSourceText(e.target.value.replace(/\n/g, "\\n"));
+                    }}
+                    sx={{ width: "100%" }}
+                  />
+                  <IconButton
+                    onClick={() => {
+                      setSourceText("");
+                      setDisplaySourceText("");
+                    }}
+                  >
+                    <HighlightOffIcon />
+                  </IconButton>
+                </Box>
                 {/* <TextField sx={{mt: 2}} style={{backgroundColor: theme.palette.secondary.main}} label="readonly" multiline variant="outlined" rows={4} fullWidth value={wakatiReference} /> */}
-                <TextField
-                  style={{ backgroundColor: "white" }}
-                  multiline
-                  variant="standard"
-                  label="分かち書き"
-                  rows={4}
-                  value={displayWakatiText}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setDisplayWakatiText(e.target.value);
-                    setWakatiText(e.target.value.replace(/\n/g, "\\n"));
-                  }}
-                  sx={{ width: "100%", borderTop: "1px solid gainsboro" }}
-                />
+                {translateTextToDot && (
+                  <TextField
+                    style={{ backgroundColor: "white" }}
+                    multiline
+                    variant="standard"
+                    label="分かち書き"
+                    rows={4}
+                    value={displayWakatiText}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setDisplayWakatiText(e.target.value);
+                      setWakatiText(e.target.value.replace(/\n/g, "\\n"));
+                    }}
+                    sx={{ width: "100%", borderTop: "1px solid gainsboro" }}
+                  />
+                )}
               </Box>
             </Grid>
 

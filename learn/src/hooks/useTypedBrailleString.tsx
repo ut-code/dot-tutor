@@ -1,6 +1,5 @@
+import Braille from "@/domain/Braille";
 import { useState, useEffect, type KeyboardEvent } from "react";
-import { BrailleState } from "@/domain/BrailleState";
-import { SixDotBraille, EightDotBraille } from "@/domain/BrailleCharacter";
 
 /**
  * The default state of keyboard
@@ -182,35 +181,29 @@ function useTypedKeys(): [
 function convertKeyboardStateToBrailleState(
   keyboardState: KeyboardState,
   brailleDotCount: 6 | 8,
-): BrailleState {
+): Braille {
   if (brailleDotCount === 6) {
-    const brailleState: BrailleState = new BrailleState(
-      {
-        dot1: keyboardState.KeyF,
-        dot2: keyboardState.KeyD,
-        dot3: keyboardState.KeyS,
-        dot4: keyboardState.KeyJ,
-        dot5: keyboardState.KeyK,
-        dot6: keyboardState.KeyL,
-      },
-      6,
-    );
+    const brailleState: Braille = new Braille({
+      dot1: keyboardState.KeyF,
+      dot2: keyboardState.KeyD,
+      dot3: keyboardState.KeyS,
+      dot4: keyboardState.KeyJ,
+      dot5: keyboardState.KeyK,
+      dot6: keyboardState.KeyL,
+    });
     return brailleState;
   }
   if (brailleDotCount === 8) {
-    const brailleState: BrailleState = new BrailleState(
-      {
-        dot1: keyboardState.KeyF,
-        dot2: keyboardState.KeyD,
-        dot3: keyboardState.KeyS,
-        dot7: keyboardState.KeyA,
-        dot4: keyboardState.KeyJ,
-        dot5: keyboardState.KeyK,
-        dot6: keyboardState.KeyL,
-        dot8: keyboardState.Semicolon,
-      },
-      8,
-    );
+    const brailleState: Braille = new Braille({
+      dot1: keyboardState.KeyF,
+      dot2: keyboardState.KeyD,
+      dot3: keyboardState.KeyS,
+      dot7: keyboardState.KeyA,
+      dot4: keyboardState.KeyJ,
+      dot5: keyboardState.KeyK,
+      dot6: keyboardState.KeyL,
+      dot8: keyboardState.Semicolon,
+    });
     return brailleState;
   }
   throw new Error("The Number of Braille Dots Must Be 6 or 8.");
@@ -249,12 +242,10 @@ export function convertKeyboardStateToBraille(
     brailleDotCount,
   );
   if (brailleDotCount === 6) {
-    const braille = new SixDotBraille("braille state", brailleState);
-    return braille.unicodeBraille;
+    return brailleState.getCharacter();
   }
   if (brailleDotCount === 8) {
-    const braille = new EightDotBraille("braille state", brailleState);
-    return braille.unicodeBraille;
+    return brailleState.getCharacter();
   }
   throw new Error("The Number of Braille Dots Must Be 6 or 8.");
 }

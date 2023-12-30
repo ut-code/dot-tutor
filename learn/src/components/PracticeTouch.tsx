@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { BrailleString } from "@/domain/BrailleString";
 import { judge, eightJudge } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
-import { SixDotBraille } from "@/domain/BrailleCharacter";
+import BrailleArray from "@/domain/BrailleArray";
+import Braille from "@/domain/Braille";
 
 export default function PracticeTouch({
   question,
@@ -16,9 +16,8 @@ export default function PracticeTouch({
   length: number;
   brailleDotCount: 6 | 8;
 }): JSX.Element {
-  const [brailleStrings, setBrailleStrings] = useState<BrailleString>(
-    new BrailleString(
-      "unicode",
+  const [brailleStrings, setBrailleStrings] = useState<BrailleArray>(
+    new BrailleArray(
       [...Array(length)].map((_) => "⠀").join(""),
       brailleDotCount,
     ),
@@ -31,7 +30,7 @@ export default function PracticeTouch({
     <>
       {question}
       <br />
-      {brailleStrings.brailleArray.map((brailleChar, i) => (
+      {brailleStrings.map((brailleChar, i) => (
         <EdittableBraille
           key={i}
           height="100"
@@ -39,12 +38,8 @@ export default function PracticeTouch({
           braille={brailleChar}
           setBraille={(braille) => {
             setBrailleStrings(
-              new BrailleString(
-                "braille array",
-                brailleStrings.brailleArray.map((_, j) =>
-                  j === i ? braille : _,
-                ),
-                brailleDotCount,
+              new BrailleArray(
+                brailleStrings.map((_, j) => (j === i ? braille : _)),
               ),
             );
           }}
@@ -71,9 +66,7 @@ export default function PracticeTouch({
 }
 
 export function TouchPlayground(): JSX.Element {
-  const [brailleChar, setBrailleChar] = useState<SixDotBraille>(
-    new SixDotBraille("unicode", "⠀"),
-  );
+  const [brailleChar, setBrailleChar] = useState<Braille>(new Braille("⠀", 6));
 
   return (
     <EdittableBraille

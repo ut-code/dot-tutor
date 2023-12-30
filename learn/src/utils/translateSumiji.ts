@@ -1,5 +1,5 @@
-import { SixDotBrailleString } from "@/domain/BrailleString";
-import { SixDotBraille } from "@/domain/BrailleCharacter";
+import Braille from "@/domain/Braille";
+import { CharacterType } from "@/domain/types/CharacterType";
 
 const reversedHiraganaTable = {
   "⠀": "　",
@@ -61,14 +61,14 @@ function matchedBrailleChar(tableType: object, sumijiChar: string): string {
   return brailleChar;
 }
 
-export default function translateSumiji(sumijiString: string): SixDotBraille[] {
-  const brailleString: SixDotBraille[] = [];
+export default function translateSumiji(sumijiString: string): Braille[] {
+  const brailleString: Braille[] = [];
 
   Array.prototype.forEach.call(sumijiString, (sumijiChar) => {
     brailleString.push(
-      new SixDotBraille(
-        "unicode",
-        matchedBrailleChar(reversedHiraganaTable, sumijiChar),
+      new Braille(
+        matchedBrailleChar(reversedHiraganaTable, sumijiChar) as CharacterType,
+        6,
       ),
     );
   });

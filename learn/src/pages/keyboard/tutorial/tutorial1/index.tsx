@@ -10,12 +10,12 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { SixDotBrailleString } from "@/domain/BrailleString";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TenjiInput from "@/components/TenjiInput";
+import BrailleArray from "@/domain/BrailleArray";
 
 interface Question {
   question: string;
@@ -65,10 +65,7 @@ export default function Tutorial1({
   useEffect(() => {
     setTranslatedBrailleString(
       translateBraille(
-        new SixDotBrailleString(
-          "unicode",
-          (typedBraille.match(/[⠀-⣿]/g) ?? [""]).join(""),
-        ),
+        new BrailleArray((typedBraille.match(/[⠀-⣿]/g) ?? [""]).join(""), 6),
       ),
     );
   }, [typedBraille]);

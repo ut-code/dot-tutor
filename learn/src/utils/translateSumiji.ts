@@ -1,5 +1,4 @@
-import Braille from "@/domain/Braille";
-import { CharacterType } from "@/domain/types/CharacterType";
+import { Braille, CharacterType } from "braille";
 
 const reversedHiraganaTable = {
   "⠀": "　",

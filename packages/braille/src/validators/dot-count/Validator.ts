@@ -1,4 +1,4 @@
-import { DotCountType } from "@/domain/types/DotCountType";
+import { DotCountType } from "./../../types/DotCountType";
 import BrailleDotCountValidationError from "./ValidationError";
 import brailleDotCountValidationMessages from "./validationMessages";
 

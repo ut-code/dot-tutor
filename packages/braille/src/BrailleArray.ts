@@ -9,11 +9,16 @@ import BrailleArrayValidator from "./validators/array/Validator";
  */
 export default class BrailleArray extends Array<Braille> {
   /**
+   * Constructs a new instance with the given length of the array.
+   * @param arrayLength the length of the array
+   */
+  constructor(arrayLength: number);
+  /**
    * Constructs a new instance with the given braille text.
    * @param text braille text
    * @param dotCount the number of dots based on the types of braille
    */
-  constructor(text: string, dotCount: DotCountType);
+  constructor(text: string, dotCount?: DotCountType);
   /**
    * Constructs a new instance with the given array of braille dots.
    * @param dotsArray an array of braille dots
@@ -25,24 +30,33 @@ export default class BrailleArray extends Array<Braille> {
    */
   constructor(brailleArray: Braille[]);
   constructor(
-    textOrDotsArrayOrBrailleArray: string | DotsArrayType[] | Braille[],
+    arrayLengthOrTextOrDotsArrayOrBrailleArray:
+      | number
+      | string
+      | DotsArrayType[]
+      | Braille[],
     dotCount?: DotCountType,
   ) {
-    const brailleArray = ((textOrDotsArrayOrBrailleArray) => {
-      if (typeof textOrDotsArrayOrBrailleArray === "string") {
-        return Array.from(textOrDotsArrayOrBrailleArray).map(
-          (character) => new Braille(character as CharacterType, dotCount),
-        );
-      }
-      if (Array.isArray(textOrDotsArrayOrBrailleArray[0])) {
-        return textOrDotsArrayOrBrailleArray.map(
-          (dots) => new Braille(dots as DotsArrayType),
-        );
-      }
-      return textOrDotsArrayOrBrailleArray as Braille[];
-    })(textOrDotsArrayOrBrailleArray);
-    BrailleArrayValidator.validateBrailleArray(brailleArray);
-    super(...brailleArray);
+    if (typeof arrayLengthOrTextOrDotsArrayOrBrailleArray === "number") {
+      super(arrayLengthOrTextOrDotsArrayOrBrailleArray);
+    } else if (typeof arrayLengthOrTextOrDotsArrayOrBrailleArray === "string") {
+      const brailleArray = Array.from(
+        arrayLengthOrTextOrDotsArrayOrBrailleArray,
+      ).map((character) => new Braille(character as CharacterType, dotCount));
+      BrailleArrayValidator.validateBrailleArray(brailleArray);
+      super(...brailleArray);
+    } else if (Array.isArray(arrayLengthOrTextOrDotsArrayOrBrailleArray[0])) {
+      const brailleArray = arrayLengthOrTextOrDotsArrayOrBrailleArray.map(
+        (dots) => new Braille(dots as DotsArrayType),
+      );
+      BrailleArrayValidator.validateBrailleArray(brailleArray);
+      super(...brailleArray);
+    } else {
+      const brailleArray =
+        arrayLengthOrTextOrDotsArrayOrBrailleArray as Braille[];
+      BrailleArrayValidator.validateBrailleArray(brailleArray);
+      super(...brailleArray);
+    }
   }
 
   /**
@@ -69,7 +83,7 @@ export default class BrailleArray extends Array<Braille> {
    * @returns the array of braille dots
    */
   getDotsArray(): DotsArrayType[] {
-    return this.map((braille) => braille.getDotsArray());
+    return [...this.map((braille) => braille.getDotsArray())];
   }
 
   /**

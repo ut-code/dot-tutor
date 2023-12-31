@@ -1,4 +1,4 @@
-import BrailleArray from "@/domain/BrailleArray";
+import { BrailleArray } from "braille";
 
 export const hiraganaTable = {
   "　": "⠀",

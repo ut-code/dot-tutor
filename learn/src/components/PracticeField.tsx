@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useTypedBrailleString from "@/hooks/useTypedBrailleString";
 import translateBraille from "@/utils/translateBraille";
 import { TextField, Typography, Box, Button } from "@mui/material";
-import BrailleArray from "@/domain/BrailleArray";
+import { BrailleArray } from "braille";
 
 export default function PracticeField({
   question,

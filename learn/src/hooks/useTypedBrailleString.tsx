@@ -1,4 +1,4 @@
-import Braille from "@/domain/Braille";
+import { Braille } from "braille";
 import { useState, useEffect, type KeyboardEvent } from "react";
 
 /**

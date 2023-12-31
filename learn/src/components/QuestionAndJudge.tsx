@@ -1,4 +1,4 @@
-import BrailleArray from "@/domain/BrailleArray";
+import { BrailleArray } from "braille";
 import translateBraille from "@/utils/translateBraille";
 import * as tenji from "tenji";
 

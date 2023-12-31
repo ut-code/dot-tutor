@@ -15,7 +15,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TenjiInput from "@/components/TenjiInput";
-import BrailleArray from "@/domain/BrailleArray";
+import { BrailleArray } from "braille";
 
 interface Question {
   question: string;

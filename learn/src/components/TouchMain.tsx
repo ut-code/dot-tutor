@@ -6,7 +6,7 @@ import { Paper, Typography, Divider, Button, Stack, Box } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import * as tenji from "tenji";
-import BrailleArray from "@/domain/BrailleArray";
+import { BrailleArray } from "braille";
 
 export default function TouchMain({
   typeOfQuestions,

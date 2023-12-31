@@ -1,5 +1,4 @@
-import Braille from "@/domain/Braille";
-import { DotPositionType } from "@/domain/types/DotPositionType";
+import { Braille, DotPositionType } from "braille";
 import React, { Fragment } from "react";
 
 /**

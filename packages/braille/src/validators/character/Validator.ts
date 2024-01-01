@@ -1,8 +1,8 @@
-import { CharacterType } from "../../types/CharacterType";
-import { DotCountType } from "../../types/DotCountType";
-import BrailleCharacterValidationError from "./ValidationError";
-import brailleCharacterValidationMessages from "./validationMessages";
-import brailleDotCountValidationMessages from "../dot-count/validationMessages";
+import { CharacterType } from "../../types/CharacterType.js";
+import { DotCountType } from "../../types/DotCountType.js";
+import BrailleCharacterValidationError from "./ValidationError.js";
+import brailleCharacterValidationMessages from "./validationMessages.js";
+import brailleDotCountValidationMessages from "../dot-count/validationMessages.js";
 
 /**
  * Checks if a braille character matches any character between ⠀ and ⠿.

@@ -1,7 +1,7 @@
-import { DotsArrayType } from "../../types/DotsArrayType";
-import { DotsObjectType } from "../../types/DotsObjectType";
-import BrailleDotsValidationError from "./ValidationError";
-import brailleDotsValidationMessages from "./validationMessages";
+import { DotsArrayType } from "../../types/DotsArrayType.js";
+import { DotsObjectType } from "../../types/DotsObjectType.js";
+import BrailleDotsValidationError from "./ValidationError.js";
+import brailleDotsValidationMessages from "./validationMessages.js";
 
 /**
  * Contains static methods that validate braille dots.

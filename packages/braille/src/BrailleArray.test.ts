@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import BrailleArray from "./BrailleArray";
-import Braille from "./Braille";
+import BrailleArray from "./BrailleArray.js";
+import Braille from "./Braille.js";
 
 describe("BrailleArray class", () => {
   describe("constructor", () => {

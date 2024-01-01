@@ -219,6 +219,29 @@ jobs:
         working-directory: packages/braille
         shell: bash
 
+  test-braille-package:
+    name: Test Braille Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        working-directory: packages/braille
+        shell: bash
+
+      - name: Test
+        run: npm test
+        working-directory: packages/braille
+        shell: bash
+
   eslint-website:
     name: ESLint Website
     runs-on: ubuntu-latest

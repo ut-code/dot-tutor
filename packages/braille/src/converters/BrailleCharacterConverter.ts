@@ -1,6 +1,6 @@
-import { CharacterType } from "../types/CharacterType";
-import { DotCountType } from "../types/DotCountType";
-import { DotsArrayType } from "../types/DotsArrayType";
+import { CharacterType } from "../types/CharacterType.js";
+import { DotCountType } from "../types/DotCountType.js";
+import { DotsArrayType } from "../types/DotsArrayType.js";
 
 /**
  * Contains static methods that convert a braille character to an array of braille dots and vice versa.

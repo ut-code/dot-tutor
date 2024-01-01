@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import Braille from "./Braille";
+import Braille from "./Braille.js";
 
 describe("Braille class", () => {
   describe("constructor", () => {

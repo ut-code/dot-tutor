@@ -1,6 +1,6 @@
-import { DotCountType } from "./../../types/DotCountType";
-import BrailleDotCountValidationError from "./ValidationError";
-import brailleDotCountValidationMessages from "./validationMessages";
+import { DotCountType } from "./../../types/DotCountType.js";
+import BrailleDotCountValidationError from "./ValidationError.js";
+import brailleDotCountValidationMessages from "./validationMessages.js";
 
 /**
  * Contains static methods that validate the number of dots.

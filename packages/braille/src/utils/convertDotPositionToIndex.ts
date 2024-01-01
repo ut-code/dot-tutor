@@ -1,4 +1,4 @@
-import { DotPositionType } from "../types/DotPositionType";
+import { DotPositionType } from "../types/DotPositionType.js";
 
 export default function convertDotPositionToIndex(
   dotPosition: DotPositionType,

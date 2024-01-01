@@ -1,8 +1,8 @@
-import { CharacterType } from "./types/CharacterType";
-import { DotCountType } from "./types/DotCountType";
-import { DotsArrayType } from "./types/DotsArrayType";
-import Braille from "./Braille";
-import BrailleArrayValidator from "./validators/array/Validator";
+import { CharacterType } from "./types/CharacterType.js";
+import { DotCountType } from "./types/DotCountType.js";
+import { DotsArrayType } from "./types/DotsArrayType.js";
+import Braille from "./Braille.js";
+import BrailleArrayValidator from "./validators/array/Validator.js";
 
 /**
  * Represents an array of instances of Braille.

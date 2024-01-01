@@ -1,6 +1,6 @@
-import BrailleArrayValidationError from "./ValidationError";
-import brailleArrayValidationMessages from "./validationMessages";
-import Braille from "../../Braille";
+import BrailleArrayValidationError from "./ValidationError.js";
+import brailleArrayValidationMessages from "./validationMessages.js";
+import Braille from "../../Braille.js";
 
 /**
  * Contains static methods that validate arrays of instances of Braille.

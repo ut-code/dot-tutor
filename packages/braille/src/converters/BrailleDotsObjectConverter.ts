@@ -1,5 +1,5 @@
-import { DotsArrayType } from "../types/DotsArrayType";
-import { DotsObjectType } from "../types/DotsObjectType";
+import { DotsArrayType } from "../types/DotsArrayType.js";
+import { DotsObjectType } from "../types/DotsObjectType.js";
 
 /**
  * Contains static methods that convert an object of braille dots to an array of braille dots and vice versa.

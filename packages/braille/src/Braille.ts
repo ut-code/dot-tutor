@@ -1,14 +1,14 @@
-import { CharacterType } from "./types/CharacterType";
-import { DotCountType } from "./types/DotCountType";
-import { DotPositionType } from "./types/DotPositionType";
-import { DotsArrayType } from "./types/DotsArrayType";
-import { DotsObjectType } from "./types/DotsObjectType";
-import BrailleCharacterConverter from "./converters/BrailleCharacterConverter";
-import BrailleDotsObjectConverter from "./converters/BrailleDotsObjectConverter";
-import BrailleCharacterValidator from "./validators/character/Validator";
-import BrailleDotCountValidator from "./validators/dot-count/Validator";
-import BrailleDotsValidator from "./validators/dots/Validator";
-import convertDotPositionToIndex from "./utils/convertDotPositionToIndex";
+import { CharacterType } from "./types/CharacterType.js";
+import { DotCountType } from "./types/DotCountType.js";
+import { DotPositionType } from "./types/DotPositionType.js";
+import { DotsArrayType } from "./types/DotsArrayType.js";
+import { DotsObjectType } from "./types/DotsObjectType.js";
+import BrailleCharacterConverter from "./converters/BrailleCharacterConverter.js";
+import BrailleDotsObjectConverter from "./converters/BrailleDotsObjectConverter.js";
+import BrailleCharacterValidator from "./validators/character/Validator.js";
+import BrailleDotCountValidator from "./validators/dot-count/Validator.js";
+import BrailleDotsValidator from "./validators/dots/Validator.js";
+import convertDotPositionToIndex from "./utils/convertDotPositionToIndex.js";
 
 /**
  * Represents an information of a braille.

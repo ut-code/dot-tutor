@@ -2,7 +2,9 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "ci:packages": "cd packages/braille && npm ci",
+    "build:packages": "cd packages/braille && npm run build"
   },
   "devDependencies": {
     "husky": "^8.0.3",

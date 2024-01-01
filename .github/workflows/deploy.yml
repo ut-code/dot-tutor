@@ -21,6 +21,10 @@ jobs:
           node-version: latest
           cache: npm
 
+      - name: Build Packages
+        run: npm run ci:packages && npm run build:packages
+        shell: bash
+
       - name: Install Packages
         run: npm ci
         working-directory: website
@@ -74,6 +78,10 @@ jobs:
         with:
           node-version: latest
           cache: npm
+
+      - name: Build Packages
+        run: npm run ci:packages && npm run build:packages
+        shell: bash
 
       - name: Install Packages
         run: npm ci
@@ -133,6 +141,10 @@ jobs:
         with:
           node-version: latest
           cache: npm
+
+      - name: Build Packages
+        run: npm run ci:packages && npm run build:packages
+        shell: bash
 
       - name: Install Packages
         run: npm ci

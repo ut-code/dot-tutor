@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc",
     "type-check": "tsc --noEmit",
-    "test": "vitest",
-    "test:check": "vitest run"
+    "test": "vitest"
   },
   "license": "MIT",
   "devDependencies": {

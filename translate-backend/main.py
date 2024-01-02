@@ -91,6 +91,9 @@ def source2wakati_byLines(source):
                 if letter_default[num] == "ー":  # 長音は長音のまま
                     letter[num] = letter_default[num]
             kana = "".join(letter)
+            for num in range(min(len(letter), len(letter_normal))):
+                if letter[num] == "ー" and (hinshi == "動詞"):
+                    kana = kana_normal
             if (
                 letter_default[0] in mapping.mapping_alpha
                 or letter_default[0] in mapping.mapping_alpha_CAP
@@ -102,11 +105,18 @@ def source2wakati_byLines(source):
                 target.append(kana)
             elif prehinshi_specific == "数詞" and hinshi == "名詞":  # 数字と単位の間は空けない
                 target.append(kana)
+            elif hinshi == "形状詞" and kana == "ヨー": # 「そのような」は1語
+                target.append(kana)
             elif kana == "*":
                 pass
             elif hinshi == "補助記号":
-                target.append(kana)
+                if hinshi_specific == "括弧開":
+                    target.append("　" + kana) 
+                else:
+                    target.append(kana)
             elif target == []:
+                target.append(kana)
+            elif prehinshi_specific == "括弧開":
                 target.append(kana)
             else:
                 target.append("　" + kana)

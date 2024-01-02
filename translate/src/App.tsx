@@ -7,6 +7,8 @@ import {
   IconButton,
   Typography,
   TextField,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
@@ -24,6 +26,10 @@ function App() {
   const [wakatiText, setWakatiText] = useState("");
   //const [displayTargetText, setDisplayTargetText] = useState("");
   const [targetText, setTargetText] = useState("");
+
+  const [isPageNumberOn, setIsPageNumberOn] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
 
   async function source2wakati(text: string) {
     const response = await fetch(
@@ -155,15 +161,55 @@ function App() {
                 Copy
               </Button>
             </div>
+            <div>
+              <label>
+                ファイル名：
+                <input
+                  type="text"
+                  value={fileName}
+                  onChange={(name) => {
+                    setFileName(name.target.value);
+                    setShowWarning(false);
+                  }} // ユーザーの入力に反応してファイル名を更新
+                />
+                .BES
+              </label>
+              {showWarning && (
+                <div style={{ color: "red" }}>
+                  ファイル名を入力してください。
+                </div>
+              )}
+            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isPageNumberOn}
+                    onChange={() => {
+                      setIsPageNumberOn(!isPageNumberOn);
+                    }}
+                  />
+                }
+                label="ページ番号あり"
+                labelPlacement="start"
+              />
+            </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
                 onClick={() => {
-                  const buffer = unicodeToBes(targetText.replace(/\n/g, "\\n"));
+                  const buffer = unicodeToBes(
+                    targetText.replace(/\n/g, "\\n"),
+                    isPageNumberOn,
+                  );
                   const blob = new Blob([buffer], { type: "text/plain" });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement("a");
+                  if (fileName.trim() === "") {
+                    setShowWarning(true); // ファイル名が空の場合、警告を表示
+                    return;
+                  }
                   a.href = url;
-                  a.download = "output.BES";
+                  a.download = fileName + ".BES";
                   a.click();
                 }}
               >

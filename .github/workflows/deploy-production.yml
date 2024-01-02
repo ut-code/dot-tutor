@@ -1,4 +1,4 @@
-name: Deploy Production Environment to Cloudflare Pages
+name: Deploy Production
 
 on:
   push:

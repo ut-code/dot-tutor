@@ -19,7 +19,7 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import DownloadIcon from "@mui/icons-material/Download";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import translateBraille from "./utils/translateBraille";
-import { SixDotBrailleString } from "./domain/BrailleString";
+import { BrailleArray } from "braille";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function App() {
@@ -65,10 +65,7 @@ function App() {
       } else {
         setDisplayTargetText(
           translateBraille(
-            new SixDotBrailleString(
-              "unicode",
-              (sourceText.match(/[⠀-⣿]/g) ?? [""]).join(""),
-            ),
+            new BrailleArray((sourceText.match(/[⠀-⣿]/g) ?? [""]).join(""), 6),
           ),
         );
       }
@@ -222,21 +219,23 @@ function App() {
                   >
                     <ContentCopyIcon />
                   </IconButton>
-                  <IconButton
-                    onClick={() => {
-                      const buffer = unicodeToBes(
-                        targetText.replace(/\n/g, "\\n"),
-                      );
-                      const blob = new Blob([buffer], { type: "text/plain" });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = "output.BES";
-                      a.click();
-                    }}
-                  >
-                    <DownloadIcon />
-                  </IconButton>
+                  {translateTextToDot && (
+                    <IconButton
+                      onClick={() => {
+                        const buffer = unicodeToBes(
+                          targetText.replace(/\n/g, "\\n"),
+                        );
+                        const blob = new Blob([buffer], { type: "text/plain" });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = "output.BES";
+                        a.click();
+                      }}
+                    >
+                      <DownloadIcon />
+                    </IconButton>
+                  )}
                 </Box>
               </Box>
             </Grid>

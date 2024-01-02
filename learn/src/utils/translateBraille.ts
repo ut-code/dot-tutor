@@ -1,4 +1,4 @@
-import { type SixDotBrailleString } from "@/domain/BrailleString";
+import { BrailleArray } from "braille";
 
 export const hiraganaTable = {
   "　": "⠀",
@@ -253,9 +253,7 @@ function matchedChar(tableType: object, brailleChar: string): string {
   return sumijiChar;
 }
 
-export default function translateBraille(
-  brailleStrings: SixDotBrailleString,
-): string {
+export default function translateBraille(brailleStrings: BrailleArray): string {
   let sumijiStrings: string = "";
   let dakuon: boolean = false; // 濁音
   let handakuon: boolean = false; // 半濁音
@@ -285,11 +283,11 @@ export default function translateBraille(
     alphabetCapitalSuccession = false;
   }
 
-  brailleStrings.brailleArray.forEach((_, i) => {
+  brailleStrings.forEach((_, i) => {
     let sumijiChar: string = "";
 
     // 分かち書きのスペースの場合、全てのフラグを初期化
-    if (brailleStrings.unicodeBrailleString[i] === "⠀") {
+    if (brailleStrings[i].getCharacter() === "⠀") {
       sumijiStrings += sumijiChar + "　";
       initialize();
       return;
@@ -297,10 +295,7 @@ export default function translateBraille(
 
     // 数符の後の処理
     if (number) {
-      sumijiChar = matchedChar(
-        numberTable,
-        brailleStrings.unicodeBrailleString[i],
-      );
+      sumijiChar = matchedChar(numberTable, brailleStrings[i].getCharacter());
 
       if (sumijiChar === "") {
         number = false; // 対応する数字がなければ、数字の範囲は終了
@@ -317,16 +312,16 @@ export default function translateBraille(
         sumijiStrings = sumijiStrings.slice(0, -1);
       }
 
-      if (brailleStrings.unicodeBrailleString[i] === "⠠" && alphabetCapital) {
+      if (brailleStrings[i].getCharacter() === "⠠" && alphabetCapital) {
         alphabetCapitalSuccession = true;
         return;
       }
-      if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+      if (brailleStrings[i].getCharacter() === "⠠") {
         alphabetCapital = true;
         alphabet = true;
         return;
       }
-      if (brailleStrings.unicodeBrailleString[i] === "⠴") {
+      if (brailleStrings[i].getCharacter() === "⠴") {
         alphabet = false;
         alphabetCapital = false;
         alphabetCapitalSuccession = false;
@@ -336,20 +331,20 @@ export default function translateBraille(
         // 二重大文字符の中の場合
         sumijiChar = matchedChar(
           alphabetCapitalTable,
-          brailleStrings.unicodeBrailleString[i],
+          brailleStrings[i].getCharacter(),
         );
       } else if (alphabetCapital) {
         // 大文字符の中の場合
         sumijiChar = matchedChar(
           alphabetCapitalTable,
-          brailleStrings.unicodeBrailleString[i],
+          brailleStrings[i].getCharacter(),
         );
         alphabetCapital = false;
       } else {
         // 外字符の中の場合
         sumijiChar = matchedChar(
           alphabetTable,
-          brailleStrings.unicodeBrailleString[i],
+          brailleStrings[i].getCharacter(),
         );
       }
 
@@ -368,83 +363,80 @@ export default function translateBraille(
     if (dakuon) {
       sumijiChar = matchedChar(
         dakuonHiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       dakuon = false;
     } else if (handakuon) {
       sumijiChar = matchedChar(
         handakuonHiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       handakuon = false;
     } else if (contraction) {
       sumijiChar = matchedChar(
         contractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       contraction = false;
     } else if (dakuonContraction) {
       sumijiChar = matchedChar(
         dakuonContractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       dakuonContraction = false;
     } else if (handakuonContraction) {
       sumijiChar = matchedChar(
         handakuonContractionHiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       handakuonContraction = false;
     } else if (special) {
       sumijiChar = matchedChar(
         specialHiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       sumijiStrings = sumijiStrings.slice(0, -1); // 現在の点字が"⠀"でない場合は、特殊音なのでsumijiStringsの最後の文字である「？」を削除する
       special = false;
     } else if (special1) {
       sumijiChar = matchedChar(
         specialHiraganaTable1,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       sumijiStrings = sumijiStrings.slice(0, -1); // 現在の点字が"⠀"でない場合は、特殊音なのでsumijiStringsの最後の文字である「。」を削除する
       special1 = false;
     } else if (special2) {
       sumijiChar = matchedChar(
         specialHiraganaTable2,
-        brailleStrings.unicodeBrailleString[i],
+        brailleStrings[i].getCharacter(),
       );
       special2 = false;
     } else {
-      sumijiChar = matchedChar(
-        hiraganaTable,
-        brailleStrings.unicodeBrailleString[i],
-      );
+      sumijiChar = matchedChar(hiraganaTable, brailleStrings[i].getCharacter());
     }
 
-    if (brailleStrings.unicodeBrailleString[i] === "⠐") {
+    if (brailleStrings[i].getCharacter() === "⠐") {
       dakuon = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠠") {
+    } else if (brailleStrings[i].getCharacter() === "⠠") {
       handakuon = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠈") {
+    } else if (brailleStrings[i].getCharacter() === "⠈") {
       contraction = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠘") {
+    } else if (brailleStrings[i].getCharacter() === "⠘") {
       dakuonContraction = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠨") {
+    } else if (brailleStrings[i].getCharacter() === "⠨") {
       handakuonContraction = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠢") {
+    } else if (brailleStrings[i].getCharacter() === "⠢") {
       special = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠲") {
+    } else if (brailleStrings[i].getCharacter() === "⠲") {
       special1 = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠸") {
+    } else if (brailleStrings[i].getCharacter() === "⠸") {
       special2 = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠼") {
+    } else if (brailleStrings[i].getCharacter() === "⠼") {
       number = true;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠤") {
+    } else if (brailleStrings[i].getCharacter() === "⠤") {
       number = false;
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠰") {
+    } else if (brailleStrings[i].getCharacter() === "⠰") {
       alphabet = true; // 外字符
-    } else if (brailleStrings.unicodeBrailleString[i] === "⠦") {
+    } else if (brailleStrings[i].getCharacter() === "⠦") {
       alphabet = true; // 外国語引用符（始まり）
     }
 

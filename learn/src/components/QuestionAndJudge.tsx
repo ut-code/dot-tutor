@@ -1,7 +1,4 @@
-import {
-  type SixDotBrailleString,
-  type EightDotBrailleString,
-} from "@/domain/BrailleString";
+import { BrailleArray } from "braille";
 import translateBraille from "@/utils/translateBraille";
 import * as tenji from "tenji";
 
@@ -10,7 +7,7 @@ export function makeQuestion(questions: string[]): string {
 }
 
 export function judge(
-  typedBrailleStrings: SixDotBrailleString,
+  typedBrailleStrings: BrailleArray,
   question: string,
 ): boolean {
   let typedAnswer = translateBraille(typedBrailleStrings);
@@ -40,13 +37,11 @@ export function judge(
 }
 
 export function eightJudge(
-  typedBrailleStrings: EightDotBrailleString,
+  typedBrailleStrings: BrailleArray,
   question: string,
 ): boolean {
   let typedAnswer = tenji.fromTenji(
-    typedBrailleStrings.brailleArray
-      .map((braille) => braille.unicodeBraille)
-      .join(""),
+    typedBrailleStrings.map((braille) => braille.getCharacter()).join(""),
     { kanji: true },
   );
 

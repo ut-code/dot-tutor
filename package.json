@@ -2,7 +2,15 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "ci:packages": "cd packages/braille && npm ci",
+    "build:packages": "cd packages/braille && npm run build",
+    "setup": "npm run ci:packages && npm run build:packages && cd website && npm ci && cd ../learn && npm ci && cd ../translate && npm ci",
+    "dev:website": "cd website && npm run dev",
+    "dev:learn": "cd learn && npm run dev",
+    "dev:translate": "cd translate && npm run dev",
+    "lint": "cd website && npm run lint && cd ../learn && npm run lint && cd ../translate && npm run lint",
+    "type-check": "cd website && npm run type-check && cd ../learn && npm run type-check && cd ../translate && npm run type-check"
   },
   "devDependencies": {
     "husky": "^8.0.3",
@@ -11,10 +19,5 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.1"
   }
 }

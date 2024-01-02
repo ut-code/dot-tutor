@@ -33,7 +33,7 @@ export default function TopBar({
           content="チュートリアルを通して点字について学ぶことのできる、体験型点字学習ソフトウェアです。"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon-learn.svg" />
+        <link rel="icon" type="image/svg+xml" href="/favicon-learn.svg" />
       </Head>
       <AppBar component="nav">
         <Toolbar>

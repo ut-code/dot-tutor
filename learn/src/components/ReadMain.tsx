@@ -10,8 +10,8 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import { SixDotBraille } from "@/domain/BrailleCharacter";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { Braille } from "braille";
 
 export default function ReadMain({
   typeOfQuestions,
@@ -19,7 +19,7 @@ export default function ReadMain({
   typeOfQuestions: string[];
 }): JSX.Element | null {
   const [question, setQuestion] = useState<string>(""); // 問題
-  const [questionInBraille, setQuestionInBraille] = useState<SixDotBraille[]>(
+  const [questionInBraille, setQuestionInBraille] = useState<Braille[]>(
     translateSumiji(question),
   );
   const [typedAns, setTypedAns] = useState<string>("");

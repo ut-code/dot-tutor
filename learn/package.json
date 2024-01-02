@@ -21,6 +21,7 @@
     "@mui/icons-material": "^5.14.6",
     "@mui/material": "^5.14.6",
     "@next/mdx": "^13.4.19",
+    "braille": "file:../packages/braille",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -1,10 +1,10 @@
-name: Deploy to Cloudflare Pages
+name: Deploy Staging Environment to Cloudflare Pages
 
 on:
   push:
 
 concurrency:
-  group: "cloudflare-pages"
+  group: "cloudflare-pages-staging"
   cancel-in-progress: false
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: website
+          name: website-staging
           path: website/dist
 
   deploy-website:
@@ -52,7 +52,7 @@ jobs:
       - name: Dowload Artifact
         uses: actions/download-artifact@v4
         with:
-          name: website
+          name: website-staging
           path: website/dist
 
       - name: Publish to Cloudflare Pages
@@ -60,7 +60,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: dot-tutor-website
+          projectName: dot-tutor-website-staging
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           workingDirectory: website
@@ -101,7 +101,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: learn
+          name: learn-staging
           path: learn/out
 
   deploy-learn:
@@ -115,7 +115,7 @@ jobs:
       - name: Dowload Artifact
         uses: actions/download-artifact@v4
         with:
-          name: learn
+          name: learn-staging
           path: learn/out
 
       - name: Publish to Cloudflare Pages
@@ -123,7 +123,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: dot-tutor-learn
+          projectName: dot-tutor-learn-staging
           directory: out
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           workingDirectory: learn
@@ -161,7 +161,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: translate
+          name: translate-staging
           path: translate/dist
 
   deploy-translate:
@@ -175,7 +175,7 @@ jobs:
       - name: Dowload Artifact
         uses: actions/download-artifact@v4
         with:
-          name: translate
+          name: translate-staging
           path: translate/dist
 
       - name: Publish to Cloudflare Pages
@@ -183,7 +183,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: dot-tutor-translate
+          projectName: dot-tutor-translate-staging
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           workingDirectory: translate

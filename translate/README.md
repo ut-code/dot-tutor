@@ -1,13 +1,16 @@
-# Translate Braille
+# 点字翻訳ソフトウェア Dot Tutor Translate
 
-## 環境構築
+こちらは、点字翻訳ソフトウェアDot Tutor Translateです。
 
-```shell
-npm run setup
-```
+## 目次
 
-## 開発用サーバーの起動
+- [概要](#概要)
+- [使い方](#使い方)
 
-```shell
-npm run dev
-```
+## 概要
+
+こちらは、点字翻訳ソフトウェアDot Tutor Translateです。
+
+## 使い方
+
+[https://translate.dot-tutor.com/](https://translate.dot-tutor.com/)にアクセスしてください。

@@ -50,7 +50,6 @@ export default function TouchMain({
       <div className={styles.question}>
           「{question}」を点字に直してください。
       </div>
-
       <div className={styles.touch_field}>
           {brailleStrings.map((brailleChar, i) => (
             <EdittableBraille

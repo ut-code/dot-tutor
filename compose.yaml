@@ -1,0 +1,15 @@
+services:
+  learn:
+    build:
+      context: .
+      dockerfile: ./learn/Dockerfile
+    volumes:
+      - .:/app
+      - node_modules_braille:/app/packages/braille/node_modules
+      - node_modules_learn:/app/learn/node_modules
+    ports:
+      - 3000:3000
+    command: bash -c 'cd packages/braille && npm run build && cd ../../learn && npm run dev'
+volumes:
+  node_modules_braille:
+  node_modules_learn:

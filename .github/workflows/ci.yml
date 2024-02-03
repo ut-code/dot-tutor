@@ -149,24 +149,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
+      - name: Build Docker Images
+        run: docker compose build
         shell: bash
 
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: learn
+      - name: Start Docker Compose
+        run: docker compose up -d
         shell: bash
 
       - name: Type Check
-        run: npm run type-check
-        working-directory: learn
+        run: docker compose exec learn bash -c "cd packages/braille && npm run build && cd ../../learn && npm run type-check"
         shell: bash
 
   type-check-translate:

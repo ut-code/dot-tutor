@@ -5,6 +5,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Link,
   Typography,
 } from "@mui/material";
 
@@ -31,12 +32,7 @@ function TopNavigationCard({
         borderRadius: "7px",
       }}
     >
-      <CardActionArea
-        onClick={() => {
-          window.location.href = linkUrl;
-        }}
-        sx={{ height: "100%" }}
-      >
+      <CardActionArea component={Link} href={linkUrl} sx={{ height: "100%" }}>
         <CardContent sx={{ padding: "30px" }}>
           <Box
             sx={{
@@ -98,22 +94,24 @@ function App() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Typography variant="h5" mr={5}>
+                <Typography variant="h5" component="div" mr={5}>
                   点字を身近に。
                 </Typography>
-                <Typography variant="h5" mr={1}>
+                <Typography variant="h5" component="div" mr={1}>
                   by
                 </Typography>
-                <img src="/logo.svg" height="38em"></img>
+                <img src="/logo.svg" height="38em" />
               </Box>
             </Box>
           </Grid>
           <Grid item xs={12} lg={6}>
-            <CardMedia
-              component="img"
-              image="/image_pic.svg"
-              sx={{ filter: "drop-shadow(3px 3px 3px #d9d9d9)" }}
-            ></CardMedia>
+            <img
+              src="/image_pic.svg"
+              style={{
+                filter: "drop-shadow(3px 3px 3px #d9d9d9)",
+                width: "100%",
+              }}
+            />
           </Grid>
         </Grid>
         <Grid container spacing={6} mt={"20px"}>
@@ -125,7 +123,7 @@ function App() {
               imgPath="/translate_icon.svg"
               backgroundColor="#19857E"
               textColor="#fff"
-            ></TopNavigationCard>
+            />
           </Grid>
           <Grid item xs={12} lg={6}>
             <TopNavigationCard
@@ -135,7 +133,7 @@ function App() {
               imgPath="/learn_icon.svg"
               backgroundColor="#1977D2"
               textColor="#fff"
-            ></TopNavigationCard>
+            />
           </Grid>
         </Grid>
       </Box>

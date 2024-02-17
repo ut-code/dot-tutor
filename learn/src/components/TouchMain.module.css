@@ -1,7 +1,5 @@
-.wrapper {
-  background-color: white;
-}
 .show_chart {
+  background-color: antiquewhite;
   margin-top: auto;
   margin-bottom: auto;
   float: left;
@@ -10,12 +8,14 @@
 }
 
 .hide_chart {
+  background-color: aquamarine;
   float: left;
   margin-top: 150px;
   width: 90%;
 }
 
 .question {
+  background-color: skyblue;
   padding-top: 8px;
   padding-bottom: 6px;
   max-width: 100%;
@@ -29,6 +29,7 @@
 }
 
 .touch_field {
+  background-color: lightcoral;
   padding-top: 8px;
   padding-bottom: 6px;
   max-width: 100%;
@@ -38,7 +39,7 @@
 }
 
 .judge_and_next_question {
-  height: 60px;
+  background-color: lightgoldenrodyellow;
   max-width: 100%;
   width: 800px;
   margin-left: auto;
@@ -47,26 +48,37 @@
 }
 
 .judge {
+  background-color: lightseagreen;
   flex-basis: 60%;
   display: flex;
 }
 
-.judge_icon {
+/* .judge_icon {
+  background-color: lightgreen;
   padding-left: 20px;
   margin-top: auto;
   margin-bottom: auto;
   font-size: 60px;
-}
+} */
 
 .right_icon {
+  background-color: lightskyblue;
+  padding-left: 20px;
+  margin-top: none;
+  font-size: 60px;
   color: rgba(130, 211, 102, 1);
 }
 
 .wrong_icon {
+  background-color: lightskyblue;
+  padding-left: 20px;
+  margin-top: none;
+  font-size: 60px;
   color: rgba(228, 99, 99, 1);
 }
 
 .judge_text {
+  background-color: lightgray;
   padding-left: 10px;
   margin-top: auto;
   margin-bottom: auto;
@@ -82,6 +94,7 @@
 }
 
 .btn {
+  background-color: lightpink;
   border-radius: 0.5rem;
   color: white;
   border-top: none;
@@ -95,11 +108,16 @@
   font-family: sans-serif;
   font-size: 24px;
   font-weight: bold;
+
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .btn:hover {
   margin-top: 3px;
   margin-left: 3px;
+  margin-bottom: 7px;
+  margin-right: 7px;
 }
 
 .judge_btn {

@@ -73,9 +73,7 @@ export default function TouchMain({
             if (afterJudgeAnswer === true && rightOrWrong === true) {
               return (
                 <div className={styles.judge}>
-                  <CheckCircleOutlineIcon
-                    className={`${styles.judge_icon} ${styles.right_icon}`}
-                  />
+                  <CheckCircleOutlineIcon className={styles.right_icon} />
                   <p className={styles.judge_text}>正解!!</p>
                 </div>
               );
@@ -83,9 +81,7 @@ export default function TouchMain({
             if (afterJudgeAnswer === true && rightOrWrong === false) {
               return (
                 <div className={styles.judge}>
-                  <CancelOutlinedIcon
-                    className={`${styles.judge_icon} ${styles.wrong_icon}`}
-                  />
+                  <CancelOutlinedIcon className={styles.wrong_icon} />
                   <p className={styles.judge_text}>不正解</p>
                 </div>
               );

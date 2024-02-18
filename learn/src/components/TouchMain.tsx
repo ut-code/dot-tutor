@@ -17,7 +17,7 @@ export default function TouchMain({
   brailleDotCount: 6 | 8;
 }): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleArray>(
-    new BrailleArray([...Array(10)].map((_) => "⠀").join(""), brailleDotCount),
+    new BrailleArray([...Array(8)].map((_) => "⠀").join(""), brailleDotCount),
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
@@ -103,7 +103,7 @@ export default function TouchMain({
                       setQuestion(makeQuestion(typeOfQuestions));
                       setBrailleStrings(
                         new BrailleArray(
-                          [...Array(10)].map((_) => "⠀").join(""),
+                          [...Array(8)].map((_) => "⠀").join(""),
                           brailleDotCount,
                         ),
                       );

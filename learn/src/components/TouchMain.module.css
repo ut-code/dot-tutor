@@ -11,7 +11,7 @@
   background-color: aquamarine;
   float: left;
   margin-top: 150px;
-  width: 90%;
+  width: 100%;
 }
 
 .question {
@@ -175,4 +175,12 @@
 .chart_btn {
   position: fixed;
   left: 90%;
+}
+
+/* 959px以下に適用されるCSS（タブレット用） */
+@media screen and (max-width: 959px) {
+  .question {
+    background-color: lightsteelblue;
+    font-size: 25px;
+  }
 }

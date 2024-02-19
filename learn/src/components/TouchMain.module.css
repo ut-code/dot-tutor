@@ -1,5 +1,5 @@
 .show_chart {
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   margin-top: auto;
   margin-bottom: auto;
   float: left;
@@ -8,14 +8,14 @@
 }
 
 .hide_chart {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   float: left;
   margin-top: 150px;
   width: 100%;
 }
 
 .question {
-  background-color: skyblue;
+  /* background-color: skyblue; */
   padding-top: 8px;
   padding-bottom: 6px;
   max-width: 100%;
@@ -29,7 +29,7 @@
 }
 
 .touch_field {
-  background-color: lightcoral;
+  /* background-color: lightcoral; */
   padding-top: 8px;
   padding-bottom: 6px;
   max-width: 100%;
@@ -39,7 +39,7 @@
 }
 
 .judge_and_next_question {
-  background-color: lightgoldenrodyellow;
+  /* background-color: lightgoldenrodyellow; */
   max-width: 100%;
   width: 800px;
   margin-left: auto;
@@ -48,21 +48,13 @@
 }
 
 .judge {
-  background-color: lightseagreen;
+  /* background-color: lightseagreen; */
   flex-basis: 60%;
   display: flex;
 }
 
-/* .judge_icon {
-  background-color: lightgreen;
-  padding-left: 20px;
-  margin-top: auto;
-  margin-bottom: auto;
-  font-size: 60px;
-} */
-
 .right_icon {
-  background-color: lightskyblue;
+  /* background-color: lightskyblue; */
   padding-left: 20px;
   margin-top: none;
   font-size: 60px;
@@ -70,7 +62,7 @@
 }
 
 .wrong_icon {
-  background-color: lightskyblue;
+  /* background-color: lightskyblue; */
   padding-left: 20px;
   margin-top: none;
   font-size: 60px;
@@ -78,7 +70,7 @@
 }
 
 .judge_text {
-  background-color: lightgray;
+  /* background-color: lightgray; */
   padding-left: 10px;
   margin-top: auto;
   margin-bottom: auto;
@@ -94,7 +86,7 @@
 }
 
 .btn {
-  background-color: lightpink;
+  /* background-color: lightpink; */
   border-radius: 0.5rem;
   color: white;
   border-top: none;
@@ -180,7 +172,7 @@
 /* 959px以下に適用されるCSS（タブレット用） */
 @media screen and (max-width: 959px) {
   .question {
-    background-color: lightsteelblue;
+    /* background-color: lightsteelblue; */
     font-size: 25px;
   }
 }

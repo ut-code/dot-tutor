@@ -158,8 +158,8 @@
   float: left;
   left: 60%;
   width: 40%;
-  height: 600px;
-  overflow: auto;
+  height: 80vh;
+  overflow: scroll;
 }
 
 .hidden_chart {

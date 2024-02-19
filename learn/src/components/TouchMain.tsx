@@ -7,7 +7,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import * as tenji from "tenji";
 import { BrailleArray } from "braille";
 import styles from "./TouchMain.module.css";
-import HiraganaTableDialog from "./HiraganaTableDialog";
+import { HiraganaTableDialogForTouch } from "./HiraganaTableDialog";
 
 export default function TouchMain({
   typeOfQuestions,
@@ -138,7 +138,7 @@ export default function TouchMain({
         </div>
       </div>
       <div className={showBrailleChart ? styles.chart : styles.hidden_chart}>
-        <HiraganaTableDialog />
+        <HiraganaTableDialogForTouch />
       </div>
       <button
         className={styles.chart_btn}

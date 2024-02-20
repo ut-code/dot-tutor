@@ -1,60 +1,12 @@
-<svg width="1011" height="824" viewBox="0 0 1011 824" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g filter="url(#filter0_d_101_1183)">
-<circle cx="702" cy="515" r="300" stroke="#1977D2" stroke-width="2" shape-rendering="crispEdges"/>
-</g>
-<g filter="url(#filter1_d_101_1183)">
-<circle cx="301" cy="301" r="300" stroke="#19857E" stroke-width="2" shape-rendering="crispEdges"/>
-</g>
-<g filter="url(#filter2_d_101_1183)">
-<rect x="15" y="111" width="571" height="381" rx="10" fill="url(#pattern0)" shape-rendering="crispEdges"/>
-</g>
-<g filter="url(#filter3_d_101_1183)">
-<rect x="416" y="325" width="571" height="381" rx="10" fill="url(#pattern1)" shape-rendering="crispEdges"/>
-</g>
+<svg width="1003" height="816" viewBox="0 0 1003 816" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<circle cx="702" cy="515" r="300" stroke="#1977D2" stroke-width="2"/>
+<circle cx="301" cy="301" r="300" stroke="#19857E" stroke-width="2"/>
+<rect x="15" y="111" width="571" height="381" rx="10" fill="url(#pattern0)"/>
+<rect x="416" y="325" width="571" height="381" rx="10" fill="url(#pattern1)"/>
 <defs>
-<filter id="filter0_d_101_1183" x="401" y="214" width="610" height="610" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="4" dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_1183"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_101_1183" result="shape"/>
-</filter>
-<filter id="filter1_d_101_1183" x="0" y="0" width="610" height="610" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="4" dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_1183"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_101_1183" result="shape"/>
-</filter>
-<filter id="filter2_d_101_1183" x="15" y="111" width="579" height="389" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="4" dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_1183"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_101_1183" result="shape"/>
-</filter>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_101_1183" transform="matrix(0.00125188 0 0 0.00187617 -0.000750798 0)"/>
 </pattern>
-<filter id="filter3_d_101_1183" x="416" y="325" width="579" height="389" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="4" dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_1183"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_101_1183" result="shape"/>
-</filter>
 <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image1_101_1183" transform="matrix(0.000834063 0 0 0.00125 -0.000437828 0)"/>
 </pattern>

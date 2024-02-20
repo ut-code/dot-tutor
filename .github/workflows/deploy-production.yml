@@ -94,11 +94,6 @@ jobs:
         working-directory: learn
         shell: bash
 
-      - name: Export
-        run: npm run export
-        working-directory: learn
-        shell: bash
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:

@@ -14,31 +14,31 @@
     "lint:check": "eslint --max-warnings 0 ."
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mdx-js/loader": "^2.3.0",
-    "@mdx-js/react": "^2.3.0",
-    "@mui/icons-material": "^5.14.6",
-    "@mui/material": "^5.14.6",
-    "@next/mdx": "^13.4.19",
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.10",
+    "@next/mdx": "^14.1.0",
     "braille": "file:../packages/braille",
-    "next": "^13.4.19",
+    "next": "^14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remark-gfm": "^3.0.1",
+    "remark-gfm": "^4.0.0",
     "tenji": "^1.0.4"
   },
   "devDependencies": {
-    "@types/node": "^20.5.6",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.4.1",
-    "@typescript-eslint/parser": "^6.4.1",
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
-    "eslint-config-next": "^13.4.19",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-next": "^14.1.0",
+    "eslint-config-prettier": "^9.1.0",
     "serve": "^14.2.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   }
 }

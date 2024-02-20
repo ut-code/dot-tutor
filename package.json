@@ -13,9 +13,9 @@
     "type-check": "cd website && npm run type-check && cd ../learn && npm run type-check && cd ../translate && npm run type-check"
   },
   "devDependencies": {
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
-    "prettier": "^3.0.2"
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

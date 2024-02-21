@@ -2,7 +2,6 @@
   "name": "learn-braille",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -22,6 +21,7 @@
     "@mui/material": "^5.15.10",
     "@next/mdx": "^14.1.0",
     "braille": "file:../packages/braille",
+    "eslint": "^8.56.0",
     "next": "^14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

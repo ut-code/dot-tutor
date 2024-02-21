@@ -12,6 +12,7 @@ import {
   TableCell,
 } from "@mui/material";
 import NextLink from "next/link";
+import "@/styles/globals.css";
 
 function H1(props: any): JSX.Element {
   return (

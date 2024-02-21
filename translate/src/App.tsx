@@ -21,6 +21,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import translateBraille from "./utils/translateBraille";
 import { BrailleArray } from "braille";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import "./index.css";
 
 function App() {
   const [displaySourceText, setDisplaySourceText] =

@@ -3,6 +3,7 @@
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "unifiedjs.vscode-mdx",
-    "ms-python.black-formatter"
+    "ms-python.black-formatter",
+    "bradlc.vscode-tailwindcss"
   ]
 }

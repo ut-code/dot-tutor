@@ -7,7 +7,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import * as tenji from "tenji";
 import { BrailleArray } from "braille";
 import styles from "./TouchMain.module.css";
-import HiraganaTableDialog from "./HiraganaTableDialog";
+import { HiraganaTableDialogForTouch } from "./HiraganaTableDialog";
 
 export default function TouchMain({
   typeOfQuestions,
@@ -17,7 +17,7 @@ export default function TouchMain({
   brailleDotCount: 6 | 8;
 }): JSX.Element {
   const [brailleStrings, setBrailleStrings] = useState<BrailleArray>(
-    new BrailleArray([...Array(10)].map((_) => "⠀").join(""), brailleDotCount),
+    new BrailleArray([...Array(8)].map((_) => "⠀").join(""), brailleDotCount),
   );
   const [hiraganaStrings, setHiraganaStrings] = useState<string>("");
   const [question, setQuestion] = useState<string>(typeOfQuestions[0]); // 問題
@@ -73,9 +73,7 @@ export default function TouchMain({
             if (afterJudgeAnswer === true && rightOrWrong === true) {
               return (
                 <div className={styles.judge}>
-                  <CheckCircleOutlineIcon
-                    className={`${styles.judge_icon} ${styles.right_icon}`}
-                  />
+                  <CheckCircleOutlineIcon className={styles.right_icon} />
                   <p className={styles.judge_text}>正解!!</p>
                 </div>
               );
@@ -83,9 +81,7 @@ export default function TouchMain({
             if (afterJudgeAnswer === true && rightOrWrong === false) {
               return (
                 <div className={styles.judge}>
-                  <CancelOutlinedIcon
-                    className={`${styles.judge_icon} ${styles.wrong_icon}`}
-                  />
+                  <CancelOutlinedIcon className={styles.wrong_icon} />
                   <p className={styles.judge_text}>不正解</p>
                 </div>
               );
@@ -107,7 +103,7 @@ export default function TouchMain({
                       setQuestion(makeQuestion(typeOfQuestions));
                       setBrailleStrings(
                         new BrailleArray(
-                          [...Array(10)].map((_) => "⠀").join(""),
+                          [...Array(8)].map((_) => "⠀").join(""),
                           brailleDotCount,
                         ),
                       );
@@ -142,7 +138,7 @@ export default function TouchMain({
         </div>
       </div>
       <div className={showBrailleChart ? styles.chart : styles.hidden_chart}>
-        <HiraganaTableDialog />
+        <HiraganaTableDialogForTouch />
       </div>
       <button
         className={styles.chart_btn}

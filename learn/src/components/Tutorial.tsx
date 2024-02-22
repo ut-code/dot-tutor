@@ -3,7 +3,7 @@ import { Toolbar, Box, ThemeProvider } from "@mui/material";
 import { type TutorialSteps } from "@/types/Tutorial";
 import TopBar from "@/components/TopBar";
 import BottomStepper from "@/components/BottomStepper";
-import HiraganaTableDialog from "./HiraganaTableDialog";
+import { HiraganaTableDialog } from "./HiraganaTableDialog";
 import AlphabetTableDialog from "./AlphabetTableDialog";
 import MuiTheme from "./MuiTheme";
 

@@ -6,7 +6,6 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import * as tenji from "tenji";
 import { BrailleArray } from "braille";
-import styles from "./TouchMain.module.css";
 import HiraganaTableDialog from "./HiraganaTableDialog";
 
 export default function TouchMain({
@@ -46,62 +45,62 @@ export default function TouchMain({
 
   return (
     <>
-      <div className={showBrailleChart ? styles.show_chart : styles.hide_chart}>
-        <div className={styles.question}>
+      <div
+        className={`float-left mb-auto mt-40 ${showBrailleChart ? "w-3/4" : "w-full"}`}
+      >
+        <div className="w-200 mx-auto mt-auto max-w-full pb-1.5 pt-2 font-sans text-3xl font-bold">
           「{question}」を点字に直してください。
         </div>
-        <div className={styles.touch_field}>
+        <div className="w-200 mx-auto flex max-w-full pb-1.5 pt-2">
           {brailleStrings.map((brailleChar, i) => (
-            <EdittableBraille
-              key={i}
-              height="150"
-              width="90"
-              braille={brailleChar}
-              setBraille={(braille) => {
-                setBrailleStrings(
-                  new BrailleArray(
-                    brailleStrings.map((_, j) => (j === i ? braille : _)),
-                  ),
-                );
-              }}
-            />
+            <div>
+              <EdittableBraille
+                key={i}
+                height="150"
+                width="90"
+                braille={brailleChar}
+                setBraille={(braille) => {
+                  setBrailleStrings(
+                    new BrailleArray(
+                      brailleStrings.map((_, j) => (j === i ? braille : _)),
+                    ),
+                  );
+                }}
+              />
+            </div>
           ))}
         </div>
 
-        <div className={styles.judge_and_next_question}>
+        <div className="w-200 mx-auto flex h-60 max-w-full">
           {(() => {
             if (afterJudgeAnswer === true && rightOrWrong === true) {
               return (
-                <div className={styles.judge}>
-                  <CheckCircleOutlineIcon
-                    className={`${styles.judge_icon} ${styles.right_icon}`}
-                  />
-                  <p className={styles.judge_text}>正解!!</p>
+                <div className="flex basis-3/4">
+                  <CheckCircleOutlineIcon className="my-auto bg-green-500 pl-5 text-6xl" />
+                  <p className="my-auto pl-2.5 font-sans text-3xl font-bold">
+                    正解!!
+                  </p>
                 </div>
               );
             }
             if (afterJudgeAnswer === true && rightOrWrong === false) {
               return (
-                <div className={styles.judge}>
-                  <CancelOutlinedIcon
-                    className={`${styles.judge_icon} ${styles.wrong_icon}`}
-                  />
-                  <p className={styles.judge_text}>不正解</p>
+                <div className="flex basis-3/4">
+                  <CancelOutlinedIcon className="my-auto bg-red-500 pl-5 text-6xl" />
+                  <p className="my-auto pl-2.5 font-sans text-3xl font-bold">
+                    不正解
+                  </p>
                 </div>
               );
             }
-            return <div className={styles.judge}> </div>;
+            return <div className="flex basis-3/4"> </div>;
           })()}
           {(() => {
             if (afterJudgeAnswer === true) {
               return (
-                <div className={styles.next_question}>
+                <div className="flex basis-10 justify-center">
                   <button
-                    className={
-                      rightOrWrong
-                        ? `${styles.btn} ${styles.right_next_btn}`
-                        : `${styles.btn}  ${styles.wrong_next_btn}`
-                    }
+                    // className={`rounded-md text-white border-t-0 border-l-0 transition duration-300 shadow-md hover:shadow-lg w-48 h-16 font-bold font-sans text-lg`}
                     type="button"
                     onClick={() => {
                       setQuestion(makeQuestion(typeOfQuestions));
@@ -121,9 +120,9 @@ export default function TouchMain({
               );
             }
             return (
-              <div className={styles.next_question}>
+              <div className="flex basis-10 justify-center">
                 <button
-                  className={`${styles.btn} ${styles.judge_btn}`}
+                  className="btn judge_btn"
                   type="button"
                   onClick={() => {
                     judgeAnswer(
@@ -141,11 +140,13 @@ export default function TouchMain({
           })()}
         </div>
       </div>
-      <div className={showBrailleChart ? styles.chart : styles.hidden_chart}>
+      <div
+        className={`${showBrailleChart ? "left-3/4" : "fixed left-full"} h-150 float-left w-1/4 overflow-auto`}
+      >
         <HiraganaTableDialog />
       </div>
       <button
-        className={styles.chart_btn}
+        className="fixed right-10"
         type="button"
         onClick={() => {
           setShowBrailleChart(!showBrailleChart);

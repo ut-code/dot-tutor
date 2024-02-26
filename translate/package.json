@@ -1,12 +1,10 @@
 {
-  "name": "translate",
-  "private": true,
+  "name": "@dot-tutor/translate",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "setup": "npm run setup:env && npm run setup:ci",
     "setup:env": "cp .env.sample .env",
-    "setup:ci": "npm ci",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
@@ -18,7 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
-    "braille": "file:../packages/braille",
+    "braille": "@dot-tutor/braille",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

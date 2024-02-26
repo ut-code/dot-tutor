@@ -1,4 +1,4 @@
-import { BrailleArray } from "braille";
+import { BrailleArray } from "@dot-tutor/braille";
 import translateBraille from "@/utils/translateBraille";
 import * as tenji from "tenji";
 

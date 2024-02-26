@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build-website:
-    name: Build Website
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -18,98 +18,21 @@ jobs:
         with:
           node-version: latest
           cache: npm
-
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
 
       - name: Install Node Packages
         run: npm ci
-        working-directory: website
         shell: bash
-
-      - name: Build
-        run: npm run build
-        working-directory: website
-        shell: bash
-
-  build-learn:
-    name: Build Learn
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
 
       - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: learn
-        shell: bash
-
-      - name: Build
-        run: npm run build
-        working-directory: learn
-        shell: bash
-
-  build-translate:
-    name: Build Translate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: translate
-        shell: bash
-
-      - name: Build
-        run: npm run build
-        working-directory: translate
-        shell: bash
-
-  build-braille-package:
-    name: Build Braille Package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Install Node Packages
-        run: npm run ci:packages
-        shell: bash
-
-      - name: Build
         run: npm run build:packages
         shell: bash
 
-  type-check-website:
-    name: Type Check Website
+      - name: Build
+        run: npm run build
+        shell: bash
+
+  type-check:
+    name: Type Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -120,23 +43,21 @@ jobs:
         with:
           node-version: latest
           cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
 
       - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: website
+        run: npm run build:packages
         shell: bash
 
       - name: Type Check
         run: npm run type-check
-        working-directory: website
         shell: bash
 
-  type-check-learn:
-    name: Type Check Learn
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -147,96 +68,21 @@ jobs:
         with:
           node-version: latest
           cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
 
       - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: learn
-        shell: bash
-
-      - name: Type Check
-        run: npm run type-check
-        working-directory: learn
-        shell: bash
-
-  type-check-translate:
-    name: Type Check Translate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: translate
-        shell: bash
-
-      - name: Type Check
-        run: npm run type-check
-        working-directory: translate
-        shell: bash
-
-  type-check-braille-package:
-    name: Type Check Braille Package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: packages/braille
-        shell: bash
-
-      - name: Type Check
-        run: npm run type-check
-        working-directory: packages/braille
-        shell: bash
-
-  test-braille-package:
-    name: Test Braille Package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: packages/braille
+        run: npm run build:packages
         shell: bash
 
       - name: Test
         run: npm test
-        working-directory: packages/braille
         shell: bash
 
-  eslint-website:
-    name: ESLint Website
+  eslint:
+    name: ESLint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -250,34 +96,11 @@ jobs:
 
       - name: Install Node Packages
         run: npm ci
-        working-directory: website
         shell: bash
 
       - name: Run ESLint
-        run: npm run lint:check
-        working-directory: website
-
-  eslint-learn:
-    name: ESLint Learn
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: npm
-
-      - name: Install Node Packages
-        run: npm ci
-        working-directory: learn
+        run: npm run lint
         shell: bash
-
-      - name: Run ESLint
-        run: npx eslint --max-warnings 0 .
-        working-directory: learn
 
   prettier:
     name: Prettier

@@ -1,4 +1,4 @@
-import { Braille, CharacterType } from "braille";
+import { Braille, CharacterType } from "@dot-tutor/braille";
 
 const reversedHiraganaTable = {
   "⠀": "　",

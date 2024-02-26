@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { Braille } from "braille";
+import { Braille } from "@dot-tutor/braille";
 
 export default function ReadMain({
   typeOfQuestions,

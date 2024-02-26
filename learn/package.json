@@ -1,18 +1,17 @@
 {
-  "name": "learn-braille",
-  "version": "0.1.0",
+  "name": "@dot-tutor/learn",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
     "serve": "serve out",
     "type-check": "tsc --noEmit",
-    "lint": "next lint",
-    "lint:check": "eslint --max-warnings 0 ."
+    "lint": "eslint --max-warnings 0 ."
   },
   "dependencies": {
+    "@dot-tutor/braille": "^0.0.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mdx-js/loader": "^3.0.1",
@@ -20,7 +19,7 @@
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
     "@next/mdx": "^14.1.0",
-    "braille": "file:../packages/braille",
+    "braille": "@dot-tutor/braille",
     "eslint": "^8.56.0",
     "next": "^14.1.0",
     "react": "^18.2.0",

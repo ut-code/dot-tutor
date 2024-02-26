@@ -19,7 +19,7 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import DownloadIcon from "@mui/icons-material/Download";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import translateBraille from "./utils/translateBraille";
-import { BrailleArray } from "braille";
+import { BrailleArray } from "@dot-tutor/braille";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import "./index.css";
 

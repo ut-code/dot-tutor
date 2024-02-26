@@ -1,5 +1,5 @@
 {
-  "name": "braille",
+  "name": "@dot-tutor/braille",
   "version": "0.0.0",
   "description": "Braille is an intuitive npm package for braille translation and processing.",
   "keywords": [

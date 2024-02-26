@@ -5,7 +5,7 @@ import EdittableBraille from "@/components/EdittableBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import * as tenji from "tenji";
-import { BrailleArray } from "braille";
+import { BrailleArray } from "@dot-tutor/braille";
 import HiraganaTableDialog from "./HiraganaTableDialog";
 
 export default function TouchMain({

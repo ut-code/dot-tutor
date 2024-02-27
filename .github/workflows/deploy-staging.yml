@@ -25,12 +25,8 @@ jobs:
         run: npm ci
         shell: bash
 
-      - name: Build Packages
-        run: npm run build:packages
-        shell: bash
-
       - name: Build
-        run: npm run build
+        run: npx lerna run build --scope=@dot-tutor/website
         shell: bash
 
       - name: Upload Artifact
@@ -81,12 +77,8 @@ jobs:
         run: npm ci
         shell: bash
 
-      - name: Build Packages
-        run: npm run build:packages
-        shell: bash
-
       - name: Build
-        run: npm run build
+        run: npx lerna run build --scope=@dot-tutor/learn
         shell: bash
 
       - name: Upload Artifact
@@ -137,12 +129,8 @@ jobs:
         run: npm ci
         shell: bash
 
-      - name: Build Packages
-        run: npm run build:packages
-        shell: bash
-
       - name: Build
-        run: npm run build
+        run: npx lerna run build --scope=@dot-tutor/translate
         shell: bash
         env:
           VITE_API_ENDPOINT: "https://dot-tutor-backend.onrender.com"

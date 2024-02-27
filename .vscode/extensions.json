@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "unifiedjs.vscode-mdx",
     "ms-python.black-formatter",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "nrwl.angular-console"
   ]
 }

@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -23,12 +25,13 @@ jobs:
         run: npm ci
         shell: bash
 
-      - name: Build Packages
-        run: npm run build:packages
-        shell: bash
-
       - name: Build
-        run: npm run build
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            npx lerna run build --since=origin/${{ github.base_ref }}
+          else
+            npx lerna run build
+          fi
         shell: bash
 
   type-check:
@@ -37,6 +40,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -48,12 +53,13 @@ jobs:
         run: npm ci
         shell: bash
 
-      - name: Build Packages
-        run: npm run build:packages
-        shell: bash
-
       - name: Type Check
-        run: npm run type-check
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            npx lerna run type-check --since=origin/${{ github.base_ref }}
+          else
+            npx lerna run type-check
+          fi
         shell: bash
 
   test:
@@ -62,6 +68,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -73,12 +81,13 @@ jobs:
         run: npm ci
         shell: bash
 
-      - name: Build Packages
-        run: npm run build:packages
-        shell: bash
-
       - name: Test
-        run: npm test
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            npx lerna run test --since=origin/${{ github.base_ref }}
+          else
+            npx lerna run test
+          fi
         shell: bash
 
   eslint:
@@ -87,6 +96,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -99,7 +110,12 @@ jobs:
         shell: bash
 
       - name: Run ESLint
-        run: npm run lint
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            npx lerna run lint --since=origin/${{ github.base_ref }}
+          else
+            npx lerna run lint
+          fi
         shell: bash
 
   prettier:

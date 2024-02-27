@@ -22,18 +22,16 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
       - name: Install Packages
         run: npm ci
-        working-directory: website
+        shell: bash
+
+      - name: Build Packages
+        run: npm run build:packages
         shell: bash
 
       - name: Build
         run: npm run build
-        working-directory: website
         shell: bash
 
       - name: Upload Artifact
@@ -80,18 +78,16 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
       - name: Install Packages
         run: npm ci
-        working-directory: learn
+        shell: bash
+
+      - name: Build Packages
+        run: npm run build:packages
         shell: bash
 
       - name: Build
         run: npm run build
-        working-directory: learn
         shell: bash
 
       - name: Upload Artifact
@@ -138,18 +134,16 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Build Packages
-        run: npm run ci:packages && npm run build:packages
-        shell: bash
-
       - name: Install Packages
         run: npm ci
-        working-directory: translate
+        shell: bash
+
+      - name: Build Packages
+        run: npm run build:packages
         shell: bash
 
       - name: Build
         run: npm run build
-        working-directory: translate
         shell: bash
         env:
           VITE_API_ENDPOINT: "https://dot-tutor-backend.onrender.com"

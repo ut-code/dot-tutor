@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { judge, eightJudge } from "@/components/QuestionAndJudge";
 import EdittableBraille from "@/components/EdittableBraille";
 import { Button } from "@mui/material";
-import { Braille, BrailleArray } from "braille";
+import { Braille, BrailleArray } from "@dot-tutor/braille";
 
 export default function PracticeTouch({
   question,

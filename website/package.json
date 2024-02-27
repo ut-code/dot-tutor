@@ -1,13 +1,12 @@
 {
-  "name": "website",
-  "private": true,
+  "name": "@dot-tutor/website",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0 .",
-    "lint:check": "eslint --max-warnings 0 .",
     "preview": "vite preview",
     "type-check": "tsc --noEmit"
   },

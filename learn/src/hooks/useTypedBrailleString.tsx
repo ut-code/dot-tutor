@@ -1,4 +1,4 @@
-import { Braille } from "braille";
+import { Braille } from "@dot-tutor/braille";
 import { useState, useEffect, type KeyboardEvent } from "react";
 
 /**

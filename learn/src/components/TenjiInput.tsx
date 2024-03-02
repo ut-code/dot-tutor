@@ -18,6 +18,7 @@ export default function TenjiInput(props: {
   const oncePressedKeysRef = useRef(new Set<string>());
   return (
     <input
+      className="border-2 border-solid"
       ref={inputRef}
       onChange={(e) =>
         setValue((e.target.value.match(/[⠀-⣿]/g) ?? [""]).join(""))

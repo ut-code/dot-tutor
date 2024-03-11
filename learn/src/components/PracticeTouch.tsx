@@ -29,21 +29,23 @@ export default function PracticeTouch({
     <>
       {question}
       <br />
-      {brailleStrings.map((brailleChar, i) => (
-        <EdittableBraille
-          key={i}
-          height="100"
-          width="60"
-          braille={brailleChar}
-          setBraille={(braille) => {
-            setBrailleStrings(
-              new BrailleArray(
-                brailleStrings.map((_, j) => (j === i ? braille : _)),
-              ),
-            );
-          }}
-        />
-      ))}
+      <div className="flex flex-row-reverse flex-wrap">
+        {brailleStrings.map((brailleChar, i) => (
+          <EdittableBraille
+            key={i}
+            height="100"
+            width="60"
+            braille={brailleChar}
+            setBraille={(braille) => {
+              setBrailleStrings(
+                new BrailleArray(
+                  brailleStrings.map((_, j) => (j === i ? braille : _)),
+                ),
+              );
+            }}
+          />
+        ))}
+      </div>
 
       <br />
       <Button
@@ -51,7 +53,7 @@ export default function PracticeTouch({
         onClick={() => {
           judgeAnswer(
             brailleDotCount === 6
-              ? judge(brailleStrings, answer)
+              ? judge(brailleStrings, answer, true)
               : eightJudge(brailleStrings, answer),
           );
           setVisible(!visible);

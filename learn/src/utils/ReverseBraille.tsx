@@ -1,10 +1,10 @@
 import { BrailleArray } from "@dot-tutor/braille";
 
-interface ReverseBrailleTable {
+interface ReverseBrailleTableType {
   [key: string]: string;
 }
 
-export const ReverseBrailleTable: ReverseBrailleTable = {
+export const ReverseBrailleTable: ReverseBrailleTableType = {
   "⠀": "⠀",
   "⠁": "⠈",
   "⠂": "⠐",
@@ -77,8 +77,7 @@ export default function ReverseBraille(
 ): BrailleArray {
   let reversedBrailleString: string = "";
   brailleString.forEach((_, i) => {
-    reversedBrailleString =
-      reversedBrailleString +
+    reversedBrailleString +=
       ReverseBrailleTable[brailleString[i].getCharacter()];
   });
   return new BrailleArray(reversedBrailleString, 6);

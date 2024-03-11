@@ -12,10 +12,14 @@ export function judge(
   question: string,
   reversed: boolean = false,
 ): boolean {
+  let typedAnswer: string = "";
+
   if (reversed) {
-    typedBrailleStrings = ReverseBraille(typedBrailleStrings);
+    const reversedTypedBrailleStrings = ReverseBraille(typedBrailleStrings);
+    typedAnswer = translateBraille(reversedTypedBrailleStrings);
+  } else {
+    typedAnswer = translateBraille(typedBrailleStrings);
   }
-  let typedAnswer = translateBraille(typedBrailleStrings);
 
   let begin = 0;
   let end = typedAnswer.length;

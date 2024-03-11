@@ -1,15 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Paper,
-  Divider,
-  Box,
-  Typography,
-  Button,
-  Stack,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import translateBraille from "@/utils/translateBraille";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -86,74 +76,67 @@ export default function Tutorial1({
     setQuestionIndex(0);
   }, [questionList]);
 
+  const sectionClass = "mb-8 rounded pt-3 shadow";
+  const sectionTitleClass = "mb-3 ml-3 text-xl font-bold";
+  const sectionTextClass = "min-h-24 p-3";
+
   return (
     <>
-      <Paper elevation={2} sx={{ my: 2 }}>
-        <Typography variant="h6" component="h2" color="inherit" p={2}>
-          問題
-        </Typography>
-        <Divider />
-        <Typography sx={{ minHeight: 100 }} p={2}>
+      <div className={sectionClass}>
+        <p className={sectionTitleClass}>問題</p>
+        <hr />
+        <p className={sectionTextClass}>
           {questionList !== undefined &&
             (questionIndex >= questionList.length
               ? "すべての問題を解きました！"
               : `「${questionList[questionIndex].question}」を入力してください。`)}
-        </Typography>
-      </Paper>
+        </p>
+      </div>
 
-      <Paper elevation={2} sx={{ my: 2 }}>
-        <Stack direction="row" p={2} spacing={2}>
-          <Typography variant="h6" component="h2" color="inherit">
-            点字を入力
-          </Typography>
-          <Button
-            variant="outlined"
-            onClick={resetInput}
-            startIcon={<RefreshIcon />}
-          >
+      <div className={sectionClass}>
+        <div className="flex py-1">
+          <p className={sectionTitleClass}>点字を入力</p>
+          <button type="button" onClick={resetInput}>
+            <RefreshIcon />
             リセット
-          </Button>
-        </Stack>
-        <Divider />
-        <Box sx={{ minHeight: 100 }} p={2}>
+          </button>
+        </div>
+        <hr />
+        <div className={sectionTextClass}>
           <TenjiInput
             brailleDotCount={6}
             inputRef={inputRef}
             setValue={setTypedBraille}
           />
-        </Box>
-      </Paper>
+        </div>
+      </div>
 
-      <Paper elevation={2} sx={{ my: 2 }}>
-        <Typography variant="h6" component="h2" color="inherit" p={2}>
-          翻訳
-        </Typography>
-        <Divider />
-        <Box display="flex" sx={{ minHeight: 100 }} p={2}>
+      <div className={sectionClass}>
+        <p className={sectionTitleClass}>翻訳</p>
+        <hr />
+        <div className={`flex ${sectionTextClass}`}>
           {translatedBrailleString}
           {goNextQuestion && <CheckCircleOutlineIcon color="success" />}
-        </Box>
-      </Paper>
+        </div>
+      </div>
 
       {questionList !== undefined &&
         questionList[questionIndex] !== undefined &&
         questionList[questionIndex].hint !== undefined && (
-          <Paper elevation={2} sx={{ my: 2 }}>
+          <div className={sectionClass}>
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6" component="h2" color="inherit">
-                  ヒント
-                </Typography>
-                <Divider />
+                <p className={sectionTitleClass}>ヒント</p>
+                <hr />
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>{questionList[questionIndex].hint}</Typography>
+                <p className="pl-3">{questionList[questionIndex].hint}</p>
               </AccordionDetails>
             </Accordion>
-          </Paper>
+          </div>
         )}
 
-      <Button
+      <button
         onClick={() => {
           if (questionList !== undefined) {
             if (questionIndex < questionList.length) {
@@ -164,10 +147,10 @@ export default function Tutorial1({
           resetInput();
         }}
         disabled={!goNextQuestion}
-        variant="contained"
+        type="submit"
       >
         次の問題へ
-      </Button>
+      </button>
     </>
   );
 }

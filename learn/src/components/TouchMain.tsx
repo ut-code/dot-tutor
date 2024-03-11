@@ -51,7 +51,7 @@ export default function TouchMain({
         <div className="w-200 mx-auto mt-auto max-w-full pb-1.5 pt-2 font-sans text-3xl font-bold">
           「{question}」を点字に直してください。
         </div>
-        <div className="w-200 mx-auto flex max-w-full flex-wrap pb-1.5 pt-2">
+        <div className="w-200 mx-auto flex max-w-full flex-row-reverse flex-wrap pb-1.5 pt-2">
           {brailleStrings.map((brailleChar, i) => (
             <EdittableBraille
               key={i}

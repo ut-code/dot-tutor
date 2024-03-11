@@ -38,7 +38,7 @@ export default function TouchMain({
   useEffect(() => {
     judgeAnswer(
       brailleDotCount === 6
-        ? judge(brailleStrings, question)
+        ? judge(brailleStrings, question, true)
         : eightJudge(brailleStrings, question),
     );
   }, [brailleDotCount, brailleStrings, question]);
@@ -125,7 +125,7 @@ export default function TouchMain({
                   onClick={() => {
                     judgeAnswer(
                       brailleDotCount === 6
-                        ? judge(brailleStrings, question)
+                        ? judge(brailleStrings, question, true)
                         : eightJudge(brailleStrings, question),
                     );
                     setAfterJudgeAnswer(true);

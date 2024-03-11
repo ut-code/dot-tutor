@@ -1,5 +1,6 @@
 import { BrailleArray } from "@dot-tutor/braille";
 import translateBraille from "@/utils/translateBraille";
+import reverseBraille from "@/components/ReverseBraille";
 import * as tenji from "tenji";
 
 export function makeQuestion(questions: string[]): string {
@@ -9,7 +10,11 @@ export function makeQuestion(questions: string[]): string {
 export function judge(
   typedBrailleStrings: BrailleArray,
   question: string,
+  reversed: boolean = false,
 ): boolean {
+  if (reversed) {
+    typedBrailleStrings = reverseBraille(typedBrailleStrings);
+  }
   let typedAnswer = translateBraille(typedBrailleStrings);
 
   let begin = 0;

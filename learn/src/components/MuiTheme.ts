@@ -27,6 +27,20 @@ const MuiTheme = createTheme({
       '"Noto Color Emoji"',
     ].join(","),
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          backgroundColor: "#2683DA",
+          color: "#2683DA",
+          "&:hover": {
+            backgroundColor: "#2683DA",
+            color: "white",
+          },
+        },
+      },
+    },
+  },
 });
 
 export default MuiTheme;

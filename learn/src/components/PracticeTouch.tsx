@@ -26,15 +26,15 @@ export default function PracticeTouch({
   const answerMessage = rightOrWrong ? "正解" : "不正解";
 
   return (
-    <>
+    <div className="max-w-xl">
       {question}
       <br />
       <div className="flex flex-row-reverse flex-wrap">
         {brailleStrings.map((brailleChar, i) => (
           <EdittableBraille
             key={i}
-            height="100"
-            width="60"
+            height="150"
+            width="90"
             braille={brailleChar}
             setBraille={(braille) => {
               setBrailleStrings(
@@ -47,7 +47,7 @@ export default function PracticeTouch({
         ))}
       </div>
 
-      <br />
+      {/* <br /> */}
       <Button
         variant="contained"
         onClick={() => {
@@ -62,7 +62,7 @@ export default function PracticeTouch({
         {visible ? "答え非表示" : "答え合わせ"}
       </Button>
       {visible === true && answerMessage}
-    </>
+    </div>
   );
 }
 
@@ -71,8 +71,8 @@ export function TouchPlayground(): JSX.Element {
 
   return (
     <EdittableBraille
-      height="100"
-      width="60"
+      height="150"
+      width="90"
       braille={brailleChar}
       setBraille={(braille) => {
         setBrailleChar(braille);

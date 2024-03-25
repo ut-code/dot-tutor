@@ -27,41 +27,43 @@ export default function PracticeTouch({
 
   return (
     <>
-      {question}
-      <br />
-      <div className="flex flex-row-reverse flex-wrap">
-        {brailleStrings.map((brailleChar, i) => (
-          <EdittableBraille
-            key={i}
-            height="100"
-            width="60"
-            braille={brailleChar}
-            setBraille={(braille) => {
-              setBrailleStrings(
-                new BrailleArray(
-                  brailleStrings.map((_, j) => (j === i ? braille : _)),
-                ),
-              );
-            }}
-          />
-        ))}
-      </div>
+      <div className="max-w-xl">
+        {question}
+        <br />
+        <div className="flex flex-row-reverse flex-wrap">
+          {brailleStrings.map((brailleChar, i) => (
+            <EdittableBraille
+              key={i}
+              height="150"
+              width="90"
+              braille={brailleChar}
+              setBraille={(braille) => {
+                setBrailleStrings(
+                  new BrailleArray(
+                    brailleStrings.map((_, j) => (j === i ? braille : _)),
+                  ),
+                );
+              }}
+            />
+          ))}
+        </div>
 
-      <br />
-      <Button
-        variant="contained"
-        onClick={() => {
-          judgeAnswer(
-            brailleDotCount === 6
-              ? judge(brailleStrings, answer, true)
-              : eightJudge(brailleStrings, answer),
-          );
-          setVisible(!visible);
-        }}
-      >
-        {visible ? "答え非表示" : "答え合わせ"}
-      </Button>
-      {visible === true && answerMessage}
+        {/* <br /> */}
+        <Button
+          variant="contained"
+          onClick={() => {
+            judgeAnswer(
+              brailleDotCount === 6
+                ? judge(brailleStrings, answer, true)
+                : eightJudge(brailleStrings, answer),
+            );
+            setVisible(!visible);
+          }}
+        >
+          {visible ? "答え非表示" : "答え合わせ"}
+        </Button>
+        {visible === true && answerMessage}
+      </div>
     </>
   );
 }
@@ -71,8 +73,8 @@ export function TouchPlayground(): JSX.Element {
 
   return (
     <EdittableBraille
-      height="100"
-      width="60"
+      height="150"
+      width="90"
       braille={brailleChar}
       setBraille={(braille) => {
         setBrailleChar(braille);

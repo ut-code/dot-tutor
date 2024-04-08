@@ -6,6 +6,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TenjiInput from "@/components/TenjiInput";
 import { BrailleArray } from "@dot-tutor/braille";
+import CommonButton from "@/components/CommonButton";
 
 interface Question {
   question: string;
@@ -96,10 +97,10 @@ export default function Tutorial1({
       <div className={sectionClass}>
         <div className="flex py-1">
           <p className={sectionTitleClass}>点字を入力</p>
-          <button type="button" onClick={resetInput}>
+          <CommonButton onClick={resetInput}>
             <RefreshIcon />
             リセット
-          </button>
+          </CommonButton>
         </div>
         <hr />
         <div className={sectionTextClass}>
@@ -136,7 +137,7 @@ export default function Tutorial1({
           </div>
         )}
 
-      <button
+      <CommonButton
         onClick={() => {
           if (questionList !== undefined) {
             if (questionIndex < questionList.length) {
@@ -147,10 +148,9 @@ export default function Tutorial1({
           resetInput();
         }}
         disabled={!goNextQuestion}
-        type="submit"
       >
         次の問題へ
-      </button>
+      </CommonButton>
     </>
   );
 }

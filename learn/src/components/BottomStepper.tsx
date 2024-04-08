@@ -1,6 +1,7 @@
 import { type Dispatch, type SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { BottomNavigation, Button, MobileStepper } from "@mui/material";
+import CommonButton from "./CommonButton";
 
 export default function BottomStepper({
   selectedStep,
@@ -20,8 +21,7 @@ export default function BottomStepper({
         position="bottom"
         activeStep={selectedStep}
         backButton={
-          <Button
-            variant="contained"
+          <CommonButton
             disabled={selectedStep === 0}
             onClick={() => {
               if (selectedStep > 0) {
@@ -30,12 +30,11 @@ export default function BottomStepper({
             }}
           >
             前へ
-          </Button>
+          </CommonButton>
         }
         nextButton={
           selectedStep !== length - 1 ? (
-            <Button
-              variant="contained"
+            <CommonButton
               disabled={selectedStep === length - 1}
               onClick={() => {
                 if (selectedStep < length - 1) {
@@ -44,16 +43,16 @@ export default function BottomStepper({
               }}
             >
               次へ
-            </Button>
+            </CommonButton>
           ) : (
-            <Button
+            <CommonButton
               variant="contained"
               onClick={async () => {
                 await router.push("/");
               }}
             >
               終了
-            </Button>
+            </CommonButton>
           )
         }
       />

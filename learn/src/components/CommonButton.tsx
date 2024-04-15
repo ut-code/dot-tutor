@@ -22,11 +22,10 @@ function CommonButton(props: CommonButtonProps) {
     }
   } else if (!disabled) {
     if (variant === "contained") {
-      className +=
-        "text-white bg-blue-800 hover:text-blue-700 hover:bg-white dark:bg-white dark:text-blue-700";
+      className += "text-white bg-blue-500 hover:text-blue-500 hover:bg-white";
     } else {
       className +=
-        "border-blue-700 text-blue-700 hover:bg-blue-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800";
+        "border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300";
     }
   }
 

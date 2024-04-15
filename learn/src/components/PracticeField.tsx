@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useTypedBrailleString from "@/hooks/useTypedBrailleString";
 import translateBraille from "@/utils/translateBraille";
-import { TextField, Typography, Box, Button } from "@mui/material";
+import { TextField, Typography, Box } from "@mui/material";
 import { BrailleArray } from "@dot-tutor/braille";
+import CommonButton from "./CommonButton";
 
 export default function PracticeField({
   question,
@@ -42,7 +43,7 @@ export default function PracticeField({
         </Typography>
       </Box>
       <Box m={1}>
-        <Button
+        <CommonButton
           variant="outlined"
           onClick={() => {
             setCorrectOrNot(false);
@@ -53,7 +54,7 @@ export default function PracticeField({
           }}
         >
           答え合わせをする
-        </Button>
+        </CommonButton>
       </Box>
       <Box m={1}>
         {answered

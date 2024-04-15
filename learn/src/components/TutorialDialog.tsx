@@ -7,9 +7,9 @@ import {
   DialogActions,
   Typography,
   IconButton,
-  Button,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import CommonButton from "./CommonButton";
 
 export default function TutorialDialog({
   open,
@@ -62,7 +62,7 @@ export default function TutorialDialog({
         {tutorialDialogSteps[selectedStep].content}
       </DialogContent>
       <DialogActions>
-        <Button
+        <CommonButton
           variant="outlined"
           disabled={selectedStep === 0}
           onClick={() => {
@@ -72,8 +72,8 @@ export default function TutorialDialog({
           }}
         >
           前へ
-        </Button>
-        <Button
+        </CommonButton>
+        <CommonButton
           variant="outlined"
           disabled={selectedStep === tutorialDialogSteps.length - 1}
           onClick={() => {
@@ -83,16 +83,16 @@ export default function TutorialDialog({
           }}
         >
           次へ
-        </Button>
+        </CommonButton>
         {selectedStep === tutorialDialogSteps.length - 1 && (
-          <Button
+          <CommonButton
             variant="contained"
             onClick={() => {
               closeDialog();
             }}
           >
             はじめる
-          </Button>
+          </CommonButton>
         )}
       </DialogActions>
     </Dialog>

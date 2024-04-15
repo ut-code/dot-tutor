@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction } from "react";
 import { useRouter } from "next/router";
-import { BottomNavigation, Button, MobileStepper } from "@mui/material";
+import { BottomNavigation, MobileStepper } from "@mui/material";
 import CommonButton from "./CommonButton";
 
 export default function BottomStepper({

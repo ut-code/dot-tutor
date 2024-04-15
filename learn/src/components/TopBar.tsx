@@ -8,12 +8,12 @@ import {
   Toolbar,
   Stack,
   Typography,
-  Button,
   Link,
   IconButton,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { type TutorialDialogSteps } from "../types/Tutorial";
+import CommonButton from "./CommonButton";
 
 export default function TopBar({
   tutorialDialogSteps,
@@ -58,15 +58,14 @@ export default function TopBar({
           <Stack direction="row" spacing={2} alignItems="center">
             {tutorialDialogSteps !== undefined && (
               <>
-                <Button
-                  color="inherit"
-                  variant="outlined"
+                <CommonButton
+                  variant="contained"
                   onClick={() => {
                     setIsTutorialOpen(true);
                   }}
                 >
                   スライドで確認
-                </Button>
+                </CommonButton>
                 <TutorialDialog
                   open={isTutorialOpen}
                   setOpen={setIsTutorialOpen}

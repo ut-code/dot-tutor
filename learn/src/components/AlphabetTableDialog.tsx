@@ -2,13 +2,13 @@ import { useState } from "react";
 import {
   Typography,
   Box,
-  Button,
   Table,
   TableRow,
   TableCell,
   Paper,
 } from "@mui/material";
 import { alphabetTable } from "@/utils/translateBraille";
+import CommonButton from "./CommonButton";
 
 export default function AlphabetTableDialog(): JSX.Element {
   const [isAlphabetTableOpen, setIsAlphabetTableOpen] =
@@ -17,15 +17,14 @@ export default function AlphabetTableDialog(): JSX.Element {
     <Box paddingTop={2}>
       {isAlphabetTableOpen ? (
         <>
-          <Button
-            color="inherit"
+          <CommonButton
             variant="outlined"
             onClick={() => {
               setIsAlphabetTableOpen(false);
             }}
           >
             点字⇔アルファベット表を閉じる
-          </Button>
+          </CommonButton>
           <Box paddingTop={2}>
             <Paper elevation={2} sx={{ my: 2 }}>
               <Typography variant="h6" component="h2" color="inherit" p={2}>
@@ -97,15 +96,14 @@ export default function AlphabetTableDialog(): JSX.Element {
           </Box>
         </>
       ) : (
-        <Button
-          color="inherit"
+        <CommonButton
           variant="outlined"
           onClick={() => {
             setIsAlphabetTableOpen(true);
           }}
         >
           点字⇔アルファベット表を確認する
-        </Button>
+        </CommonButton>
       )}
     </Box>
   );

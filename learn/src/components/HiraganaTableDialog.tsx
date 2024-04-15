@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Typography,
   Box,
-  Button,
   Table,
   TableHead,
   TableRow,
@@ -10,6 +9,7 @@ import {
   Paper,
 } from "@mui/material";
 import { hiraganaTable } from "@/utils/translateBraille";
+import CommonButton from "./CommonButton";
 
 export default function HiraganaTableDialog(): JSX.Element {
   const [isHiraganaTableOpen, setIsHiraganaTableOpen] =
@@ -18,15 +18,14 @@ export default function HiraganaTableDialog(): JSX.Element {
     <Box paddingTop={2}>
       {isHiraganaTableOpen ? (
         <>
-          <Button
-            color="inherit"
+          <CommonButton
             variant="outlined"
             onClick={() => {
               setIsHiraganaTableOpen(false);
             }}
           >
             点字⇔ひらがな表を閉じる
-          </Button>
+          </CommonButton>
           <Box paddingTop={2}>
             <Paper elevation={2} sx={{ my: 2 }}>
               <Typography variant="h6" component="h2" color="inherit" p={2}>
@@ -208,15 +207,14 @@ export default function HiraganaTableDialog(): JSX.Element {
           </Box>
         </>
       ) : (
-        <Button
-          color="inherit"
+        <CommonButton
           variant="outlined"
           onClick={() => {
             setIsHiraganaTableOpen(true);
           }}
         >
           点字⇔ひらがな表を確認する
-        </Button>
+        </CommonButton>
       )}
     </Box>
   );
